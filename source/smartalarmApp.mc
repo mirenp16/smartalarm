@@ -3,6 +3,7 @@
 
 import Toybox.Application;
 import Toybox.Background;
+import Toybox.System;
 import Toybox.Lang;
 import Toybox.Time;
 import Toybox.WatchUi;
@@ -29,8 +30,16 @@ class SmartAlarmApp extends Application.AppBase {
         return [new MainView(), new MainDelegate()];
     }
 
+    // Returns the background service delegate — this is how the compiler
+    // discovers SleepMonitorDelegate and resolves Background.ServiceDelegate.
+    // The (:background) annotation includes this method in the background build.
+    (:background)
+    function getServiceDelegate() as [System.ServiceDelegate] {
+        return [new SleepMonitorDelegate()];
+    }
+
     // Called when the background service sends data back to the foreground.
-    function onBackgroundData(data as Background.PersistableType) as Void {
+    function onBackgroundData(data) as Void {
         WatchUi.requestUpdate();
     }
 

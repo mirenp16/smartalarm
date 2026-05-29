@@ -11,6 +11,7 @@
 //                fire the alarm anyway so the user is never late.
 
 import Toybox.Background;
+import Toybox.System;
 import Toybox.Application;
 import Toybox.Attention;
 import Toybox.Lang;
@@ -25,7 +26,8 @@ const LIGHT_SLEEP_THRESHOLD = 65;
 // Garmin's minimum background interval is 5 minutes.
 const CHECK_INTERVAL_SECS = 300;
 
-class SleepMonitorDelegate extends Background.ServiceDelegate {
+(:background)
+class SleepMonitorDelegate extends System.ServiceDelegate {
 
     function initialize() {
         ServiceDelegate.initialize();

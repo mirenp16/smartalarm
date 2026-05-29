@@ -23,10 +23,7 @@ class MainDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    // BACK / LAP button — let Garmin's default behaviour close the app
-    function onBack() as Boolean {
-        return false;  // false = let the system handle it (exits the app)
-    }
+    // BACK / LAP button — removing override lets the system exit the app naturally
 
     // Menu button (older devices) — same as SELECT
     function onMenu() as Boolean {

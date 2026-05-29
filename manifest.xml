@@ -4,7 +4,8 @@
         id="a3484188-b3b4-42f3-9a31-5a2c27d9e47d"
         minApiLevel="4.0.0"
         name="@Strings.AppName"
-        type="watchApp">
+        type="watch-app"
+        launcherIcon="@Drawables.LauncherIcon">
 
         <iq:products>
             <iq:product id="fr265s"/>
@@ -19,11 +20,6 @@
         <iq:languages>
             <iq:language>eng</iq:language>
         </iq:languages>
-
-        <!-- Declares the background service class -->
-        <iq:background>
-            <iq:delegate name="SleepMonitorDelegate"/>
-        </iq:background>
 
     </iq:application>
 </iq:manifest>

@@ -22,6 +22,7 @@ const MODE_VIBE_AND_SOUND = 0;
 const MODE_SOUND_ONLY     = 1;
 const MODE_VIBE_ONLY      = 2;
 
+(:background)
 class AlarmStorage {
 
     // ── Getters ────────────────────────────────────────────────────────────────

@@ -17,6 +17,7 @@ import Toybox.SensorHistory;
 import Toybox.Sensor;
 import Toybox.Time;
 
+(:background)
 class SleepDetector {
 
     // ── Public API ─────────────────────────────────────────────────────────────
@@ -36,17 +37,10 @@ class SleepDetector {
     // Analyses the standard deviation of heart rate samples over the last 10 min.
     // Low stdDev = steady = deep sleep. High stdDev = variable = light sleep.
     private static function _heartRateScore() as Number {
-        if (!(Toybox has :SensorHistory) ||
-            !(SensorHistory has :getHeartRateHistory)) {
-            return 50;  // No sensor history available — neutral fallback
-        }
-
         var iter = SensorHistory.getHeartRateHistory({
             :period => new Time.Duration(10 * 60),  // last 10 minutes
             :order  => SensorHistory.ORDER_NEWEST_FIRST
         });
-
-        if (iter == null) { return 50; }
 
         // Collect valid HR samples (ignore 0 / null which means no reading)
         var samples = [] as Array<Number>;
@@ -104,8 +98,9 @@ class SleepDetector {
              accel[2] * accel[2]).toDouble()
         ).toFloat();
 
-        // Deviation from pure gravity
-        var movement = Math.abs(mag - 1000.0).toFloat();
+        // Deviation from pure gravity (Math.abs removed in SDK 9, use ternary)
+        var diff = mag - 1000.0;
+        var movement = (diff >= 0.0 ? diff : -diff).toFloat();
 
         // Map 0–400 milli-g range to 0–100 score
         var score = (movement / 400.0 * 100.0).toNumber();

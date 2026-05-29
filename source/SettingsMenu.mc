@@ -86,9 +86,8 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
     }
 
-    function onBack() as Boolean {
+    function onBack() as Void {
         WatchUi.popView(WatchUi.SLIDE_DOWN);
-        return true;
     }
 }
 
@@ -274,9 +273,8 @@ class DaysPickerDelegate extends WatchUi.Menu2InputDelegate {
         AlarmStorage.saveAlarmDays(days);
     }
 
-    function onBack() as Boolean {
+    function onBack() as Void {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
-        return true;
     }
 }
 
@@ -308,9 +306,8 @@ class ModeMenuDelegate extends WatchUi.Menu2InputDelegate {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
     }
 
-    function onBack() as Boolean {
+    function onBack() as Void {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
-        return true;
     }
 }
 
@@ -344,8 +341,7 @@ class WindowMenuDelegate extends WatchUi.Menu2InputDelegate {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
     }
 
-    function onBack() as Boolean {
+    function onBack() as Void {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
-        return true;
     }
 }
