@@ -1,0 +1,9 @@
+project.manifest = manifest.xml
+ 
+# Source and resource paths shared by all targets
+base.sourcePath = source
+base.resourcePath = resources
+ 
+# Forerunner 265S target
+fr265s.sourcePath = $(base.sourcePath)
+fr265s.resourcePath = $(base.resourcePath)
