@@ -1,0 +1,680 @@
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 13; @symbol_importdef<0> = [Toybox,13,7,13]; @symbol_importdef<1> = [Lang,13,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 14; @symbol_importdef<0> = [Toybox,14,7,13]; @symbol_importdef<1> = [Math,14,14,18]; ]
+import Toybox.Math;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 15; @symbol_importdef<0> = [Toybox,15,7,13]; @symbol_importdef<1> = [SensorHistory,15,14,27]; ]
+import Toybox.SensorHistory;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 16; @symbol_importdef<0> = [Toybox,16,7,13]; @symbol_importdef<1> = [Sensor,16,14,20]; ]
+import Toybox.Sensor;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 17; @symbol_importdef<0> = [Toybox,17,7,13]; @symbol_importdef<1> = [Time,17,14,18]; ]
+import Toybox.Time;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 20; background = true; @symbol_classdef = [SleepDetector,20,6,19]; ]
+class SleepDetector {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 20; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 20; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 23; @symbol_functiondef = [lightness,23,20,29]; @symbol_return<0> = [Number,23,35,41]; ]
+    static
+    function lightness() as Number {
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 24 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_stop" ]
+        %hr.1 = local;
+        symbol [ hr %hr.1 24 12 14 ];
+        %tmp.1 = self;
+        symbol [ heartRateScore %tmp.2 24 18 32 ];
+        %tmp.2 = getv function %tmp.1 :heartRateScore;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %hr.1 %tmp.3;
+        symbol [ hr %hr.1 24 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 25 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_stop" ]
+        %mov.2 = local;
+        symbol [ mov %mov.2 25 12 15 ];
+        %tmp.4 = self;
+        symbol [ movementScore %tmp.5 25 18 31 ];
+        %tmp.5 = getv function %tmp.4 :movementScore;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        lputv %mov.2 %tmp.6;
+        symbol [ mov %mov.2 25 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 27 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_stop" ]
+        %score.3 = local;
+        symbol [ score %score.3 27 12 17 ];
+        %tmp.7 = lgetv %hr.1;
+        symbol [ hr %tmp.7 27 21 23 ];
+        %tmp.8 = 0.65;
+        %tmp.9 = mul %tmp.7 %tmp.8;
+        %tmp.10 = lgetv %mov.2;
+        symbol [ mov %tmp.10 27 33 36 ];
+        %tmp.11 = 0.35;
+        %tmp.12 = mul %tmp.10 %tmp.11;
+        %tmp.13 = add %tmp.9 %tmp.12;
+        symbol [ toNumber %tmp.14 27 45 53 ];
+        %tmp.14 = getv function %tmp.13 :toNumber;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        lputv %score.3 %tmp.15;
+        symbol [ score %score.3 27 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 28 8 ]
+        %tmp.16 = self;
+        symbol [ clamp %tmp.17 28 15 20 ];
+        %tmp.17 = getv function %tmp.16 :clamp;
+        %tmp.18 = lgetv %score.3;
+        symbol [ score %tmp.18 28 21 26 ];
+        %tmp.19 = 0;
+        %tmp.20 = 100;
+        %tmp.21 = invoke %tmp.16 %tmp.17(%tmp.18, %tmp.19, %tmp.20);
+        ret %tmp.21;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_23_42_29_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 33; @symbol_functiondef = [heartRateScore,33,20,34]; @symbol_return<0> = [Number,33,40,46]; ]
+    static
+    function heartRateScore() as Number {
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 34 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %iter.1 = local;
+        symbol [ iter %iter.1 34 12 16 ];
+        symbol [ SensorHistory %tmp.1 34 19 32 ];
+        %tmp.1 = getm $.Toybox.SensorHistory;
+        symbol [ getHeartRateHistory %tmp.2 34 33 52 ];
+        %tmp.2 = getv function %tmp.1 :getHeartRateHistory;
+        %tmp.3 = newd 2;
+        %tmp.5 = const :period;
+        symbol [ period %tmp.5 35 13 19 const ];
+        symbol [ Time %tmp.8 35 27 31 ];
+        %tmp.8 = getm $.Toybox.Time;
+        symbol [ Duration %tmp.9 35 32 40 ];
+        %tmp.9 = getv function ? %tmp.8 :Duration;
+        %tmp.10 = 10;
+        %tmp.11 = 60;
+        %tmp.12 = mul %tmp.10 %tmp.11;
+        %tmp.6 = newc %tmp.9 (%tmp.12);
+        %tmp.13 = dup %tmp.3;
+        %tmp.14 = aputv %tmp.13 %tmp.5 %tmp.6;
+        %tmp.16 = const :order;
+        symbol [ order %tmp.16 36 13 18 const ];
+        symbol [ SensorHistory %tmp.17 36 23 36 ];
+        %tmp.17 = getm $.Toybox.SensorHistory;
+        symbol [ ORDER_NEWEST_FIRST %tmp.18 36 37 55 ];
+        %tmp.18 = getv %tmp.17 :ORDER_NEWEST_FIRST;
+        %tmp.19 = dup %tmp.14;
+        %tmp.20 = aputv %tmp.19 %tmp.16 %tmp.18;
+        %tmp.21 = invoke %tmp.1 %tmp.2(%tmp.20);
+        lputv %iter.1 %tmp.21;
+        symbol [ iter %iter.1 34 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 39 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %samples.2 = local;
+        symbol [ samples %samples.2 39 12 19 ];
+        %tmp.22 = newa 0;
+        lputv %samples.2 %tmp.22;
+        symbol [ samples %samples.2 39 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 40 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %item.3 = local;
+        symbol [ item %item.3 40 12 16 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_begin:
+        %tmp.23 = lgetv %iter.1;
+        symbol [ iter %tmp.23 40 20 24 ];
+        %tmp.24 = null;
+        %tmp.25 = ne %tmp.23 %tmp.24;
+        bf %tmp.25 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_true:
+        %tmp.26 = lgetv %iter.1;
+        symbol [ iter %tmp.26 40 36 40 ];
+        %tmp.27 = as %tmp.26 { (!Null) };
+        symbol [ next %tmp.28 40 41 45 ];
+        %tmp.28 = getv function %tmp.27 :next;
+        %tmp.29 = invoke %tmp.27 %tmp.28();
+        push %tmp.29;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_else_false:
+        %tmp.30 = null;
+        push %tmp.30;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_end:
+        %tmp.31 = phi [%tmp.25 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_begin] [%tmp.29 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_true] [%tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_else_false] [%tmp.31 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_40_19_40_50_end];
+        lputv %item.3 %tmp.31;
+        symbol [ item %item.3 40 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 41 8 ]
+        while @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_8_47_8_while_test @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_8_47_8_while_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_8_47_8_while_test:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_15_41_48_begin:
+        %tmp.32 = lgetv %item.3;
+        symbol [ item %tmp.32 41 15 19 ];
+        %tmp.33 = null;
+        %tmp.34 = ne %tmp.32 %tmp.33;
+        %tmp.35 = dup %tmp.34;
+        bf %tmp.35 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_31_41_48_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_31_41_48_true:
+        %tmp.36 = lgetv %samples.2;
+        symbol [ samples %tmp.36 41 31 38 ];
+        symbol [ size %tmp.37 41 39 43 ];
+        %tmp.37 = getv function %tmp.36 :size;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        %tmp.39 = 30;
+        %tmp.40 = lt %tmp.38 %tmp.39;
+        %tmp.41 = and %tmp.34 %tmp.40;
+        push %tmp.41;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_31_41_48_end:
+        %tmp.42 = phi [%tmp.35 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_15_41_48_begin] [%tmp.41 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_31_41_48_true] [%tmp.42 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_31_41_48_end];
+        bf %tmp.42 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_8_47_8_while_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_8_47_8_while_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_52_47_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 42 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_52_47_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_52_47_8_stop" ]
+        %hr.4 = local;
+        symbol [ hr %hr.4 42 16 18 ];
+        %tmp.43 = lgetv %item.3;
+        symbol [ item %tmp.43 42 21 25 ];
+        %tmp.44 = as %tmp.43 { (!Null) };
+        symbol [ data %tmp.45 42 26 30 ];
+        %tmp.45 = getv %tmp.44 :data;
+        lputv %hr.4 %tmp.45;
+        symbol [ hr %hr.4 42 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 43 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_12_45_12_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_16_43_46_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_16_43_35_begin:
+        %tmp.46 = lgetv %hr.4;
+        symbol [ hr %tmp.46 43 16 18 ];
+        %tmp.47 = null;
+        %tmp.48 = ne %tmp.46 %tmp.47;
+        bf %tmp.48 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_12_45_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_30_43_35_true:
+        %tmp.49 = lgetv %hr.4;
+        symbol [ hr %tmp.49 43 30 32 ];
+        %tmp.50 = as %tmp.49 { (!Null) };
+        %tmp.51 = 25;
+        %tmp.52 = gt %tmp.50 %tmp.51;
+        push %tmp.52;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_30_43_35_end:
+        %tmp.53 = phi [%tmp.48 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_16_43_35_begin] [%tmp.52 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_30_43_35_true] [%tmp.53 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_30_43_35_end];
+        bf %tmp.53 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_12_45_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_41_43_46_true:
+        %tmp.54 = lgetv %hr.4;
+        symbol [ hr %tmp.54 43 41 43 ];
+        %tmp.55 = as %tmp.54 { (!Null) };
+        %tmp.56 = 200;
+        %tmp.57 = lt %tmp.55 %tmp.56;
+        push %tmp.57;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_41_43_46_end:
+        %tmp.58 = phi [%tmp.53 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_16_43_46_begin] [%tmp.57 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_41_43_46_true] [%tmp.58 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_41_43_46_end];
+        bf %tmp.58 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_12_45_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_12_45_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_51_45_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 44 16 ]
+        %tmp.59 = lgetv %samples.2;
+        symbol [ samples %tmp.59 44 16 23 ];
+        symbol [ add %tmp.60 44 24 27 ];
+        %tmp.60 = getv function %tmp.59 :add;
+        %tmp.61 = lgetv %hr.4;
+        symbol [ hr %tmp.61 44 28 30 ];
+        %tmp.62 = as %tmp.61 { (!Null) };
+        invoke %tmp.59 %tmp.60(%tmp.62);
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_51_45_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_12_45_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_43_12_45_12_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 46 12 ]
+        %tmp.63 = lgetv %iter.1;
+        symbol [ iter %tmp.63 46 19 23 ];
+        symbol [ next %tmp.64 46 24 28 ];
+        %tmp.64 = getv function %tmp.63 :next;
+        %tmp.65 = invoke %tmp.63 %tmp.64();
+        lputv %item.3 %tmp.65;
+        symbol [ item %item.3 46 12 16 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_52_47_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_8_47_8_while_test;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_41_8_47_8_while_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 49 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_49_8_49_45_if_stmt:
+        %tmp.66 = lgetv %samples.2;
+        symbol [ samples %tmp.66 49 12 19 ];
+        symbol [ size %tmp.67 49 20 24 ];
+        %tmp.67 = getv function %tmp.66 :size;
+        %tmp.68 = invoke %tmp.66 %tmp.67();
+        %tmp.69 = 4;
+        %tmp.70 = lt %tmp.68 %tmp.69;
+        bf %tmp.70 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_49_8_49_45_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_49_8_49_45_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_49_32_49_45_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 49 34 ]
+        %tmp.71 = 50;
+        ret %tmp.71;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_49_32_49_45_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_49_8_49_45_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_49_8_49_45_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 52 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %sum.5 = local;
+        symbol [ sum %sum.5 52 12 15 ];
+        %tmp.72 = 0;
+        lputv %sum.5 %tmp.72;
+        symbol [ sum %sum.5 52 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 53 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_test @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_end" ]
+        %i.6 = local;
+        symbol [ i %i.6 53 17 18 ];
+        %tmp.73 = 0;
+        lputv %i.6 %tmp.73;
+        symbol [ i %i.6 53 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_test:
+        %tmp.74 = lgetv %i.6;
+        symbol [ i %tmp.74 53 24 25 ];
+        %tmp.75 = lgetv %samples.2;
+        symbol [ samples %tmp.75 53 28 35 ];
+        symbol [ size %tmp.76 53 36 40 ];
+        %tmp.76 = getv function %tmp.75 :size;
+        %tmp.77 = invoke %tmp.75 %tmp.76();
+        %tmp.78 = lt %tmp.74 %tmp.77;
+        bf %tmp.78 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_49_53_70_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 53 51 ]
+        %tmp.79 = lgetv %sum.5;
+        symbol [ sum %tmp.79 53 51 54 ];
+        %tmp.80 = lgetv %samples.2;
+        symbol [ samples %tmp.80 53 58 65 ];
+        %tmp.81 = lgetv %i.6;
+        symbol [ i %tmp.81 53 66 67 ];
+        %tmp.82 = agetv %tmp.80 %tmp.81;
+        %tmp.83 = add %tmp.79 %tmp.82;
+        lputv %sum.5 %tmp.83;
+        symbol [ sum %sum.5 53 51 54 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_49_53_70_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 53 ]
+        %tmp.86 = lgetv %i.6;
+        symbol [ i %tmp.86 53 44 45 ];
+        %tmp.87 = add %tmp.86 1;
+        lputv %i.6 %tmp.87;
+        symbol [ i %i.6 53 44 45 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_53_8_53_70_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 54 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %mean.7 = local;
+        symbol [ mean %mean.7 54 12 16 ];
+        %tmp.88 = lgetv %sum.5;
+        symbol [ sum %tmp.88 54 19 22 ];
+        symbol [ toFloat %tmp.89 54 23 30 ];
+        %tmp.89 = getv function %tmp.88 :toFloat;
+        %tmp.90 = invoke %tmp.88 %tmp.89();
+        %tmp.91 = lgetv %samples.2;
+        symbol [ samples %tmp.91 54 35 42 ];
+        symbol [ size %tmp.92 54 43 47 ];
+        %tmp.92 = getv function %tmp.91 :size;
+        %tmp.93 = invoke %tmp.91 %tmp.92();
+        %tmp.94 = div %tmp.90 %tmp.93;
+        lputv %mean.7 %tmp.94;
+        symbol [ mean %mean.7 54 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 57 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %variance.8 = local;
+        symbol [ variance %variance.8 57 12 20 ];
+        %tmp.95 = 0.0;
+        lputv %variance.8 %tmp.95;
+        symbol [ variance %variance.8 57 12 20 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 58 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_end" ]
+        %i.9 = local;
+        symbol [ i %i.9 58 17 18 ];
+        %tmp.96 = 0;
+        lputv %i.9 %tmp.96;
+        symbol [ i %i.9 58 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_test:
+        %tmp.97 = lgetv %i.9;
+        symbol [ i %tmp.97 58 24 25 ];
+        %tmp.98 = lgetv %samples.2;
+        symbol [ samples %tmp.98 58 28 35 ];
+        symbol [ size %tmp.99 58 36 40 ];
+        %tmp.99 = getv function %tmp.98 :size;
+        %tmp.100 = invoke %tmp.98 %tmp.99();
+        %tmp.101 = lt %tmp.97 %tmp.100;
+        bf %tmp.101 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_49_61_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 59 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_49_61_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_49_61_8_stop" ]
+        %d.10 = local;
+        symbol [ d %d.10 59 16 17 ];
+        %tmp.102 = lgetv %samples.2;
+        symbol [ samples %tmp.102 59 20 27 ];
+        %tmp.103 = lgetv %i.9;
+        symbol [ i %tmp.103 59 28 29 ];
+        %tmp.104 = agetv %tmp.102 %tmp.103;
+        symbol [ toFloat %tmp.105 59 31 38 ];
+        %tmp.105 = getv function %tmp.104 :toFloat;
+        %tmp.106 = invoke %tmp.104 %tmp.105();
+        %tmp.107 = lgetv %mean.7;
+        symbol [ mean %tmp.107 59 43 47 ];
+        %tmp.108 = sub %tmp.106 %tmp.107;
+        lputv %d.10 %tmp.108;
+        symbol [ d %d.10 59 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 60 12 ]
+        %tmp.109 = lgetv %variance.8;
+        symbol [ variance %tmp.109 60 12 20 ];
+        %tmp.110 = lgetv %d.10;
+        symbol [ d %tmp.110 60 24 25 ];
+        %tmp.111 = lgetv %d.10;
+        symbol [ d %tmp.111 60 28 29 ];
+        %tmp.112 = mul %tmp.110 %tmp.111;
+        %tmp.113 = add %tmp.109 %tmp.112;
+        lputv %variance.8 %tmp.113;
+        symbol [ variance %variance.8 60 12 20 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_49_61_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 58 ]
+        %tmp.116 = lgetv %i.9;
+        symbol [ i %tmp.116 58 44 45 ];
+        %tmp.117 = add %tmp.116 1;
+        lputv %i.9 %tmp.117;
+        symbol [ i %i.9 58 44 45 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_58_8_61_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 62 8 ]
+        %tmp.118 = lgetv %variance.8;
+        symbol [ variance %tmp.118 62 8 16 ];
+        %tmp.119 = lgetv %samples.2;
+        symbol [ samples %tmp.119 62 20 27 ];
+        symbol [ size %tmp.120 62 28 32 ];
+        %tmp.120 = getv function %tmp.119 :size;
+        %tmp.121 = invoke %tmp.119 %tmp.120();
+        %tmp.122 = div %tmp.118 %tmp.121;
+        lputv %variance.8 %tmp.122;
+        symbol [ variance %variance.8 62 8 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 63 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %stdDev.11 = local;
+        symbol [ stdDev %stdDev.11 63 12 18 ];
+        symbol [ Math %tmp.123 63 21 25 ];
+        %tmp.123 = getm $.Toybox.Math;
+        symbol [ sqrt %tmp.124 63 26 30 ];
+        %tmp.124 = getv function %tmp.123 :sqrt;
+        %tmp.125 = lgetv %variance.8;
+        symbol [ variance %tmp.125 63 31 39 ];
+        symbol [ toDouble %tmp.126 63 40 48 ];
+        %tmp.126 = getv function %tmp.125 :toDouble;
+        %tmp.127 = invoke %tmp.125 %tmp.126();
+        %tmp.128 = invoke %tmp.123 %tmp.124(%tmp.127);
+        symbol [ toFloat %tmp.129 63 52 59 ];
+        %tmp.129 = getv function %tmp.128 :toFloat;
+        %tmp.130 = invoke %tmp.128 %tmp.129();
+        lputv %stdDev.11 %tmp.130;
+        symbol [ stdDev %stdDev.11 63 12 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 66 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop" ]
+        %score.12 = local;
+        symbol [ score %score.12 66 12 17 ];
+        %tmp.131 = lgetv %stdDev.11;
+        symbol [ stdDev %tmp.131 66 21 27 ];
+        %tmp.132 = 9.0;
+        %tmp.133 = div %tmp.131 %tmp.132;
+        %tmp.134 = 100.0;
+        %tmp.135 = mul %tmp.133 %tmp.134;
+        symbol [ toNumber %tmp.136 66 43 51 ];
+        %tmp.136 = getv function %tmp.135 :toNumber;
+        %tmp.137 = invoke %tmp.135 %tmp.136();
+        lputv %score.12 %tmp.137;
+        symbol [ score %score.12 66 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 67 8 ]
+        %tmp.138 = self;
+        symbol [ clamp %tmp.139 67 15 20 ];
+        %tmp.139 = getv function %tmp.138 :clamp;
+        %tmp.140 = lgetv %score.12;
+        symbol [ score %tmp.140 67 21 26 ];
+        %tmp.141 = 0;
+        %tmp.142 = 100;
+        %tmp.143 = invoke %tmp.138 %tmp.139(%tmp.140, %tmp.141, %tmp.142);
+        ret %tmp.143;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_33_47_68_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 72; @symbol_functiondef = [movementScore,72,20,33]; @symbol_return<0> = [Number,72,39,45]; ]
+    static
+    function movementScore() as Number {
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 73 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_stop" ]
+        %info.1 = local;
+        symbol [ info %info.1 73 12 16 ];
+        symbol [ Sensor %tmp.1 73 19 25 ];
+        %tmp.1 = getm $.Toybox.Sensor;
+        symbol [ getInfo %tmp.2 73 26 33 ];
+        %tmp.2 = getv function %tmp.1 :getInfo;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %info.1 %tmp.3;
+        symbol [ info %info.1 73 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 74 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_8_74_61_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_12_74_42_begin:
+        %tmp.4 = lgetv %info.1;
+        symbol [ info %tmp.4 74 12 16 ];
+        %tmp.5 = null;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bt %tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_8_74_61_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_28_74_42_false:
+        %tmp.7 = lgetv %info.1;
+        symbol [ info %tmp.7 74 28 32 ];
+        %tmp.8 = as %tmp.7 { (!Null) };
+        symbol [ accel %tmp.9 74 33 38 ];
+        %tmp.9 = getv %tmp.8 :accel;
+        %tmp.10 = null;
+        %tmp.11 = eq %tmp.9 %tmp.10;
+        push %tmp.11;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_28_74_42_end:
+        %tmp.12 = phi [%tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_12_74_42_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_28_74_42_false] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_28_74_42_end];
+        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_8_74_61_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_8_74_61_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_48_74_61_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 74 50 ]
+        %tmp.13 = 50;
+        ret %tmp.13;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_48_74_61_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_8_74_61_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_74_8_74_61_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 76 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_stop" ]
+        %accel.2 = local;
+        symbol [ accel %accel.2 76 12 17 ];
+        %tmp.14 = lgetv %info.1;
+        symbol [ info %tmp.14 76 20 24 ];
+        symbol [ accel %tmp.15 76 25 30 ];
+        %tmp.15 = getv %tmp.14 :accel;
+        lputv %accel.2 %tmp.15;
+        symbol [ accel %accel.2 76 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 77 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_77_8_77_43_if_stmt:
+        %tmp.16 = lgetv %accel.2;
+        symbol [ accel %tmp.16 77 12 17 ];
+        symbol [ size %tmp.17 77 18 22 ];
+        %tmp.17 = getv function %tmp.16 :size;
+        %tmp.18 = invoke %tmp.16 %tmp.17();
+        %tmp.19 = 3;
+        %tmp.20 = lt %tmp.18 %tmp.19;
+        bf %tmp.20 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_77_8_77_43_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_77_8_77_43_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_77_30_77_43_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 77 32 ]
+        %tmp.21 = 50;
+        ret %tmp.21;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_77_30_77_43_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_77_8_77_43_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_77_8_77_43_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 79 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_stop" ]
+        %mag.3 = local;
+        symbol [ mag %mag.3 79 12 15 ];
+        symbol [ Math %tmp.22 79 18 22 ];
+        %tmp.22 = getm $.Toybox.Math;
+        symbol [ sqrt %tmp.23 79 23 27 ];
+        %tmp.23 = getv function %tmp.22 :sqrt;
+        %tmp.24 = lgetv %accel.2;
+        symbol [ accel %tmp.24 80 13 18 ];
+        %tmp.25 = 0;
+        %tmp.26 = agetv %tmp.24 %tmp.25;
+        %tmp.27 = lgetv %accel.2;
+        symbol [ accel %tmp.27 80 24 29 ];
+        %tmp.28 = 0;
+        %tmp.29 = agetv %tmp.27 %tmp.28;
+        %tmp.30 = mul %tmp.26 %tmp.29;
+        %tmp.31 = lgetv %accel.2;
+        symbol [ accel %tmp.31 81 13 18 ];
+        %tmp.32 = 1;
+        %tmp.33 = agetv %tmp.31 %tmp.32;
+        %tmp.34 = lgetv %accel.2;
+        symbol [ accel %tmp.34 81 24 29 ];
+        %tmp.35 = 1;
+        %tmp.36 = agetv %tmp.34 %tmp.35;
+        %tmp.37 = mul %tmp.33 %tmp.36;
+        %tmp.38 = add %tmp.30 %tmp.37;
+        %tmp.39 = lgetv %accel.2;
+        symbol [ accel %tmp.39 82 13 18 ];
+        %tmp.40 = 2;
+        %tmp.41 = agetv %tmp.39 %tmp.40;
+        %tmp.42 = lgetv %accel.2;
+        symbol [ accel %tmp.42 82 24 29 ];
+        %tmp.43 = 2;
+        %tmp.44 = agetv %tmp.42 %tmp.43;
+        %tmp.45 = mul %tmp.41 %tmp.44;
+        %tmp.46 = add %tmp.38 %tmp.45;
+        symbol [ toDouble %tmp.47 82 34 42 ];
+        %tmp.47 = getv function %tmp.46 :toDouble;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        %tmp.49 = invoke %tmp.22 %tmp.23(%tmp.48);
+        symbol [ toFloat %tmp.50 83 10 17 ];
+        %tmp.50 = getv function %tmp.49 :toFloat;
+        %tmp.51 = invoke %tmp.49 %tmp.50();
+        lputv %mag.3 %tmp.51;
+        symbol [ mag %mag.3 79 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 86 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_stop" ]
+        %diff.4 = local;
+        symbol [ diff %diff.4 86 12 16 ];
+        %tmp.52 = lgetv %mag.3;
+        symbol [ mag %tmp.52 86 19 22 ];
+        %tmp.53 = 1000.0;
+        %tmp.54 = sub %tmp.52 %tmp.53;
+        lputv %diff.4 %tmp.54;
+        symbol [ diff %diff.4 86 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 87 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_stop" ]
+        %movement.5 = local;
+        symbol [ movement %movement.5 87 12 20 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_begin:
+        %tmp.55 = lgetv %diff.4;
+        symbol [ diff %tmp.55 87 24 28 ];
+        %tmp.56 = 0.0;
+        %tmp.57 = gte %tmp.55 %tmp.56;
+        bf %tmp.57 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_true:
+        %tmp.58 = lgetv %diff.4;
+        symbol [ diff %tmp.58 87 39 43 ];
+        push %tmp.58;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_else_false:
+        %tmp.59 = lgetv %diff.4;
+        symbol [ diff %tmp.59 87 47 51 ];
+        %tmp.60 = sub 0 %tmp.59;
+        push %tmp.60;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_end:
+        %tmp.61 = phi [%tmp.57 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_begin] [%tmp.58 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_true] [%tmp.60 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_else_false] [%tmp.61 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_87_23_87_47_end];
+        lputv %movement.5 %tmp.61;
+        symbol [ movement %movement.5 87 12 20 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 89 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_stop" ]
+        %score.6 = local;
+        symbol [ score %score.6 89 12 17 ];
+        %tmp.62 = lgetv %movement.5;
+        symbol [ movement %tmp.62 89 21 29 ];
+        %tmp.63 = 400.0;
+        %tmp.64 = div %tmp.62 %tmp.63;
+        %tmp.65 = 100.0;
+        %tmp.66 = mul %tmp.64 %tmp.65;
+        symbol [ toNumber %tmp.67 89 47 55 ];
+        %tmp.67 = getv function %tmp.66 :toNumber;
+        %tmp.68 = invoke %tmp.66 %tmp.67();
+        lputv %score.6 %tmp.68;
+        symbol [ score %score.6 89 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 90 8 ]
+        %tmp.69 = self;
+        symbol [ clamp %tmp.70 90 15 20 ];
+        %tmp.70 = getv function %tmp.69 :clamp;
+        %tmp.71 = lgetv %score.6;
+        symbol [ score %tmp.71 90 21 26 ];
+        %tmp.72 = 0;
+        %tmp.73 = 100;
+        %tmp.74 = invoke %tmp.69 %tmp.70(%tmp.71, %tmp.72, %tmp.73);
+        ret %tmp.74;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_72_46_91_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 95; @symbol_functiondef = [isAwake,95,20,27]; @symbol_return<0> = [Boolean,95,33,40]; ]
+    static
+    function isAwake() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_95_41_97_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 96 8 ]
+        %tmp.1 = self;
+        symbol [ lightness %tmp.2 96 15 24 ];
+        %tmp.2 = getv function %tmp.1 :lightness;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        symbol [ AWAKE_THRESHOLD %tmp.5 96 30 45 ];
+        %tmp.5 = getv ? :AWAKE_THRESHOLD;
+        %tmp.6 = gte %tmp.3 %tmp.5;
+        ret %tmp.6;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_95_41_97_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 99; @symbol_functiondef = [clamp,99,20,25]; @symbol_param<0> = [v,99,26,27]; @symbol_param<0>_type<0> = [Number,99,31,37]; @symbol_param<1> = [lo,99,39,41]; @symbol_param<1>_type<0> = [Number,99,45,51]; @symbol_param<2> = [hi,99,53,55]; @symbol_param<2>_type<0> = [Number,99,59,65]; @symbol_return<0> = [Number,99,70,76]; ]
+    static
+    function clamp(v as Number, lo as Number, hi as Number) as Number {
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_99_77_103_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 100 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_100_8_100_33_if_stmt:
+        %tmp.1 = lgetv %v;
+        symbol [ v %tmp.1 100 12 13 ];
+        %tmp.2 = lgetv %lo;
+        symbol [ lo %tmp.2 100 16 18 ];
+        %tmp.3 = lt %tmp.1 %tmp.2;
+        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_100_8_100_33_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_100_8_100_33_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_100_20_100_33_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 100 22 ]
+        %tmp.4 = lgetv %lo;
+        symbol [ lo %tmp.4 100 29 31 ];
+        ret %tmp.4;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_100_20_100_33_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_100_8_100_33_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_100_8_100_33_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 101 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_101_8_101_33_if_stmt:
+        %tmp.5 = lgetv %v;
+        symbol [ v %tmp.5 101 12 13 ];
+        %tmp.6 = lgetv %hi;
+        symbol [ hi %tmp.6 101 16 18 ];
+        %tmp.7 = gt %tmp.5 %tmp.6;
+        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_101_8_101_33_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_101_8_101_33_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_101_20_101_33_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 101 22 ]
+        %tmp.8 = lgetv %hi;
+        symbol [ hi %tmp.8 101 29 31 ];
+        ret %tmp.8;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_101_20_101_33_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_101_8_101_33_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_101_8_101_33_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc" 102 8 ]
+        %tmp.9 = lgetv %v;
+        symbol [ v %tmp.9 102 15 16 ];
+        ret %tmp.9;
+_Users_miren_Documents_GitHub_smartalarm_source_SleepDetector_mc_99_77_103_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SleepDetector.mc"; @line = 13; ]
+<init> {
+}

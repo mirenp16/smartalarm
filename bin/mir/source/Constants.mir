@@ -1,0 +1,82 @@
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 9; @position = 6; @symbol_constdef = [DAY_SUN,9,6,13]; ]
+const DAY_SUN = 0x01;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 10; @position = 6; @symbol_constdef = [DAY_MON,10,6,13]; ]
+const DAY_MON = 0x02;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 11; @position = 6; @symbol_constdef = [DAY_TUE,11,6,13]; ]
+const DAY_TUE = 0x04;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 12; @position = 6; @symbol_constdef = [DAY_WED,12,6,13]; ]
+const DAY_WED = 0x08;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 13; @position = 6; @symbol_constdef = [DAY_THU,13,6,13]; ]
+const DAY_THU = 0x10;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 14; @position = 6; @symbol_constdef = [DAY_FRI,14,6,13]; ]
+const DAY_FRI = 0x20;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 15; @position = 6; @symbol_constdef = [DAY_SAT,15,6,13]; ]
+const DAY_SAT = 0x40;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 16; @position = 6; @symbol_constdef = [DAYS_WEEKDAYS,16,6,19]; ]
+const DAYS_WEEKDAYS = 0x3E;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 17; @position = 6; @symbol_constdef = [DAYS_ALL,17,6,14]; ]
+const DAYS_ALL = 0x7F;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 20; @position = 6; @symbol_constdef = [TYPE_SLEEP,20,6,16]; ]
+const TYPE_SLEEP = 0;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 21; @position = 6; @symbol_constdef = [TYPE_REMINDER,21,6,19]; ]
+const TYPE_REMINDER = 1;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 24; @position = 6; @symbol_constdef = [MODE_BOTH,24,6,15]; ]
+const MODE_BOTH = 0;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 25; @position = 6; @symbol_constdef = [MODE_SOUND,25,6,16]; ]
+const MODE_SOUND = 1;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 26; @position = 6; @symbol_constdef = [MODE_VIBE,26,6,15]; ]
+const MODE_VIBE = 2;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 29; @position = 6; @symbol_constdef = [WINDOW_OPTIONS,29,6,20]; ]
+const WINDOW_OPTIONS;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 33; @position = 6; @symbol_constdef = [LIGHT_SLEEP_THRESHOLD,33,6,27]; ]
+const LIGHT_SLEEP_THRESHOLD = 65;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 36; @position = 6; @symbol_constdef = [AWAKE_THRESHOLD,36,6,21]; ]
+const AWAKE_THRESHOLD = 80;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 39; @position = 6; @symbol_constdef = [AWAKE_CHECK_LEAD,39,6,22]; ]
+const AWAKE_CHECK_LEAD = 15;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 44; @position = 6; @symbol_constdef = [CHECK_INTERVAL_SECS,44,6,25]; ]
+const CHECK_INTERVAL_SECS = 300;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 48; @position = 6; @symbol_constdef = [FIRE_GRACE_MINS,48,6,21]; ]
+const FIRE_GRACE_MINS = 15;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 51; @position = 6; @symbol_constdef = [DEFAULT_SNOOZE_MINUTES,51,6,28]; ]
+const DEFAULT_SNOOZE_MINUTES = 5;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 52; @position = 6; @symbol_constdef = [DEFAULT_MAX_SNOOZE,52,6,24]; ]
+const DEFAULT_MAX_SNOOZE = 5;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 56; @position = 6; @symbol_constdef = [KEY_ALARMS,56,6,16]; ]
+const KEY_ALARMS = "alarms";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 57; @position = 6; @symbol_constdef = [KEY_NEXT_ID,57,6,17]; ]
+const KEY_NEXT_ID = "nextId";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 58; @position = 6; @symbol_constdef = [KEY_STATE_DAY,58,6,19]; ]
+const KEY_STATE_DAY = "stateDay";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 59; @position = 6; @symbol_constdef = [KEY_DAY_STATE,59,6,19]; ]
+const KEY_DAY_STATE = "dayState";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 60; @position = 6; @symbol_constdef = [KEY_RING_ID,60,6,17]; ]
+const KEY_RING_ID = "ringId";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 61; @position = 6; @symbol_constdef = [KEY_RING_START,61,6,20]; ]
+const KEY_RING_START = "ringStart";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 62; @position = 6; @symbol_constdef = [KEY_SNOOZE_UNTIL,62,6,22]; ]
+const KEY_SNOOZE_UNTIL = "snoozeUntil";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 63; @position = 6; @symbol_constdef = [KEY_SNOOZE_ID,63,6,19]; ]
+const KEY_SNOOZE_ID = "snoozeAlarmId";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 64; @position = 6; @symbol_constdef = [KEY_SNOOZE_MINS,64,6,21]; ]
+const KEY_SNOOZE_MINS = "snoozeMins";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 65; @position = 6; @symbol_constdef = [KEY_MAX_SNOOZE,65,6,20]; ]
+const KEY_MAX_SNOOZE = "maxSnooze";
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 9; ]
+<init> {
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 29 6 ]
+    %tmp.1 = newa 4;
+    %tmp.2 = 15;
+    %tmp.3 = dup %tmp.1;
+    %tmp.4 = aputv %tmp.3 0 %tmp.2;
+    %tmp.5 = 30;
+    %tmp.6 = dup %tmp.4;
+    %tmp.7 = aputv %tmp.6 1 %tmp.5;
+    %tmp.8 = 45;
+    %tmp.9 = dup %tmp.7;
+    %tmp.10 = aputv %tmp.9 2 %tmp.8;
+    %tmp.11 = 60;
+    %tmp.12 = dup %tmp.10;
+    %tmp.13 = aputv %tmp.12 3 %tmp.11;
+    putv self :WINDOW_OPTIONS %tmp.13;
+}

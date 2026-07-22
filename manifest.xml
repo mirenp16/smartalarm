@@ -5,7 +5,7 @@
         launcherIcon="@Drawables.LauncherIcon"
         minApiLevel="4.0.0"
         name="@Strings.AppName"
-        type="application">
+        type="watch-app">
 
         <iq:products>
             <iq:product id="fr265s"/>
