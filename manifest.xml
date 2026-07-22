@@ -2,10 +2,10 @@
     <iq:application
         entry="SmartAlarmApp"
         id="a3484188-b3b4-42f3-9a31-5a2c27d9e47d"
+        launcherIcon="@Drawables.LauncherIcon"
         minApiLevel="4.0.0"
         name="@Strings.AppName"
-        type="watch-app"
-        launcherIcon="@Drawables.LauncherIcon">
+        type="application">
 
         <iq:products>
             <iq:product id="fr265s"/>

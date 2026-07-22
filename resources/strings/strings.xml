@@ -1,25 +1,4 @@
 <?xml version="1.0"?>
 <strings>
     <string id="AppName">Smart Alarm</string>
-    <string id="MenuSettings">Settings</string>
-    <string id="MenuEnableAlarm">Enable Alarm</string>
-    <string id="MenuDisableAlarm">Disable Alarm</string>
-    <string id="MenuSetTime">Set Alarm Time</string>
-    <string id="MenuSetDays">Set Days</string>
-    <string id="MenuAlertMode">Alert Mode</string>
-    <string id="MenuSmartWindow">Smart Window</string>
-    <string id="ModeVibeAndSound">Vibrate + Sound</string>
-    <string id="ModeSoundOnly">Sound Only</string>
-    <string id="ModeVibeOnly">Vibrate Only</string>
-    <string id="Window15">15 min before</string>
-    <string id="Window30">30 min before</string>
-    <string id="Window45">45 min before</string>
-    <string id="Window60">60 min before</string>
-    <string id="DaySun">Sunday</string>
-    <string id="DayMon">Monday</string>
-    <string id="DayTue">Tuesday</string>
-    <string id="DayWed">Wednesday</string>
-    <string id="DayThu">Thursday</string>
-    <string id="DayFri">Friday</string>
-    <string id="DaySat">Saturday</string>
 </strings>
