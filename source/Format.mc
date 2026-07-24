@@ -24,7 +24,7 @@ class Fmt {
         if (mask == DAYS_ALL)      { return "Every day"; }
         if (mask == DAYS_WEEKDAYS) { return "Mon-Fri"; }
         if (mask == (DAY_SAT | DAY_SUN)) { return "Weekends"; }
-        if (mask == 0)             { return "No days set"; }
+        if (mask == 0)             { return "Once"; }
 
         var names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         var out = "";

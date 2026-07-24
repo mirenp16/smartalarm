@@ -25,7 +25,6 @@ class RingingView extends WatchUi.View {
     private var _w as Number = 260;
     private var _h as Number = 260;
     private var _cx as Number = 130;
-    private var _cy as Number = 130;
 
     function initialize() {
         View.initialize();
@@ -38,7 +37,7 @@ class RingingView extends WatchUi.View {
 
     function onLayout(dc as Graphics.Dc) as Void {
         _w = dc.getWidth();  _h = dc.getHeight();
-        _cx = _w / 2;        _cy = _h / 2;
+        _cx = _w / 2;
     }
 
     // Start alerting as soon as the screen appears.
@@ -93,19 +92,19 @@ class RingingView extends WatchUi.View {
         var disH    = _h * 11 / 100;
 
         // Label
-        dc.setColor(0x00CC66, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, labelY, Graphics.FONT_SMALL, label, Graphics.TEXT_JUSTIFY_CENTER);
 
         // Current time (large). Regular font because the string includes AM/PM.
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, timeY, Graphics.FONT_MEDIUM,
+        dc.drawText(_cx, timeY, Graphics.FONT_LARGE,
                     Fmt.time12(now.hour, now.min), Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Snooze button (big, lower-middle)
+        // Snooze button (big, lower-middle): dark grey box, white text.
         var atMax = snoozeExhausted();
-        dc.setColor(atMax ? 0x333333 : 0x004422, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x333333, Graphics.COLOR_TRANSPARENT);
         dc.fillRoundedRectangle(snLeft, snTop, snW, snH, 12);
-        dc.setColor(atMax ? 0x777777 : 0x00CC66, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(atMax ? 0x888888 : Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         var mins = AlarmStore.snoozeMinutes();
         var snText = atMax ? "No snoozes left" : ("Snooze " + mins.format("%d") + " min");
         dc.drawText(_cx, snTop + snH / 2 - 12, Graphics.FONT_TINY, snText,
@@ -119,10 +118,10 @@ class RingingView extends WatchUi.View {
                         left.format("%d") + " snoozes left", Graphics.TEXT_JUSTIFY_CENTER);
         }
 
-        // Dismiss bar (small, bottom)
-        dc.setColor(0x662222, Graphics.COLOR_TRANSPARENT);
+        // Dismiss bar (small, bottom): dark box, white text.
+        dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
         dc.fillRoundedRectangle(disLeft, disTop, disW, disH, 10);
-        dc.setColor(0xFF6666, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, disTop + disH / 2 - 12, Graphics.FONT_XTINY, "Dismiss",
                     Graphics.TEXT_JUSTIFY_CENTER);
     }

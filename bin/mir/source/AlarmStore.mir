@@ -75,15 +75,15 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_35_54_37_4_start:
         invoke %tmp.2 %tmp.3(%tmp.5, %tmp.6);
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_35_54_37_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 40; @symbol_functiondef = [newAlarm,40,20,28]; @symbol_return<0> = [Dictionary,40,34,44]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 41; @symbol_functiondef = [newAlarm,41,20,28]; @symbol_return<0> = [Dictionary,41,34,44]; ]
     static
     function newAlarm() as Dictionary {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_40_45_52_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 41 8 ]
-        %tmp.1 = newd 9;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_41_45_54_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 42 8 ]
+        %tmp.1 = newd 10;
         %tmp.2 = "id";
         %tmp.3 = self;
-        symbol [ nextId %tmp.4 42 23 29 ];
+        symbol [ nextId %tmp.4 43 24 30 ];
         %tmp.4 = getv function %tmp.3 :nextId;
         %tmp.5 = invoke %tmp.3 %tmp.4();
         %tmp.6 = dup %tmp.1;
@@ -101,628 +101,761 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_40_45_52_4_start:
         %tmp.18 = dup %tmp.15;
         %tmp.19 = aputv %tmp.18 %tmp.16 %tmp.17;
         %tmp.20 = "days";
-        symbol [ DAYS_WEEKDAYS %tmp.22 46 23 36 ];
-        %tmp.22 = getv ? :DAYS_WEEKDAYS;
-        %tmp.23 = dup %tmp.19;
-        %tmp.24 = aputv %tmp.23 %tmp.20 %tmp.22;
-        %tmp.25 = "label";
-        %tmp.26 = "Wake up";
-        %tmp.27 = dup %tmp.24;
-        %tmp.28 = aputv %tmp.27 %tmp.25 %tmp.26;
-        %tmp.29 = "type";
-        symbol [ TYPE_SLEEP %tmp.31 48 23 33 ];
-        %tmp.31 = getv ? :TYPE_SLEEP;
-        %tmp.32 = dup %tmp.28;
-        %tmp.33 = aputv %tmp.32 %tmp.29 %tmp.31;
-        %tmp.34 = "win";
-        %tmp.35 = 30;
-        %tmp.36 = dup %tmp.33;
-        %tmp.37 = aputv %tmp.36 %tmp.34 %tmp.35;
-        %tmp.38 = "mode";
-        symbol [ MODE_BOTH %tmp.40 50 23 32 ];
-        %tmp.40 = getv ? :MODE_BOTH;
-        %tmp.41 = dup %tmp.37;
-        %tmp.42 = aputv %tmp.41 %tmp.38 %tmp.40;
-        ret %tmp.42;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_40_45_52_4_stop:
+        %tmp.21 = 0;
+        %tmp.22 = dup %tmp.19;
+        %tmp.23 = aputv %tmp.22 %tmp.20 %tmp.21;
+        %tmp.24 = "label";
+        %tmp.25 = "Wake up";
+        %tmp.26 = dup %tmp.23;
+        %tmp.27 = aputv %tmp.26 %tmp.24 %tmp.25;
+        %tmp.28 = "type";
+        symbol [ TYPE_SLEEP %tmp.30 49 24 34 ];
+        %tmp.30 = getv ? :TYPE_SLEEP;
+        %tmp.31 = dup %tmp.27;
+        %tmp.32 = aputv %tmp.31 %tmp.28 %tmp.30;
+        %tmp.33 = "win";
+        %tmp.34 = 30;
+        %tmp.35 = dup %tmp.32;
+        %tmp.36 = aputv %tmp.35 %tmp.33 %tmp.34;
+        %tmp.37 = "mode";
+        symbol [ MODE_BOTH %tmp.39 51 24 33 ];
+        %tmp.39 = getv ? :MODE_BOTH;
+        %tmp.40 = dup %tmp.36;
+        %tmp.41 = aputv %tmp.40 %tmp.37 %tmp.39;
+        %tmp.42 = "fireAt";
+        %tmp.43 = self;
+        symbol [ nextOccurrence %tmp.44 52 24 38 ];
+        %tmp.44 = getv function %tmp.43 :nextOccurrence;
+        %tmp.45 = 7;
+        %tmp.46 = 30;
+        %tmp.47 = invoke %tmp.43 %tmp.44(%tmp.45, %tmp.46);
+        %tmp.48 = dup %tmp.41;
+        %tmp.49 = aputv %tmp.48 %tmp.42 %tmp.47;
+        ret %tmp.49;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_41_45_54_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 54; @symbol_functiondef = [addAlarm,54,20,28]; @symbol_param<0> = [alarm,54,29,34]; @symbol_param<0>_type<0> = [Dictionary,54,38,48]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 58; @symbol_functiondef = [nextOccurrence,58,20,34]; @symbol_param<0> = [h,58,35,36]; @symbol_param<0>_type<0> = [Number,58,40,46]; @symbol_param<1> = [m,58,48,49]; @symbol_param<1>_type<0> = [Number,58,53,59]; @symbol_return<0> = [Number,58,64,70]; ]
+    static
+    function nextOccurrence(h as Number, m as Number) as Number {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 59 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_stop" ]
+        %now.1 = local;
+        symbol [ now %now.1 59 12 15 ];
+        symbol [ Time %tmp.1 59 18 22 ];
+        %tmp.1 = getm $.Toybox.Time;
+        symbol [ now %tmp.2 59 23 26 ];
+        %tmp.2 = getv function %tmp.1 :now;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %now.1 %tmp.3;
+        symbol [ now %now.1 59 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 60 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_stop" ]
+        %info.2 = local;
+        symbol [ info %info.2 60 12 16 ];
+        symbol [ Gregorian %tmp.4 60 19 28 ];
+        %tmp.4 = getm $.Toybox.Time.Gregorian;
+        symbol [ info %tmp.5 60 29 33 ];
+        %tmp.5 = getv function %tmp.4 :info;
+        %tmp.6 = lgetv %now.1;
+        symbol [ now %tmp.6 60 34 37 ];
+        symbol [ Time %tmp.7 60 39 43 ];
+        %tmp.7 = getm $.Toybox.Time;
+        symbol [ FORMAT_SHORT %tmp.8 60 44 56 ];
+        %tmp.8 = getv %tmp.7 :FORMAT_SHORT;
+        %tmp.9 = invoke %tmp.4 %tmp.5(%tmp.6, %tmp.8);
+        lputv %info.2 %tmp.9;
+        symbol [ info %info.2 60 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 61 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_stop" ]
+        %midnight.3 = local;
+        symbol [ midnight %midnight.3 61 12 20 ];
+        %tmp.10 = lgetv %now.1;
+        symbol [ now %tmp.10 61 23 26 ];
+        symbol [ value %tmp.11 61 27 32 ];
+        %tmp.11 = getv function %tmp.10 :value;
+        %tmp.12 = invoke %tmp.10 %tmp.11();
+        %tmp.13 = lgetv %info.2;
+        symbol [ info %tmp.13 61 38 42 ];
+        symbol [ hour %tmp.14 61 43 47 ];
+        %tmp.14 = getv %tmp.13 :hour;
+        %tmp.15 = 3600;
+        %tmp.16 = mul %tmp.14 %tmp.15;
+        %tmp.17 = lgetv %info.2;
+        symbol [ info %tmp.17 61 57 61 ];
+        symbol [ min %tmp.18 61 62 65 ];
+        %tmp.18 = getv %tmp.17 :min;
+        %tmp.19 = 60;
+        %tmp.20 = mul %tmp.18 %tmp.19;
+        %tmp.21 = add %tmp.16 %tmp.20;
+        %tmp.22 = lgetv %info.2;
+        symbol [ info %tmp.22 61 73 77 ];
+        symbol [ sec %tmp.23 61 78 81 ];
+        %tmp.23 = getv %tmp.22 :sec;
+        %tmp.24 = add %tmp.21 %tmp.23;
+        %tmp.25 = sub %tmp.12 %tmp.24;
+        lputv %midnight.3 %tmp.25;
+        symbol [ midnight %midnight.3 61 12 20 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 62 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_stop" ]
+        %t.4 = local;
+        symbol [ t %t.4 62 12 13 ];
+        %tmp.26 = lgetv %midnight.3;
+        symbol [ midnight %tmp.26 62 16 24 ];
+        %tmp.27 = lgetv %h;
+        symbol [ h %tmp.27 62 27 28 ];
+        %tmp.28 = 3600;
+        %tmp.29 = mul %tmp.27 %tmp.28;
+        %tmp.30 = add %tmp.26 %tmp.29;
+        %tmp.31 = lgetv %m;
+        symbol [ m %tmp.31 62 38 39 ];
+        %tmp.32 = 60;
+        %tmp.33 = mul %tmp.31 %tmp.32;
+        %tmp.34 = add %tmp.30 %tmp.33;
+        lputv %t.4 %tmp.34;
+        symbol [ t %t.4 62 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 63 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_63_8_63_44_if_stmt:
+        %tmp.35 = lgetv %t.4;
+        symbol [ t %tmp.35 63 12 13 ];
+        %tmp.36 = lgetv %now.1;
+        symbol [ now %tmp.36 63 17 20 ];
+        symbol [ value %tmp.37 63 21 26 ];
+        %tmp.37 = getv function %tmp.36 :value;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        %tmp.39 = lte %tmp.35 %tmp.38;
+        bf %tmp.39 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_63_8_63_44_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_63_8_63_44_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_63_30_63_44_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 63 32 ]
+        %tmp.40 = lgetv %t.4;
+        symbol [ t %tmp.40 63 32 33 ];
+        %tmp.41 = 86400;
+        %tmp.42 = add %tmp.40 %tmp.41;
+        lputv %t.4 %tmp.42;
+        symbol [ t %t.4 63 32 33 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_63_30_63_44_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_63_8_63_44_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_63_8_63_44_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 64 8 ]
+        %tmp.43 = lgetv %t.4;
+        symbol [ t %tmp.43 64 15 16 ];
+        ret %tmp.43;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_58_71_65_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 67; @symbol_functiondef = [fireAt,67,20,26]; @symbol_param<0> = [a,67,27,28]; @symbol_param<0>_type<0> = [Dictionary,67,32,42]; @symbol_return<0> = [Number,67,47,53]; ]
+    static
+    function fireAt(a as Dictionary) as Number {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_67_54_69_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 68 8 ]
+        %tmp.1 = self;
+        symbol [ _n %tmp.2 68 15 17 ];
+        %tmp.2 = getv function %tmp.1 :_n;
+        %tmp.3 = lgetv %a;
+        symbol [ a %tmp.3 68 18 19 ];
+        %tmp.4 = "fireAt";
+        %tmp.5 = 0;
+        %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
+        ret %tmp.6;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_67_54_69_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 71; @symbol_functiondef = [addAlarm,71,20,28]; @symbol_param<0> = [alarm,71,29,34]; @symbol_param<0>_type<0> = [Dictionary,71,38,48]; ]
     static
     function addAlarm(alarm as Dictionary) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_54_58_58_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 55 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_54_58_58_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_54_58_58_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_71_58_75_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 72 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_71_58_75_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_71_58_75_4_stop" ]
         %list.1 = local;
-        symbol [ list %list.1 55 12 16 ];
+        symbol [ list %list.1 72 12 16 ];
         %tmp.1 = self;
-        symbol [ getAlarms %tmp.2 55 19 28 ];
+        symbol [ getAlarms %tmp.2 72 19 28 ];
         %tmp.2 = getv function %tmp.1 :getAlarms;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %list.1 %tmp.3;
-        symbol [ list %list.1 55 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 56 8 ]
+        symbol [ list %list.1 72 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 73 8 ]
         %tmp.4 = lgetv %list.1;
-        symbol [ list %tmp.4 56 8 12 ];
-        symbol [ add %tmp.5 56 13 16 ];
+        symbol [ list %tmp.4 73 8 12 ];
+        symbol [ add %tmp.5 73 13 16 ];
         %tmp.5 = getv function %tmp.4 :add;
         %tmp.6 = lgetv %alarm;
-        symbol [ alarm %tmp.6 56 17 22 ];
+        symbol [ alarm %tmp.6 73 17 22 ];
         invoke %tmp.4 %tmp.5(%tmp.6);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 57 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 74 8 ]
         %tmp.7 = self;
-        symbol [ saveAlarms %tmp.8 57 8 18 ];
+        symbol [ saveAlarms %tmp.8 74 8 18 ];
         %tmp.8 = getv function %tmp.7 :saveAlarms;
         %tmp.9 = lgetv %list.1;
-        symbol [ list %tmp.9 57 19 23 ];
+        symbol [ list %tmp.9 74 19 23 ];
         invoke %tmp.7 %tmp.8(%tmp.9);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_54_58_58_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_71_58_75_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 60; @symbol_functiondef = [updateAlarm,60,20,31]; @symbol_param<0> = [index,60,32,37]; @symbol_param<0>_type<0> = [Number,60,41,47]; @symbol_param<1> = [alarm,60,49,54]; @symbol_param<1>_type<0> = [Dictionary,60,58,68]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 77; @symbol_functiondef = [updateAlarm,77,20,31]; @symbol_param<0> = [index,77,32,37]; @symbol_param<0>_type<0> = [Number,77,41,47]; @symbol_param<1> = [alarm,77,49,54]; @symbol_param<1>_type<0> = [Dictionary,77,58,68]; ]
     static
     function updateAlarm(index as Number, alarm as Dictionary) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_60_78_66_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 61 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_60_78_66_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_60_78_66_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_78_83_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 78 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_78_83_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_78_83_4_stop" ]
         %list.1 = local;
-        symbol [ list %list.1 61 12 16 ];
+        symbol [ list %list.1 78 12 16 ];
         %tmp.1 = self;
-        symbol [ getAlarms %tmp.2 61 19 28 ];
+        symbol [ getAlarms %tmp.2 78 19 28 ];
         %tmp.2 = getv function %tmp.1 :getAlarms;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %list.1 %tmp.3;
-        symbol [ list %list.1 61 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 62 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_8_65_8_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_12_62_44_begin:
+        symbol [ list %list.1 78 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 79 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_82_8_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_12_79_44_begin:
         %tmp.4 = lgetv %index;
-        symbol [ index %tmp.4 62 12 17 ];
+        symbol [ index %tmp.4 79 12 17 ];
         %tmp.5 = 0;
         %tmp.6 = gte %tmp.4 %tmp.5;
-        bf %tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_8_65_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_26_62_44_true:
+        bf %tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_82_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_26_79_44_true:
         %tmp.7 = lgetv %index;
-        symbol [ index %tmp.7 62 26 31 ];
+        symbol [ index %tmp.7 79 26 31 ];
         %tmp.8 = lgetv %list.1;
-        symbol [ list %tmp.8 62 34 38 ];
-        symbol [ size %tmp.9 62 39 43 ];
+        symbol [ list %tmp.8 79 34 38 ];
+        symbol [ size %tmp.9 79 39 43 ];
         %tmp.9 = getv function %tmp.8 :size;
         %tmp.10 = invoke %tmp.8 %tmp.9();
         %tmp.11 = lt %tmp.7 %tmp.10;
         push %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_26_62_44_end:
-        %tmp.12 = phi [%tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_12_62_44_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_26_62_44_true] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_26_62_44_end];
-        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_8_65_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_8_65_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_47_65_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 63 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_26_79_44_end:
+        %tmp.12 = phi [%tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_12_79_44_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_26_79_44_true] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_26_79_44_end];
+        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_82_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_82_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_47_82_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 80 12 ]
         %tmp.13 = lgetv %list.1;
-        symbol [ list %tmp.13 63 12 16 ];
+        symbol [ list %tmp.13 80 12 16 ];
         %tmp.14 = lgetv %alarm;
-        symbol [ alarm %tmp.14 63 26 31 ];
+        symbol [ alarm %tmp.14 80 26 31 ];
         %tmp.15 = lgetv %index;
-        symbol [ index %tmp.15 63 17 22 ];
+        symbol [ index %tmp.15 80 17 22 ];
         aputv %tmp.13 %tmp.15 %tmp.14;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 64 12 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 81 12 ]
         %tmp.16 = self;
-        symbol [ saveAlarms %tmp.17 64 12 22 ];
+        symbol [ saveAlarms %tmp.17 81 12 22 ];
         %tmp.17 = getv function %tmp.16 :saveAlarms;
         %tmp.18 = lgetv %list.1;
-        symbol [ list %tmp.18 64 23 27 ];
+        symbol [ list %tmp.18 81 23 27 ];
         invoke %tmp.16 %tmp.17(%tmp.18);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_47_65_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_8_65_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_62_8_65_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_60_78_66_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_47_82_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_82_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_82_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_78_83_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 68; @symbol_functiondef = [deleteAlarm,68,20,31]; @symbol_param<0> = [index,68,32,37]; @symbol_param<0>_type<0> = [Number,68,41,47]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 85; @symbol_functiondef = [deleteAlarm,85,20,31]; @symbol_param<0> = [index,85,32,37]; @symbol_param<0>_type<0> = [Number,85,41,47]; ]
     static
     function deleteAlarm(index as Number) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_68_57_74_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 69 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_68_57_74_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_68_57_74_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_85_57_91_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 86 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_85_57_91_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_85_57_91_4_stop" ]
         %list.1 = local;
-        symbol [ list %list.1 69 12 16 ];
+        symbol [ list %list.1 86 12 16 ];
         %tmp.1 = self;
-        symbol [ getAlarms %tmp.2 69 19 28 ];
+        symbol [ getAlarms %tmp.2 86 19 28 ];
         %tmp.2 = getv function %tmp.1 :getAlarms;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %list.1 %tmp.3;
-        symbol [ list %list.1 69 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 70 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_8_73_8_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_12_70_44_begin:
+        symbol [ list %list.1 86 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 87 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_8_90_8_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_12_87_44_begin:
         %tmp.4 = lgetv %index;
-        symbol [ index %tmp.4 70 12 17 ];
+        symbol [ index %tmp.4 87 12 17 ];
         %tmp.5 = 0;
         %tmp.6 = gte %tmp.4 %tmp.5;
-        bf %tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_8_73_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_26_70_44_true:
+        bf %tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_8_90_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_26_87_44_true:
         %tmp.7 = lgetv %index;
-        symbol [ index %tmp.7 70 26 31 ];
+        symbol [ index %tmp.7 87 26 31 ];
         %tmp.8 = lgetv %list.1;
-        symbol [ list %tmp.8 70 34 38 ];
-        symbol [ size %tmp.9 70 39 43 ];
+        symbol [ list %tmp.8 87 34 38 ];
+        symbol [ size %tmp.9 87 39 43 ];
         %tmp.9 = getv function %tmp.8 :size;
         %tmp.10 = invoke %tmp.8 %tmp.9();
         %tmp.11 = lt %tmp.7 %tmp.10;
         push %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_26_70_44_end:
-        %tmp.12 = phi [%tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_12_70_44_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_26_70_44_true] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_26_70_44_end];
-        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_8_73_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_8_73_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_47_73_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 71 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_26_87_44_end:
+        %tmp.12 = phi [%tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_12_87_44_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_26_87_44_true] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_26_87_44_end];
+        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_8_90_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_8_90_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_47_90_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 88 12 ]
         %tmp.13 = lgetv %list.1;
-        symbol [ list %tmp.13 71 12 16 ];
-        symbol [ remove %tmp.14 71 17 23 ];
+        symbol [ list %tmp.13 88 12 16 ];
+        symbol [ remove %tmp.14 88 17 23 ];
         %tmp.14 = getv function %tmp.13 :remove;
         %tmp.15 = lgetv %list.1;
-        symbol [ list %tmp.15 71 24 28 ];
+        symbol [ list %tmp.15 88 24 28 ];
         %tmp.16 = lgetv %index;
-        symbol [ index %tmp.16 71 29 34 ];
+        symbol [ index %tmp.16 88 29 34 ];
         %tmp.17 = agetv %tmp.15 %tmp.16;
         invoke %tmp.13 %tmp.14(%tmp.17);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 72 12 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 89 12 ]
         %tmp.18 = self;
-        symbol [ saveAlarms %tmp.19 72 12 22 ];
+        symbol [ saveAlarms %tmp.19 89 12 22 ];
         %tmp.19 = getv function %tmp.18 :saveAlarms;
         %tmp.20 = lgetv %list.1;
-        symbol [ list %tmp.20 72 23 27 ];
+        symbol [ list %tmp.20 89 23 27 ];
         invoke %tmp.18 %tmp.19(%tmp.20);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_47_73_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_8_73_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_70_8_73_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_68_57_74_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_47_90_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_8_90_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_8_90_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_85_57_91_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 77; @symbol_functiondef = [nextId,77,20,26]; @symbol_return<0> = [Number,77,32,38]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 94; @symbol_functiondef = [nextId,94,20,26]; @symbol_return<0> = [Number,94,32,38]; ]
     static
     function nextId() as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_39_82_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 78 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_39_82_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_39_82_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_94_39_99_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 95 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_94_39_99_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_94_39_99_4_stop" ]
         %id.1 = local;
-        symbol [ id %id.1 78 12 14 ];
-        symbol [ Application %tmp.1 78 17 28 ];
+        symbol [ id %id.1 95 12 14 ];
+        symbol [ Application %tmp.1 95 17 28 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 78 29 36 ];
+        symbol [ Storage %tmp.2 95 29 36 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ getValue %tmp.3 78 37 45 ];
+        symbol [ getValue %tmp.3 95 37 45 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        symbol [ KEY_NEXT_ID %tmp.5 78 46 57 ];
+        symbol [ KEY_NEXT_ID %tmp.5 95 46 57 ];
         %tmp.5 = getv ? :KEY_NEXT_ID;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         lputv %id.1 %tmp.6;
-        symbol [ id %id.1 78 12 14 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 79 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_79_34_if_stmt:
+        symbol [ id %id.1 95 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 96 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_96_8_96_34_if_stmt:
         %tmp.7 = lgetv %id.1;
-        symbol [ id %tmp.7 79 12 14 ];
+        symbol [ id %tmp.7 96 12 14 ];
         %tmp.8 = null;
         %tmp.9 = eq %tmp.7 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_79_34_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_79_34_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_24_79_34_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 79 26 ]
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_96_8_96_34_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_96_8_96_34_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_96_24_96_34_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 96 26 ]
         %tmp.10 = 1;
         lputv %id.1 %tmp.10;
-        symbol [ id %id.1 79 26 28 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_24_79_34_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_79_34_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_79_8_79_34_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 80 8 ]
-        symbol [ Application %tmp.11 80 8 19 ];
+        symbol [ id %id.1 96 26 28 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_96_24_96_34_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_96_8_96_34_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_96_8_96_34_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 97 8 ]
+        symbol [ Application %tmp.11 97 8 19 ];
         %tmp.11 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.12 80 20 27 ];
+        symbol [ Storage %tmp.12 97 20 27 ];
         %tmp.12 = getv %tmp.11 :Storage;
-        symbol [ setValue %tmp.13 80 28 36 ];
+        symbol [ setValue %tmp.13 97 28 36 ];
         %tmp.13 = getv function %tmp.12 :setValue;
-        symbol [ KEY_NEXT_ID %tmp.15 80 37 48 ];
+        symbol [ KEY_NEXT_ID %tmp.15 97 37 48 ];
         %tmp.15 = getv ? :KEY_NEXT_ID;
         %tmp.16 = lgetv %id.1;
-        symbol [ id %tmp.16 80 50 52 ];
+        symbol [ id %tmp.16 97 50 52 ];
         %tmp.17 = 1;
         %tmp.18 = add %tmp.16 %tmp.17;
         invoke %tmp.12 %tmp.13(%tmp.15, %tmp.18);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 81 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 98 8 ]
         %tmp.19 = lgetv %id.1;
-        symbol [ id %tmp.19 81 15 17 ];
+        symbol [ id %tmp.19 98 15 17 ];
         ret %tmp.19;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_77_39_82_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_94_39_99_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 86; @symbol_functiondef = [isOn,86,20,24]; @symbol_param<0> = [a,86,25,26]; @symbol_param<0>_type<0> = [Dictionary,86,30,40]; @symbol_return<0> = [Boolean,86,47,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 103; @symbol_functiondef = [isOn,103,20,24]; @symbol_param<0> = [a,103,25,26]; @symbol_param<0>_type<0> = [Dictionary,103,30,40]; @symbol_return<0> = [Boolean,103,47,54]; ]
     static
     function isOn(a as Dictionary) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_86_55_86_84_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 86 57 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_103_55_103_84_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 103 57 ]
         %tmp.1 = self;
-        symbol [ _b %tmp.2 86 64 66 ];
+        symbol [ _b %tmp.2 103 64 66 ];
         %tmp.2 = getv function %tmp.1 :_b;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 86 67 68 ];
+        symbol [ a %tmp.3 103 67 68 ];
         %tmp.4 = "on";
         %tmp.5 = false;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_86_55_86_84_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_103_55_103_84_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 87; @symbol_functiondef = [hour,87,20,24]; @symbol_param<0> = [a,87,25,26]; @symbol_param<0>_type<0> = [Dictionary,87,30,40]; @symbol_return<0> = [Number,87,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 104; @symbol_functiondef = [hour,104,20,24]; @symbol_param<0> = [a,104,25,26]; @symbol_param<0>_type<0> = [Dictionary,104,30,40]; @symbol_return<0> = [Number,104,48,54]; ]
     static
     function hour(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_56_87_80_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 87 58 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_104_56_104_80_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 104 58 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 87 65 67 ];
+        symbol [ _n %tmp.2 104 65 67 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 87 68 69 ];
+        symbol [ a %tmp.3 104 68 69 ];
         %tmp.4 = "h";
         %tmp.5 = 7;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_87_56_87_80_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_104_56_104_80_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 88; @symbol_functiondef = [minute,88,20,26]; @symbol_param<0> = [a,88,27,28]; @symbol_param<0>_type<0> = [Dictionary,88,32,42]; @symbol_return<0> = [Number,88,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 105; @symbol_functiondef = [minute,105,20,26]; @symbol_param<0> = [a,105,27,28]; @symbol_param<0>_type<0> = [Dictionary,105,32,42]; @symbol_return<0> = [Number,105,48,54]; ]
     static
     function minute(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_88_56_88_80_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 88 58 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_105_56_105_80_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 105 58 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 88 65 67 ];
+        symbol [ _n %tmp.2 105 65 67 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 88 68 69 ];
+        symbol [ a %tmp.3 105 68 69 ];
         %tmp.4 = "m";
         %tmp.5 = 0;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_88_56_88_80_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_105_56_105_80_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 89; @symbol_functiondef = [days,89,20,24]; @symbol_param<0> = [a,89,25,26]; @symbol_param<0>_type<0> = [Dictionary,89,30,40]; @symbol_return<0> = [Number,89,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 106; @symbol_functiondef = [days,106,20,24]; @symbol_param<0> = [a,106,25,26]; @symbol_param<0>_type<0> = [Dictionary,106,30,40]; @symbol_return<0> = [Number,106,48,54]; ]
     static
     function days(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_89_56_89_83_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 89 58 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_106_56_106_83_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 106 58 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 89 65 67 ];
+        symbol [ _n %tmp.2 106 65 67 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 89 68 69 ];
+        symbol [ a %tmp.3 106 68 69 ];
         %tmp.4 = "days";
         %tmp.5 = 0;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_89_56_89_83_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_106_56_106_83_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 90; @symbol_functiondef = [type,90,20,24]; @symbol_param<0> = [a,90,25,26]; @symbol_param<0>_type<0> = [Dictionary,90,30,40]; @symbol_return<0> = [Number,90,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 107; @symbol_functiondef = [type,107,20,24]; @symbol_param<0> = [a,107,25,26]; @symbol_param<0>_type<0> = [Dictionary,107,30,40]; @symbol_return<0> = [Number,107,48,54]; ]
     static
     function type(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_90_56_90_92_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 90 58 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_107_56_107_92_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 107 58 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 90 65 67 ];
+        symbol [ _n %tmp.2 107 65 67 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 90 68 69 ];
+        symbol [ a %tmp.3 107 68 69 ];
         %tmp.4 = "type";
-        symbol [ TYPE_SLEEP %tmp.6 90 79 89 ];
+        symbol [ TYPE_SLEEP %tmp.6 107 79 89 ];
         %tmp.6 = getv ? :TYPE_SLEEP;
         %tmp.7 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.6);
         ret %tmp.7;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_90_56_90_92_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_107_56_107_92_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 91; @symbol_functiondef = [window,91,20,26]; @symbol_param<0> = [a,91,27,28]; @symbol_param<0>_type<0> = [Dictionary,91,32,42]; @symbol_return<0> = [Number,91,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 108; @symbol_functiondef = [window,108,20,26]; @symbol_param<0> = [a,108,27,28]; @symbol_param<0>_type<0> = [Dictionary,108,32,42]; @symbol_return<0> = [Number,108,48,54]; ]
     static
     function window(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_91_56_91_83_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 91 58 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_108_56_108_83_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 108 58 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 91 65 67 ];
+        symbol [ _n %tmp.2 108 65 67 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 91 68 69 ];
+        symbol [ a %tmp.3 108 68 69 ];
         %tmp.4 = "win";
         %tmp.5 = 30;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_91_56_91_83_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_108_56_108_83_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 92; @symbol_functiondef = [mode,92,20,24]; @symbol_param<0> = [a,92,25,26]; @symbol_param<0>_type<0> = [Dictionary,92,30,40]; @symbol_return<0> = [Number,92,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 109; @symbol_functiondef = [mode,109,20,24]; @symbol_param<0> = [a,109,25,26]; @symbol_param<0>_type<0> = [Dictionary,109,30,40]; @symbol_return<0> = [Number,109,48,54]; ]
     static
     function mode(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_92_56_92_91_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 92 58 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_109_56_109_91_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 109 58 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 92 65 67 ];
+        symbol [ _n %tmp.2 109 65 67 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 92 68 69 ];
+        symbol [ a %tmp.3 109 68 69 ];
         %tmp.4 = "mode";
-        symbol [ MODE_BOTH %tmp.6 92 79 88 ];
+        symbol [ MODE_BOTH %tmp.6 109 79 88 ];
         %tmp.6 = getv ? :MODE_BOTH;
         %tmp.7 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.6);
         ret %tmp.7;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_92_56_92_91_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_109_56_109_91_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 93; @symbol_functiondef = [label,93,20,25]; @symbol_param<0> = [a,93,26,27]; @symbol_param<0>_type<0> = [Dictionary,93,31,41]; @symbol_return<0> = [String,93,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 110; @symbol_functiondef = [label,110,20,25]; @symbol_param<0> = [a,110,26,27]; @symbol_param<0>_type<0> = [Dictionary,110,31,41]; @symbol_return<0> = [String,110,48,54]; ]
     static
     function label(a as Dictionary) as String {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_93_56_96_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 94 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_93_56_96_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_93_56_96_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_110_56_113_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 111 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_110_56_113_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_110_56_113_4_stop" ]
         %v.1 = local;
-        symbol [ v %v.1 94 12 13 ];
+        symbol [ v %v.1 111 12 13 ];
         %tmp.1 = lgetv %a;
-        symbol [ a %tmp.1 94 16 17 ];
-        symbol [ get %tmp.2 94 18 21 ];
+        symbol [ a %tmp.1 111 16 17 ];
+        symbol [ get %tmp.2 111 18 21 ];
         %tmp.2 = getv function %tmp.1 :get;
         %tmp.3 = "label";
         %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
         lputv %v.1 %tmp.4;
-        symbol [ v %v.1 94 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 95 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_begin:
+        symbol [ v %v.1 111 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 112 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_begin:
         %tmp.5 = lgetv %v.1;
-        symbol [ v %tmp.5 95 16 17 ];
+        symbol [ v %tmp.5 112 16 17 ];
         %tmp.6 = null;
         %tmp.7 = ne %tmp.5 %tmp.6;
-        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_true:
+        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_true:
         %tmp.8 = lgetv %v.1;
-        symbol [ v %tmp.8 95 29 30 ];
+        symbol [ v %tmp.8 112 29 30 ];
         %tmp.9 = as %tmp.8 { (!Null) };
         %tmp.10 = as %tmp.9 String;
-        symbol [ String %tmp.10 95 34 40 ];
+        symbol [ String %tmp.10 112 34 40 ];
         push %tmp.10;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_else_false:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_else_false:
         %tmp.11 = "Alarm";
         push %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_end:
-        %tmp.12 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_begin] [%tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_true] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_else_false] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_95_15_95_43_end];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_end:
+        %tmp.12 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_begin] [%tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_true] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_else_false] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_112_15_112_43_end];
         ret %tmp.12;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_93_56_96_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_110_56_113_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 97; @symbol_functiondef = [id,97,20,22]; @symbol_param<0> = [a,97,23,24]; @symbol_param<0>_type<0> = [Dictionary,97,28,38]; @symbol_return<0> = [Number,97,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 114; @symbol_functiondef = [id,114,20,22]; @symbol_param<0> = [a,114,23,24]; @symbol_param<0>_type<0> = [Dictionary,114,28,38]; @symbol_return<0> = [Number,114,48,54]; ]
     static
     function id(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_97_56_97_81_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 97 58 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_56_114_81_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 114 58 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 97 65 67 ];
+        symbol [ _n %tmp.2 114 65 67 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 97 68 69 ];
+        symbol [ a %tmp.3 114 68 69 ];
         %tmp.4 = "id";
         %tmp.5 = 0;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_97_56_97_81_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_56_114_81_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 100; @symbol_functiondef = [totalMinutes,100,20,32]; @symbol_param<0> = [a,100,33,34]; @symbol_param<0>_type<0> = [Dictionary,100,38,48]; @symbol_return<0> = [Number,100,53,59]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 117; @symbol_functiondef = [totalMinutes,117,20,32]; @symbol_param<0> = [a,117,33,34]; @symbol_param<0>_type<0> = [Dictionary,117,38,48]; @symbol_return<0> = [Number,117,53,59]; ]
     static
     function totalMinutes(a as Dictionary) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_100_60_102_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 101 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_117_60_119_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 118 8 ]
         %tmp.1 = self;
-        symbol [ hour %tmp.2 101 15 19 ];
+        symbol [ hour %tmp.2 118 15 19 ];
         %tmp.2 = getv function %tmp.1 :hour;
         %tmp.3 = lgetv %a;
-        symbol [ a %tmp.3 101 20 21 ];
+        symbol [ a %tmp.3 118 20 21 ];
         %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
         %tmp.5 = 60;
         %tmp.6 = mul %tmp.4 %tmp.5;
         %tmp.7 = self;
-        symbol [ minute %tmp.8 101 30 36 ];
+        symbol [ minute %tmp.8 118 30 36 ];
         %tmp.8 = getv function %tmp.7 :minute;
         %tmp.9 = lgetv %a;
-        symbol [ a %tmp.9 101 37 38 ];
+        symbol [ a %tmp.9 118 37 38 ];
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         %tmp.11 = add %tmp.6 %tmp.10;
         ret %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_100_60_102_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_117_60_119_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 111; @symbol_functiondef = [resetIfNewDay,111,20,33]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 128; @symbol_functiondef = [resetIfNewDay,128,20,33]; ]
     static
     function resetIfNewDay() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_111_44_121_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 112 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_111_44_121_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_111_44_121_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_128_44_138_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 129 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_128_44_138_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_128_44_138_4_stop" ]
         %today.1 = local;
-        symbol [ today %today.1 112 12 17 ];
-        symbol [ Gregorian %tmp.1 112 20 29 ];
+        symbol [ today %today.1 129 12 17 ];
+        symbol [ Gregorian %tmp.1 129 20 29 ];
         %tmp.1 = getm $.Toybox.Time.Gregorian;
-        symbol [ info %tmp.2 112 30 34 ];
+        symbol [ info %tmp.2 129 30 34 ];
         %tmp.2 = getv function %tmp.1 :info;
-        symbol [ Time %tmp.3 112 35 39 ];
+        symbol [ Time %tmp.3 129 35 39 ];
         %tmp.3 = getm $.Toybox.Time;
-        symbol [ now %tmp.4 112 40 43 ];
+        symbol [ now %tmp.4 129 40 43 ];
         %tmp.4 = getv function %tmp.3 :now;
         %tmp.5 = invoke %tmp.3 %tmp.4();
-        symbol [ Time %tmp.6 112 47 51 ];
+        symbol [ Time %tmp.6 129 47 51 ];
         %tmp.6 = getm $.Toybox.Time;
-        symbol [ FORMAT_SHORT %tmp.7 112 52 64 ];
+        symbol [ FORMAT_SHORT %tmp.7 129 52 64 ];
         %tmp.7 = getv %tmp.6 :FORMAT_SHORT;
         %tmp.8 = invoke %tmp.1 %tmp.2(%tmp.5, %tmp.7);
-        symbol [ day %tmp.9 112 66 69 ];
+        symbol [ day %tmp.9 129 66 69 ];
         %tmp.9 = getv %tmp.8 :day;
         lputv %today.1 %tmp.9;
-        symbol [ today %today.1 112 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 113 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_111_44_121_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_111_44_121_4_stop" ]
+        symbol [ today %today.1 129 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 130 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_128_44_138_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_128_44_138_4_stop" ]
         %stored.2 = local;
-        symbol [ stored %stored.2 113 12 18 ];
-        symbol [ Application %tmp.10 113 21 32 ];
+        symbol [ stored %stored.2 130 12 18 ];
+        symbol [ Application %tmp.10 130 21 32 ];
         %tmp.10 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.11 113 33 40 ];
+        symbol [ Storage %tmp.11 130 33 40 ];
         %tmp.11 = getv %tmp.10 :Storage;
-        symbol [ getValue %tmp.12 113 41 49 ];
+        symbol [ getValue %tmp.12 130 41 49 ];
         %tmp.12 = getv function %tmp.11 :getValue;
-        symbol [ KEY_STATE_DAY %tmp.14 113 50 63 ];
+        symbol [ KEY_STATE_DAY %tmp.14 130 50 63 ];
         %tmp.14 = getv ? :KEY_STATE_DAY;
         %tmp.15 = invoke %tmp.11 %tmp.12(%tmp.14);
         lputv %stored.2 %tmp.15;
-        symbol [ stored %stored.2 113 12 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 114 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_8_120_8_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_12_114_40_begin:
+        symbol [ stored %stored.2 130 12 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 131 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_8_137_8_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_12_131_40_begin:
         %tmp.16 = lgetv %stored.2;
-        symbol [ stored %tmp.16 114 12 18 ];
+        symbol [ stored %tmp.16 131 12 18 ];
         %tmp.17 = null;
         %tmp.18 = eq %tmp.16 %tmp.17;
-        bt %tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_8_120_8_if_true;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_30_114_40_false:
+        bt %tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_8_137_8_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_30_131_40_false:
         %tmp.19 = lgetv %stored.2;
-        symbol [ stored %tmp.19 114 30 36 ];
+        symbol [ stored %tmp.19 131 30 36 ];
         %tmp.20 = as %tmp.19 { (!Null) };
         %tmp.21 = lgetv %today.1;
-        symbol [ today %tmp.21 114 40 45 ];
+        symbol [ today %tmp.21 131 40 45 ];
         %tmp.22 = ne %tmp.20 %tmp.21;
         push %tmp.22;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_30_114_40_end:
-        %tmp.23 = phi [%tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_12_114_40_begin] [%tmp.22 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_30_114_40_false] [%tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_30_114_40_end];
-        bf %tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_8_120_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_8_120_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_47_120_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 115 12 ]
-        symbol [ Application %tmp.24 115 12 23 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_30_131_40_end:
+        %tmp.23 = phi [%tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_12_131_40_begin] [%tmp.22 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_30_131_40_false] [%tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_30_131_40_end];
+        bf %tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_8_137_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_8_137_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_47_137_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 132 12 ]
+        symbol [ Application %tmp.24 132 12 23 ];
         %tmp.24 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.25 115 24 31 ];
+        symbol [ Storage %tmp.25 132 24 31 ];
         %tmp.25 = getv %tmp.24 :Storage;
-        symbol [ setValue %tmp.26 115 32 40 ];
+        symbol [ setValue %tmp.26 132 32 40 ];
         %tmp.26 = getv function %tmp.25 :setValue;
-        symbol [ KEY_STATE_DAY %tmp.28 115 41 54 ];
+        symbol [ KEY_STATE_DAY %tmp.28 132 41 54 ];
         %tmp.28 = getv ? :KEY_STATE_DAY;
         %tmp.29 = lgetv %today.1;
-        symbol [ today %tmp.29 115 56 61 ];
+        symbol [ today %tmp.29 132 56 61 ];
         invoke %tmp.25 %tmp.26(%tmp.28, %tmp.29);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 116 12 ]
-        symbol [ Application %tmp.30 116 12 23 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 133 12 ]
+        symbol [ Application %tmp.30 133 12 23 ];
         %tmp.30 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.31 116 24 31 ];
+        symbol [ Storage %tmp.31 133 24 31 ];
         %tmp.31 = getv %tmp.30 :Storage;
-        symbol [ setValue %tmp.32 116 32 40 ];
+        symbol [ setValue %tmp.32 133 32 40 ];
         %tmp.32 = getv function %tmp.31 :setValue;
-        symbol [ KEY_DAY_STATE %tmp.34 116 41 54 ];
+        symbol [ KEY_DAY_STATE %tmp.34 133 41 54 ];
         %tmp.34 = getv ? :KEY_DAY_STATE;
         %tmp.35 = newd 0;
         invoke %tmp.31 %tmp.32(%tmp.34, %tmp.35);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 118 12 ]
-        symbol [ Application %tmp.36 118 12 23 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 135 12 ]
+        symbol [ Application %tmp.36 135 12 23 ];
         %tmp.36 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.37 118 24 31 ];
+        symbol [ Storage %tmp.37 135 24 31 ];
         %tmp.37 = getv %tmp.36 :Storage;
-        symbol [ setValue %tmp.38 118 32 40 ];
+        symbol [ setValue %tmp.38 135 32 40 ];
         %tmp.38 = getv function %tmp.37 :setValue;
-        symbol [ KEY_RING_ID %tmp.40 118 41 52 ];
+        symbol [ KEY_RING_ID %tmp.40 135 41 52 ];
         %tmp.40 = getv ? :KEY_RING_ID;
         %tmp.41 = null;
         invoke %tmp.37 %tmp.38(%tmp.40, %tmp.41);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 119 12 ]
-        symbol [ Application %tmp.42 119 12 23 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 136 12 ]
+        symbol [ Application %tmp.42 136 12 23 ];
         %tmp.42 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.43 119 24 31 ];
+        symbol [ Storage %tmp.43 136 24 31 ];
         %tmp.43 = getv %tmp.42 :Storage;
-        symbol [ setValue %tmp.44 119 32 40 ];
+        symbol [ setValue %tmp.44 136 32 40 ];
         %tmp.44 = getv function %tmp.43 :setValue;
-        symbol [ KEY_SNOOZE_UNTIL %tmp.46 119 41 57 ];
+        symbol [ KEY_SNOOZE_UNTIL %tmp.46 136 41 57 ];
         %tmp.46 = getv ? :KEY_SNOOZE_UNTIL;
         %tmp.47 = null;
         invoke %tmp.43 %tmp.44(%tmp.46, %tmp.47);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_47_120_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_8_120_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_114_8_120_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_111_44_121_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_47_137_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_8_137_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_131_8_137_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_128_44_138_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 123; @symbol_functiondef = [getDayState,123,20,31]; @symbol_return<0> = [Dictionary,123,37,47]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 140; @symbol_functiondef = [getDayState,140,20,31]; @symbol_return<0> = [Dictionary,140,37,47]; ]
     static
     function getDayState() as Dictionary {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_123_48_127_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 124 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_123_48_127_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_123_48_127_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_140_48_144_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 141 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_140_48_144_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_140_48_144_4_stop" ]
         %v.1 = local;
-        symbol [ v %v.1 124 12 13 ];
-        symbol [ Application %tmp.1 124 16 27 ];
+        symbol [ v %v.1 141 12 13 ];
+        symbol [ Application %tmp.1 141 16 27 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 124 28 35 ];
+        symbol [ Storage %tmp.2 141 28 35 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ getValue %tmp.3 124 36 44 ];
+        symbol [ getValue %tmp.3 141 36 44 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        symbol [ KEY_DAY_STATE %tmp.5 124 45 58 ];
+        symbol [ KEY_DAY_STATE %tmp.5 141 45 58 ];
         %tmp.5 = getv ? :KEY_DAY_STATE;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         lputv %v.1 %tmp.6;
-        symbol [ v %v.1 124 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 125 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_125_8_125_36_if_stmt:
+        symbol [ v %v.1 141 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 142 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_142_8_142_36_if_stmt:
         %tmp.7 = lgetv %v.1;
-        symbol [ v %tmp.7 125 12 13 ];
+        symbol [ v %tmp.7 142 12 13 ];
         %tmp.8 = null;
         %tmp.9 = eq %tmp.7 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_125_8_125_36_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_125_8_125_36_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_125_23_125_36_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 125 25 ]
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_142_8_142_36_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_142_8_142_36_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_142_23_142_36_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 142 25 ]
         %tmp.10 = newd 0;
         ret %tmp.10;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_125_23_125_36_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_125_8_125_36_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_125_8_125_36_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 126 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_142_23_142_36_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_142_8_142_36_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_142_8_142_36_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 143 8 ]
         %tmp.11 = lgetv %v.1;
-        symbol [ v %tmp.11 126 15 16 ];
+        symbol [ v %tmp.11 143 15 16 ];
         %tmp.12 = as %tmp.11 Dictionary;
-        symbol [ Dictionary %tmp.12 126 20 30 ];
+        symbol [ Dictionary %tmp.12 143 20 30 ];
         ret %tmp.12;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_123_48_127_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_140_48_144_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 129; @symbol_functiondef = [stateFor,129,20,28]; @symbol_param<0> = [alarmId,129,29,36]; @symbol_param<0>_type<0> = [Number,129,40,46]; @symbol_return<0> = [Dictionary,129,51,61]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 146; @symbol_functiondef = [stateFor,146,20,28]; @symbol_param<0> = [alarmId,146,29,36]; @symbol_param<0>_type<0> = [Number,146,40,46]; @symbol_return<0> = [Dictionary,146,51,61]; ]
     static
     function stateFor(alarmId as Number) as Dictionary {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 130 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 147 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_stop" ]
         %all.1 = local;
-        symbol [ all %all.1 130 12 15 ];
+        symbol [ all %all.1 147 12 15 ];
         %tmp.1 = self;
-        symbol [ getDayState %tmp.2 130 18 29 ];
+        symbol [ getDayState %tmp.2 147 18 29 ];
         %tmp.2 = getv function %tmp.1 :getDayState;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %all.1 %tmp.3;
-        symbol [ all %all.1 130 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 131 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_stop" ]
+        symbol [ all %all.1 147 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 148 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_stop" ]
         %key.2 = local;
-        symbol [ key %key.2 131 12 15 ];
+        symbol [ key %key.2 148 12 15 ];
         %tmp.4 = lgetv %alarmId;
-        symbol [ alarmId %tmp.4 131 18 25 ];
-        symbol [ toString %tmp.5 131 26 34 ];
+        symbol [ alarmId %tmp.4 148 18 25 ];
+        symbol [ toString %tmp.5 148 26 34 ];
         %tmp.5 = getv function %tmp.4 :toString;
         %tmp.6 = invoke %tmp.4 %tmp.5();
         lputv %key.2 %tmp.6;
-        symbol [ key %key.2 131 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 132 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_stop" ]
+        symbol [ key %key.2 148 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 149 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_stop" ]
         %s.3 = local;
-        symbol [ s %s.3 132 12 13 ];
+        symbol [ s %s.3 149 12 13 ];
         %tmp.7 = lgetv %all.1;
-        symbol [ all %tmp.7 132 16 19 ];
-        symbol [ get %tmp.8 132 20 23 ];
+        symbol [ all %tmp.7 149 16 19 ];
+        symbol [ get %tmp.8 149 20 23 ];
         %tmp.8 = getv function %tmp.7 :get;
         %tmp.9 = lgetv %key.2;
-        symbol [ key %tmp.9 132 24 27 ];
+        symbol [ key %tmp.9 149 24 27 ];
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         lputv %s.3 %tmp.10;
-        symbol [ s %s.3 132 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 133 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_8_133_74_if_stmt:
+        symbol [ s %s.3 149 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 150 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_150_8_150_74_if_stmt:
         %tmp.11 = lgetv %s.3;
-        symbol [ s %tmp.11 133 12 13 ];
+        symbol [ s %tmp.11 150 12 13 ];
         %tmp.12 = null;
         %tmp.13 = eq %tmp.11 %tmp.12;
-        bf %tmp.13 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_8_133_74_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_8_133_74_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_23_133_74_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 133 25 ]
+        bf %tmp.13 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_150_8_150_74_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_150_8_150_74_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_150_23_150_74_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 150 25 ]
         %tmp.14 = newd 3;
         %tmp.15 = "f";
         %tmp.16 = false;
@@ -737,466 +870,655 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_23_133_74_star
         %tmp.25 = dup %tmp.22;
         %tmp.26 = aputv %tmp.25 %tmp.23 %tmp.24;
         ret %tmp.26;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_23_133_74_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_8_133_74_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_133_8_133_74_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 134 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_150_23_150_74_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_150_8_150_74_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_150_8_150_74_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 151 8 ]
         %tmp.27 = lgetv %s.3;
-        symbol [ s %tmp.27 134 15 16 ];
+        symbol [ s %tmp.27 151 15 16 ];
         %tmp.28 = as %tmp.27 Dictionary;
-        symbol [ Dictionary %tmp.28 134 20 30 ];
+        symbol [ Dictionary %tmp.28 151 20 30 ];
         ret %tmp.28;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_129_62_135_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_146_62_152_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 137; @symbol_functiondef = [setStateFor,137,20,31]; @symbol_param<0> = [alarmId,137,32,39]; @symbol_param<0>_type<0> = [Number,137,43,49]; @symbol_param<1> = [s,137,51,52]; @symbol_param<1>_type<0> = [Dictionary,137,56,66]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 154; @symbol_functiondef = [setStateFor,154,20,31]; @symbol_param<0> = [alarmId,154,32,39]; @symbol_param<0>_type<0> = [Number,154,43,49]; @symbol_param<1> = [s,154,51,52]; @symbol_param<1>_type<0> = [Dictionary,154,56,66]; ]
     static
     function setStateFor(alarmId as Number, s as Dictionary) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_137_76_141_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 138 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_137_76_141_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_137_76_141_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_154_76_158_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 155 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_154_76_158_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_154_76_158_4_stop" ]
         %all.1 = local;
-        symbol [ all %all.1 138 12 15 ];
+        symbol [ all %all.1 155 12 15 ];
         %tmp.1 = self;
-        symbol [ getDayState %tmp.2 138 18 29 ];
+        symbol [ getDayState %tmp.2 155 18 29 ];
         %tmp.2 = getv function %tmp.1 :getDayState;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %all.1 %tmp.3;
-        symbol [ all %all.1 138 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 139 8 ]
+        symbol [ all %all.1 155 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 156 8 ]
         %tmp.4 = lgetv %all.1;
-        symbol [ all %tmp.4 139 8 11 ];
-        symbol [ put %tmp.5 139 12 15 ];
+        symbol [ all %tmp.4 156 8 11 ];
+        symbol [ put %tmp.5 156 12 15 ];
         %tmp.5 = getv function %tmp.4 :put;
         %tmp.6 = lgetv %alarmId;
-        symbol [ alarmId %tmp.6 139 16 23 ];
-        symbol [ toString %tmp.7 139 24 32 ];
+        symbol [ alarmId %tmp.6 156 16 23 ];
+        symbol [ toString %tmp.7 156 24 32 ];
         %tmp.7 = getv function %tmp.6 :toString;
         %tmp.8 = invoke %tmp.6 %tmp.7();
         %tmp.9 = lgetv %s;
-        symbol [ s %tmp.9 139 36 37 ];
+        symbol [ s %tmp.9 156 36 37 ];
         invoke %tmp.4 %tmp.5(%tmp.8, %tmp.9);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 140 8 ]
-        symbol [ Application %tmp.10 140 8 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 157 8 ]
+        symbol [ Application %tmp.10 157 8 19 ];
         %tmp.10 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.11 140 20 27 ];
+        symbol [ Storage %tmp.11 157 20 27 ];
         %tmp.11 = getv %tmp.10 :Storage;
-        symbol [ setValue %tmp.12 140 28 36 ];
+        symbol [ setValue %tmp.12 157 28 36 ];
         %tmp.12 = getv function %tmp.11 :setValue;
-        symbol [ KEY_DAY_STATE %tmp.14 140 37 50 ];
+        symbol [ KEY_DAY_STATE %tmp.14 157 37 50 ];
         %tmp.14 = getv ? :KEY_DAY_STATE;
         %tmp.15 = lgetv %all.1;
-        symbol [ all %tmp.15 140 52 55 ];
+        symbol [ all %tmp.15 157 52 55 ];
         invoke %tmp.11 %tmp.12(%tmp.14, %tmp.15);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_137_76_141_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_154_76_158_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 143; @symbol_functiondef = [markFired,143,20,29]; @symbol_param<0> = [alarmId,143,30,37]; @symbol_param<0>_type<0> = [Number,143,41,47]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 160; @symbol_functiondef = [markFired,160,20,29]; @symbol_param<0> = [alarmId,160,30,37]; @symbol_param<0>_type<0> = [Number,160,41,47]; ]
     static
     function markFired(alarmId as Number) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_143_57_147_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 144 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_143_57_147_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_143_57_147_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_160_57_164_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 161 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_160_57_164_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_160_57_164_4_stop" ]
         %s.1 = local;
-        symbol [ s %s.1 144 12 13 ];
+        symbol [ s %s.1 161 12 13 ];
         %tmp.1 = self;
-        symbol [ stateFor %tmp.2 144 16 24 ];
+        symbol [ stateFor %tmp.2 161 16 24 ];
         %tmp.2 = getv function %tmp.1 :stateFor;
         %tmp.3 = lgetv %alarmId;
-        symbol [ alarmId %tmp.3 144 25 32 ];
+        symbol [ alarmId %tmp.3 161 25 32 ];
         %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
         lputv %s.1 %tmp.4;
-        symbol [ s %s.1 144 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 145 8 ]
+        symbol [ s %s.1 161 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 162 8 ]
         %tmp.5 = lgetv %s.1;
-        symbol [ s %tmp.5 145 8 9 ];
-        symbol [ put %tmp.6 145 10 13 ];
+        symbol [ s %tmp.5 162 8 9 ];
+        symbol [ put %tmp.6 162 10 13 ];
         %tmp.6 = getv function %tmp.5 :put;
         %tmp.7 = "f";
         %tmp.8 = true;
         invoke %tmp.5 %tmp.6(%tmp.7, %tmp.8);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 146 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 163 8 ]
         %tmp.9 = self;
-        symbol [ setStateFor %tmp.10 146 8 19 ];
+        symbol [ setStateFor %tmp.10 163 8 19 ];
         %tmp.10 = getv function %tmp.9 :setStateFor;
         %tmp.11 = lgetv %alarmId;
-        symbol [ alarmId %tmp.11 146 20 27 ];
+        symbol [ alarmId %tmp.11 163 20 27 ];
         %tmp.12 = lgetv %s.1;
-        symbol [ s %tmp.12 146 29 30 ];
+        symbol [ s %tmp.12 163 29 30 ];
         invoke %tmp.9 %tmp.10(%tmp.11, %tmp.12);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_143_57_147_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_160_57_164_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 149; @symbol_functiondef = [markPlainFire,149,20,33]; @symbol_param<0> = [alarmId,149,34,41]; @symbol_param<0>_type<0> = [Number,149,45,51]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 166; @symbol_functiondef = [markPlainFire,166,20,33]; @symbol_param<0> = [alarmId,166,34,41]; @symbol_param<0>_type<0> = [Number,166,45,51]; ]
     static
     function markPlainFire(alarmId as Number) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_149_61_153_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 150 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_149_61_153_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_149_61_153_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_166_61_170_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 167 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_166_61_170_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_166_61_170_4_stop" ]
         %s.1 = local;
-        symbol [ s %s.1 150 12 13 ];
+        symbol [ s %s.1 167 12 13 ];
         %tmp.1 = self;
-        symbol [ stateFor %tmp.2 150 16 24 ];
+        symbol [ stateFor %tmp.2 167 16 24 ];
         %tmp.2 = getv function %tmp.1 :stateFor;
         %tmp.3 = lgetv %alarmId;
-        symbol [ alarmId %tmp.3 150 25 32 ];
+        symbol [ alarmId %tmp.3 167 25 32 ];
         %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
         lputv %s.1 %tmp.4;
-        symbol [ s %s.1 150 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 151 8 ]
+        symbol [ s %s.1 167 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 168 8 ]
         %tmp.5 = lgetv %s.1;
-        symbol [ s %tmp.5 151 8 9 ];
-        symbol [ put %tmp.6 151 10 13 ];
+        symbol [ s %tmp.5 168 8 9 ];
+        symbol [ put %tmp.6 168 10 13 ];
         %tmp.6 = getv function %tmp.5 :put;
         %tmp.7 = "p";
         %tmp.8 = true;
         invoke %tmp.5 %tmp.6(%tmp.7, %tmp.8);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 152 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 169 8 ]
         %tmp.9 = self;
-        symbol [ setStateFor %tmp.10 152 8 19 ];
+        symbol [ setStateFor %tmp.10 169 8 19 ];
         %tmp.10 = getv function %tmp.9 :setStateFor;
         %tmp.11 = lgetv %alarmId;
-        symbol [ alarmId %tmp.11 152 20 27 ];
+        symbol [ alarmId %tmp.11 169 20 27 ];
         %tmp.12 = lgetv %s.1;
-        symbol [ s %tmp.12 152 29 30 ];
+        symbol [ s %tmp.12 169 29 30 ];
         invoke %tmp.9 %tmp.10(%tmp.11, %tmp.12);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_149_61_153_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_166_61_170_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 155; @symbol_functiondef = [hasFired,155,20,28]; @symbol_param<0> = [alarmId,155,29,36]; @symbol_param<0>_type<0> = [Number,155,40,46]; @symbol_return<0> = [Boolean,155,51,58]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 172; @symbol_functiondef = [hasFired,172,20,28]; @symbol_param<0> = [alarmId,172,29,36]; @symbol_param<0>_type<0> = [Number,172,40,46]; @symbol_return<0> = [Boolean,172,51,58]; ]
     static
     function hasFired(alarmId as Number) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_155_59_157_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 156 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_172_59_174_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 173 8 ]
         %tmp.1 = self;
-        symbol [ _b %tmp.2 156 15 17 ];
+        symbol [ _b %tmp.2 173 15 17 ];
         %tmp.2 = getv function %tmp.1 :_b;
         %tmp.3 = self;
-        symbol [ stateFor %tmp.4 156 18 26 ];
+        symbol [ stateFor %tmp.4 173 18 26 ];
         %tmp.4 = getv function %tmp.3 :stateFor;
         %tmp.5 = lgetv %alarmId;
-        symbol [ alarmId %tmp.5 156 27 34 ];
+        symbol [ alarmId %tmp.5 173 27 34 ];
         %tmp.6 = invoke %tmp.3 %tmp.4(%tmp.5);
         %tmp.7 = "f";
         %tmp.8 = false;
         %tmp.9 = invoke %tmp.1 %tmp.2(%tmp.6, %tmp.7, %tmp.8);
         ret %tmp.9;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_155_59_157_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_172_59_174_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 159; @symbol_functiondef = [isPlainFire,159,20,31]; @symbol_param<0> = [alarmId,159,32,39]; @symbol_param<0>_type<0> = [Number,159,43,49]; @symbol_return<0> = [Boolean,159,54,61]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 176; @symbol_functiondef = [isPlainFire,176,20,31]; @symbol_param<0> = [alarmId,176,32,39]; @symbol_param<0>_type<0> = [Number,176,43,49]; @symbol_return<0> = [Boolean,176,54,61]; ]
     static
     function isPlainFire(alarmId as Number) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_159_62_161_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 160 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_176_62_178_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 177 8 ]
         %tmp.1 = self;
-        symbol [ _b %tmp.2 160 15 17 ];
+        symbol [ _b %tmp.2 177 15 17 ];
         %tmp.2 = getv function %tmp.1 :_b;
         %tmp.3 = self;
-        symbol [ stateFor %tmp.4 160 18 26 ];
+        symbol [ stateFor %tmp.4 177 18 26 ];
         %tmp.4 = getv function %tmp.3 :stateFor;
         %tmp.5 = lgetv %alarmId;
-        symbol [ alarmId %tmp.5 160 27 34 ];
+        symbol [ alarmId %tmp.5 177 27 34 ];
         %tmp.6 = invoke %tmp.3 %tmp.4(%tmp.5);
         %tmp.7 = "p";
         %tmp.8 = false;
         %tmp.9 = invoke %tmp.1 %tmp.2(%tmp.6, %tmp.7, %tmp.8);
         ret %tmp.9;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_159_62_161_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_176_62_178_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 163; @symbol_functiondef = [snoozeCount,163,20,31]; @symbol_param<0> = [alarmId,163,32,39]; @symbol_param<0>_type<0> = [Number,163,43,49]; @symbol_return<0> = [Number,163,54,60]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 180; @symbol_functiondef = [snoozeCount,180,20,31]; @symbol_param<0> = [alarmId,180,32,39]; @symbol_param<0>_type<0> = [Number,180,43,49]; @symbol_return<0> = [Number,180,54,60]; ]
     static
     function snoozeCount(alarmId as Number) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_163_61_165_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 164 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_180_61_182_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 181 8 ]
         %tmp.1 = self;
-        symbol [ _n %tmp.2 164 15 17 ];
+        symbol [ _n %tmp.2 181 15 17 ];
         %tmp.2 = getv function %tmp.1 :_n;
         %tmp.3 = self;
-        symbol [ stateFor %tmp.4 164 18 26 ];
+        symbol [ stateFor %tmp.4 181 18 26 ];
         %tmp.4 = getv function %tmp.3 :stateFor;
         %tmp.5 = lgetv %alarmId;
-        symbol [ alarmId %tmp.5 164 27 34 ];
+        symbol [ alarmId %tmp.5 181 27 34 ];
         %tmp.6 = invoke %tmp.3 %tmp.4(%tmp.5);
         %tmp.7 = "s";
         %tmp.8 = 0;
         %tmp.9 = invoke %tmp.1 %tmp.2(%tmp.6, %tmp.7, %tmp.8);
         ret %tmp.9;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_163_61_165_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_180_61_182_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 167; @symbol_functiondef = [incSnooze,167,20,29]; @symbol_param<0> = [alarmId,167,30,37]; @symbol_param<0>_type<0> = [Number,167,41,47]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 184; @symbol_functiondef = [incSnooze,184,20,29]; @symbol_param<0> = [alarmId,184,30,37]; @symbol_param<0>_type<0> = [Number,184,41,47]; ]
     static
     function incSnooze(alarmId as Number) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_167_57_171_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 168 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_167_57_171_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_167_57_171_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_184_57_188_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 185 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_184_57_188_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_184_57_188_4_stop" ]
         %s.1 = local;
-        symbol [ s %s.1 168 12 13 ];
+        symbol [ s %s.1 185 12 13 ];
         %tmp.1 = self;
-        symbol [ stateFor %tmp.2 168 16 24 ];
+        symbol [ stateFor %tmp.2 185 16 24 ];
         %tmp.2 = getv function %tmp.1 :stateFor;
         %tmp.3 = lgetv %alarmId;
-        symbol [ alarmId %tmp.3 168 25 32 ];
+        symbol [ alarmId %tmp.3 185 25 32 ];
         %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
         lputv %s.1 %tmp.4;
-        symbol [ s %s.1 168 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 169 8 ]
+        symbol [ s %s.1 185 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 186 8 ]
         %tmp.5 = lgetv %s.1;
-        symbol [ s %tmp.5 169 8 9 ];
-        symbol [ put %tmp.6 169 10 13 ];
+        symbol [ s %tmp.5 186 8 9 ];
+        symbol [ put %tmp.6 186 10 13 ];
         %tmp.6 = getv function %tmp.5 :put;
         %tmp.7 = "s";
         %tmp.8 = self;
-        symbol [ _n %tmp.9 169 19 21 ];
+        symbol [ _n %tmp.9 186 19 21 ];
         %tmp.9 = getv function %tmp.8 :_n;
         %tmp.10 = lgetv %s.1;
-        symbol [ s %tmp.10 169 22 23 ];
+        symbol [ s %tmp.10 186 22 23 ];
         %tmp.11 = "s";
         %tmp.12 = 0;
         %tmp.13 = invoke %tmp.8 %tmp.9(%tmp.10, %tmp.11, %tmp.12);
         %tmp.14 = 1;
         %tmp.15 = add %tmp.13 %tmp.14;
         invoke %tmp.5 %tmp.6(%tmp.7, %tmp.15);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 170 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 187 8 ]
         %tmp.16 = self;
-        symbol [ setStateFor %tmp.17 170 8 19 ];
+        symbol [ setStateFor %tmp.17 187 8 19 ];
         %tmp.17 = getv function %tmp.16 :setStateFor;
         %tmp.18 = lgetv %alarmId;
-        symbol [ alarmId %tmp.18 170 20 27 ];
+        symbol [ alarmId %tmp.18 187 20 27 ];
         %tmp.19 = lgetv %s.1;
-        symbol [ s %tmp.19 170 29 30 ];
+        symbol [ s %tmp.19 187 29 30 ];
         invoke %tmp.16 %tmp.17(%tmp.18, %tmp.19);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_167_57_171_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_184_57_188_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 175; @symbol_functiondef = [ringingId,175,20,29]; @symbol_return<0> = [Number,175,35,41]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 192; @symbol_functiondef = [ringingId,192,20,29]; @symbol_return<0> = [Number,192,35,41]; ]
     static
     function ringingId() as Number or Null {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_175_50_177_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 176 8 ]
-        symbol [ Application %tmp.1 176 15 26 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_192_50_194_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 193 8 ]
+        symbol [ Application %tmp.1 193 15 26 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 176 27 34 ];
+        symbol [ Storage %tmp.2 193 27 34 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ getValue %tmp.3 176 35 43 ];
+        symbol [ getValue %tmp.3 193 35 43 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        symbol [ KEY_RING_ID %tmp.5 176 44 55 ];
+        symbol [ KEY_RING_ID %tmp.5 193 44 55 ];
         %tmp.5 = getv ? :KEY_RING_ID;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_175_50_177_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_192_50_194_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 179; @symbol_functiondef = [setRinging,179,20,30]; @symbol_param<0> = [alarmId,179,31,38]; @symbol_param<0>_type<0> = [Number,179,42,48]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 196; @symbol_functiondef = [setRinging,196,20,30]; @symbol_param<0> = [alarmId,196,31,38]; @symbol_param<0>_type<0> = [Number,196,42,48]; ]
     static
     function setRinging(alarmId as Number or Null) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_179_66_184_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 180 8 ]
-        symbol [ Application %tmp.1 180 8 19 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_196_66_201_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 197 8 ]
+        symbol [ Application %tmp.1 197 8 19 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 180 20 27 ];
+        symbol [ Storage %tmp.2 197 20 27 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ setValue %tmp.3 180 28 36 ];
+        symbol [ setValue %tmp.3 197 28 36 ];
         %tmp.3 = getv function %tmp.2 :setValue;
-        symbol [ KEY_RING_ID %tmp.5 180 37 48 ];
+        symbol [ KEY_RING_ID %tmp.5 197 37 48 ];
         %tmp.5 = getv ? :KEY_RING_ID;
         %tmp.6 = lgetv %alarmId;
-        symbol [ alarmId %tmp.6 180 50 57 ];
+        symbol [ alarmId %tmp.6 197 50 57 ];
         invoke %tmp.2 %tmp.3(%tmp.5, %tmp.6);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 181 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_181_8_183_8_if_stmt:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 198 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_198_8_200_8_if_stmt:
         %tmp.7 = lgetv %alarmId;
-        symbol [ alarmId %tmp.7 181 12 19 ];
+        symbol [ alarmId %tmp.7 198 12 19 ];
         %tmp.8 = null;
         %tmp.9 = ne %tmp.7 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_181_8_183_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_181_8_183_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_181_29_183_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 182 12 ]
-        symbol [ Application %tmp.10 182 12 23 ];
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_198_8_200_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_198_8_200_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_198_29_200_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 199 12 ]
+        symbol [ Application %tmp.10 199 12 23 ];
         %tmp.10 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.11 182 24 31 ];
+        symbol [ Storage %tmp.11 199 24 31 ];
         %tmp.11 = getv %tmp.10 :Storage;
-        symbol [ setValue %tmp.12 182 32 40 ];
+        symbol [ setValue %tmp.12 199 32 40 ];
         %tmp.12 = getv function %tmp.11 :setValue;
-        symbol [ KEY_RING_START %tmp.14 182 41 55 ];
+        symbol [ KEY_RING_START %tmp.14 199 41 55 ];
         %tmp.14 = getv ? :KEY_RING_START;
-        symbol [ Time %tmp.15 182 57 61 ];
+        symbol [ Time %tmp.15 199 57 61 ];
         %tmp.15 = getm $.Toybox.Time;
-        symbol [ now %tmp.16 182 62 65 ];
+        symbol [ now %tmp.16 199 62 65 ];
         %tmp.16 = getv function %tmp.15 :now;
         %tmp.17 = invoke %tmp.15 %tmp.16();
-        symbol [ value %tmp.18 182 68 73 ];
+        symbol [ value %tmp.18 199 68 73 ];
         %tmp.18 = getv function %tmp.17 :value;
         %tmp.19 = invoke %tmp.17 %tmp.18();
         invoke %tmp.11 %tmp.12(%tmp.14, %tmp.19);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_181_29_183_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_181_8_183_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_181_8_183_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_179_66_184_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_198_29_200_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_198_8_200_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_198_8_200_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_196_66_201_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 186; @symbol_functiondef = [snoozeUntil,186,20,31]; @symbol_return<0> = [Number,186,37,43]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 203; @symbol_functiondef = [ringStart,203,20,29]; @symbol_return<0> = [Number,203,35,41]; ]
+    static
+    function ringStart() as Number or Null {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_203_50_205_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 204 8 ]
+        symbol [ Application %tmp.1 204 15 26 ];
+        %tmp.1 = getm $.Toybox.Application;
+        symbol [ Storage %tmp.2 204 27 34 ];
+        %tmp.2 = getv %tmp.1 :Storage;
+        symbol [ getValue %tmp.3 204 35 43 ];
+        %tmp.3 = getv function %tmp.2 :getValue;
+        symbol [ KEY_RING_START %tmp.5 204 44 58 ];
+        %tmp.5 = getv ? :KEY_RING_START;
+        %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
+        ret %tmp.6;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_203_50_205_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 211; @symbol_functiondef = [clearStaleRing,211,20,34]; ]
+    static
+    function clearStaleRing() as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_211_45_219_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 212 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_211_45_219_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_211_45_219_4_stop" ]
+        %id.1 = local;
+        symbol [ id %id.1 212 12 14 ];
+        %tmp.1 = self;
+        symbol [ ringingId %tmp.2 212 17 26 ];
+        %tmp.2 = getv function %tmp.1 :ringingId;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %id.1 %tmp.3;
+        symbol [ id %id.1 212 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 213 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_213_8_213_34_if_stmt:
+        %tmp.4 = lgetv %id.1;
+        symbol [ id %tmp.4 213 12 14 ];
+        %tmp.5 = null;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bf %tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_213_8_213_34_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_213_8_213_34_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_213_24_213_34_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 213 26 ]
+        ret ?;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_213_24_213_34_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_213_8_213_34_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_213_8_213_34_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 214 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_211_45_219_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_211_45_219_4_stop" ]
+        %start.2 = local;
+        symbol [ start %start.2 214 12 17 ];
+        %tmp.7 = self;
+        symbol [ ringStart %tmp.8 214 20 29 ];
+        %tmp.8 = getv function %tmp.7 :ringStart;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        lputv %start.2 %tmp.9;
+        symbol [ start %start.2 214 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 215 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_8_218_8_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_12_215_78_begin:
+        %tmp.10 = lgetv %start.2;
+        symbol [ start %tmp.10 215 12 17 ];
+        %tmp.11 = null;
+        %tmp.12 = eq %tmp.10 %tmp.11;
+        bt %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_8_218_8_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_29_215_78_false:
+        symbol [ Time %tmp.13 215 30 34 ];
+        %tmp.13 = getm $.Toybox.Time;
+        symbol [ now %tmp.14 215 35 38 ];
+        %tmp.14 = getv function %tmp.13 :now;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        symbol [ value %tmp.16 215 41 46 ];
+        %tmp.16 = getv function %tmp.15 :value;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        %tmp.18 = lgetv %start.2;
+        symbol [ start %tmp.18 215 51 56 ];
+        %tmp.19 = as %tmp.18 { (!Null) };
+        %tmp.20 = sub %tmp.17 %tmp.19;
+        symbol [ FIRE_GRACE_MINS %tmp.22 215 60 75 ];
+        %tmp.22 = getv ? :FIRE_GRACE_MINS;
+        %tmp.23 = 60;
+        %tmp.24 = mul %tmp.22 %tmp.23;
+        %tmp.25 = gt %tmp.20 %tmp.24;
+        push %tmp.25;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_29_215_78_end:
+        %tmp.26 = phi [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_12_215_78_begin] [%tmp.25 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_29_215_78_false] [%tmp.26 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_29_215_78_end];
+        bf %tmp.26 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_8_218_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_8_218_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_82_218_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 216 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_12_216_45_if_stmt:
+        %tmp.27 = lgetv %id.1;
+        symbol [ id %tmp.27 216 16 18 ];
+        %tmp.28 = null;
+        %tmp.29 = ne %tmp.27 %tmp.28;
+        bf %tmp.29 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_12_216_45_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_12_216_45_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_28_216_45_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 216 30 ]
+        %tmp.30 = self;
+        symbol [ markFired %tmp.31 216 30 39 ];
+        %tmp.31 = getv function %tmp.30 :markFired;
+        %tmp.32 = lgetv %id.1;
+        symbol [ id %tmp.32 216 40 42 ];
+        %tmp.33 = as %tmp.32 { (!Null) };
+        invoke %tmp.30 %tmp.31(%tmp.33);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_28_216_45_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_12_216_45_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_12_216_45_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 217 12 ]
+        %tmp.34 = self;
+        symbol [ setRinging %tmp.35 217 12 22 ];
+        %tmp.35 = getv function %tmp.34 :setRinging;
+        %tmp.36 = null;
+        invoke %tmp.34 %tmp.35(%tmp.36);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_82_218_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_8_218_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_215_8_218_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_211_45_219_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 222; @symbol_functiondef = [disableById,222,20,31]; @symbol_param<0> = [alarmId,222,32,39]; @symbol_param<0>_type<0> = [Number,222,43,49]; ]
+    static
+    function disableById(alarmId as Number) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_222_59_230_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 223 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_222_59_230_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_222_59_230_4_stop" ]
+        %found.1 = local;
+        symbol [ found %found.1 223 12 17 ];
+        %tmp.1 = self;
+        symbol [ findById %tmp.2 223 20 28 ];
+        %tmp.2 = getv function %tmp.1 :findById;
+        %tmp.3 = lgetv %alarmId;
+        symbol [ alarmId %tmp.3 223 29 36 ];
+        %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
+        lputv %found.1 %tmp.4;
+        symbol [ found %found.1 223 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 224 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_222_59_230_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_222_59_230_4_stop" ]
+        %idx.2 = local;
+        symbol [ idx %idx.2 224 12 15 ];
+        %tmp.5 = lgetv %found.1;
+        symbol [ found %tmp.5 224 18 23 ];
+        %tmp.6 = 0;
+        %tmp.7 = agetv %tmp.5 %tmp.6;
+        %tmp.8 = as %tmp.7 Number;
+        symbol [ Number %tmp.8 224 30 36 ];
+        lputv %idx.2 %tmp.8;
+        symbol [ idx %idx.2 224 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 225 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_8_229_8_if_stmt:
+        %tmp.9 = lgetv %idx.2;
+        symbol [ idx %tmp.9 225 12 15 ];
+        %tmp.10 = 0;
+        %tmp.11 = gte %tmp.9 %tmp.10;
+        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_8_229_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_8_229_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_22_229_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 226 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_22_229_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_22_229_8_stop" ]
+        %a.3 = local;
+        symbol [ a %a.3 226 16 17 ];
+        %tmp.12 = lgetv %found.1;
+        symbol [ found %tmp.12 226 20 25 ];
+        %tmp.13 = 1;
+        %tmp.14 = agetv %tmp.12 %tmp.13;
+        %tmp.15 = as %tmp.14 Dictionary;
+        symbol [ Dictionary %tmp.15 226 32 42 ];
+        lputv %a.3 %tmp.15;
+        symbol [ a %a.3 226 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 227 12 ]
+        %tmp.16 = lgetv %a.3;
+        symbol [ a %tmp.16 227 12 13 ];
+        symbol [ put %tmp.17 227 14 17 ];
+        %tmp.17 = getv function %tmp.16 :put;
+        %tmp.18 = "on";
+        %tmp.19 = false;
+        invoke %tmp.16 %tmp.17(%tmp.18, %tmp.19);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 228 12 ]
+        %tmp.20 = self;
+        symbol [ updateAlarm %tmp.21 228 12 23 ];
+        %tmp.21 = getv function %tmp.20 :updateAlarm;
+        %tmp.22 = lgetv %idx.2;
+        symbol [ idx %tmp.22 228 24 27 ];
+        %tmp.23 = lgetv %a.3;
+        symbol [ a %tmp.23 228 29 30 ];
+        invoke %tmp.20 %tmp.21(%tmp.22, %tmp.23);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_22_229_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_8_229_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_225_8_229_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_222_59_230_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 232; @symbol_functiondef = [snoozeUntil,232,20,31]; @symbol_return<0> = [Number,232,37,43]; ]
     static
     function snoozeUntil() as Number or Null {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_186_52_188_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 187 8 ]
-        symbol [ Application %tmp.1 187 15 26 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_232_52_234_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 233 8 ]
+        symbol [ Application %tmp.1 233 15 26 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 187 27 34 ];
+        symbol [ Storage %tmp.2 233 27 34 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ getValue %tmp.3 187 35 43 ];
+        symbol [ getValue %tmp.3 233 35 43 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        symbol [ KEY_SNOOZE_UNTIL %tmp.5 187 44 60 ];
+        symbol [ KEY_SNOOZE_UNTIL %tmp.5 233 44 60 ];
         %tmp.5 = getv ? :KEY_SNOOZE_UNTIL;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_186_52_188_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_232_52_234_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 190; @symbol_functiondef = [setSnoozeUntil,190,20,34]; @symbol_param<0> = [epochSecs,190,35,44]; @symbol_param<0>_type<0> = [Number,190,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 236; @symbol_functiondef = [setSnoozeUntil,236,20,34]; @symbol_param<0> = [epochSecs,236,35,44]; @symbol_param<0>_type<0> = [Number,236,48,54]; ]
     static
     function setSnoozeUntil(epochSecs as Number or Null) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_190_72_192_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 191 8 ]
-        symbol [ Application %tmp.1 191 8 19 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_236_72_238_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 237 8 ]
+        symbol [ Application %tmp.1 237 8 19 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 191 20 27 ];
+        symbol [ Storage %tmp.2 237 20 27 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ setValue %tmp.3 191 28 36 ];
+        symbol [ setValue %tmp.3 237 28 36 ];
         %tmp.3 = getv function %tmp.2 :setValue;
-        symbol [ KEY_SNOOZE_UNTIL %tmp.5 191 37 53 ];
+        symbol [ KEY_SNOOZE_UNTIL %tmp.5 237 37 53 ];
         %tmp.5 = getv ? :KEY_SNOOZE_UNTIL;
         %tmp.6 = lgetv %epochSecs;
-        symbol [ epochSecs %tmp.6 191 55 64 ];
+        symbol [ epochSecs %tmp.6 237 55 64 ];
         invoke %tmp.2 %tmp.3(%tmp.5, %tmp.6);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_190_72_192_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_236_72_238_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 194; @symbol_functiondef = [snoozedAlarmId,194,20,34]; @symbol_return<0> = [Number,194,40,46]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 240; @symbol_functiondef = [snoozedAlarmId,240,20,34]; @symbol_return<0> = [Number,240,40,46]; ]
     static
     function snoozedAlarmId() as Number or Null {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_194_55_196_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 195 8 ]
-        symbol [ Application %tmp.1 195 15 26 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_240_55_242_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 241 8 ]
+        symbol [ Application %tmp.1 241 15 26 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 195 27 34 ];
+        symbol [ Storage %tmp.2 241 27 34 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ getValue %tmp.3 195 35 43 ];
+        symbol [ getValue %tmp.3 241 35 43 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        symbol [ KEY_SNOOZE_ID %tmp.5 195 44 57 ];
+        symbol [ KEY_SNOOZE_ID %tmp.5 241 44 57 ];
         %tmp.5 = getv ? :KEY_SNOOZE_ID;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         ret %tmp.6;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_194_55_196_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_240_55_242_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 199; @symbol_functiondef = [scheduleSnooze,199,20,34]; @symbol_param<0> = [alarmId,199,35,42]; @symbol_param<0>_type<0> = [Number,199,46,52]; @symbol_param<1> = [epochSecs,199,54,63]; @symbol_param<1>_type<0> = [Number,199,67,73]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 245; @symbol_functiondef = [scheduleSnooze,245,20,34]; @symbol_param<0> = [alarmId,245,35,42]; @symbol_param<0>_type<0> = [Number,245,46,52]; @symbol_param<1> = [epochSecs,245,54,63]; @symbol_param<1>_type<0> = [Number,245,67,73]; ]
     static
     function scheduleSnooze(alarmId as Number, epochSecs as Number) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_199_83_202_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 200 8 ]
-        symbol [ Application %tmp.1 200 8 19 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_245_83_248_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 246 8 ]
+        symbol [ Application %tmp.1 246 8 19 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 200 20 27 ];
+        symbol [ Storage %tmp.2 246 20 27 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ setValue %tmp.3 200 28 36 ];
+        symbol [ setValue %tmp.3 246 28 36 ];
         %tmp.3 = getv function %tmp.2 :setValue;
-        symbol [ KEY_SNOOZE_ID %tmp.5 200 37 50 ];
+        symbol [ KEY_SNOOZE_ID %tmp.5 246 37 50 ];
         %tmp.5 = getv ? :KEY_SNOOZE_ID;
         %tmp.6 = lgetv %alarmId;
-        symbol [ alarmId %tmp.6 200 52 59 ];
+        symbol [ alarmId %tmp.6 246 52 59 ];
         invoke %tmp.2 %tmp.3(%tmp.5, %tmp.6);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 201 8 ]
-        symbol [ Application %tmp.7 201 8 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 247 8 ]
+        symbol [ Application %tmp.7 247 8 19 ];
         %tmp.7 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.8 201 20 27 ];
+        symbol [ Storage %tmp.8 247 20 27 ];
         %tmp.8 = getv %tmp.7 :Storage;
-        symbol [ setValue %tmp.9 201 28 36 ];
+        symbol [ setValue %tmp.9 247 28 36 ];
         %tmp.9 = getv function %tmp.8 :setValue;
-        symbol [ KEY_SNOOZE_UNTIL %tmp.11 201 37 53 ];
+        symbol [ KEY_SNOOZE_UNTIL %tmp.11 247 37 53 ];
         %tmp.11 = getv ? :KEY_SNOOZE_UNTIL;
         %tmp.12 = lgetv %epochSecs;
-        symbol [ epochSecs %tmp.12 201 55 64 ];
+        symbol [ epochSecs %tmp.12 247 55 64 ];
         invoke %tmp.8 %tmp.9(%tmp.11, %tmp.12);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_199_83_202_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_245_83_248_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 205; @symbol_functiondef = [findById,205,20,28]; @symbol_param<0> = [alarmId,205,29,36]; @symbol_param<0>_type<0> = [Number,205,40,46]; @symbol_return<0> = [Array,205,51,56]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 251; @symbol_functiondef = [findById,251,20,28]; @symbol_param<0> = [alarmId,251,29,36]; @symbol_param<0>_type<0> = [Number,251,40,46]; @symbol_return<0> = [Array,251,51,56]; ]
     static
     function findById(alarmId as Number) as Array {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_205_57_212_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 206 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_205_57_212_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_205_57_212_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_251_57_258_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 252 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_251_57_258_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_251_57_258_4_stop" ]
         %list.1 = local;
-        symbol [ list %list.1 206 12 16 ];
+        symbol [ list %list.1 252 12 16 ];
         %tmp.1 = self;
-        symbol [ getAlarms %tmp.2 206 19 28 ];
+        symbol [ getAlarms %tmp.2 252 19 28 ];
         %tmp.2 = getv function %tmp.1 :getAlarms;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %list.1 %tmp.3;
-        symbol [ list %list.1 206 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 207 8 ]
-        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_init:
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_end" ]
+        symbol [ list %list.1 252 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 253 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_end" ]
         %i.2 = local;
-        symbol [ i %i.2 207 17 18 ];
+        symbol [ i %i.2 253 17 18 ];
         %tmp.4 = 0;
         lputv %i.2 %tmp.4;
-        symbol [ i %i.2 207 17 18 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_test:
+        symbol [ i %i.2 253 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_test:
         %tmp.5 = lgetv %i.2;
-        symbol [ i %tmp.5 207 24 25 ];
+        symbol [ i %tmp.5 253 24 25 ];
         %tmp.6 = lgetv %list.1;
-        symbol [ list %tmp.6 207 28 32 ];
-        symbol [ size %tmp.7 207 33 37 ];
+        symbol [ list %tmp.6 253 28 32 ];
+        symbol [ size %tmp.7 253 33 37 ];
         %tmp.7 = getv function %tmp.6 :size;
         %tmp.8 = invoke %tmp.6 %tmp.7();
         %tmp.9 = lt %tmp.5 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_46_210_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 208 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_46_210_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_46_210_8_stop" ]
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_46_256_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 254 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_46_256_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_46_256_8_stop" ]
         %a.3 = local;
-        symbol [ a %a.3 208 16 17 ];
+        symbol [ a %a.3 254 16 17 ];
         %tmp.10 = lgetv %list.1;
-        symbol [ list %tmp.10 208 20 24 ];
+        symbol [ list %tmp.10 254 20 24 ];
         %tmp.11 = lgetv %i.2;
-        symbol [ i %tmp.11 208 25 26 ];
+        symbol [ i %tmp.11 254 25 26 ];
         %tmp.12 = agetv %tmp.10 %tmp.11;
         %tmp.13 = as %tmp.12 Dictionary;
-        symbol [ Dictionary %tmp.13 208 31 41 ];
+        symbol [ Dictionary %tmp.13 254 31 41 ];
         lputv %a.3 %tmp.13;
-        symbol [ a %a.3 208 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 209 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_209_12_209_51_if_stmt:
+        symbol [ a %a.3 254 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 255 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_255_12_255_51_if_stmt:
         %tmp.14 = self;
-        symbol [ id %tmp.15 209 16 18 ];
+        symbol [ id %tmp.15 255 16 18 ];
         %tmp.15 = getv function %tmp.14 :id;
         %tmp.16 = lgetv %a.3;
-        symbol [ a %tmp.16 209 19 20 ];
+        symbol [ a %tmp.16 255 19 20 ];
         %tmp.17 = invoke %tmp.14 %tmp.15(%tmp.16);
         %tmp.18 = lgetv %alarmId;
-        symbol [ alarmId %tmp.18 209 25 32 ];
+        symbol [ alarmId %tmp.18 255 25 32 ];
         %tmp.19 = eq %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_209_12_209_51_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_209_12_209_51_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_209_34_209_51_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 209 36 ]
+        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_255_12_255_51_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_255_12_255_51_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_255_34_255_51_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 255 36 ]
         %tmp.20 = newa 2;
         %tmp.21 = lgetv %i.2;
-        symbol [ i %tmp.21 209 44 45 ];
+        symbol [ i %tmp.21 255 44 45 ];
         %tmp.22 = dup %tmp.20;
         %tmp.23 = aputv %tmp.22 0 %tmp.21;
         %tmp.24 = lgetv %a.3;
-        symbol [ a %tmp.24 209 47 48 ];
+        symbol [ a %tmp.24 255 47 48 ];
         %tmp.25 = dup %tmp.23;
         %tmp.26 = aputv %tmp.25 1 %tmp.24;
         ret %tmp.26;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_209_34_209_51_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_209_12_209_51_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_209_12_209_51_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_46_210_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_incr:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 207 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_255_34_255_51_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_255_12_255_51_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_255_12_255_51_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_46_256_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 253 ]
         %tmp.29 = lgetv %i.2;
-        symbol [ i %tmp.29 207 41 42 ];
+        symbol [ i %tmp.29 253 41 42 ];
         %tmp.30 = add %tmp.29 1;
         lputv %i.2 %tmp.30;
-        symbol [ i %i.2 207 41 42 ];
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_test;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 211 8 ]
+        symbol [ i %i.2 253 41 42 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_253_8_256_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 257 8 ]
         %tmp.31 = newa 2;
         %tmp.32 = -1;
         %tmp.33 = dup %tmp.31;
@@ -1205,171 +1527,171 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_207_8_210_8_for_en
         %tmp.36 = dup %tmp.34;
         %tmp.37 = aputv %tmp.36 1 %tmp.35;
         ret %tmp.37;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_205_57_212_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_251_57_258_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 216; @symbol_functiondef = [snoozeMinutes,216,20,33]; @symbol_return<0> = [Number,216,39,45]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 262; @symbol_functiondef = [snoozeMinutes,262,20,33]; @symbol_return<0> = [Number,262,39,45]; ]
     static
     function snoozeMinutes() as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_46_219_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 217 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_46_219_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_46_219_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_262_46_265_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 263 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_262_46_265_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_262_46_265_4_stop" ]
         %v.1 = local;
-        symbol [ v %v.1 217 12 13 ];
-        symbol [ Application %tmp.1 217 16 27 ];
+        symbol [ v %v.1 263 12 13 ];
+        symbol [ Application %tmp.1 263 16 27 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 217 28 35 ];
+        symbol [ Storage %tmp.2 263 28 35 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ getValue %tmp.3 217 36 44 ];
+        symbol [ getValue %tmp.3 263 36 44 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        symbol [ KEY_SNOOZE_MINS %tmp.5 217 45 60 ];
+        symbol [ KEY_SNOOZE_MINS %tmp.5 263 45 60 ];
         %tmp.5 = getv ? :KEY_SNOOZE_MINS;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         lputv %v.1 %tmp.6;
-        symbol [ v %v.1 217 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 218 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_begin:
+        symbol [ v %v.1 263 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 264 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_begin:
         %tmp.7 = lgetv %v.1;
-        symbol [ v %tmp.7 218 16 17 ];
+        symbol [ v %tmp.7 264 16 17 ];
         %tmp.8 = null;
         %tmp.9 = ne %tmp.7 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_true:
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_true:
         %tmp.10 = lgetv %v.1;
-        symbol [ v %tmp.10 218 29 30 ];
+        symbol [ v %tmp.10 264 29 30 ];
         %tmp.11 = as %tmp.10 { (!Null) };
         push %tmp.11;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_else_false:
-        symbol [ DEFAULT_SNOOZE_MINUTES %tmp.13 218 33 55 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_else_false:
+        symbol [ DEFAULT_SNOOZE_MINUTES %tmp.13 264 33 55 ];
         %tmp.13 = getv ? :DEFAULT_SNOOZE_MINUTES;
         push %tmp.13;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_end:
-        %tmp.14 = phi [%tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_true] [%tmp.13 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_else_false] [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_218_15_218_33_end];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_end:
+        %tmp.14 = phi [%tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_true] [%tmp.13 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_else_false] [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_264_15_264_33_end];
         ret %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_216_46_219_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_262_46_265_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 221; @symbol_functiondef = [maxSnooze,221,20,29]; @symbol_return<0> = [Number,221,35,41]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 267; @symbol_functiondef = [maxSnooze,267,20,29]; @symbol_return<0> = [Number,267,35,41]; ]
     static
     function maxSnooze() as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_221_42_224_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 222 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_221_42_224_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_221_42_224_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_267_42_270_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 268 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_267_42_270_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_267_42_270_4_stop" ]
         %v.1 = local;
-        symbol [ v %v.1 222 12 13 ];
-        symbol [ Application %tmp.1 222 16 27 ];
+        symbol [ v %v.1 268 12 13 ];
+        symbol [ Application %tmp.1 268 16 27 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ Storage %tmp.2 222 28 35 ];
+        symbol [ Storage %tmp.2 268 28 35 ];
         %tmp.2 = getv %tmp.1 :Storage;
-        symbol [ getValue %tmp.3 222 36 44 ];
+        symbol [ getValue %tmp.3 268 36 44 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        symbol [ KEY_MAX_SNOOZE %tmp.5 222 45 59 ];
+        symbol [ KEY_MAX_SNOOZE %tmp.5 268 45 59 ];
         %tmp.5 = getv ? :KEY_MAX_SNOOZE;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         lputv %v.1 %tmp.6;
-        symbol [ v %v.1 222 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 223 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_begin:
+        symbol [ v %v.1 268 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 269 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_begin:
         %tmp.7 = lgetv %v.1;
-        symbol [ v %tmp.7 223 16 17 ];
+        symbol [ v %tmp.7 269 16 17 ];
         %tmp.8 = null;
         %tmp.9 = ne %tmp.7 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_true:
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_true:
         %tmp.10 = lgetv %v.1;
-        symbol [ v %tmp.10 223 29 30 ];
+        symbol [ v %tmp.10 269 29 30 ];
         %tmp.11 = as %tmp.10 { (!Null) };
         push %tmp.11;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_else_false:
-        symbol [ DEFAULT_MAX_SNOOZE %tmp.13 223 33 51 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_else_false:
+        symbol [ DEFAULT_MAX_SNOOZE %tmp.13 269 33 51 ];
         %tmp.13 = getv ? :DEFAULT_MAX_SNOOZE;
         push %tmp.13;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_end:
-        %tmp.14 = phi [%tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_true] [%tmp.13 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_else_false] [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_223_15_223_33_end];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_end:
+        %tmp.14 = phi [%tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_true] [%tmp.13 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_else_false] [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_269_15_269_33_end];
         ret %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_221_42_224_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_267_42_270_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 228; @symbol_functiondef = [_n,228,28,30]; @symbol_param<0> = [d,228,31,32]; @symbol_param<0>_type<0> = [Dictionary,228,36,46]; @symbol_param<1> = [key,228,48,51]; @symbol_param<1>_type<0> = [String,228,55,61]; @symbol_param<2> = [def,228,63,66]; @symbol_param<2>_type<0> = [Number,228,70,76]; @symbol_return<0> = [Number,228,81,87]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 274; @symbol_functiondef = [_n,274,28,30]; @symbol_param<0> = [d,274,31,32]; @symbol_param<0>_type<0> = [Dictionary,274,36,46]; @symbol_param<1> = [key,274,48,51]; @symbol_param<1>_type<0> = [String,274,55,61]; @symbol_param<2> = [def,274,63,66]; @symbol_param<2>_type<0> = [Number,274,70,76]; @symbol_return<0> = [Number,274,81,87]; ]
     private static
     function _n(d as Dictionary, key as String, def as Number) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_228_88_231_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 229 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_228_88_231_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_228_88_231_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_274_88_277_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 275 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_274_88_277_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_274_88_277_4_stop" ]
         %v.1 = local;
-        symbol [ v %v.1 229 12 13 ];
+        symbol [ v %v.1 275 12 13 ];
         %tmp.1 = lgetv %d;
-        symbol [ d %tmp.1 229 16 17 ];
-        symbol [ get %tmp.2 229 18 21 ];
+        symbol [ d %tmp.1 275 16 17 ];
+        symbol [ get %tmp.2 275 18 21 ];
         %tmp.2 = getv function %tmp.1 :get;
         %tmp.3 = lgetv %key;
-        symbol [ key %tmp.3 229 22 25 ];
+        symbol [ key %tmp.3 275 22 25 ];
         %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
         lputv %v.1 %tmp.4;
-        symbol [ v %v.1 229 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 230 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_begin:
+        symbol [ v %v.1 275 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 276 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_begin:
         %tmp.5 = lgetv %v.1;
-        symbol [ v %tmp.5 230 16 17 ];
+        symbol [ v %tmp.5 276 16 17 ];
         %tmp.6 = null;
         %tmp.7 = ne %tmp.5 %tmp.6;
-        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_true:
+        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_true:
         %tmp.8 = lgetv %v.1;
-        symbol [ v %tmp.8 230 29 30 ];
+        symbol [ v %tmp.8 276 29 30 ];
         %tmp.9 = as %tmp.8 { (!Null) };
         %tmp.10 = as %tmp.9 Number;
-        symbol [ Number %tmp.10 230 34 40 ];
+        symbol [ Number %tmp.10 276 34 40 ];
         push %tmp.10;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_else_false:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_else_false:
         %tmp.11 = lgetv %def;
-        symbol [ def %tmp.11 230 43 46 ];
+        symbol [ def %tmp.11 276 43 46 ];
         push %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_end:
-        %tmp.12 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_begin] [%tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_true] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_else_false] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_230_15_230_43_end];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_end:
+        %tmp.12 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_begin] [%tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_true] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_else_false] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_276_15_276_43_end];
         ret %tmp.12;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_228_88_231_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_274_88_277_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 233; @symbol_functiondef = [_b,233,28,30]; @symbol_param<0> = [d,233,31,32]; @symbol_param<0>_type<0> = [Dictionary,233,36,46]; @symbol_param<1> = [key,233,48,51]; @symbol_param<1>_type<0> = [String,233,55,61]; @symbol_param<2> = [def,233,63,66]; @symbol_param<2>_type<0> = [Boolean,233,70,77]; @symbol_return<0> = [Boolean,233,82,89]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 279; @symbol_functiondef = [_b,279,28,30]; @symbol_param<0> = [d,279,31,32]; @symbol_param<0>_type<0> = [Dictionary,279,36,46]; @symbol_param<1> = [key,279,48,51]; @symbol_param<1>_type<0> = [String,279,55,61]; @symbol_param<2> = [def,279,63,66]; @symbol_param<2>_type<0> = [Boolean,279,70,77]; @symbol_return<0> = [Boolean,279,82,89]; ]
     private static
     function _b(d as Dictionary, key as String, def as Boolean) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_233_90_236_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 234 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_233_90_236_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_233_90_236_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_279_90_282_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 280 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_279_90_282_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_279_90_282_4_stop" ]
         %v.1 = local;
-        symbol [ v %v.1 234 12 13 ];
+        symbol [ v %v.1 280 12 13 ];
         %tmp.1 = lgetv %d;
-        symbol [ d %tmp.1 234 16 17 ];
-        symbol [ get %tmp.2 234 18 21 ];
+        symbol [ d %tmp.1 280 16 17 ];
+        symbol [ get %tmp.2 280 18 21 ];
         %tmp.2 = getv function %tmp.1 :get;
         %tmp.3 = lgetv %key;
-        symbol [ key %tmp.3 234 22 25 ];
+        symbol [ key %tmp.3 280 22 25 ];
         %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
         lputv %v.1 %tmp.4;
-        symbol [ v %v.1 234 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 235 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_begin:
+        symbol [ v %v.1 280 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc" 281 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_begin:
         %tmp.5 = lgetv %v.1;
-        symbol [ v %tmp.5 235 16 17 ];
+        symbol [ v %tmp.5 281 16 17 ];
         %tmp.6 = null;
         %tmp.7 = ne %tmp.5 %tmp.6;
-        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_true:
+        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_true:
         %tmp.8 = lgetv %v.1;
-        symbol [ v %tmp.8 235 29 30 ];
+        symbol [ v %tmp.8 281 29 30 ];
         %tmp.9 = as %tmp.8 { (!Null) };
         %tmp.10 = as %tmp.9 Boolean;
-        symbol [ Boolean %tmp.10 235 34 41 ];
+        symbol [ Boolean %tmp.10 281 34 41 ];
         push %tmp.10;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_else_false:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_else_false:
         %tmp.11 = lgetv %def;
-        symbol [ def %tmp.11 235 44 47 ];
+        symbol [ def %tmp.11 281 44 47 ];
         push %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_end:
-        %tmp.12 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_begin] [%tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_true] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_else_false] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_235_15_235_44_end];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_end:
+        %tmp.12 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_begin] [%tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_true] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_else_false] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_281_15_281_44_end];
         ret %tmp.12;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_233_90_236_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_279_90_282_4_stop:
     }
 }
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmStore.mc"; @line = 19; ]

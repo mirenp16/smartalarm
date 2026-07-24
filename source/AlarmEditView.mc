@@ -1,10 +1,10 @@
 // AlarmEditView.mc
-// Edits a single alarm. Works on a live reference to the alarm Dictionary, so
-// when a sub-picker changes a field the change is visible immediately. Every
-// change is persisted to storage right away (so the background service always
-// sees current settings even if the app is closed).
+// Edits one alarm, showing ONE field at a time (title + value) so nothing
+// overlaps. UP/DOWN move between fields; START/tap changes the highlighted field.
+// Works on a live reference to the alarm Dictionary and persists every change.
 //
-// Rows are built dynamically: the Wake Window row only appears for Sleep alarms.
+// The Wake Window field only appears for Sleep alarms. Setting no days makes the
+// alarm one-time; persist() then computes its next fire time.
 
 import Toybox.Application;
 import Toybox.Graphics;
@@ -13,8 +13,8 @@ import Toybox.WatchUi;
 
 class AlarmEditView extends WatchUi.View {
 
-    public var alarm as Dictionary;      // live working copy (reference)
-    public var index as Number;          // position in the stored list
+    public var alarm as Dictionary;
+    public var index as Number;
 
     private var _sel as Number = 0;
     private var _w as Number = 260;
@@ -33,18 +33,18 @@ class AlarmEditView extends WatchUi.View {
         _cx = _w / 2;        _cy = _h / 2;
     }
 
-    // Builds the list of rows for the current alarm. Each row is [key, title, value].
+    // Rows: each is [key, title, value]. Wake Window only shows for Sleep alarms.
     function rows() as Array {
         var r = [];
-        r.add(["time",  "Time",       Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm))]);
-        r.add(["days",  "Days",       Fmt.days(AlarmStore.days(alarm))]);
-        r.add(["label", "Label",      AlarmStore.label(alarm)]);
-        r.add(["type",  "Type",       Fmt.typeName(AlarmStore.type(alarm))]);
+        r.add(["time",  "Time",         Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm))]);
+        r.add(["days",  "Days",         Fmt.days(AlarmStore.days(alarm))]);
+        r.add(["label", "Label",        AlarmStore.label(alarm)]);
+        r.add(["type",  "Type",         Fmt.typeName(AlarmStore.type(alarm))]);
         if (AlarmStore.type(alarm) == TYPE_SLEEP) {
             r.add(["win", "Wake Window", AlarmStore.window(alarm).format("%d") + " min"]);
         }
-        r.add(["mode",  "Alert",      Fmt.modeName(AlarmStore.mode(alarm))]);
-        r.add(["on",    "Enabled",    AlarmStore.isOn(alarm) ? "On" : "Off"]);
+        r.add(["mode",  "Alert",        Fmt.modeName(AlarmStore.mode(alarm))]);
+        r.add(["on",    "Enabled",      AlarmStore.isOn(alarm) ? "On" : "Off"]);
         r.add(["save",  "Save & close", ""]);
         r.add(["del",   "Delete alarm", ""]);
         return r;
@@ -67,8 +67,13 @@ class AlarmEditView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
 
-    // Persist the working copy back to storage and keep background in sync.
+    // Persist the working copy. For one-time alarms (no days) compute the next
+    // time it should fire.
     function persist() as Void {
+        if (AlarmStore.days(alarm) == 0) {
+            alarm.put("fireAt",
+                AlarmStore.nextOccurrence(AlarmStore.hour(alarm), AlarmStore.minute(alarm)));
+        }
         AlarmStore.updateAlarm(index, alarm);
         SmartAlarmApp.syncBackground();
     }
@@ -76,45 +81,34 @@ class AlarmEditView extends WatchUi.View {
     function onUpdate(dc as Graphics.Dc) as Void {
         var r = rows();
         if (_sel >= r.size()) { _sel = r.size() - 1; }
+        var row = r[_sel] as Array;
+        var title = row[1] as String;
+        var value = row[2] as String;
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
-        // Header shows the alarm time so you always know what you're editing.
-        dc.setColor(0x00CC66, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, 12, Graphics.FONT_XTINY,
+        // Context header: the alarm time
+        dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _h * 12 / 100, Graphics.FONT_XTINY,
                     Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm)),
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        // 3-row carousel of fields
-        _drawField(dc, r, _sel - 1, _cy - 58, false);
-        _drawField(dc, r, _sel,     _cy,      true);
-        _drawField(dc, r, _sel + 1, _cy + 58, false);
+        // Field title (big)
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _cy - 26, Graphics.FONT_MEDIUM, title, Graphics.TEXT_JUSTIFY_CENTER);
 
-        dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _h - 22, Graphics.FONT_XTINY, "START to change",
-                    Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
-    private function _drawField(dc as Graphics.Dc, r as Array, i as Number,
-                                y as Number, focused as Boolean) as Void {
-        if (i < 0 || i >= r.size()) { return; }
-        var row = r[i] as Array;
-        var title = row[1] as String;
-        var value = row[2] as String;
-
-        var color = focused ? Graphics.COLOR_WHITE : 0x666666;
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, y - (focused ? 12 : 0),
-                    focused ? Graphics.FONT_SMALL : Graphics.FONT_XTINY,
-                    title, Graphics.TEXT_JUSTIFY_CENTER);
-
+        // Field value
         if (value.length() > 0) {
-            dc.setColor(focused ? 0x00CC66 : 0x556655, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, y + (focused ? 14 : 0),
-                        focused ? Graphics.FONT_TINY : Graphics.FONT_XTINY,
-                        value, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.setColor(0xCCCCCC, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _cy + 12, Graphics.FONT_SMALL, value, Graphics.TEXT_JUSTIFY_CENTER);
         }
+
+        // Position + hint
+        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _h - 30, Graphics.FONT_XTINY,
+                    (_sel + 1).format("%d") + " / " + r.size().format("%d") + "   START",
+                    Graphics.TEXT_JUSTIFY_CENTER);
     }
 }
 
@@ -129,11 +123,9 @@ class AlarmEditDelegate extends WatchUi.BehaviorDelegate {
 
     function onNextPage() as Boolean { _view.moveDown(); return true; }
     function onPreviousPage() as Boolean { _view.moveUp(); return true; }
-
     function onSelect() as Boolean { _activate(); return true; }
     function onTap(evt as WatchUi.ClickEvent) as Boolean { _activate(); return true; }
 
-    // Back always saves, then returns to the list.
     function onBack() as Boolean {
         _view.persist();
         WatchUi.popView(WatchUi.SLIDE_RIGHT);

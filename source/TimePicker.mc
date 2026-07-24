@@ -39,17 +39,17 @@ class TimePickerView extends WatchUi.View {
         var dh = _hour % 12;
         if (dh == 0) { dh = 12; }
 
-        // Hour
-        dc.setColor((_focus == 0) ? 0x00CC66 : Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        // Hour (focused field is bright white, the other is dimmed)
+        dc.setColor((_focus == 0) ? Graphics.COLOR_WHITE : 0x666666, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx - 36, _cy - 34, Graphics.FONT_NUMBER_HOT, dh.format("%d"),
                     Graphics.TEXT_JUSTIFY_RIGHT);
 
         // Colon
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x999999, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy - 34, Graphics.FONT_NUMBER_HOT, ":", Graphics.TEXT_JUSTIFY_CENTER);
 
         // Minute
-        dc.setColor((_focus == 1) ? 0x00CC66 : Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor((_focus == 1) ? Graphics.COLOR_WHITE : 0x666666, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx + 36, _cy - 34, Graphics.FONT_NUMBER_HOT, _min.format("%02d"),
                     Graphics.TEXT_JUSTIFY_LEFT);
 
@@ -59,11 +59,11 @@ class TimePickerView extends WatchUi.View {
                     Graphics.TEXT_JUSTIFY_CENTER);
 
         var hints = ["UP/DOWN: hour", "UP/DOWN: minute", "START to confirm"];
-        dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _h - 40, Graphics.FONT_XTINY, hints[_focus], Graphics.TEXT_JUSTIFY_CENTER);
 
         if (_focus == 2) {
-            dc.setColor(0x00CC66, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             dc.drawText(_cx, _h - 24, Graphics.FONT_XTINY, "[ CONFIRM ]", Graphics.TEXT_JUSTIFY_CENTER);
         }
     }

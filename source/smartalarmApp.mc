@@ -20,6 +20,9 @@ class SmartAlarmApp extends Application.AppBase {
     }
 
     function onStart(state as Dictionary?) as Void {
+        // Drop any alarm that fired long ago but couldn't surface until now, so
+        // it doesn't ring hours late.
+        AlarmStore.clearStaleRing();
         syncBackground();
     }
 

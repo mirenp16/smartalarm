@@ -37,18 +37,35 @@ class AlarmStore {
     }
 
     // Builds a brand-new alarm Dictionary with sensible defaults.
+    // Default days = 0 means "one-time" (fires once at the next 7:30, then off).
     static function newAlarm() as Dictionary {
         return {
-            "id"    => nextId(),
-            "on"    => true,
-            "h"     => 7,
-            "m"     => 30,
-            "days"  => DAYS_WEEKDAYS,
-            "label" => "Wake up",
-            "type"  => TYPE_SLEEP,
-            "win"   => 30,
-            "mode"  => MODE_BOTH
+            "id"     => nextId(),
+            "on"     => true,
+            "h"      => 7,
+            "m"      => 30,
+            "days"   => 0,
+            "label"  => "Wake up",
+            "type"   => TYPE_SLEEP,
+            "win"    => 30,
+            "mode"   => MODE_BOTH,
+            "fireAt" => nextOccurrence(7, 30)
         };
+    }
+
+    // Epoch seconds of the next time the clock reads h:m (today if still ahead,
+    // otherwise tomorrow). Used for one-time alarms.
+    static function nextOccurrence(h as Number, m as Number) as Number {
+        var now = Time.now();
+        var info = Gregorian.info(now, Time.FORMAT_SHORT);
+        var midnight = now.value() - (info.hour * 3600 + info.min * 60 + info.sec);
+        var t = midnight + h * 3600 + m * 60;
+        if (t <= now.value()) { t += 86400; }
+        return t;
+    }
+
+    static function fireAt(a as Dictionary) as Number {
+        return _n(a, "fireAt", 0);
     }
 
     static function addAlarm(alarm as Dictionary) as Void {
@@ -180,6 +197,35 @@ class AlarmStore {
         Application.Storage.setValue(KEY_RING_ID, alarmId);
         if (alarmId != null) {
             Application.Storage.setValue(KEY_RING_START, Time.now().value());
+        }
+    }
+
+    static function ringStart() as Number or Null {
+        return Application.Storage.getValue(KEY_RING_START);
+    }
+
+    // A ring is "stale" if it was set more than the grace period ago. This happens
+    // when the background fired the alarm but the watch couldn't surface the app
+    // until much later. We drop stale rings so an old alarm never goes off hours
+    // late (e.g. firing at 7:04 for a 5:54 alarm).
+    static function clearStaleRing() as Void {
+        var id = ringingId();
+        if (id == null) { return; }
+        var start = ringStart();
+        if (start == null || (Time.now().value() - start) > FIRE_GRACE_MINS * 60) {
+            if (id != null) { markFired(id); }
+            setRinging(null);
+        }
+    }
+
+    // Turn an alarm off by id (used to retire one-time alarms after they fire).
+    static function disableById(alarmId as Number) as Void {
+        var found = findById(alarmId);
+        var idx = found[0] as Number;
+        if (idx >= 0) {
+            var a = found[1] as Dictionary;
+            a.put("on", false);
+            updateAlarm(idx, a);
         }
     }
 

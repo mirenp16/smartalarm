@@ -163,20 +163,20 @@ _Users_miren_Documents_GitHub_smartalarm_source_Format_mc_26_41_26_62_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_26_8_26_62_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_Format_mc_26_8_26_62_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 27 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_59_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_52_if_stmt:
         %tmp.19 = lgetv %mask;
         symbol [ mask %tmp.19 27 12 16 ];
         %tmp.20 = 0;
         %tmp.21 = eq %tmp.19 %tmp.20;
-        bf %tmp.21 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_59_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_59_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_35_27_59_start:
+        bf %tmp.21 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_52_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_52_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_35_27_52_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 27 37 ]
-        %tmp.22 = "No days set";
+        %tmp.22 = "Once";
         ret %tmp.22;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_35_27_59_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_59_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_59_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_35_27_52_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_52_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_27_8_27_52_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 29 8 ]
         [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_51_38_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_51_38_4_stop" ]
         %names.1 = local;
