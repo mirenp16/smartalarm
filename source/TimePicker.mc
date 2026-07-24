@@ -46,7 +46,7 @@ class TimePickerView extends WatchUi.View {
         dc.drawText(_cx, _h * 14 / 100, Graphics.FONT_XTINY, "SET TIME",
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        var numY = _cy - 30;
+        var numY = _cy - 46;
         // Hour
         dc.setColor((_focus == 0) ? Graphics.COLOR_WHITE : 0x666666, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx - 34, numY, Graphics.FONT_NUMBER_HOT, _hour12.format("%d"),
@@ -59,13 +59,13 @@ class TimePickerView extends WatchUi.View {
         dc.drawText(_cx + 34, numY, Graphics.FONT_NUMBER_HOT, _min.format("%02d"),
                     Graphics.TEXT_JUSTIFY_LEFT);
 
-        // AM/PM on its own line
+        // AM/PM well below the digits so it never touches the colon.
         dc.setColor((_focus == 2) ? Graphics.COLOR_WHITE : 0x666666, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 38, Graphics.FONT_MEDIUM, _pm ? "PM" : "AM",
+        dc.drawText(_cx, _cy + 44, Graphics.FONT_MEDIUM, _pm ? "PM" : "AM",
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        var green = (_focus == 2) ? "Confirm" : "Next";
-        Ui.hints(dc, _w, _h, green, "Back");
+        Ui.start(dc, _w, _h, (_focus == 2) ? "Confirm" : "Next");
+        Ui.back(dc, _w, _h, "Back");
     }
 
     function bump(delta as Number) as Void {
@@ -127,15 +127,5 @@ class TimePickerDelegate extends WatchUi.BehaviorDelegate {
             WatchUi.popView(WatchUi.SLIDE_RIGHT);
         }
         return true;
-    }
-
-    function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        if (evt.getKey() == WatchUi.KEY_LIGHT) {
-            if (_view.back()) {
-                WatchUi.popView(WatchUi.SLIDE_RIGHT);
-            }
-            return true;
-        }
-        return false;
     }
 }

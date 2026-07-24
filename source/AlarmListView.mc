@@ -1,7 +1,12 @@
 // AlarmListView.mc
-// Home screen. Shows ONE item at a time (an alarm, "+ Add alarm", or "Settings").
-// UP/DOWN move; START opens the item; LIGHT toggles the highlighted alarm on/off
-// (red = it will turn off). Reads live from storage, so it's always current.
+// Home / management screen. Shows ONE item at a time (an alarm, "+ Add alarm",
+// "Alarm Activation Mode", or "Settings"). Reads live from storage.
+//
+// Controls:
+//   UP / DOWN : move between items
+//   START     : open the item (edit an alarm / open a menu entry)
+//   Hold UP   : toggle the highlighted alarm on/off (enabling enters Active Alarm)
+//   BACK      : leave the app
 
 import Toybox.Application;
 import Toybox.Graphics;
@@ -23,12 +28,12 @@ class AlarmListView extends WatchUi.View {
         _cx = _w / 2;        _cy = _h / 2;
     }
 
-    // Slots = alarms + "Add" + "Bedside Mode" + "Settings"
     function slotCount() as Number { return AlarmStore.getAlarms().size() + 3; }
     function selected() as Number { return _sel; }
     function isAddSlot() as Boolean { return _sel == AlarmStore.getAlarms().size(); }
-    function isBedsideSlot() as Boolean { return _sel == AlarmStore.getAlarms().size() + 1; }
+    function isActivateSlot() as Boolean { return _sel == AlarmStore.getAlarms().size() + 1; }
     function isSettingsSlot() as Boolean { return _sel == AlarmStore.getAlarms().size() + 2; }
+    function isAlarmSlot() as Boolean { return _sel < AlarmStore.getAlarms().size(); }
 
     function moveDown() as Void { _sel = (_sel + 1) % slotCount(); WatchUi.requestUpdate(); }
     function moveUp() as Void {
@@ -46,12 +51,11 @@ class AlarmListView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
-        dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _h * 8 / 100, Graphics.FONT_XTINY, "SMART ALARM",
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        var greenHint = "Open";
-        var redHint = null;
+        var startLabel = "Open";
 
         if (_sel == alarms.size()) {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -59,10 +63,9 @@ class AlarmListView extends WatchUi.View {
                         Graphics.TEXT_JUSTIFY_CENTER);
         } else if (_sel == alarms.size() + 1) {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy - 18, Graphics.FONT_MEDIUM, "Bedside Mode",
+            dc.drawText(_cx, _cy - 22, Graphics.FONT_SMALL, "Alarm Activation",
                         Graphics.TEXT_JUSTIFY_CENTER);
-            dc.setColor(0x999999, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 12, Graphics.FONT_XTINY, "Reliable on-time wake",
+            dc.drawText(_cx, _cy + 2, Graphics.FONT_SMALL, "Mode",
                         Graphics.TEXT_JUSTIFY_CENTER);
         } else if (_sel == alarms.size() + 2) {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -71,8 +74,7 @@ class AlarmListView extends WatchUi.View {
         } else {
             var a = alarms[_sel] as Dictionary;
             var on = AlarmStore.isOn(a);
-            greenHint = "Edit";
-            redHint = on ? "Turn off" : "Turn on";
+            startLabel = "Edit";
 
             dc.setColor(on ? Graphics.COLOR_WHITE : 0x777777, Graphics.COLOR_TRANSPARENT);
             dc.drawText(_cx, _cy - 46, Graphics.FONT_LARGE,
@@ -87,34 +89,41 @@ class AlarmListView extends WatchUi.View {
             dc.drawText(_cx, _cy + 22, Graphics.FONT_XTINY,
                         Fmt.days(AlarmStore.days(a)), Graphics.TEXT_JUSTIFY_CENTER);
 
-            if (!on) {
-                dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(_cx, _cy + 42, Graphics.FONT_XTINY, "OFF",
-                            Graphics.TEXT_JUSTIFY_CENTER);
-            }
+            dc.setColor(on ? 0x00DD44 : 0x888888, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _cy + 42, Graphics.FONT_XTINY, on ? "ENABLED" : "DISABLED",
+                        Graphics.TEXT_JUSTIFY_CENTER);
         }
 
-        dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
+        // Position indicator
+        dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _h * 70 / 100, Graphics.FONT_XTINY,
                     (_sel + 1).format("%d") + " / " + n.format("%d"),
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        Ui.hints(dc, _w, _h, greenHint, redHint);
+        // Button arrows
+        Ui.start(dc, _w, _h, startLabel);
+        if (isAlarmSlot()) {
+            Ui.up(dc, _w, _h, "On/Off");
+            dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _h * 90 / 100, Graphics.FONT_XTINY, "Hold UP to enable/disable",
+                        Graphics.TEXT_JUSTIFY_CENTER);
+        }
     }
 
-    // Toggle the highlighted alarm's enabled state (immediate).
-    function toggleHighlighted() as Void {
+    // Toggle enabled state of the highlighted alarm. Returns true if it is now ON.
+    function toggleHighlighted() as Boolean {
         var alarms = AlarmStore.getAlarms();
-        if (_sel < alarms.size()) {
-            var a = alarms[_sel] as Dictionary;
-            a.put("on", !AlarmStore.isOn(a));
-            if (AlarmStore.days(a) == 0 && AlarmStore.isOn(a)) {
-                a.put("fireAt", AlarmStore.nextOccurrence(AlarmStore.hour(a), AlarmStore.minute(a)));
-            }
-            AlarmStore.updateAlarm(_sel, a);
-            SmartAlarmApp.syncBackground();
-            WatchUi.requestUpdate();
+        if (_sel >= alarms.size()) { return false; }
+        var a = alarms[_sel] as Dictionary;
+        var nowOn = !AlarmStore.isOn(a);
+        a.put("on", nowOn);
+        if (AlarmStore.days(a) == 0 && nowOn) {
+            a.put("fireAt", AlarmStore.nextOccurrence(AlarmStore.hour(a), AlarmStore.minute(a)));
         }
+        AlarmStore.updateAlarm(_sel, a);
+        SmartAlarmApp.syncBackground();
+        WatchUi.requestUpdate();
+        return nowOn;
     }
 }
 
@@ -129,16 +138,17 @@ class AlarmListDelegate extends WatchUi.BehaviorDelegate {
 
     function onNextPage() as Boolean { _view.moveDown(); return true; }
     function onPreviousPage() as Boolean { _view.moveUp(); return true; }
+
     function onSelect() as Boolean { _open(); return true; }
     function onTap(evt as WatchUi.ClickEvent) as Boolean { _open(); return true; }
 
-    // LIGHT toggles the highlighted alarm on/off.
-    function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        if (evt.getKey() == WatchUi.KEY_LIGHT) {
-            _view.toggleHighlighted();
-            return true;
+    // Hold UP = toggle the highlighted alarm; enabling enters Active Alarm mode.
+    function onMenu() as Boolean {
+        if (_view.isAlarmSlot()) {
+            var nowOn = _view.toggleHighlighted();
+            if (nowOn) { enterActive(); }
         }
-        return false;
+        return true;
     }
 
     private function _open() as Void {
@@ -146,9 +156,8 @@ class AlarmListDelegate extends WatchUi.BehaviorDelegate {
             var na = AlarmStore.newAlarm();
             var v = new AlarmEditView(-1, na, true);
             WatchUi.pushView(v, new AlarmEditDelegate(v), WatchUi.SLIDE_LEFT);
-        } else if (_view.isBedsideSlot()) {
-            var b = new BedsideView();
-            WatchUi.pushView(b, new BedsideDelegate(b), WatchUi.SLIDE_UP);
+        } else if (_view.isActivateSlot()) {
+            enterActive();
         } else if (_view.isSettingsSlot()) {
             var s = new SettingsView();
             WatchUi.pushView(s, new SettingsDelegate(s), WatchUi.SLIDE_LEFT);
@@ -158,5 +167,10 @@ class AlarmListDelegate extends WatchUi.BehaviorDelegate {
             var v = new AlarmEditView(sel, AlarmStore.clone(a), false);
             WatchUi.pushView(v, new AlarmEditDelegate(v), WatchUi.SLIDE_LEFT);
         }
+    }
+
+    private function enterActive() as Void {
+        var bv = new BedsideView();
+        WatchUi.switchToView(bv, new BedsideDelegate(bv), WatchUi.SLIDE_UP);
     }
 }

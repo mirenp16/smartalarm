@@ -90,7 +90,8 @@ class ChoiceView extends WatchUi.View {
                     (_idx + 1).format("%d") + " / " + _options.size().format("%d"),
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        Ui.hints(dc, _w, _h, "Select", "Cancel");
+        Ui.start(dc, _w, _h, "Select");
+        Ui.back(dc, _w, _h, "Cancel");
     }
 
     // Simple greedy word-wrap using pixel measurement.
@@ -142,15 +143,6 @@ class ChoiceDelegate extends WatchUi.BehaviorDelegate {
         _view.apply();
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
         return true;
-    }
-
-    // LIGHT or BACK cancels without changing anything.
-    function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        if (evt.getKey() == WatchUi.KEY_LIGHT) {
-            WatchUi.popView(WatchUi.SLIDE_RIGHT);
-            return true;
-        }
-        return false;
     }
 
     function onBack() as Boolean {

@@ -93,9 +93,9 @@ class RingingView extends WatchUi.View {
             : ((AlarmStore.maxSnooze() - snoozeCount()).format("%d") + " snoozes left");
         dc.drawText(_cx, _cy + 30, Graphics.FONT_XTINY, info, Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Button hints
-        var green = atMax ? null : ("Snooze " + AlarmStore.snoozeMinutes().format("%d") + "m");
-        Ui.hints(dc, _w, _h, green, "I'm awake");
+        // Button arrows: START snoozes (unless capped), BACK dismisses.
+        if (!atMax) { Ui.start(dc, _w, _h, "Snooze"); }
+        Ui.back(dc, _w, _h, "I'm awake");
     }
 
     function snoozeCount() as Number {
@@ -145,15 +145,8 @@ class RingingDelegate extends WatchUi.BehaviorDelegate {
     // START = snooze
     function onSelect() as Boolean { _view.doSnooze(); return true; }
 
-    // LIGHT or BACK = dismiss
+    // BACK = dismiss
     function onBack() as Boolean { _view.doDismiss(); return true; }
-    function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        if (evt.getKey() == WatchUi.KEY_LIGHT) {
-            _view.doDismiss();
-            return true;
-        }
-        return false;
-    }
 
     // Swallow everything else so the alarm can't be dismissed by accident.
     function onNextPage() as Boolean { return true; }

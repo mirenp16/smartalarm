@@ -36,6 +36,12 @@ class SmartAlarmApp extends Application.AppBase {
             var rv = new RingingView();
             return [rv, new RingingDelegate(rv)];
         }
+        // If an alarm is enabled, go straight to Active Alarm mode — so reopening
+        // the app after a glance drops you right back into it.
+        if (anyAlarmEnabled()) {
+            var bv = new BedsideView();
+            return [bv, new BedsideDelegate(bv)];
+        }
         var lv = new AlarmListView();
         return [lv, new AlarmListDelegate(lv)];
     }

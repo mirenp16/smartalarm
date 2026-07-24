@@ -37,20 +37,39 @@ class AlarmStore {
     }
 
     // Builds a brand-new alarm Dictionary with sensible defaults.
-    // Default days = 0 means "one-time" (fires once at the next 7:30, then off).
+    // Default days = 0 means "one-time" (fires once at the next 6:00, then off).
     static function newAlarm() as Dictionary {
         return {
             "id"     => nextId(),
             "on"     => true,
-            "h"      => 7,
-            "m"      => 30,
+            "h"      => 6,
+            "m"      => 0,
             "days"   => 0,
             "label"  => "Wake up",
-            "type"   => TYPE_SLEEP,
             "win"    => 30,
             "mode"   => MODE_BOTH,
-            "fireAt" => nextOccurrence(7, 30)
+            "fireAt" => nextOccurrence(6, 0)
         };
+    }
+
+    // Epoch seconds of the next time this alarm will fire (repeating: scans up to
+    // 7 days ahead for a scheduled day; one-time: its fireAt). -1 if none.
+    static function nextFireEpoch(a as Dictionary, nowSecs as Number) as Number {
+        var d = days(a);
+        if (d == 0) {
+            var fa = fireAt(a);
+            return (fa > nowSecs) ? fa : -1;
+        }
+        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var midnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
+        var secOfDay = totalMinutes(a) * 60;
+        for (var off = 0; off < 8; off++) {
+            var epoch = midnight + off * 86400 + secOfDay;
+            if (epoch <= nowSecs) { continue; }
+            var bit = (info.day_of_week - 1 + off) % 7;
+            if ((d & (1 << bit)) != 0) { return epoch; }
+        }
+        return -1;
     }
 
     // Epoch seconds of the next time the clock reads h:m (today if still ahead,

@@ -1,8 +1,7 @@
 // AlarmEditView.mc
-// Edits one alarm, one field at a time (no overlap). Works on a COPY of the
-// alarm: nothing is written to storage until you choose "Save and Close" (or
-// press START on that row). BACK or LIGHT cancels and discards — so backing out
-// never silently creates or enables an alarm.
+// Edits one sleep-cycle alarm, one field at a time. Works on a COPY: nothing is
+// saved until "Save and Close". BACK cancels and discards. Saving an ENABLED alarm
+// drops you straight into Active Alarm mode.
 
 import Toybox.Application;
 import Toybox.Graphics;
@@ -11,8 +10,8 @@ import Toybox.WatchUi;
 
 class AlarmEditView extends WatchUi.View {
 
-    public var alarm as Dictionary;     // working copy
-    public var index as Number;         // stored index (-1 for a new alarm)
+    public var alarm as Dictionary;
+    public var index as Number;
     public var isNew as Boolean;
 
     private var _sel as Number = 0;
@@ -33,22 +32,17 @@ class AlarmEditView extends WatchUi.View {
         _cx = _w / 2;        _cy = _h / 2;
     }
 
-    // Rows: [key, title, value]. Wake/sleep window only shows for Sleep alarms;
-    // Delete only shows for an existing alarm.
     function rows() as Array {
         var r = [];
-        r.add(["time",  "Time",              Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm))]);
-        r.add(["days",  "Scheduled Days",    Fmt.days(AlarmStore.days(alarm))]);
-        r.add(["label", "Label",             AlarmStore.label(alarm)]);
-        r.add(["type",  "Type",              Fmt.typeName(AlarmStore.type(alarm))]);
-        if (AlarmStore.type(alarm) == TYPE_SLEEP) {
-            r.add(["win", "Sleep Cycle Window", AlarmStore.window(alarm).format("%d") + " Minutes"]);
-        }
-        r.add(["mode",  "Alert",             Fmt.modeName(AlarmStore.mode(alarm))]);
-        r.add(["on",    "Enabled",           AlarmStore.isOn(alarm) ? "Yes" : "No"]);
-        r.add(["save",  "Save and Close",    ""]);
+        r.add(["time",  "Time",               Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm))]);
+        r.add(["days",  "Scheduled Days",     Fmt.days(AlarmStore.days(alarm))]);
+        r.add(["label", "Label",              AlarmStore.label(alarm)]);
+        r.add(["win",   "Sleep Cycle Window", AlarmStore.window(alarm).format("%d") + " Minutes"]);
+        r.add(["mode",  "Alert",              Fmt.modeName(AlarmStore.mode(alarm))]);
+        r.add(["on",    "State",              AlarmStore.isOn(alarm) ? "Enabled" : "Disabled"]);
+        r.add(["save",  "Save and Close",     ""]);
         if (!isNew) {
-            r.add(["del", "Delete Alarm",    ""]);
+            r.add(["del", "Delete Alarm",     ""]);
         }
         return r;
     }
@@ -67,7 +61,6 @@ class AlarmEditView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
 
-    // Write the working copy to storage.
     function commit() as Void {
         if (AlarmStore.days(alarm) == 0) {
             alarm.put("fireAt",
@@ -81,6 +74,8 @@ class AlarmEditView extends WatchUi.View {
         SmartAlarmApp.syncBackground();
     }
 
+    function isEnabled() as Boolean { return AlarmStore.isOn(alarm); }
+
     function onUpdate(dc as Graphics.Dc) as Void {
         var r = rows();
         if (_sel >= r.size()) { _sel = r.size() - 1; }
@@ -92,34 +87,31 @@ class AlarmEditView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
-        // Context: the alarm time
-        dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _h * 12 / 100, Graphics.FONT_XTINY,
                     Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm)),
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Field title
+        // Title (FONT_SMALL so long labels like "Sleep Cycle Window" fit)
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 26, Graphics.FONT_MEDIUM, title, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy - 22, Graphics.FONT_SMALL, title, Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Field value
         if (value.length() > 0) {
             dc.setColor(0xCCCCCC, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 12, Graphics.FONT_SMALL, value, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(_cx, _cy + 6, Graphics.FONT_SMALL, value, Graphics.TEXT_JUSTIFY_CENTER);
         }
 
-        // Position
-        dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _h * 70 / 100, Graphics.FONT_XTINY,
                     (_sel + 1).format("%d") + " / " + r.size().format("%d"),
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Button hints (green action depends on the row)
         var green = "Change";
         if (key.equals("save")) { green = "Save"; }
         else if (key.equals("del")) { green = "Delete"; }
         else if (key.equals("on")) { green = "Toggle"; }
-        Ui.hints(dc, _w, _h, green, "Cancel");
+        Ui.start(dc, _w, _h, green);
+        Ui.back(dc, _w, _h, "Cancel");
     }
 }
 
@@ -143,15 +135,6 @@ class AlarmEditDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    // LIGHT also cancels.
-    function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        if (evt.getKey() == WatchUi.KEY_LIGHT) {
-            WatchUi.popView(WatchUi.SLIDE_RIGHT);
-            return true;
-        }
-        return false;
-    }
-
     private function _activate() as Void {
         var key = _view.selectedKey();
         var a = _view.alarm;
@@ -167,9 +150,6 @@ class AlarmEditDelegate extends WatchUi.BehaviorDelegate {
         } else if (key.equals("label")) {
             _pushChoice("Label", "label", _labelOptions(), AlarmStore.label(a), a);
 
-        } else if (key.equals("type")) {
-            _pushChoice("Type", "type", _typeOptions(), AlarmStore.type(a), a);
-
         } else if (key.equals("win")) {
             _pushChoice("Sleep Cycle Window", "win", _windowOptions(), AlarmStore.window(a), a);
 
@@ -183,11 +163,14 @@ class AlarmEditDelegate extends WatchUi.BehaviorDelegate {
         } else if (key.equals("save")) {
             _view.commit();
             WatchUi.popView(WatchUi.SLIDE_RIGHT);
+            if (_view.isEnabled()) {
+                var bv = new BedsideView();
+                WatchUi.switchToView(bv, new BedsideDelegate(bv), WatchUi.SLIDE_UP);
+            }
 
         } else if (key.equals("del")) {
-            AlarmStore.deleteAlarm(_view.index);
-            SmartAlarmApp.syncBackground();
-            WatchUi.popView(WatchUi.SLIDE_RIGHT);
+            var dialog = new WatchUi.Confirmation("Delete this alarm?");
+            WatchUi.pushView(dialog, new DeleteConfirmDelegate(_view.index), WatchUi.SLIDE_UP);
         }
     }
 
@@ -195,15 +178,6 @@ class AlarmEditDelegate extends WatchUi.BehaviorDelegate {
                                  current, a as Dictionary) as Void {
         var cv = new ChoiceView(title, key, options, current, a);
         WatchUi.pushView(cv, new ChoiceDelegate(cv), WatchUi.SLIDE_LEFT);
-    }
-
-    private function _typeOptions() as Array {
-        return [
-            [TYPE_SLEEP, "Sleep",
-             "Wakes you during light sleep in the window before your set time, so you feel less groggy."],
-            [TYPE_REMINDER, "Reminder",
-             "Rings exactly at the set time. Use for reminders, not for waking from sleep."]
-        ];
     }
 
     private function _windowOptions() as Array {
@@ -232,5 +206,25 @@ class AlarmEditDelegate extends WatchUi.BehaviorDelegate {
             out.add([names[i], names[i], ""]);
         }
         return out;
+    }
+}
+
+// Confirms deleting an alarm, then closes the editor.
+class DeleteConfirmDelegate extends WatchUi.ConfirmationDelegate {
+
+    private var _index as Number;
+
+    function initialize(index as Number) {
+        ConfirmationDelegate.initialize();
+        _index = index;
+    }
+
+    function onResponse(response) as Boolean {
+        if (response == WatchUi.CONFIRM_YES) {
+            AlarmStore.deleteAlarm(_index);
+            SmartAlarmApp.syncBackground();
+            WatchUi.popView(WatchUi.SLIDE_RIGHT);   // close the editor
+        }
+        return true;
     }
 }

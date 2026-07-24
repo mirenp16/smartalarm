@@ -60,8 +60,8 @@ class AlarmEngine {
                 continue;
             }
 
-            // Reminder / already-awake sleep alarms fire exactly on time.
-            if (AlarmStore.type(a) == TYPE_REMINDER || AlarmStore.isPlainFire(aid)) {
+            // Already-awake alarms (downgraded) fire exactly on time.
+            if (AlarmStore.isPlainFire(aid)) {
                 if (nowSecs >= targetSecs) { return aid; }
                 continue;
             }
@@ -110,11 +110,27 @@ class AlarmEngine {
                 targetSecs = midnight + AlarmStore.totalMinutes(a) * 60;
             }
 
-            var win = (AlarmStore.type(a) == TYPE_SLEEP) ? AlarmStore.window(a) : 0;
+            var win = AlarmStore.window(a);
             var startSecs = targetSecs - (win + AWAKE_CHECK_LEAD) * 60;
             var endSecs = targetSecs + FIRE_GRACE_MINS * 60;
             if (nowSecs >= startSecs && nowSecs <= endSecs) { return true; }
         }
         return false;
+    }
+
+    // The enabled alarm that will fire soonest (for the Active Alarm display), or
+    // null if none are enabled/upcoming.
+    static function nextAlarm(nowSecs as Number) as Dictionary? {
+        var best = null;
+        var bestEpoch = 0;
+        var list = AlarmStore.getAlarms();
+        for (var i = 0; i < list.size(); i++) {
+            var a = list[i] as Dictionary;
+            if (!AlarmStore.isOn(a)) { continue; }
+            var e = AlarmStore.nextFireEpoch(a, nowSecs);
+            if (e < 0) { continue; }
+            if (best == null || e < bestEpoch) { best = a; bestEpoch = e; }
+        }
+        return best;
     }
 }

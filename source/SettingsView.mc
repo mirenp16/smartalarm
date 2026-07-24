@@ -68,7 +68,8 @@ class SettingsView extends WatchUi.View {
         dc.drawText(_cx, _h * 70 / 100, Graphics.FONT_XTINY,
                     (_sel + 1).format("%d") + " / 2", Graphics.TEXT_JUSTIFY_CENTER);
 
-        Ui.hints(dc, _w, _h, "Change", "Back");
+        Ui.start(dc, _w, _h, "Change");
+        Ui.back(dc, _w, _h, "Back");
     }
 }
 
@@ -87,11 +88,4 @@ class SettingsDelegate extends WatchUi.BehaviorDelegate {
     function onTap(evt as WatchUi.ClickEvent) as Boolean { _view.cycle(); return true; }
 
     function onBack() as Boolean { WatchUi.popView(WatchUi.SLIDE_RIGHT); return true; }
-    function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        if (evt.getKey() == WatchUi.KEY_LIGHT) {
-            WatchUi.popView(WatchUi.SLIDE_RIGHT);
-            return true;
-        }
-        return false;
-    }
 }
