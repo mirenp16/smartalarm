@@ -1,61 +1,69 @@
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 9; @symbol_importdef<0> = [Toybox,9,7,13]; @symbol_importdef<1> = [Application,9,14,25]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [Application,7,14,25]; ]
 import Toybox.Application;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 10; @symbol_importdef<0> = [Toybox,10,7,13]; @symbol_importdef<1> = [Graphics,10,14,22]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 8; @symbol_importdef<0> = [Toybox,8,7,13]; @symbol_importdef<1> = [Graphics,8,14,22]; ]
 import Toybox.Graphics;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 11; @symbol_importdef<0> = [Toybox,11,7,13]; @symbol_importdef<1> = [Lang,11,14,18]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 9; @symbol_importdef<0> = [Toybox,9,7,13]; @symbol_importdef<1> = [Lang,9,14,18]; ]
 import Toybox.Lang;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 12; @symbol_importdef<0> = [Toybox,12,7,13]; @symbol_importdef<1> = [WatchUi,12,14,21]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 10; @symbol_importdef<0> = [Toybox,10,7,13]; @symbol_importdef<1> = [WatchUi,10,14,21]; ]
 import Toybox.WatchUi;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 14; @symbol_classdef = [AlarmEditView,14,6,19]; @symbol_extends<0> = [WatchUi,14,28,35]; @symbol_extends<1> = [View,14,36,40]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 12; @symbol_classdef = [AlarmEditView,12,6,19]; @symbol_extends<0> = [WatchUi,12,28,35]; @symbol_extends<1> = [View,12,36,40]; ]
 class AlarmEditView extends WatchUi.View {
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 14; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 12; ]
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 14; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 12; ]
     static
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 16; @position = 15; @symbol_vardef = [alarm,16,15,20]; @symbol_type<0> = [Dictionary,16,24,34]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 14; @position = 15; @symbol_vardef = [alarm,14,15,20]; @symbol_type<0> = [Dictionary,14,24,34]; ]
     public
     var alarm as Dictionary;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 17; @position = 15; @symbol_vardef = [index,17,15,20]; @symbol_type<0> = [Number,17,24,30]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 15; @position = 15; @symbol_vardef = [index,15,15,20]; @symbol_type<0> = [Number,15,24,30]; ]
     public
     var index as Number;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 19; @position = 16; @symbol_vardef = [_sel,19,16,20]; @symbol_type<0> = [Number,19,24,30]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 16; @position = 15; @symbol_vardef = [isNew,16,15,20]; @symbol_type<0> = [Boolean,16,24,31]; ]
+    public
+    var isNew as Boolean;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 18; @position = 16; @symbol_vardef = [_sel,18,16,20]; @symbol_type<0> = [Number,18,24,30]; ]
     private
     var _sel as Number = 0;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 20; @position = 16; @symbol_vardef = [_w,20,16,18]; @symbol_type<0> = [Number,20,22,28]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 19; @position = 16; @symbol_vardef = [_w,19,16,18]; @symbol_type<0> = [Number,19,22,28]; ]
     private
     var _w as Number = 260;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 21; @position = 16; @symbol_vardef = [_h,21,16,18]; @symbol_type<0> = [Number,21,22,28]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 20; @position = 16; @symbol_vardef = [_h,20,16,18]; @symbol_type<0> = [Number,20,22,28]; ]
     private
     var _h as Number = 260;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 22; @position = 16; @symbol_vardef = [_cx,22,16,19]; @symbol_type<0> = [Number,22,23,29]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 21; @position = 16; @symbol_vardef = [_cx,21,16,19]; @symbol_type<0> = [Number,21,23,29]; ]
     private
     var _cx as Number = 130;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 23; @position = 16; @symbol_vardef = [_cy,23,16,19]; @symbol_type<0> = [Number,23,23,29]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 22; @position = 16; @symbol_vardef = [_cy,22,16,19]; @symbol_type<0> = [Number,22,23,29]; ]
     private
     var _cy as Number = 130;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 25; @symbol_functiondef = [initialize,25,13,23]; @symbol_param<0> = [idx,25,24,27]; @symbol_param<0>_type<0> = [Number,25,31,37]; @symbol_param<1> = [a,25,39,40]; @symbol_param<1>_type<0> = [Dictionary,25,44,54]; ]
-    function initialize(idx as Number, a as Dictionary) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_25_56_29_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 26 8 ]
-        symbol [ View %tmp.2 26 8 12 ];
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 24; @symbol_functiondef = [initialize,24,13,23]; @symbol_param<0> = [idx,24,24,27]; @symbol_param<0>_type<0> = [Number,24,31,37]; @symbol_param<1> = [workingCopy,24,39,50]; @symbol_param<1>_type<0> = [Dictionary,24,54,64]; @symbol_param<2> = [brandNew,24,66,74]; @symbol_param<2>_type<0> = [Boolean,24,78,85]; ]
+    function initialize(idx as Number, workingCopy as Dictionary, brandNew as Boolean) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_24_87_29_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 25 8 ]
+        symbol [ View %tmp.2 25 8 12 ];
         %tmp.2 = getv ? :View;
-        symbol [ initialize %tmp.3 26 13 23 ];
+        symbol [ initialize %tmp.3 25 13 23 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 27 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 26 8 ]
         %tmp.4 = lgetv %idx;
-        symbol [ idx %tmp.4 27 16 19 ];
-        symbol [ index ? 27 8 13 ];
+        symbol [ idx %tmp.4 26 16 19 ];
+        symbol [ index ? 26 8 13 ];
         putv self :index %tmp.4;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 28 8 ]
-        %tmp.5 = lgetv %a;
-        symbol [ a %tmp.5 28 16 17 ];
-        symbol [ alarm ? 28 8 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 27 8 ]
+        %tmp.5 = lgetv %workingCopy;
+        symbol [ workingCopy %tmp.5 27 16 27 ];
+        symbol [ alarm ? 27 8 13 ];
         putv self :alarm %tmp.5;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_25_56_29_4_stop:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 28 8 ]
+        %tmp.6 = lgetv %brandNew;
+        symbol [ brandNew %tmp.6 28 16 24 ];
+        symbol [ isNew ? 28 8 13 ];
+        putv self :isNew %tmp.6;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_24_87_29_4_stop:
     }
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 31; @symbol_functiondef = [onLayout,31,13,21]; @symbol_param<0> = [dc,31,22,24]; @symbol_param<0>_type<0> = [Graphics,31,28,36]; @symbol_param<0>_type<1> = [Dc,31,37,39]; ]
     function onLayout(dc as Graphics.Dc) as Void {
@@ -92,20 +100,20 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_31_49_34_4_star
         putv self :_cy %tmp.14;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_31_49_34_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 37; @symbol_functiondef = [rows,37,13,17]; @symbol_return<0> = [Array,37,23,28]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 38; @symbol_functiondef = [rows,38,13,17]; @symbol_return<0> = [Array,38,23,28]; ]
     function rows() as Array {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_37_29_51_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 38 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_37_29_51_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_37_29_51_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_38_29_54_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 39 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_38_29_54_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_38_29_54_4_stop" ]
         %r.1 = local;
-        symbol [ r %r.1 38 12 13 ];
+        symbol [ r %r.1 39 12 13 ];
         %tmp.1 = newa 0;
         lputv %r.1 %tmp.1;
-        symbol [ r %r.1 38 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 39 8 ]
+        symbol [ r %r.1 39 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 40 8 ]
         %tmp.2 = lgetv %r.1;
-        symbol [ r %tmp.2 39 8 9 ];
-        symbol [ add %tmp.3 39 10 13 ];
+        symbol [ r %tmp.2 40 8 9 ];
+        symbol [ add %tmp.3 40 10 13 ];
         %tmp.3 = getv function %tmp.2 :add;
         %tmp.4 = newa 3;
         %tmp.5 = "time";
@@ -114,59 +122,59 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_37_29_51_4_star
         %tmp.8 = "Time";
         %tmp.9 = dup %tmp.7;
         %tmp.10 = aputv %tmp.9 1 %tmp.8;
-        symbol [ Fmt %tmp.12 39 40 43 ];
+        symbol [ Fmt %tmp.12 40 45 48 ];
         %tmp.12 = getv ? :Fmt;
-        symbol [ time12 %tmp.13 39 44 50 ];
+        symbol [ time12 %tmp.13 40 49 55 ];
         %tmp.13 = getv function %tmp.12 :time12;
-        symbol [ AlarmStore %tmp.15 39 51 61 ];
+        symbol [ AlarmStore %tmp.15 40 56 66 ];
         %tmp.15 = getv ? :AlarmStore;
-        symbol [ hour %tmp.16 39 62 66 ];
+        symbol [ hour %tmp.16 40 67 71 ];
         %tmp.16 = getv function %tmp.15 :hour;
-        symbol [ alarm %tmp.18 39 67 72 ];
+        symbol [ alarm %tmp.18 40 72 77 ];
         %tmp.18 = getv ? :alarm;
         %tmp.19 = invoke %tmp.15 %tmp.16(%tmp.18);
-        symbol [ AlarmStore %tmp.21 39 75 85 ];
+        symbol [ AlarmStore %tmp.21 40 80 90 ];
         %tmp.21 = getv ? :AlarmStore;
-        symbol [ minute %tmp.22 39 86 92 ];
+        symbol [ minute %tmp.22 40 91 97 ];
         %tmp.22 = getv function %tmp.21 :minute;
-        symbol [ alarm %tmp.24 39 93 98 ];
+        symbol [ alarm %tmp.24 40 98 103 ];
         %tmp.24 = getv ? :alarm;
         %tmp.25 = invoke %tmp.21 %tmp.22(%tmp.24);
         %tmp.26 = invoke %tmp.12 %tmp.13(%tmp.19, %tmp.25);
         %tmp.27 = dup %tmp.10;
         %tmp.28 = aputv %tmp.27 2 %tmp.26;
         invoke %tmp.2 %tmp.3(%tmp.28);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 40 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 41 8 ]
         %tmp.29 = lgetv %r.1;
-        symbol [ r %tmp.29 40 8 9 ];
-        symbol [ add %tmp.30 40 10 13 ];
+        symbol [ r %tmp.29 41 8 9 ];
+        symbol [ add %tmp.30 41 10 13 ];
         %tmp.30 = getv function %tmp.29 :add;
         %tmp.31 = newa 3;
         %tmp.32 = "days";
         %tmp.33 = dup %tmp.31;
         %tmp.34 = aputv %tmp.33 0 %tmp.32;
-        %tmp.35 = "Days";
+        %tmp.35 = "Scheduled Days";
         %tmp.36 = dup %tmp.34;
         %tmp.37 = aputv %tmp.36 1 %tmp.35;
-        symbol [ Fmt %tmp.39 40 40 43 ];
+        symbol [ Fmt %tmp.39 41 45 48 ];
         %tmp.39 = getv ? :Fmt;
-        symbol [ days %tmp.40 40 44 48 ];
+        symbol [ days %tmp.40 41 49 53 ];
         %tmp.40 = getv function %tmp.39 :days;
-        symbol [ AlarmStore %tmp.42 40 49 59 ];
+        symbol [ AlarmStore %tmp.42 41 54 64 ];
         %tmp.42 = getv ? :AlarmStore;
-        symbol [ days %tmp.43 40 60 64 ];
+        symbol [ days %tmp.43 41 65 69 ];
         %tmp.43 = getv function %tmp.42 :days;
-        symbol [ alarm %tmp.45 40 65 70 ];
+        symbol [ alarm %tmp.45 41 70 75 ];
         %tmp.45 = getv ? :alarm;
         %tmp.46 = invoke %tmp.42 %tmp.43(%tmp.45);
         %tmp.47 = invoke %tmp.39 %tmp.40(%tmp.46);
         %tmp.48 = dup %tmp.37;
         %tmp.49 = aputv %tmp.48 2 %tmp.47;
         invoke %tmp.29 %tmp.30(%tmp.49);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 41 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 42 8 ]
         %tmp.50 = lgetv %r.1;
-        symbol [ r %tmp.50 41 8 9 ];
-        symbol [ add %tmp.51 41 10 13 ];
+        symbol [ r %tmp.50 42 8 9 ];
+        symbol [ add %tmp.51 42 10 13 ];
         %tmp.51 = getv function %tmp.50 :add;
         %tmp.52 = newa 3;
         %tmp.53 = "label";
@@ -175,20 +183,20 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_37_29_51_4_star
         %tmp.56 = "Label";
         %tmp.57 = dup %tmp.55;
         %tmp.58 = aputv %tmp.57 1 %tmp.56;
-        symbol [ AlarmStore %tmp.60 41 40 50 ];
+        symbol [ AlarmStore %tmp.60 42 45 55 ];
         %tmp.60 = getv ? :AlarmStore;
-        symbol [ label %tmp.61 41 51 56 ];
+        symbol [ label %tmp.61 42 56 61 ];
         %tmp.61 = getv function %tmp.60 :label;
-        symbol [ alarm %tmp.63 41 57 62 ];
+        symbol [ alarm %tmp.63 42 62 67 ];
         %tmp.63 = getv ? :alarm;
         %tmp.64 = invoke %tmp.60 %tmp.61(%tmp.63);
         %tmp.65 = dup %tmp.58;
         %tmp.66 = aputv %tmp.65 2 %tmp.64;
         invoke %tmp.50 %tmp.51(%tmp.66);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 42 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 43 8 ]
         %tmp.67 = lgetv %r.1;
-        symbol [ r %tmp.67 42 8 9 ];
-        symbol [ add %tmp.68 42 10 13 ];
+        symbol [ r %tmp.67 43 8 9 ];
+        symbol [ add %tmp.68 43 10 13 ];
         %tmp.68 = getv function %tmp.67 :add;
         %tmp.69 = newa 3;
         %tmp.70 = "type";
@@ -197,71 +205,71 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_37_29_51_4_star
         %tmp.73 = "Type";
         %tmp.74 = dup %tmp.72;
         %tmp.75 = aputv %tmp.74 1 %tmp.73;
-        symbol [ Fmt %tmp.77 42 40 43 ];
+        symbol [ Fmt %tmp.77 43 45 48 ];
         %tmp.77 = getv ? :Fmt;
-        symbol [ typeName %tmp.78 42 44 52 ];
+        symbol [ typeName %tmp.78 43 49 57 ];
         %tmp.78 = getv function %tmp.77 :typeName;
-        symbol [ AlarmStore %tmp.80 42 53 63 ];
+        symbol [ AlarmStore %tmp.80 43 58 68 ];
         %tmp.80 = getv ? :AlarmStore;
-        symbol [ type %tmp.81 42 64 68 ];
+        symbol [ type %tmp.81 43 69 73 ];
         %tmp.81 = getv function %tmp.80 :type;
-        symbol [ alarm %tmp.83 42 69 74 ];
+        symbol [ alarm %tmp.83 43 74 79 ];
         %tmp.83 = getv ? :alarm;
         %tmp.84 = invoke %tmp.80 %tmp.81(%tmp.83);
         %tmp.85 = invoke %tmp.77 %tmp.78(%tmp.84);
         %tmp.86 = dup %tmp.75;
         %tmp.87 = aputv %tmp.86 2 %tmp.85;
         invoke %tmp.67 %tmp.68(%tmp.87);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 43 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_8_45_8_if_stmt:
-        symbol [ AlarmStore %tmp.89 43 12 22 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 44 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_44_8_46_8_if_stmt:
+        symbol [ AlarmStore %tmp.89 44 12 22 ];
         %tmp.89 = getv ? :AlarmStore;
-        symbol [ type %tmp.90 43 23 27 ];
+        symbol [ type %tmp.90 44 23 27 ];
         %tmp.90 = getv function %tmp.89 :type;
-        symbol [ alarm %tmp.92 43 28 33 ];
+        symbol [ alarm %tmp.92 44 28 33 ];
         %tmp.92 = getv ? :alarm;
         %tmp.93 = invoke %tmp.89 %tmp.90(%tmp.92);
-        symbol [ TYPE_SLEEP %tmp.95 43 38 48 ];
+        symbol [ TYPE_SLEEP %tmp.95 44 38 48 ];
         %tmp.95 = getv ? :TYPE_SLEEP;
         %tmp.96 = eq %tmp.93 %tmp.95;
-        bf %tmp.96 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_8_45_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_8_45_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_50_45_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 44 12 ]
+        bf %tmp.96 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_44_8_46_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_44_8_46_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_44_50_46_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 45 12 ]
         %tmp.97 = lgetv %r.1;
-        symbol [ r %tmp.97 44 12 13 ];
-        symbol [ add %tmp.98 44 14 17 ];
+        symbol [ r %tmp.97 45 12 13 ];
+        symbol [ add %tmp.98 45 14 17 ];
         %tmp.98 = getv function %tmp.97 :add;
         %tmp.99 = newa 3;
         %tmp.100 = "win";
         %tmp.101 = dup %tmp.99;
         %tmp.102 = aputv %tmp.101 0 %tmp.100;
-        %tmp.103 = "Wake Window";
+        %tmp.103 = "Sleep Cycle Window";
         %tmp.104 = dup %tmp.102;
         %tmp.105 = aputv %tmp.104 1 %tmp.103;
-        symbol [ AlarmStore %tmp.107 44 41 51 ];
+        symbol [ AlarmStore %tmp.107 45 48 58 ];
         %tmp.107 = getv ? :AlarmStore;
-        symbol [ window %tmp.108 44 52 58 ];
+        symbol [ window %tmp.108 45 59 65 ];
         %tmp.108 = getv function %tmp.107 :window;
-        symbol [ alarm %tmp.110 44 59 64 ];
+        symbol [ alarm %tmp.110 45 66 71 ];
         %tmp.110 = getv ? :alarm;
         %tmp.111 = invoke %tmp.107 %tmp.108(%tmp.110);
-        symbol [ format %tmp.112 44 66 72 ];
+        symbol [ format %tmp.112 45 73 79 ];
         %tmp.112 = getv function %tmp.111 :format;
         %tmp.113 = "%d";
         %tmp.114 = invoke %tmp.111 %tmp.112(%tmp.113);
-        %tmp.115 = " min";
+        %tmp.115 = " Minutes";
         %tmp.116 = add %tmp.114 %tmp.115;
         %tmp.117 = dup %tmp.105;
         %tmp.118 = aputv %tmp.117 2 %tmp.116;
         invoke %tmp.97 %tmp.98(%tmp.118);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_50_45_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_8_45_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_8_45_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 46 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_44_50_46_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_44_8_46_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_44_8_46_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 47 8 ]
         %tmp.119 = lgetv %r.1;
-        symbol [ r %tmp.119 46 8 9 ];
-        symbol [ add %tmp.120 46 10 13 ];
+        symbol [ r %tmp.119 47 8 9 ];
+        symbol [ add %tmp.120 47 10 13 ];
         %tmp.120 = getv function %tmp.119 :add;
         %tmp.121 = newa 3;
         %tmp.122 = "mode";
@@ -270,25 +278,25 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_8_45_8_if_en
         %tmp.125 = "Alert";
         %tmp.126 = dup %tmp.124;
         %tmp.127 = aputv %tmp.126 1 %tmp.125;
-        symbol [ Fmt %tmp.129 46 40 43 ];
+        symbol [ Fmt %tmp.129 47 45 48 ];
         %tmp.129 = getv ? :Fmt;
-        symbol [ modeName %tmp.130 46 44 52 ];
+        symbol [ modeName %tmp.130 47 49 57 ];
         %tmp.130 = getv function %tmp.129 :modeName;
-        symbol [ AlarmStore %tmp.132 46 53 63 ];
+        symbol [ AlarmStore %tmp.132 47 58 68 ];
         %tmp.132 = getv ? :AlarmStore;
-        symbol [ mode %tmp.133 46 64 68 ];
+        symbol [ mode %tmp.133 47 69 73 ];
         %tmp.133 = getv function %tmp.132 :mode;
-        symbol [ alarm %tmp.135 46 69 74 ];
+        symbol [ alarm %tmp.135 47 74 79 ];
         %tmp.135 = getv ? :alarm;
         %tmp.136 = invoke %tmp.132 %tmp.133(%tmp.135);
         %tmp.137 = invoke %tmp.129 %tmp.130(%tmp.136);
         %tmp.138 = dup %tmp.127;
         %tmp.139 = aputv %tmp.138 2 %tmp.137;
         invoke %tmp.119 %tmp.120(%tmp.139);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 47 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 48 8 ]
         %tmp.140 = lgetv %r.1;
-        symbol [ r %tmp.140 47 8 9 ];
-        symbol [ add %tmp.141 47 10 13 ];
+        symbol [ r %tmp.140 48 8 9 ];
+        symbol [ add %tmp.141 48 10 13 ];
         %tmp.141 = getv function %tmp.140 :add;
         %tmp.142 = newa 3;
         %tmp.143 = "on";
@@ -297,153 +305,164 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_43_8_45_8_if_en
         %tmp.146 = "Enabled";
         %tmp.147 = dup %tmp.145;
         %tmp.148 = aputv %tmp.147 1 %tmp.146;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_begin:
-        symbol [ AlarmStore %tmp.150 47 40 50 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_begin:
+        symbol [ AlarmStore %tmp.150 48 45 55 ];
         %tmp.150 = getv ? :AlarmStore;
-        symbol [ isOn %tmp.151 47 51 55 ];
+        symbol [ isOn %tmp.151 48 56 60 ];
         %tmp.151 = getv function %tmp.150 :isOn;
-        symbol [ alarm %tmp.153 47 56 61 ];
+        symbol [ alarm %tmp.153 48 61 66 ];
         %tmp.153 = getv ? :alarm;
         %tmp.154 = invoke %tmp.150 %tmp.151(%tmp.153);
-        bf %tmp.154 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_true:
-        %tmp.155 = "On";
+        bf %tmp.154 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_true:
+        %tmp.155 = "Yes";
         push %tmp.155;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_else_false:
-        %tmp.156 = "Off";
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_else_false:
+        %tmp.156 = "No";
         push %tmp.156;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_end:
-        %tmp.157 = phi [%tmp.154 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_begin] [%tmp.155 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_true] [%tmp.156 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_else_false] [%tmp.157 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_47_40_47_72_end];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_end:
+        %tmp.157 = phi [%tmp.154 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_begin] [%tmp.155 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_true] [%tmp.156 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_else_false] [%tmp.157 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_48_45_48_78_end];
         %tmp.158 = dup %tmp.148;
         %tmp.159 = aputv %tmp.158 2 %tmp.157;
         invoke %tmp.140 %tmp.141(%tmp.159);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 48 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 49 8 ]
         %tmp.160 = lgetv %r.1;
-        symbol [ r %tmp.160 48 8 9 ];
-        symbol [ add %tmp.161 48 10 13 ];
+        symbol [ r %tmp.160 49 8 9 ];
+        symbol [ add %tmp.161 49 10 13 ];
         %tmp.161 = getv function %tmp.160 :add;
         %tmp.162 = newa 3;
         %tmp.163 = "save";
         %tmp.164 = dup %tmp.162;
         %tmp.165 = aputv %tmp.164 0 %tmp.163;
-        %tmp.166 = "Save & close";
+        %tmp.166 = "Save and Close";
         %tmp.167 = dup %tmp.165;
         %tmp.168 = aputv %tmp.167 1 %tmp.166;
         %tmp.169 = "";
         %tmp.170 = dup %tmp.168;
         %tmp.171 = aputv %tmp.170 2 %tmp.169;
         invoke %tmp.160 %tmp.161(%tmp.171);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 49 8 ]
-        %tmp.172 = lgetv %r.1;
-        symbol [ r %tmp.172 49 8 9 ];
-        symbol [ add %tmp.173 49 10 13 ];
-        %tmp.173 = getv function %tmp.172 :add;
-        %tmp.174 = newa 3;
-        %tmp.175 = "del";
-        %tmp.176 = dup %tmp.174;
-        %tmp.177 = aputv %tmp.176 0 %tmp.175;
-        %tmp.178 = "Delete alarm";
-        %tmp.179 = dup %tmp.177;
-        %tmp.180 = aputv %tmp.179 1 %tmp.178;
-        %tmp.181 = "";
-        %tmp.182 = dup %tmp.180;
-        %tmp.183 = aputv %tmp.182 2 %tmp.181;
-        invoke %tmp.172 %tmp.173(%tmp.183);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 50 8 ]
-        %tmp.184 = lgetv %r.1;
-        symbol [ r %tmp.184 50 15 16 ];
-        ret %tmp.184;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_37_29_51_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_50_8_52_8_if_stmt:
+        symbol [ isNew %tmp.173 50 13 18 ];
+        %tmp.173 = getv ? :isNew;
+        %tmp.174 = not %tmp.173;
+        bf %tmp.174 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_50_8_52_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_50_8_52_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_50_20_52_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 51 12 ]
+        %tmp.175 = lgetv %r.1;
+        symbol [ r %tmp.175 51 12 13 ];
+        symbol [ add %tmp.176 51 14 17 ];
+        %tmp.176 = getv function %tmp.175 :add;
+        %tmp.177 = newa 3;
+        %tmp.178 = "del";
+        %tmp.179 = dup %tmp.177;
+        %tmp.180 = aputv %tmp.179 0 %tmp.178;
+        %tmp.181 = "Delete Alarm";
+        %tmp.182 = dup %tmp.180;
+        %tmp.183 = aputv %tmp.182 1 %tmp.181;
+        %tmp.184 = "";
+        %tmp.185 = dup %tmp.183;
+        %tmp.186 = aputv %tmp.185 2 %tmp.184;
+        invoke %tmp.175 %tmp.176(%tmp.186);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_50_20_52_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_50_8_52_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_50_8_52_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 53 8 ]
+        %tmp.187 = lgetv %r.1;
+        symbol [ r %tmp.187 53 15 16 ];
+        ret %tmp.187;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_38_29_54_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 53; @symbol_functiondef = [selected,53,13,21]; @symbol_return<0> = [Number,53,27,33]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 56; @symbol_functiondef = [selected,56,13,21]; @symbol_return<0> = [Number,56,27,33]; ]
     function selected() as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_53_34_53_49_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 53 36 ]
-        symbol [ _sel %tmp.2 53 43 47 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_34_56_49_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 56 36 ]
+        symbol [ _sel %tmp.2 56 43 47 ];
         %tmp.2 = getv ? :_sel;
         ret %tmp.2;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_53_34_53_49_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_34_56_49_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 54; @symbol_functiondef = [selectedKey,54,13,24]; @symbol_return<0> = [String,54,30,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 57; @symbol_functiondef = [selectedKey,57,13,24]; @symbol_return<0> = [String,57,30,36]; ]
     function selectedKey() as String {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_54_37_58_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 55 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_54_37_58_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_54_37_58_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_57_37_61_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 58 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_57_37_61_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_57_37_61_4_stop" ]
         %r.1 = local;
-        symbol [ r %r.1 55 12 13 ];
+        symbol [ r %r.1 58 12 13 ];
         %tmp.1 = self;
-        symbol [ rows %tmp.2 55 16 20 ];
+        symbol [ rows %tmp.2 58 16 20 ];
         %tmp.2 = getv function %tmp.1 :rows;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %r.1 %tmp.3;
-        symbol [ r %r.1 55 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 56 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_8_56_53_if_stmt:
-        symbol [ _sel %tmp.5 56 12 16 ];
+        symbol [ r %r.1 58 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 59 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_59_8_59_53_if_stmt:
+        symbol [ _sel %tmp.5 59 12 16 ];
         %tmp.5 = getv ? :_sel;
         %tmp.6 = lgetv %r.1;
-        symbol [ r %tmp.6 56 20 21 ];
-        symbol [ size %tmp.7 56 22 26 ];
+        symbol [ r %tmp.6 59 20 21 ];
+        symbol [ size %tmp.7 59 22 26 ];
         %tmp.7 = getv function %tmp.6 :size;
         %tmp.8 = invoke %tmp.6 %tmp.7();
         %tmp.9 = gte %tmp.5 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_8_56_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_8_56_53_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_30_56_53_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 56 32 ]
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_59_8_59_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_59_8_59_53_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_59_30_59_53_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 59 32 ]
         %tmp.10 = lgetv %r.1;
-        symbol [ r %tmp.10 56 39 40 ];
-        symbol [ size %tmp.11 56 41 45 ];
+        symbol [ r %tmp.10 59 39 40 ];
+        symbol [ size %tmp.11 59 41 45 ];
         %tmp.11 = getv function %tmp.10 :size;
         %tmp.12 = invoke %tmp.10 %tmp.11();
         %tmp.13 = 1;
         %tmp.14 = sub %tmp.12 %tmp.13;
-        symbol [ _sel ? 56 32 36 ];
+        symbol [ _sel ? 59 32 36 ];
         putv self :_sel %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_30_56_53_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_8_56_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_56_8_56_53_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 57 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_59_30_59_53_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_59_8_59_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_59_8_59_53_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 60 8 ]
         %tmp.15 = lgetv %r.1;
-        symbol [ r %tmp.15 57 16 17 ];
-        symbol [ _sel %tmp.17 57 18 22 ];
+        symbol [ r %tmp.15 60 16 17 ];
+        symbol [ _sel %tmp.17 60 18 22 ];
         %tmp.17 = getv ? :_sel;
         %tmp.18 = agetv %tmp.15 %tmp.17;
         %tmp.19 = as %tmp.18 Array;
-        symbol [ Array %tmp.19 57 27 32 ];
+        symbol [ Array %tmp.19 60 27 32 ];
         %tmp.20 = 0;
         %tmp.21 = agetv %tmp.19 %tmp.20;
         %tmp.22 = as %tmp.21 String;
-        symbol [ String %tmp.22 57 40 46 ];
+        symbol [ String %tmp.22 60 40 46 ];
         ret %tmp.22;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_54_37_58_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_57_37_61_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 60; @symbol_functiondef = [moveDown,60,13,21]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 63; @symbol_functiondef = [moveDown,63,13,21]; ]
     function moveDown() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_60_32_63_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 61 8 ]
-        symbol [ _sel %tmp.2 61 16 20 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_63_32_63_94_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 63 34 ]
+        symbol [ _sel %tmp.2 63 42 46 ];
         %tmp.2 = getv ? :_sel;
         %tmp.3 = 1;
         %tmp.4 = add %tmp.2 %tmp.3;
         %tmp.5 = self;
-        symbol [ rows %tmp.6 61 28 32 ];
+        symbol [ rows %tmp.6 63 54 58 ];
         %tmp.6 = getv function %tmp.5 :rows;
         %tmp.7 = invoke %tmp.5 %tmp.6();
-        symbol [ size %tmp.8 61 35 39 ];
+        symbol [ size %tmp.8 63 61 65 ];
         %tmp.8 = getv function %tmp.7 :size;
         %tmp.9 = invoke %tmp.7 %tmp.8();
         %tmp.10 = mod %tmp.4 %tmp.9;
-        symbol [ _sel ? 61 8 12 ];
+        symbol [ _sel ? 63 34 38 ];
         putv self :_sel %tmp.10;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 62 8 ]
-        symbol [ WatchUi %tmp.11 62 8 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 63 69 ]
+        symbol [ WatchUi %tmp.11 63 69 76 ];
         %tmp.11 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.12 62 16 29 ];
+        symbol [ requestUpdate %tmp.12 63 77 90 ];
         %tmp.12 = getv function %tmp.11 :requestUpdate;
         invoke %tmp.11 %tmp.12();
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_60_32_63_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_63_32_63_94_stop:
     }
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 64; @symbol_functiondef = [moveUp,64,13,19]; ]
     function moveUp() as Void {
@@ -482,875 +501,1265 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_64_30_68_4_star
         invoke %tmp.14 %tmp.15();
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_64_30_68_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 72; @symbol_functiondef = [persist,72,13,20]; ]
-    function persist() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_31_79_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 73 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_73_8_76_8_if_stmt:
-        symbol [ AlarmStore %tmp.2 73 12 22 ];
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 71; @symbol_functiondef = [commit,71,13,19]; ]
+    function commit() as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_71_30_82_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 72 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_8_75_8_if_stmt:
+        symbol [ AlarmStore %tmp.2 72 12 22 ];
         %tmp.2 = getv ? :AlarmStore;
-        symbol [ days %tmp.3 73 23 27 ];
+        symbol [ days %tmp.3 72 23 27 ];
         %tmp.3 = getv function %tmp.2 :days;
-        symbol [ alarm %tmp.5 73 28 33 ];
+        symbol [ alarm %tmp.5 72 28 33 ];
         %tmp.5 = getv ? :alarm;
         %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
         %tmp.7 = 0;
         %tmp.8 = eq %tmp.6 %tmp.7;
-        bf %tmp.8 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_73_8_76_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_73_8_76_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_73_41_76_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 74 12 ]
-        symbol [ alarm %tmp.10 74 12 17 ];
+        bf %tmp.8 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_8_75_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_8_75_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_41_75_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 73 12 ]
+        symbol [ alarm %tmp.10 73 12 17 ];
         %tmp.10 = getv ? :alarm;
-        symbol [ put %tmp.11 74 18 21 ];
+        symbol [ put %tmp.11 73 18 21 ];
         %tmp.11 = getv function %tmp.10 :put;
         %tmp.12 = "fireAt";
-        symbol [ AlarmStore %tmp.14 75 16 26 ];
+        symbol [ AlarmStore %tmp.14 74 16 26 ];
         %tmp.14 = getv ? :AlarmStore;
-        symbol [ nextOccurrence %tmp.15 75 27 41 ];
+        symbol [ nextOccurrence %tmp.15 74 27 41 ];
         %tmp.15 = getv function %tmp.14 :nextOccurrence;
-        symbol [ AlarmStore %tmp.17 75 42 52 ];
+        symbol [ AlarmStore %tmp.17 74 42 52 ];
         %tmp.17 = getv ? :AlarmStore;
-        symbol [ hour %tmp.18 75 53 57 ];
+        symbol [ hour %tmp.18 74 53 57 ];
         %tmp.18 = getv function %tmp.17 :hour;
-        symbol [ alarm %tmp.20 75 58 63 ];
+        symbol [ alarm %tmp.20 74 58 63 ];
         %tmp.20 = getv ? :alarm;
         %tmp.21 = invoke %tmp.17 %tmp.18(%tmp.20);
-        symbol [ AlarmStore %tmp.23 75 66 76 ];
+        symbol [ AlarmStore %tmp.23 74 66 76 ];
         %tmp.23 = getv ? :AlarmStore;
-        symbol [ minute %tmp.24 75 77 83 ];
+        symbol [ minute %tmp.24 74 77 83 ];
         %tmp.24 = getv function %tmp.23 :minute;
-        symbol [ alarm %tmp.26 75 84 89 ];
+        symbol [ alarm %tmp.26 74 84 89 ];
         %tmp.26 = getv ? :alarm;
         %tmp.27 = invoke %tmp.23 %tmp.24(%tmp.26);
         %tmp.28 = invoke %tmp.14 %tmp.15(%tmp.21, %tmp.27);
         invoke %tmp.10 %tmp.11(%tmp.12, %tmp.28);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_73_41_76_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_73_8_76_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_73_8_76_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 77 8 ]
-        symbol [ AlarmStore %tmp.30 77 8 18 ];
-        %tmp.30 = getv ? :AlarmStore;
-        symbol [ updateAlarm %tmp.31 77 19 30 ];
-        %tmp.31 = getv function %tmp.30 :updateAlarm;
-        symbol [ index %tmp.33 77 31 36 ];
-        %tmp.33 = getv ? :index;
-        symbol [ alarm %tmp.35 77 38 43 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_41_75_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_8_75_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_8_75_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 76 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_8_80_8_if_stmt:
+        symbol [ isNew %tmp.30 76 12 17 ];
+        %tmp.30 = getv ? :isNew;
+        bf %tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_8_80_8_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_8_80_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_19_78_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 77 12 ]
+        symbol [ AlarmStore %tmp.32 77 12 22 ];
+        %tmp.32 = getv ? :AlarmStore;
+        symbol [ addAlarm %tmp.33 77 23 31 ];
+        %tmp.33 = getv function %tmp.32 :addAlarm;
+        symbol [ alarm %tmp.35 77 32 37 ];
         %tmp.35 = getv ? :alarm;
-        invoke %tmp.30 %tmp.31(%tmp.33, %tmp.35);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 78 8 ]
-        symbol [ SmartAlarmApp %tmp.37 78 8 21 ];
-        %tmp.37 = getv ? :SmartAlarmApp;
-        symbol [ syncBackground %tmp.38 78 22 36 ];
-        %tmp.38 = getv function %tmp.37 :syncBackground;
-        invoke %tmp.37 %tmp.38();
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_72_31_79_4_stop:
+        invoke %tmp.32 %tmp.33(%tmp.35);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_19_78_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_8_80_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_8_80_8_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_78_15_80_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 79 12 ]
+        symbol [ AlarmStore %tmp.37 79 12 22 ];
+        %tmp.37 = getv ? :AlarmStore;
+        symbol [ updateAlarm %tmp.38 79 23 34 ];
+        %tmp.38 = getv function %tmp.37 :updateAlarm;
+        symbol [ index %tmp.40 79 35 40 ];
+        %tmp.40 = getv ? :index;
+        symbol [ alarm %tmp.42 79 42 47 ];
+        %tmp.42 = getv ? :alarm;
+        invoke %tmp.37 %tmp.38(%tmp.40, %tmp.42);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_78_15_80_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_76_8_80_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 81 8 ]
+        symbol [ SmartAlarmApp %tmp.44 81 8 21 ];
+        %tmp.44 = getv ? :SmartAlarmApp;
+        symbol [ syncBackground %tmp.45 81 22 36 ];
+        %tmp.45 = getv function %tmp.44 :syncBackground;
+        invoke %tmp.44 %tmp.45();
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_71_30_82_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 81; @symbol_functiondef = [onUpdate,81,13,21]; @symbol_param<0> = [dc,81,22,24]; @symbol_param<0>_type<0> = [Graphics,81,28,36]; @symbol_param<0>_type<1> = [Dc,81,37,39]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 84; @symbol_functiondef = [onUpdate,84,13,21]; @symbol_param<0> = [dc,84,22,24]; @symbol_param<0>_type<0> = [Graphics,84,28,36]; @symbol_param<0>_type<1> = [Dc,84,37,39]; ]
     function onUpdate(dc as Graphics.Dc) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 82 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 85 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_stop" ]
         %r.1 = local;
-        symbol [ r %r.1 82 12 13 ];
+        symbol [ r %r.1 85 12 13 ];
         %tmp.1 = self;
-        symbol [ rows %tmp.2 82 16 20 ];
+        symbol [ rows %tmp.2 85 16 20 ];
         %tmp.2 = getv function %tmp.1 :rows;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %r.1 %tmp.3;
-        symbol [ r %r.1 82 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 83 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_83_8_83_53_if_stmt:
-        symbol [ _sel %tmp.5 83 12 16 ];
+        symbol [ r %r.1 85 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 86 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_86_8_86_53_if_stmt:
+        symbol [ _sel %tmp.5 86 12 16 ];
         %tmp.5 = getv ? :_sel;
         %tmp.6 = lgetv %r.1;
-        symbol [ r %tmp.6 83 20 21 ];
-        symbol [ size %tmp.7 83 22 26 ];
+        symbol [ r %tmp.6 86 20 21 ];
+        symbol [ size %tmp.7 86 22 26 ];
         %tmp.7 = getv function %tmp.6 :size;
         %tmp.8 = invoke %tmp.6 %tmp.7();
         %tmp.9 = gte %tmp.5 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_83_8_83_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_83_8_83_53_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_83_30_83_53_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 83 32 ]
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_86_8_86_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_86_8_86_53_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_86_30_86_53_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 86 32 ]
         %tmp.10 = lgetv %r.1;
-        symbol [ r %tmp.10 83 39 40 ];
-        symbol [ size %tmp.11 83 41 45 ];
+        symbol [ r %tmp.10 86 39 40 ];
+        symbol [ size %tmp.11 86 41 45 ];
         %tmp.11 = getv function %tmp.10 :size;
         %tmp.12 = invoke %tmp.10 %tmp.11();
         %tmp.13 = 1;
         %tmp.14 = sub %tmp.12 %tmp.13;
-        symbol [ _sel ? 83 32 36 ];
+        symbol [ _sel ? 86 32 36 ];
         putv self :_sel %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_83_30_83_53_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_83_8_83_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_83_8_83_53_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 84 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_86_30_86_53_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_86_8_86_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_86_8_86_53_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 87 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_stop" ]
         %row.2 = local;
-        symbol [ row %row.2 84 12 15 ];
+        symbol [ row %row.2 87 12 15 ];
         %tmp.15 = lgetv %r.1;
-        symbol [ r %tmp.15 84 18 19 ];
-        symbol [ _sel %tmp.17 84 20 24 ];
+        symbol [ r %tmp.15 87 18 19 ];
+        symbol [ _sel %tmp.17 87 20 24 ];
         %tmp.17 = getv ? :_sel;
         %tmp.18 = agetv %tmp.15 %tmp.17;
         %tmp.19 = as %tmp.18 Array;
-        symbol [ Array %tmp.19 84 29 34 ];
+        symbol [ Array %tmp.19 87 29 34 ];
         lputv %row.2 %tmp.19;
-        symbol [ row %row.2 84 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 85 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_stop" ]
-        %title.3 = local;
-        symbol [ title %title.3 85 12 17 ];
+        symbol [ row %row.2 87 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 88 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_stop" ]
+        %key.3 = local;
+        symbol [ key %key.3 88 12 15 ];
         %tmp.20 = lgetv %row.2;
-        symbol [ row %tmp.20 85 20 23 ];
-        %tmp.21 = 1;
+        symbol [ row %tmp.20 88 18 21 ];
+        %tmp.21 = 0;
         %tmp.22 = agetv %tmp.20 %tmp.21;
         %tmp.23 = as %tmp.22 String;
-        symbol [ String %tmp.23 85 30 36 ];
-        lputv %title.3 %tmp.23;
-        symbol [ title %title.3 85 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 86 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_stop" ]
-        %value.4 = local;
-        symbol [ value %value.4 86 12 17 ];
+        symbol [ String %tmp.23 88 28 34 ];
+        lputv %key.3 %tmp.23;
+        symbol [ key %key.3 88 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 89 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_stop" ]
+        %title.4 = local;
+        symbol [ title %title.4 89 12 17 ];
         %tmp.24 = lgetv %row.2;
-        symbol [ row %tmp.24 86 20 23 ];
-        %tmp.25 = 2;
+        symbol [ row %tmp.24 89 20 23 ];
+        %tmp.25 = 1;
         %tmp.26 = agetv %tmp.24 %tmp.25;
         %tmp.27 = as %tmp.26 String;
-        symbol [ String %tmp.27 86 30 36 ];
-        lputv %value.4 %tmp.27;
-        symbol [ value %value.4 86 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 88 8 ]
-        %tmp.28 = lgetv %dc;
-        symbol [ dc %tmp.28 88 8 10 ];
-        symbol [ setColor %tmp.29 88 11 19 ];
-        %tmp.29 = getv function %tmp.28 :setColor;
-        symbol [ Graphics %tmp.30 88 20 28 ];
-        %tmp.30 = getm $.Toybox.Graphics;
-        symbol [ COLOR_BLACK %tmp.31 88 29 40 ];
-        %tmp.31 = getv %tmp.30 :COLOR_BLACK;
-        symbol [ Graphics %tmp.32 88 42 50 ];
-        %tmp.32 = getm $.Toybox.Graphics;
-        symbol [ COLOR_BLACK %tmp.33 88 51 62 ];
-        %tmp.33 = getv %tmp.32 :COLOR_BLACK;
-        invoke %tmp.28 %tmp.29(%tmp.31, %tmp.33);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 89 8 ]
-        %tmp.34 = lgetv %dc;
-        symbol [ dc %tmp.34 89 8 10 ];
-        symbol [ clear %tmp.35 89 11 16 ];
-        %tmp.35 = getv function %tmp.34 :clear;
-        invoke %tmp.34 %tmp.35();
+        symbol [ String %tmp.27 89 30 36 ];
+        lputv %title.4 %tmp.27;
+        symbol [ title %title.4 89 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 90 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_stop" ]
+        %value.5 = local;
+        symbol [ value %value.5 90 12 17 ];
+        %tmp.28 = lgetv %row.2;
+        symbol [ row %tmp.28 90 20 23 ];
+        %tmp.29 = 2;
+        %tmp.30 = agetv %tmp.28 %tmp.29;
+        %tmp.31 = as %tmp.30 String;
+        symbol [ String %tmp.31 90 30 36 ];
+        lputv %value.5 %tmp.31;
+        symbol [ value %value.5 90 12 17 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 92 8 ]
-        %tmp.36 = lgetv %dc;
-        symbol [ dc %tmp.36 92 8 10 ];
-        symbol [ setColor %tmp.37 92 11 19 ];
-        %tmp.37 = getv function %tmp.36 :setColor;
-        %tmp.38 = 0xAAAAAA;
-        symbol [ Graphics %tmp.39 92 30 38 ];
-        %tmp.39 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.40 92 39 56 ];
-        %tmp.40 = getv %tmp.39 :COLOR_TRANSPARENT;
-        invoke %tmp.36 %tmp.37(%tmp.38, %tmp.40);
+        %tmp.32 = lgetv %dc;
+        symbol [ dc %tmp.32 92 8 10 ];
+        symbol [ setColor %tmp.33 92 11 19 ];
+        %tmp.33 = getv function %tmp.32 :setColor;
+        symbol [ Graphics %tmp.34 92 20 28 ];
+        %tmp.34 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.35 92 29 40 ];
+        %tmp.35 = getv %tmp.34 :COLOR_BLACK;
+        symbol [ Graphics %tmp.36 92 42 50 ];
+        %tmp.36 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.37 92 51 62 ];
+        %tmp.37 = getv %tmp.36 :COLOR_BLACK;
+        invoke %tmp.32 %tmp.33(%tmp.35, %tmp.37);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 93 8 ]
-        %tmp.41 = lgetv %dc;
-        symbol [ dc %tmp.41 93 8 10 ];
-        symbol [ drawText %tmp.42 93 11 19 ];
-        %tmp.42 = getv function %tmp.41 :drawText;
-        symbol [ _cx %tmp.44 93 20 23 ];
-        %tmp.44 = getv ? :_cx;
-        symbol [ _h %tmp.46 93 25 27 ];
-        %tmp.46 = getv ? :_h;
-        %tmp.47 = 12;
-        %tmp.48 = mul %tmp.46 %tmp.47;
-        %tmp.49 = 100;
-        %tmp.50 = div %tmp.48 %tmp.49;
-        symbol [ Graphics %tmp.51 93 40 48 ];
-        %tmp.51 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.52 93 49 59 ];
-        %tmp.52 = getv %tmp.51 :FONT_XTINY;
-        symbol [ Fmt %tmp.54 94 20 23 ];
-        %tmp.54 = getv ? :Fmt;
-        symbol [ time12 %tmp.55 94 24 30 ];
-        %tmp.55 = getv function %tmp.54 :time12;
-        symbol [ AlarmStore %tmp.57 94 31 41 ];
-        %tmp.57 = getv ? :AlarmStore;
-        symbol [ hour %tmp.58 94 42 46 ];
-        %tmp.58 = getv function %tmp.57 :hour;
-        symbol [ alarm %tmp.60 94 47 52 ];
-        %tmp.60 = getv ? :alarm;
-        %tmp.61 = invoke %tmp.57 %tmp.58(%tmp.60);
-        symbol [ AlarmStore %tmp.63 94 55 65 ];
-        %tmp.63 = getv ? :AlarmStore;
-        symbol [ minute %tmp.64 94 66 72 ];
-        %tmp.64 = getv function %tmp.63 :minute;
-        symbol [ alarm %tmp.66 94 73 78 ];
-        %tmp.66 = getv ? :alarm;
-        %tmp.67 = invoke %tmp.63 %tmp.64(%tmp.66);
-        %tmp.68 = invoke %tmp.54 %tmp.55(%tmp.61, %tmp.67);
-        symbol [ Graphics %tmp.69 95 20 28 ];
-        %tmp.69 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.70 95 29 48 ];
-        %tmp.70 = getv %tmp.69 :TEXT_JUSTIFY_CENTER;
-        invoke %tmp.41 %tmp.42(%tmp.44, %tmp.50, %tmp.52, %tmp.68, %tmp.70);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 98 8 ]
-        %tmp.71 = lgetv %dc;
-        symbol [ dc %tmp.71 98 8 10 ];
-        symbol [ setColor %tmp.72 98 11 19 ];
-        %tmp.72 = getv function %tmp.71 :setColor;
-        symbol [ Graphics %tmp.73 98 20 28 ];
+        %tmp.38 = lgetv %dc;
+        symbol [ dc %tmp.38 93 8 10 ];
+        symbol [ clear %tmp.39 93 11 16 ];
+        %tmp.39 = getv function %tmp.38 :clear;
+        invoke %tmp.38 %tmp.39();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 96 8 ]
+        %tmp.40 = lgetv %dc;
+        symbol [ dc %tmp.40 96 8 10 ];
+        symbol [ setColor %tmp.41 96 11 19 ];
+        %tmp.41 = getv function %tmp.40 :setColor;
+        %tmp.42 = 0xAAAAAA;
+        symbol [ Graphics %tmp.43 96 30 38 ];
+        %tmp.43 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.44 96 39 56 ];
+        %tmp.44 = getv %tmp.43 :COLOR_TRANSPARENT;
+        invoke %tmp.40 %tmp.41(%tmp.42, %tmp.44);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 97 8 ]
+        %tmp.45 = lgetv %dc;
+        symbol [ dc %tmp.45 97 8 10 ];
+        symbol [ drawText %tmp.46 97 11 19 ];
+        %tmp.46 = getv function %tmp.45 :drawText;
+        symbol [ _cx %tmp.48 97 20 23 ];
+        %tmp.48 = getv ? :_cx;
+        symbol [ _h %tmp.50 97 25 27 ];
+        %tmp.50 = getv ? :_h;
+        %tmp.51 = 12;
+        %tmp.52 = mul %tmp.50 %tmp.51;
+        %tmp.53 = 100;
+        %tmp.54 = div %tmp.52 %tmp.53;
+        symbol [ Graphics %tmp.55 97 40 48 ];
+        %tmp.55 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.56 97 49 59 ];
+        %tmp.56 = getv %tmp.55 :FONT_XTINY;
+        symbol [ Fmt %tmp.58 98 20 23 ];
+        %tmp.58 = getv ? :Fmt;
+        symbol [ time12 %tmp.59 98 24 30 ];
+        %tmp.59 = getv function %tmp.58 :time12;
+        symbol [ AlarmStore %tmp.61 98 31 41 ];
+        %tmp.61 = getv ? :AlarmStore;
+        symbol [ hour %tmp.62 98 42 46 ];
+        %tmp.62 = getv function %tmp.61 :hour;
+        symbol [ alarm %tmp.64 98 47 52 ];
+        %tmp.64 = getv ? :alarm;
+        %tmp.65 = invoke %tmp.61 %tmp.62(%tmp.64);
+        symbol [ AlarmStore %tmp.67 98 55 65 ];
+        %tmp.67 = getv ? :AlarmStore;
+        symbol [ minute %tmp.68 98 66 72 ];
+        %tmp.68 = getv function %tmp.67 :minute;
+        symbol [ alarm %tmp.70 98 73 78 ];
+        %tmp.70 = getv ? :alarm;
+        %tmp.71 = invoke %tmp.67 %tmp.68(%tmp.70);
+        %tmp.72 = invoke %tmp.58 %tmp.59(%tmp.65, %tmp.71);
+        symbol [ Graphics %tmp.73 99 20 28 ];
         %tmp.73 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.74 98 29 40 ];
-        %tmp.74 = getv %tmp.73 :COLOR_WHITE;
-        symbol [ Graphics %tmp.75 98 42 50 ];
-        %tmp.75 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.76 98 51 68 ];
-        %tmp.76 = getv %tmp.75 :COLOR_TRANSPARENT;
-        invoke %tmp.71 %tmp.72(%tmp.74, %tmp.76);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 99 8 ]
-        %tmp.77 = lgetv %dc;
-        symbol [ dc %tmp.77 99 8 10 ];
-        symbol [ drawText %tmp.78 99 11 19 ];
-        %tmp.78 = getv function %tmp.77 :drawText;
-        symbol [ _cx %tmp.80 99 20 23 ];
-        %tmp.80 = getv ? :_cx;
-        symbol [ _cy %tmp.82 99 25 28 ];
-        %tmp.82 = getv ? :_cy;
-        %tmp.83 = 26;
-        %tmp.84 = sub %tmp.82 %tmp.83;
-        symbol [ Graphics %tmp.85 99 35 43 ];
-        %tmp.85 = getm $.Toybox.Graphics;
-        symbol [ FONT_MEDIUM %tmp.86 99 44 55 ];
-        %tmp.86 = getv %tmp.85 :FONT_MEDIUM;
-        %tmp.87 = lgetv %title.3;
-        symbol [ title %tmp.87 99 57 62 ];
-        symbol [ Graphics %tmp.88 99 64 72 ];
-        %tmp.88 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.89 99 73 92 ];
-        %tmp.89 = getv %tmp.88 :TEXT_JUSTIFY_CENTER;
-        invoke %tmp.77 %tmp.78(%tmp.80, %tmp.84, %tmp.86, %tmp.87, %tmp.89);
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.74 99 29 48 ];
+        %tmp.74 = getv %tmp.73 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.45 %tmp.46(%tmp.48, %tmp.54, %tmp.56, %tmp.72, %tmp.74);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 102 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_102_8_105_8_if_stmt:
-        %tmp.90 = lgetv %value.4;
-        symbol [ value %tmp.90 102 12 17 ];
-        symbol [ length %tmp.91 102 18 24 ];
-        %tmp.91 = getv function %tmp.90 :length;
-        %tmp.92 = invoke %tmp.90 %tmp.91();
-        %tmp.93 = 0;
-        %tmp.94 = gt %tmp.92 %tmp.93;
-        bf %tmp.94 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_102_8_105_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_102_8_105_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_102_32_105_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 103 12 ]
-        %tmp.95 = lgetv %dc;
-        symbol [ dc %tmp.95 103 12 14 ];
-        symbol [ setColor %tmp.96 103 15 23 ];
-        %tmp.96 = getv function %tmp.95 :setColor;
-        %tmp.97 = 0xCCCCCC;
-        symbol [ Graphics %tmp.98 103 34 42 ];
-        %tmp.98 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.99 103 43 60 ];
-        %tmp.99 = getv %tmp.98 :COLOR_TRANSPARENT;
-        invoke %tmp.95 %tmp.96(%tmp.97, %tmp.99);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 104 12 ]
-        %tmp.100 = lgetv %dc;
-        symbol [ dc %tmp.100 104 12 14 ];
-        symbol [ drawText %tmp.101 104 15 23 ];
-        %tmp.101 = getv function %tmp.100 :drawText;
-        symbol [ _cx %tmp.103 104 24 27 ];
-        %tmp.103 = getv ? :_cx;
-        symbol [ _cy %tmp.105 104 29 32 ];
-        %tmp.105 = getv ? :_cy;
-        %tmp.106 = 12;
-        %tmp.107 = add %tmp.105 %tmp.106;
-        symbol [ Graphics %tmp.108 104 39 47 ];
-        %tmp.108 = getm $.Toybox.Graphics;
-        symbol [ FONT_SMALL %tmp.109 104 48 58 ];
-        %tmp.109 = getv %tmp.108 :FONT_SMALL;
-        %tmp.110 = lgetv %value.4;
-        symbol [ value %tmp.110 104 60 65 ];
-        symbol [ Graphics %tmp.111 104 67 75 ];
-        %tmp.111 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.112 104 76 95 ];
-        %tmp.112 = getv %tmp.111 :TEXT_JUSTIFY_CENTER;
-        invoke %tmp.100 %tmp.101(%tmp.103, %tmp.107, %tmp.109, %tmp.110, %tmp.112);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_102_32_105_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_102_8_105_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_102_8_105_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 108 8 ]
-        %tmp.113 = lgetv %dc;
-        symbol [ dc %tmp.113 108 8 10 ];
-        symbol [ setColor %tmp.114 108 11 19 ];
-        %tmp.114 = getv function %tmp.113 :setColor;
-        %tmp.115 = 0x888888;
-        symbol [ Graphics %tmp.116 108 30 38 ];
-        %tmp.116 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.117 108 39 56 ];
-        %tmp.117 = getv %tmp.116 :COLOR_TRANSPARENT;
-        invoke %tmp.113 %tmp.114(%tmp.115, %tmp.117);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 109 8 ]
-        %tmp.118 = lgetv %dc;
-        symbol [ dc %tmp.118 109 8 10 ];
-        symbol [ drawText %tmp.119 109 11 19 ];
-        %tmp.119 = getv function %tmp.118 :drawText;
-        symbol [ _cx %tmp.121 109 20 23 ];
-        %tmp.121 = getv ? :_cx;
-        symbol [ _h %tmp.123 109 25 27 ];
-        %tmp.123 = getv ? :_h;
-        %tmp.124 = 30;
-        %tmp.125 = sub %tmp.123 %tmp.124;
-        symbol [ Graphics %tmp.126 109 34 42 ];
-        %tmp.126 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.127 109 43 53 ];
-        %tmp.127 = getv %tmp.126 :FONT_XTINY;
-        symbol [ _sel %tmp.129 110 21 25 ];
-        %tmp.129 = getv ? :_sel;
-        %tmp.130 = 1;
-        %tmp.131 = add %tmp.129 %tmp.130;
-        symbol [ format %tmp.132 110 31 37 ];
-        %tmp.132 = getv function %tmp.131 :format;
-        %tmp.133 = "%d";
-        %tmp.134 = invoke %tmp.131 %tmp.132(%tmp.133);
-        %tmp.135 = " / ";
-        %tmp.136 = add %tmp.134 %tmp.135;
-        %tmp.137 = lgetv %r.1;
-        symbol [ r %tmp.137 110 54 55 ];
-        symbol [ size %tmp.138 110 56 60 ];
-        %tmp.138 = getv function %tmp.137 :size;
-        %tmp.139 = invoke %tmp.137 %tmp.138();
-        symbol [ format %tmp.140 110 63 69 ];
-        %tmp.140 = getv function %tmp.139 :format;
-        %tmp.141 = "%d";
-        %tmp.142 = invoke %tmp.139 %tmp.140(%tmp.141);
-        %tmp.143 = add %tmp.136 %tmp.142;
-        %tmp.144 = "   START";
-        %tmp.145 = add %tmp.143 %tmp.144;
-        symbol [ Graphics %tmp.146 111 20 28 ];
-        %tmp.146 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.147 111 29 48 ];
-        %tmp.147 = getv %tmp.146 :TEXT_JUSTIFY_CENTER;
-        invoke %tmp.118 %tmp.119(%tmp.121, %tmp.125, %tmp.127, %tmp.145, %tmp.147);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_81_49_112_4_stop:
+        %tmp.75 = lgetv %dc;
+        symbol [ dc %tmp.75 102 8 10 ];
+        symbol [ setColor %tmp.76 102 11 19 ];
+        %tmp.76 = getv function %tmp.75 :setColor;
+        symbol [ Graphics %tmp.77 102 20 28 ];
+        %tmp.77 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.78 102 29 40 ];
+        %tmp.78 = getv %tmp.77 :COLOR_WHITE;
+        symbol [ Graphics %tmp.79 102 42 50 ];
+        %tmp.79 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.80 102 51 68 ];
+        %tmp.80 = getv %tmp.79 :COLOR_TRANSPARENT;
+        invoke %tmp.75 %tmp.76(%tmp.78, %tmp.80);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 103 8 ]
+        %tmp.81 = lgetv %dc;
+        symbol [ dc %tmp.81 103 8 10 ];
+        symbol [ drawText %tmp.82 103 11 19 ];
+        %tmp.82 = getv function %tmp.81 :drawText;
+        symbol [ _cx %tmp.84 103 20 23 ];
+        %tmp.84 = getv ? :_cx;
+        symbol [ _cy %tmp.86 103 25 28 ];
+        %tmp.86 = getv ? :_cy;
+        %tmp.87 = 26;
+        %tmp.88 = sub %tmp.86 %tmp.87;
+        symbol [ Graphics %tmp.89 103 35 43 ];
+        %tmp.89 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.90 103 44 55 ];
+        %tmp.90 = getv %tmp.89 :FONT_MEDIUM;
+        %tmp.91 = lgetv %title.4;
+        symbol [ title %tmp.91 103 57 62 ];
+        symbol [ Graphics %tmp.92 103 64 72 ];
+        %tmp.92 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.93 103 73 92 ];
+        %tmp.93 = getv %tmp.92 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.81 %tmp.82(%tmp.84, %tmp.88, %tmp.90, %tmp.91, %tmp.93);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 106 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_106_8_109_8_if_stmt:
+        %tmp.94 = lgetv %value.5;
+        symbol [ value %tmp.94 106 12 17 ];
+        symbol [ length %tmp.95 106 18 24 ];
+        %tmp.95 = getv function %tmp.94 :length;
+        %tmp.96 = invoke %tmp.94 %tmp.95();
+        %tmp.97 = 0;
+        %tmp.98 = gt %tmp.96 %tmp.97;
+        bf %tmp.98 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_106_8_109_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_106_8_109_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_106_32_109_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 107 12 ]
+        %tmp.99 = lgetv %dc;
+        symbol [ dc %tmp.99 107 12 14 ];
+        symbol [ setColor %tmp.100 107 15 23 ];
+        %tmp.100 = getv function %tmp.99 :setColor;
+        %tmp.101 = 0xCCCCCC;
+        symbol [ Graphics %tmp.102 107 34 42 ];
+        %tmp.102 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.103 107 43 60 ];
+        %tmp.103 = getv %tmp.102 :COLOR_TRANSPARENT;
+        invoke %tmp.99 %tmp.100(%tmp.101, %tmp.103);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 108 12 ]
+        %tmp.104 = lgetv %dc;
+        symbol [ dc %tmp.104 108 12 14 ];
+        symbol [ drawText %tmp.105 108 15 23 ];
+        %tmp.105 = getv function %tmp.104 :drawText;
+        symbol [ _cx %tmp.107 108 24 27 ];
+        %tmp.107 = getv ? :_cx;
+        symbol [ _cy %tmp.109 108 29 32 ];
+        %tmp.109 = getv ? :_cy;
+        %tmp.110 = 12;
+        %tmp.111 = add %tmp.109 %tmp.110;
+        symbol [ Graphics %tmp.112 108 39 47 ];
+        %tmp.112 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.113 108 48 58 ];
+        %tmp.113 = getv %tmp.112 :FONT_SMALL;
+        %tmp.114 = lgetv %value.5;
+        symbol [ value %tmp.114 108 60 65 ];
+        symbol [ Graphics %tmp.115 108 67 75 ];
+        %tmp.115 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.116 108 76 95 ];
+        %tmp.116 = getv %tmp.115 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.104 %tmp.105(%tmp.107, %tmp.111, %tmp.113, %tmp.114, %tmp.116);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_106_32_109_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_106_8_109_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_106_8_109_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 112 8 ]
+        %tmp.117 = lgetv %dc;
+        symbol [ dc %tmp.117 112 8 10 ];
+        symbol [ setColor %tmp.118 112 11 19 ];
+        %tmp.118 = getv function %tmp.117 :setColor;
+        %tmp.119 = 0x777777;
+        symbol [ Graphics %tmp.120 112 30 38 ];
+        %tmp.120 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.121 112 39 56 ];
+        %tmp.121 = getv %tmp.120 :COLOR_TRANSPARENT;
+        invoke %tmp.117 %tmp.118(%tmp.119, %tmp.121);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 113 8 ]
+        %tmp.122 = lgetv %dc;
+        symbol [ dc %tmp.122 113 8 10 ];
+        symbol [ drawText %tmp.123 113 11 19 ];
+        %tmp.123 = getv function %tmp.122 :drawText;
+        symbol [ _cx %tmp.125 113 20 23 ];
+        %tmp.125 = getv ? :_cx;
+        symbol [ _h %tmp.127 113 25 27 ];
+        %tmp.127 = getv ? :_h;
+        %tmp.128 = 70;
+        %tmp.129 = mul %tmp.127 %tmp.128;
+        %tmp.130 = 100;
+        %tmp.131 = div %tmp.129 %tmp.130;
+        symbol [ Graphics %tmp.132 113 40 48 ];
+        %tmp.132 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.133 113 49 59 ];
+        %tmp.133 = getv %tmp.132 :FONT_XTINY;
+        symbol [ _sel %tmp.135 114 21 25 ];
+        %tmp.135 = getv ? :_sel;
+        %tmp.136 = 1;
+        %tmp.137 = add %tmp.135 %tmp.136;
+        symbol [ format %tmp.138 114 31 37 ];
+        %tmp.138 = getv function %tmp.137 :format;
+        %tmp.139 = "%d";
+        %tmp.140 = invoke %tmp.137 %tmp.138(%tmp.139);
+        %tmp.141 = " / ";
+        %tmp.142 = add %tmp.140 %tmp.141;
+        %tmp.143 = lgetv %r.1;
+        symbol [ r %tmp.143 114 54 55 ];
+        symbol [ size %tmp.144 114 56 60 ];
+        %tmp.144 = getv function %tmp.143 :size;
+        %tmp.145 = invoke %tmp.143 %tmp.144();
+        symbol [ format %tmp.146 114 63 69 ];
+        %tmp.146 = getv function %tmp.145 :format;
+        %tmp.147 = "%d";
+        %tmp.148 = invoke %tmp.145 %tmp.146(%tmp.147);
+        %tmp.149 = add %tmp.142 %tmp.148;
+        symbol [ Graphics %tmp.150 115 20 28 ];
+        %tmp.150 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.151 115 29 48 ];
+        %tmp.151 = getv %tmp.150 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.122 %tmp.123(%tmp.125, %tmp.131, %tmp.133, %tmp.149, %tmp.151);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 118 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_stop" ]
+        %green.6 = local;
+        symbol [ green %green.6 118 12 17 ];
+        %tmp.152 = "Change";
+        lputv %green.6 %tmp.152;
+        symbol [ green %green.6 118 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 119 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_8_121_55_if_stmt:
+        %tmp.153 = lgetv %key.3;
+        symbol [ key %tmp.153 119 12 15 ];
+        symbol [ equals %tmp.154 119 16 22 ];
+        %tmp.154 = getv function %tmp.153 :equals;
+        %tmp.155 = "save";
+        %tmp.156 = invoke %tmp.153 %tmp.154(%tmp.155);
+        bf %tmp.156 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_8_121_55_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_8_121_55_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_32_119_50_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 119 34 ]
+        %tmp.157 = "Save";
+        lputv %green.6 %tmp.157;
+        symbol [ green %green.6 119 34 39 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_32_119_50_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_8_121_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_8_121_55_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 120 13 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_13_121_55_if_stmt:
+        %tmp.158 = lgetv %key.3;
+        symbol [ key %tmp.158 120 17 20 ];
+        symbol [ equals %tmp.159 120 21 27 ];
+        %tmp.159 = getv function %tmp.158 :equals;
+        %tmp.160 = "del";
+        %tmp.161 = invoke %tmp.158 %tmp.159(%tmp.160);
+        bf %tmp.161 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_13_121_55_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_13_121_55_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_36_120_56_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 120 38 ]
+        %tmp.162 = "Delete";
+        lputv %green.6 %tmp.162;
+        symbol [ green %green.6 120 38 43 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_36_120_56_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_13_121_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_13_121_55_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 121 13 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_121_13_121_55_if_stmt:
+        %tmp.163 = lgetv %key.3;
+        symbol [ key %tmp.163 121 17 20 ];
+        symbol [ equals %tmp.164 121 21 27 ];
+        %tmp.164 = getv function %tmp.163 :equals;
+        %tmp.165 = "on";
+        %tmp.166 = invoke %tmp.163 %tmp.164(%tmp.165);
+        bf %tmp.166 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_121_13_121_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_121_13_121_55_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_121_35_121_55_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 121 37 ]
+        %tmp.167 = "Toggle";
+        lputv %green.6 %tmp.167;
+        symbol [ green %green.6 121 37 42 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_121_35_121_55_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_121_13_121_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_121_13_121_55_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_120_13_121_55_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_8_121_55_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 122 8 ]
+        symbol [ Ui %tmp.169 122 8 10 ];
+        %tmp.169 = getv ? :Ui;
+        symbol [ hints %tmp.170 122 11 16 ];
+        %tmp.170 = getv function %tmp.169 :hints;
+        %tmp.171 = lgetv %dc;
+        symbol [ dc %tmp.171 122 17 19 ];
+        symbol [ _w %tmp.173 122 21 23 ];
+        %tmp.173 = getv ? :_w;
+        symbol [ _h %tmp.175 122 25 27 ];
+        %tmp.175 = getv ? :_h;
+        %tmp.176 = lgetv %green.6;
+        symbol [ green %tmp.176 122 29 34 ];
+        %tmp.177 = "Cancel";
+        invoke %tmp.169 %tmp.170(%tmp.171, %tmp.173, %tmp.175, %tmp.176, %tmp.177);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_84_49_123_4_stop:
     }
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 115; @symbol_classdef = [AlarmEditDelegate,115,6,23]; @symbol_extends<0> = [WatchUi,115,32,39]; @symbol_extends<1> = [BehaviorDelegate,115,40,56]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 126; @symbol_classdef = [AlarmEditDelegate,126,6,23]; @symbol_extends<0> = [WatchUi,126,32,39]; @symbol_extends<1> = [BehaviorDelegate,126,40,56]; ]
 class AlarmEditDelegate extends WatchUi.BehaviorDelegate {
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 115; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 126; ]
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 115; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 126; ]
     static
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 117; @position = 16; @symbol_vardef = [_view,117,16,21]; @symbol_type<0> = [AlarmEditView,117,25,38]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 128; @position = 16; @symbol_vardef = [_view,128,16,21]; @symbol_type<0> = [AlarmEditView,128,25,38]; ]
     private
     var _view as AlarmEditView;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 119; @symbol_functiondef = [initialize,119,13,23]; @symbol_param<0> = [view,119,24,28]; @symbol_param<0>_type<0> = [AlarmEditView,119,32,45]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 130; @symbol_functiondef = [initialize,130,13,23]; @symbol_param<0> = [view,130,24,28]; @symbol_param<0>_type<0> = [AlarmEditView,130,32,45]; ]
     function initialize(view as AlarmEditView) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_47_122_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 120 8 ]
-        symbol [ BehaviorDelegate %tmp.2 120 8 24 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_130_47_133_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 131 8 ]
+        symbol [ BehaviorDelegate %tmp.2 131 8 24 ];
         %tmp.2 = getv ? :BehaviorDelegate;
-        symbol [ initialize %tmp.3 120 25 35 ];
+        symbol [ initialize %tmp.3 131 25 35 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 121 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 132 8 ]
         %tmp.4 = lgetv %view;
-        symbol [ view %tmp.4 121 16 20 ];
-        symbol [ _view ? 121 8 13 ];
+        symbol [ view %tmp.4 132 16 20 ];
+        symbol [ _view ? 132 8 13 ];
         putv self :_view %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_119_47_122_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_130_47_133_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 124; @symbol_functiondef = [onNextPage,124,13,23]; @symbol_return<0> = [Boolean,124,29,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 135; @symbol_functiondef = [onNextPage,135,13,23]; @symbol_return<0> = [Boolean,135,29,36]; ]
     function onNextPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_124_37_124_70_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 124 39 ]
-        symbol [ _view %tmp.2 124 39 44 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_37_135_70_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 135 39 ]
+        symbol [ _view %tmp.2 135 39 44 ];
         %tmp.2 = getv ? :_view;
-        symbol [ moveDown %tmp.3 124 45 53 ];
+        symbol [ moveDown %tmp.3 135 45 53 ];
         %tmp.3 = getv function %tmp.2 :moveDown;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 124 57 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 135 57 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_124_37_124_70_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_37_135_70_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 125; @symbol_functiondef = [onPreviousPage,125,13,27]; @symbol_return<0> = [Boolean,125,33,40]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 136; @symbol_functiondef = [onPreviousPage,136,13,27]; @symbol_return<0> = [Boolean,136,33,40]; ]
     function onPreviousPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_125_41_125_72_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 125 43 ]
-        symbol [ _view %tmp.2 125 43 48 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_136_41_136_72_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 136 43 ]
+        symbol [ _view %tmp.2 136 43 48 ];
         %tmp.2 = getv ? :_view;
-        symbol [ moveUp %tmp.3 125 49 55 ];
+        symbol [ moveUp %tmp.3 136 49 55 ];
         %tmp.3 = getv function %tmp.2 :moveUp;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 125 59 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 136 59 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_125_41_125_72_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_136_41_136_72_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 126; @symbol_functiondef = [onSelect,126,13,21]; @symbol_return<0> = [Boolean,126,27,34]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 137; @symbol_functiondef = [onSelect,137,13,21]; @symbol_return<0> = [Boolean,137,27,34]; ]
     function onSelect() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_126_35_126_63_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 126 37 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_137_35_137_63_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 137 37 ]
         %tmp.1 = self;
-        symbol [ _activate %tmp.2 126 37 46 ];
+        symbol [ _activate %tmp.2 137 37 46 ];
         %tmp.2 = getv function %tmp.1 :_activate;
         invoke %tmp.1 %tmp.2();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 126 50 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 137 50 ]
         %tmp.3 = true;
         ret %tmp.3;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_126_35_126_63_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_137_35_137_63_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 127; @symbol_functiondef = [onTap,127,13,18]; @symbol_param<0> = [evt,127,19,22]; @symbol_param<0>_type<0> = [WatchUi,127,26,33]; @symbol_param<0>_type<1> = [ClickEvent,127,34,44]; @symbol_return<0> = [Boolean,127,49,56]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 138; @symbol_functiondef = [onTap,138,13,18]; @symbol_param<0> = [evt,138,19,22]; @symbol_param<0>_type<0> = [WatchUi,138,26,33]; @symbol_param<0>_type<1> = [ClickEvent,138,34,44]; @symbol_return<0> = [Boolean,138,49,56]; ]
     function onTap(evt as WatchUi.ClickEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_127_57_127_85_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 127 59 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_138_57_138_85_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 138 59 ]
         %tmp.1 = self;
-        symbol [ _activate %tmp.2 127 59 68 ];
+        symbol [ _activate %tmp.2 138 59 68 ];
         %tmp.2 = getv function %tmp.1 :_activate;
         invoke %tmp.1 %tmp.2();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 127 72 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 138 72 ]
         %tmp.3 = true;
         ret %tmp.3;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_127_57_127_85_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_138_57_138_85_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 129; @symbol_functiondef = [onBack,129,13,19]; @symbol_return<0> = [Boolean,129,25,32]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 141; @symbol_functiondef = [onBack,141,13,19]; @symbol_return<0> = [Boolean,141,25,32]; ]
     function onBack() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_129_33_133_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 130 8 ]
-        symbol [ _view %tmp.2 130 8 13 ];
-        %tmp.2 = getv ? :_view;
-        symbol [ persist %tmp.3 130 14 21 ];
-        %tmp.3 = getv function %tmp.2 :persist;
-        invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 131 8 ]
-        symbol [ WatchUi %tmp.4 131 8 15 ];
-        %tmp.4 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.5 131 16 23 ];
-        %tmp.5 = getv function %tmp.4 :popView;
-        symbol [ WatchUi %tmp.6 131 24 31 ];
-        %tmp.6 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_RIGHT %tmp.7 131 32 43 ];
-        %tmp.7 = getv %tmp.6 :SLIDE_RIGHT;
-        invoke %tmp.4 %tmp.5(%tmp.7);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 132 8 ]
-        %tmp.8 = true;
-        ret %tmp.8;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_129_33_133_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_141_33_144_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 142 8 ]
+        symbol [ WatchUi %tmp.1 142 8 15 ];
+        %tmp.1 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.2 142 16 23 ];
+        %tmp.2 = getv function %tmp.1 :popView;
+        symbol [ WatchUi %tmp.3 142 24 31 ];
+        %tmp.3 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.4 142 32 43 ];
+        %tmp.4 = getv %tmp.3 :SLIDE_RIGHT;
+        invoke %tmp.1 %tmp.2(%tmp.4);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 143 8 ]
+        %tmp.5 = true;
+        ret %tmp.5;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_141_33_144_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 135; @symbol_functiondef = [_activate,135,21,30]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 147; @symbol_functiondef = [onKey,147,13,18]; @symbol_param<0> = [evt,147,19,22]; @symbol_param<0>_type<0> = [WatchUi,147,26,33]; @symbol_param<0>_type<1> = [KeyEvent,147,34,42]; @symbol_return<0> = [Boolean,147,47,54]; ]
+    function onKey(evt as WatchUi.KeyEvent) as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_55_153_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 148 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_148_8_151_8_if_stmt:
+        %tmp.1 = lgetv %evt;
+        symbol [ evt %tmp.1 148 12 15 ];
+        symbol [ getKey %tmp.2 148 16 22 ];
+        %tmp.2 = getv function %tmp.1 :getKey;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        symbol [ WatchUi %tmp.4 148 28 35 ];
+        %tmp.4 = getm $.Toybox.WatchUi;
+        symbol [ KEY_LIGHT %tmp.5 148 36 45 ];
+        %tmp.5 = getv %tmp.4 :KEY_LIGHT;
+        %tmp.6 = eq %tmp.3 %tmp.5;
+        bf %tmp.6 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_148_8_151_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_148_8_151_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_148_47_151_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 149 12 ]
+        symbol [ WatchUi %tmp.7 149 12 19 ];
+        %tmp.7 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.8 149 20 27 ];
+        %tmp.8 = getv function %tmp.7 :popView;
+        symbol [ WatchUi %tmp.9 149 28 35 ];
+        %tmp.9 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.10 149 36 47 ];
+        %tmp.10 = getv %tmp.9 :SLIDE_RIGHT;
+        invoke %tmp.7 %tmp.8(%tmp.10);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 150 12 ]
+        %tmp.11 = true;
+        ret %tmp.11;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_148_47_151_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_148_8_151_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_148_8_151_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 152 8 ]
+        %tmp.12 = false;
+        ret %tmp.12;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_55_153_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 155; @symbol_functiondef = [_activate,155,21,30]; ]
     private
     function _activate() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_41_177_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 136 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_41_177_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_41_177_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_41_192_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 156 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_41_192_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_41_192_4_stop" ]
         %key.1 = local;
-        symbol [ key %key.1 136 12 15 ];
-        symbol [ _view %tmp.2 136 18 23 ];
+        symbol [ key %key.1 156 12 15 ];
+        symbol [ _view %tmp.2 156 18 23 ];
         %tmp.2 = getv ? :_view;
-        symbol [ selectedKey %tmp.3 136 24 35 ];
+        symbol [ selectedKey %tmp.3 156 24 35 ];
         %tmp.3 = getv function %tmp.2 :selectedKey;
         %tmp.4 = invoke %tmp.2 %tmp.3();
         lputv %key.1 %tmp.4;
-        symbol [ key %key.1 136 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 137 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_41_177_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_41_177_4_stop" ]
+        symbol [ key %key.1 156 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 157 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_41_192_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_41_192_4_stop" ]
         %a.2 = local;
-        symbol [ a %a.2 137 12 13 ];
-        symbol [ _view %tmp.6 137 16 21 ];
+        symbol [ a %a.2 157 12 13 ];
+        symbol [ _view %tmp.6 157 16 21 ];
         %tmp.6 = getv ? :_view;
-        symbol [ alarm %tmp.7 137 22 27 ];
+        symbol [ alarm %tmp.7 157 22 27 ];
         %tmp.7 = getv %tmp.6 :alarm;
         lputv %a.2 %tmp.7;
-        symbol [ a %a.2 137 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 139 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_8_176_8_if_stmt:
+        symbol [ a %a.2 157 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 159 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_8_191_8_if_stmt:
         %tmp.8 = lgetv %key.1;
-        symbol [ key %tmp.8 139 12 15 ];
-        symbol [ equals %tmp.9 139 16 22 ];
+        symbol [ key %tmp.8 159 12 15 ];
+        symbol [ equals %tmp.9 159 16 22 ];
         %tmp.9 = getv function %tmp.8 :equals;
         %tmp.10 = "time";
         %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
-        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_8_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_8_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_32_143_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 140 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_32_143_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_32_143_8_stop" ]
+        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_8_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_8_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_32_163_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 160 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_32_163_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_32_163_8_stop" ]
         %tp.3 = local;
-        symbol [ tp %tp.3 140 16 18 ];
-        symbol [ TimePickerView %tmp.15 140 25 39 ];
+        symbol [ tp %tp.3 160 16 18 ];
+        symbol [ TimePickerView %tmp.15 160 25 39 ];
         %tmp.15 = getv ? :TimePickerView;
         %tmp.16 = lgetv %a.2;
-        symbol [ a %tmp.16 140 40 41 ];
+        symbol [ a %tmp.16 160 40 41 ];
         %tmp.12 = newc %tmp.15 (%tmp.16);
         lputv %tp.3 %tmp.12;
-        symbol [ tp %tp.3 140 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 141 12 ]
-        symbol [ WatchUi %tmp.17 141 12 19 ];
+        symbol [ tp %tp.3 160 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 161 12 ]
+        symbol [ WatchUi %tmp.17 161 12 19 ];
         %tmp.17 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.18 141 20 28 ];
+        symbol [ pushView %tmp.18 161 20 28 ];
         %tmp.18 = getv function %tmp.17 :pushView;
         %tmp.19 = lgetv %tp.3;
-        symbol [ tp %tmp.19 141 29 31 ];
-        symbol [ TimePickerDelegate %tmp.23 141 37 55 ];
+        symbol [ tp %tmp.19 161 29 31 ];
+        symbol [ TimePickerDelegate %tmp.23 161 37 55 ];
         %tmp.23 = getv ? :TimePickerDelegate;
         %tmp.24 = lgetv %tp.3;
-        symbol [ tp %tmp.24 141 56 58 ];
-        symbol [ _view %tmp.26 141 60 65 ];
-        %tmp.26 = getv ? :_view;
-        %tmp.20 = newc %tmp.23 (%tmp.24, %tmp.26);
-        symbol [ WatchUi %tmp.27 141 68 75 ];
-        %tmp.27 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_LEFT %tmp.28 141 76 86 ];
-        %tmp.28 = getv %tmp.27 :SLIDE_LEFT;
-        invoke %tmp.17 %tmp.18(%tmp.19, %tmp.20, %tmp.28);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_32_143_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_8_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_8_176_8_if_false:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 143 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_15_176_8_if_stmt:
-        %tmp.29 = lgetv %key.1;
-        symbol [ key %tmp.29 143 19 22 ];
-        symbol [ equals %tmp.30 143 23 29 ];
-        %tmp.30 = getv function %tmp.29 :equals;
-        %tmp.31 = "days";
-        %tmp.32 = invoke %tmp.29 %tmp.30(%tmp.31);
-        bf %tmp.32 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_15_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_39_147_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 144 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_39_147_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_39_147_8_stop" ]
-        %dp.4 = local;
-        symbol [ dp %dp.4 144 16 18 ];
-        symbol [ DaysPicker %tmp.36 144 25 35 ];
-        %tmp.36 = getv ? :DaysPicker;
-        %tmp.37 = lgetv %a.2;
-        symbol [ a %tmp.37 144 36 37 ];
-        symbol [ _view %tmp.39 144 39 44 ];
-        %tmp.39 = getv ? :_view;
-        %tmp.33 = newc %tmp.36 (%tmp.37, %tmp.39);
-        lputv %dp.4 %tmp.33;
-        symbol [ dp %dp.4 144 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 145 12 ]
-        symbol [ WatchUi %tmp.40 145 12 19 ];
-        %tmp.40 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.41 145 20 28 ];
-        %tmp.41 = getv function %tmp.40 :pushView;
-        %tmp.42 = lgetv %dp.4;
-        symbol [ dp %tmp.42 145 29 31 ];
-        symbol [ DaysPickerDelegate %tmp.46 145 37 55 ];
-        %tmp.46 = getv ? :DaysPickerDelegate;
-        %tmp.47 = lgetv %dp.4;
-        symbol [ dp %tmp.47 145 56 58 ];
-        %tmp.43 = newc %tmp.46 (%tmp.47);
-        symbol [ WatchUi %tmp.48 145 61 68 ];
-        %tmp.48 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_LEFT %tmp.49 145 69 79 ];
-        %tmp.49 = getv %tmp.48 :SLIDE_LEFT;
-        invoke %tmp.40 %tmp.41(%tmp.42, %tmp.43, %tmp.49);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_39_147_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_15_176_8_if_false:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 147 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_15_176_8_if_stmt:
-        %tmp.50 = lgetv %key.1;
-        symbol [ key %tmp.50 147 19 22 ];
-        symbol [ equals %tmp.51 147 23 29 ];
-        %tmp.51 = getv function %tmp.50 :equals;
-        %tmp.52 = "label";
-        %tmp.53 = invoke %tmp.50 %tmp.51(%tmp.52);
-        bf %tmp.53 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_15_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_40_151_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 148 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_40_151_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_40_151_8_stop" ]
-        %lp.5 = local;
-        symbol [ lp %lp.5 148 16 18 ];
-        symbol [ LabelPicker %tmp.57 148 25 36 ];
-        %tmp.57 = getv ? :LabelPicker;
-        %tmp.58 = lgetv %a.2;
-        symbol [ a %tmp.58 148 37 38 ];
-        symbol [ _view %tmp.60 148 40 45 ];
-        %tmp.60 = getv ? :_view;
-        %tmp.54 = newc %tmp.57 (%tmp.58, %tmp.60);
-        lputv %lp.5 %tmp.54;
-        symbol [ lp %lp.5 148 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 149 12 ]
-        symbol [ WatchUi %tmp.61 149 12 19 ];
-        %tmp.61 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.62 149 20 28 ];
-        %tmp.62 = getv function %tmp.61 :pushView;
-        %tmp.63 = lgetv %lp.5;
-        symbol [ lp %tmp.63 149 29 31 ];
-        symbol [ SimplePickerDelegate %tmp.67 149 37 57 ];
-        %tmp.67 = getv ? :SimplePickerDelegate;
-        %tmp.68 = lgetv %lp.5;
-        symbol [ lp %tmp.68 149 58 60 ];
-        %tmp.64 = newc %tmp.67 (%tmp.68);
-        symbol [ WatchUi %tmp.69 149 63 70 ];
-        %tmp.69 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_LEFT %tmp.70 149 71 81 ];
-        %tmp.70 = getv %tmp.69 :SLIDE_LEFT;
-        invoke %tmp.61 %tmp.62(%tmp.63, %tmp.64, %tmp.70);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_40_151_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_15_176_8_if_false:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 151 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_15_176_8_if_stmt:
-        %tmp.71 = lgetv %key.1;
-        symbol [ key %tmp.71 151 19 22 ];
-        symbol [ equals %tmp.72 151 23 29 ];
-        %tmp.72 = getv function %tmp.71 :equals;
-        %tmp.73 = "type";
-        %tmp.74 = invoke %tmp.71 %tmp.72(%tmp.73);
-        bf %tmp.74 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_15_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_39_155_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 152 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_39_155_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_39_155_8_stop" ]
-        %yp.6 = local;
-        symbol [ yp %yp.6 152 16 18 ];
-        symbol [ TypePicker %tmp.78 152 25 35 ];
-        %tmp.78 = getv ? :TypePicker;
-        %tmp.79 = lgetv %a.2;
-        symbol [ a %tmp.79 152 36 37 ];
-        symbol [ _view %tmp.81 152 39 44 ];
-        %tmp.81 = getv ? :_view;
-        %tmp.75 = newc %tmp.78 (%tmp.79, %tmp.81);
-        lputv %yp.6 %tmp.75;
-        symbol [ yp %yp.6 152 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 153 12 ]
-        symbol [ WatchUi %tmp.82 153 12 19 ];
-        %tmp.82 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.83 153 20 28 ];
-        %tmp.83 = getv function %tmp.82 :pushView;
-        %tmp.84 = lgetv %yp.6;
-        symbol [ yp %tmp.84 153 29 31 ];
-        symbol [ SimplePickerDelegate %tmp.88 153 37 57 ];
-        %tmp.88 = getv ? :SimplePickerDelegate;
-        %tmp.89 = lgetv %yp.6;
-        symbol [ yp %tmp.89 153 58 60 ];
-        %tmp.85 = newc %tmp.88 (%tmp.89);
-        symbol [ WatchUi %tmp.90 153 63 70 ];
-        %tmp.90 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_LEFT %tmp.91 153 71 81 ];
-        %tmp.91 = getv %tmp.90 :SLIDE_LEFT;
-        invoke %tmp.82 %tmp.83(%tmp.84, %tmp.85, %tmp.91);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_39_155_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_15_176_8_if_false:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 155 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_15_176_8_if_stmt:
-        %tmp.92 = lgetv %key.1;
-        symbol [ key %tmp.92 155 19 22 ];
-        symbol [ equals %tmp.93 155 23 29 ];
-        %tmp.93 = getv function %tmp.92 :equals;
-        %tmp.94 = "win";
-        %tmp.95 = invoke %tmp.92 %tmp.93(%tmp.94);
-        bf %tmp.95 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_15_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_38_159_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 156 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_38_159_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_38_159_8_stop" ]
-        %wp.7 = local;
-        symbol [ wp %wp.7 156 16 18 ];
-        symbol [ WindowPicker %tmp.99 156 25 37 ];
-        %tmp.99 = getv ? :WindowPicker;
-        %tmp.100 = lgetv %a.2;
-        symbol [ a %tmp.100 156 38 39 ];
-        symbol [ _view %tmp.102 156 41 46 ];
-        %tmp.102 = getv ? :_view;
-        %tmp.96 = newc %tmp.99 (%tmp.100, %tmp.102);
-        lputv %wp.7 %tmp.96;
-        symbol [ wp %wp.7 156 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 157 12 ]
-        symbol [ WatchUi %tmp.103 157 12 19 ];
-        %tmp.103 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.104 157 20 28 ];
-        %tmp.104 = getv function %tmp.103 :pushView;
-        %tmp.105 = lgetv %wp.7;
-        symbol [ wp %tmp.105 157 29 31 ];
-        symbol [ SimplePickerDelegate %tmp.109 157 37 57 ];
-        %tmp.109 = getv ? :SimplePickerDelegate;
-        %tmp.110 = lgetv %wp.7;
-        symbol [ wp %tmp.110 157 58 60 ];
-        %tmp.106 = newc %tmp.109 (%tmp.110);
-        symbol [ WatchUi %tmp.111 157 63 70 ];
-        %tmp.111 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_LEFT %tmp.112 157 71 81 ];
-        %tmp.112 = getv %tmp.111 :SLIDE_LEFT;
-        invoke %tmp.103 %tmp.104(%tmp.105, %tmp.106, %tmp.112);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_38_159_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_15_176_8_if_false:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 159 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_15_176_8_if_stmt:
-        %tmp.113 = lgetv %key.1;
-        symbol [ key %tmp.113 159 19 22 ];
-        symbol [ equals %tmp.114 159 23 29 ];
-        %tmp.114 = getv function %tmp.113 :equals;
-        %tmp.115 = "mode";
-        %tmp.116 = invoke %tmp.113 %tmp.114(%tmp.115);
-        bf %tmp.116 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_15_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_39_163_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 160 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_39_163_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_39_163_8_stop" ]
-        %mp.8 = local;
-        symbol [ mp %mp.8 160 16 18 ];
-        symbol [ ModePicker %tmp.120 160 25 35 ];
-        %tmp.120 = getv ? :ModePicker;
-        %tmp.121 = lgetv %a.2;
-        symbol [ a %tmp.121 160 36 37 ];
-        symbol [ _view %tmp.123 160 39 44 ];
-        %tmp.123 = getv ? :_view;
-        %tmp.117 = newc %tmp.120 (%tmp.121, %tmp.123);
-        lputv %mp.8 %tmp.117;
-        symbol [ mp %mp.8 160 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 161 12 ]
-        symbol [ WatchUi %tmp.124 161 12 19 ];
-        %tmp.124 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.125 161 20 28 ];
-        %tmp.125 = getv function %tmp.124 :pushView;
-        %tmp.126 = lgetv %mp.8;
-        symbol [ mp %tmp.126 161 29 31 ];
-        symbol [ SimplePickerDelegate %tmp.130 161 37 57 ];
-        %tmp.130 = getv ? :SimplePickerDelegate;
-        %tmp.131 = lgetv %mp.8;
-        symbol [ mp %tmp.131 161 58 60 ];
-        %tmp.127 = newc %tmp.130 (%tmp.131);
-        symbol [ WatchUi %tmp.132 161 63 70 ];
-        %tmp.132 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_LEFT %tmp.133 161 71 81 ];
-        %tmp.133 = getv %tmp.132 :SLIDE_LEFT;
-        invoke %tmp.124 %tmp.125(%tmp.126, %tmp.127, %tmp.133);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_39_163_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_15_176_8_if_false:
+        symbol [ tp %tmp.24 161 56 58 ];
+        %tmp.20 = newc %tmp.23 (%tmp.24);
+        symbol [ WatchUi %tmp.25 161 61 68 ];
+        %tmp.25 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_LEFT %tmp.26 161 69 79 ];
+        %tmp.26 = getv %tmp.25 :SLIDE_LEFT;
+        invoke %tmp.17 %tmp.18(%tmp.19, %tmp.20, %tmp.26);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_32_163_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_8_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_8_191_8_if_false:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 163 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_176_8_if_stmt:
-        %tmp.134 = lgetv %key.1;
-        symbol [ key %tmp.134 163 19 22 ];
-        symbol [ equals %tmp.135 163 23 29 ];
-        %tmp.135 = getv function %tmp.134 :equals;
-        %tmp.136 = "on";
-        %tmp.137 = invoke %tmp.134 %tmp.135(%tmp.136);
-        bf %tmp.137 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_37_168_8_start:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_191_8_if_stmt:
+        %tmp.27 = lgetv %key.1;
+        symbol [ key %tmp.27 163 19 22 ];
+        symbol [ equals %tmp.28 163 23 29 ];
+        %tmp.28 = getv function %tmp.27 :equals;
+        %tmp.29 = "days";
+        %tmp.30 = invoke %tmp.27 %tmp.28(%tmp.29);
+        bf %tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_39_167_8_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 164 12 ]
-        %tmp.138 = lgetv %a.2;
-        symbol [ a %tmp.138 164 12 13 ];
-        symbol [ put %tmp.139 164 14 17 ];
-        %tmp.139 = getv function %tmp.138 :put;
-        %tmp.140 = "on";
-        symbol [ AlarmStore %tmp.142 164 25 35 ];
-        %tmp.142 = getv ? :AlarmStore;
-        symbol [ isOn %tmp.143 164 36 40 ];
-        %tmp.143 = getv function %tmp.142 :isOn;
-        %tmp.144 = lgetv %a.2;
-        symbol [ a %tmp.144 164 41 42 ];
-        %tmp.145 = invoke %tmp.142 %tmp.143(%tmp.144);
-        %tmp.146 = not %tmp.145;
-        invoke %tmp.138 %tmp.139(%tmp.140, %tmp.146);
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_39_167_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_39_167_8_stop" ]
+        %dp.4 = local;
+        symbol [ dp %dp.4 164 16 18 ];
+        symbol [ DaysPicker %tmp.34 164 25 35 ];
+        %tmp.34 = getv ? :DaysPicker;
+        %tmp.35 = lgetv %a.2;
+        symbol [ a %tmp.35 164 36 37 ];
+        %tmp.31 = newc %tmp.34 (%tmp.35);
+        lputv %dp.4 %tmp.31;
+        symbol [ dp %dp.4 164 16 18 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 165 12 ]
-        symbol [ _view %tmp.148 165 12 17 ];
-        %tmp.148 = getv ? :_view;
-        symbol [ persist %tmp.149 165 18 25 ];
-        %tmp.149 = getv function %tmp.148 :persist;
-        invoke %tmp.148 %tmp.149();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 166 12 ]
-        symbol [ WatchUi %tmp.150 166 12 19 ];
-        %tmp.150 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.151 166 20 33 ];
-        %tmp.151 = getv function %tmp.150 :requestUpdate;
-        invoke %tmp.150 %tmp.151();
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_37_168_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_176_8_if_false:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 168 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_15_176_8_if_stmt:
-        %tmp.152 = lgetv %key.1;
-        symbol [ key %tmp.152 168 19 22 ];
-        symbol [ equals %tmp.153 168 23 29 ];
-        %tmp.153 = getv function %tmp.152 :equals;
-        %tmp.154 = "save";
-        %tmp.155 = invoke %tmp.152 %tmp.153(%tmp.154);
-        bf %tmp.155 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_15_176_8_if_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_39_172_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 169 12 ]
-        symbol [ _view %tmp.157 169 12 17 ];
-        %tmp.157 = getv ? :_view;
-        symbol [ persist %tmp.158 169 18 25 ];
-        %tmp.158 = getv function %tmp.157 :persist;
-        invoke %tmp.157 %tmp.158();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 170 12 ]
-        symbol [ WatchUi %tmp.159 170 12 19 ];
-        %tmp.159 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.160 170 20 27 ];
-        %tmp.160 = getv function %tmp.159 :popView;
-        symbol [ WatchUi %tmp.161 170 28 35 ];
-        %tmp.161 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_RIGHT %tmp.162 170 36 47 ];
-        %tmp.162 = getv %tmp.161 :SLIDE_RIGHT;
-        invoke %tmp.159 %tmp.160(%tmp.162);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_39_172_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_15_176_8_if_false:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 172 15 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_172_15_176_8_if_stmt:
-        %tmp.163 = lgetv %key.1;
-        symbol [ key %tmp.163 172 19 22 ];
-        symbol [ equals %tmp.164 172 23 29 ];
-        %tmp.164 = getv function %tmp.163 :equals;
-        %tmp.165 = "del";
-        %tmp.166 = invoke %tmp.163 %tmp.164(%tmp.165);
-        bf %tmp.166 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_172_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_172_15_176_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_172_38_176_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 173 12 ]
-        symbol [ AlarmStore %tmp.168 173 12 22 ];
-        %tmp.168 = getv ? :AlarmStore;
-        symbol [ deleteAlarm %tmp.169 173 23 34 ];
-        %tmp.169 = getv function %tmp.168 :deleteAlarm;
-        symbol [ _view %tmp.171 173 35 40 ];
-        %tmp.171 = getv ? :_view;
-        symbol [ index %tmp.172 173 41 46 ];
-        %tmp.172 = getv %tmp.171 :index;
-        invoke %tmp.168 %tmp.169(%tmp.172);
+        symbol [ WatchUi %tmp.36 165 12 19 ];
+        %tmp.36 = getm $.Toybox.WatchUi;
+        symbol [ pushView %tmp.37 165 20 28 ];
+        %tmp.37 = getv function %tmp.36 :pushView;
+        %tmp.38 = lgetv %dp.4;
+        symbol [ dp %tmp.38 165 29 31 ];
+        symbol [ DaysPickerDelegate %tmp.42 165 37 55 ];
+        %tmp.42 = getv ? :DaysPickerDelegate;
+        %tmp.43 = lgetv %dp.4;
+        symbol [ dp %tmp.43 165 56 58 ];
+        %tmp.39 = newc %tmp.42 (%tmp.43);
+        symbol [ WatchUi %tmp.44 165 61 68 ];
+        %tmp.44 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_LEFT %tmp.45 165 69 79 ];
+        %tmp.45 = getv %tmp.44 :SLIDE_LEFT;
+        invoke %tmp.36 %tmp.37(%tmp.38, %tmp.39, %tmp.45);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_39_167_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_191_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 167 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_15_191_8_if_stmt:
+        %tmp.46 = lgetv %key.1;
+        symbol [ key %tmp.46 167 19 22 ];
+        symbol [ equals %tmp.47 167 23 29 ];
+        %tmp.47 = getv function %tmp.46 :equals;
+        %tmp.48 = "label";
+        %tmp.49 = invoke %tmp.46 %tmp.47(%tmp.48);
+        bf %tmp.49 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_15_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_40_170_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 168 12 ]
+        %tmp.50 = self;
+        symbol [ _pushChoice %tmp.51 168 12 23 ];
+        %tmp.51 = getv function %tmp.50 :_pushChoice;
+        %tmp.52 = "Label";
+        %tmp.53 = "label";
+        %tmp.54 = self;
+        symbol [ _labelOptions %tmp.55 168 42 55 ];
+        %tmp.55 = getv function %tmp.54 :_labelOptions;
+        %tmp.56 = invoke %tmp.54 %tmp.55();
+        symbol [ AlarmStore %tmp.58 168 59 69 ];
+        %tmp.58 = getv ? :AlarmStore;
+        symbol [ label %tmp.59 168 70 75 ];
+        %tmp.59 = getv function %tmp.58 :label;
+        %tmp.60 = lgetv %a.2;
+        symbol [ a %tmp.60 168 76 77 ];
+        %tmp.61 = invoke %tmp.58 %tmp.59(%tmp.60);
+        %tmp.62 = lgetv %a.2;
+        symbol [ a %tmp.62 168 80 81 ];
+        invoke %tmp.50 %tmp.51(%tmp.52, %tmp.53, %tmp.56, %tmp.61, %tmp.62);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_40_170_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_15_191_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 170 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_15_191_8_if_stmt:
+        %tmp.63 = lgetv %key.1;
+        symbol [ key %tmp.63 170 19 22 ];
+        symbol [ equals %tmp.64 170 23 29 ];
+        %tmp.64 = getv function %tmp.63 :equals;
+        %tmp.65 = "type";
+        %tmp.66 = invoke %tmp.63 %tmp.64(%tmp.65);
+        bf %tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_15_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_39_173_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 171 12 ]
+        %tmp.67 = self;
+        symbol [ _pushChoice %tmp.68 171 12 23 ];
+        %tmp.68 = getv function %tmp.67 :_pushChoice;
+        %tmp.69 = "Type";
+        %tmp.70 = "type";
+        %tmp.71 = self;
+        symbol [ _typeOptions %tmp.72 171 40 52 ];
+        %tmp.72 = getv function %tmp.71 :_typeOptions;
+        %tmp.73 = invoke %tmp.71 %tmp.72();
+        symbol [ AlarmStore %tmp.75 171 56 66 ];
+        %tmp.75 = getv ? :AlarmStore;
+        symbol [ type %tmp.76 171 67 71 ];
+        %tmp.76 = getv function %tmp.75 :type;
+        %tmp.77 = lgetv %a.2;
+        symbol [ a %tmp.77 171 72 73 ];
+        %tmp.78 = invoke %tmp.75 %tmp.76(%tmp.77);
+        %tmp.79 = lgetv %a.2;
+        symbol [ a %tmp.79 171 76 77 ];
+        invoke %tmp.67 %tmp.68(%tmp.69, %tmp.70, %tmp.73, %tmp.78, %tmp.79);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_39_173_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_15_191_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 173 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_15_191_8_if_stmt:
+        %tmp.80 = lgetv %key.1;
+        symbol [ key %tmp.80 173 19 22 ];
+        symbol [ equals %tmp.81 173 23 29 ];
+        %tmp.81 = getv function %tmp.80 :equals;
+        %tmp.82 = "win";
+        %tmp.83 = invoke %tmp.80 %tmp.81(%tmp.82);
+        bf %tmp.83 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_15_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_38_176_8_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 174 12 ]
-        symbol [ SmartAlarmApp %tmp.174 174 12 25 ];
-        %tmp.174 = getv ? :SmartAlarmApp;
-        symbol [ syncBackground %tmp.175 174 26 40 ];
-        %tmp.175 = getv function %tmp.174 :syncBackground;
-        invoke %tmp.174 %tmp.175();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 175 12 ]
-        symbol [ WatchUi %tmp.176 175 12 19 ];
-        %tmp.176 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.177 175 20 27 ];
-        %tmp.177 = getv function %tmp.176 :popView;
-        symbol [ WatchUi %tmp.178 175 28 35 ];
-        %tmp.178 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_RIGHT %tmp.179 175 36 47 ];
-        %tmp.179 = getv %tmp.178 :SLIDE_RIGHT;
-        invoke %tmp.176 %tmp.177(%tmp.179);
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_172_38_176_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_172_15_176_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_172_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_168_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_151_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_147_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_143_15_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_139_8_176_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_135_41_177_4_stop:
+        %tmp.84 = self;
+        symbol [ _pushChoice %tmp.85 174 12 23 ];
+        %tmp.85 = getv function %tmp.84 :_pushChoice;
+        %tmp.86 = "Sleep Cycle Window";
+        %tmp.87 = "win";
+        %tmp.88 = self;
+        symbol [ _windowOptions %tmp.89 174 53 67 ];
+        %tmp.89 = getv function %tmp.88 :_windowOptions;
+        %tmp.90 = invoke %tmp.88 %tmp.89();
+        symbol [ AlarmStore %tmp.92 174 71 81 ];
+        %tmp.92 = getv ? :AlarmStore;
+        symbol [ window %tmp.93 174 82 88 ];
+        %tmp.93 = getv function %tmp.92 :window;
+        %tmp.94 = lgetv %a.2;
+        symbol [ a %tmp.94 174 89 90 ];
+        %tmp.95 = invoke %tmp.92 %tmp.93(%tmp.94);
+        %tmp.96 = lgetv %a.2;
+        symbol [ a %tmp.96 174 93 94 ];
+        invoke %tmp.84 %tmp.85(%tmp.86, %tmp.87, %tmp.90, %tmp.95, %tmp.96);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_38_176_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_15_191_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 176 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_15_191_8_if_stmt:
+        %tmp.97 = lgetv %key.1;
+        symbol [ key %tmp.97 176 19 22 ];
+        symbol [ equals %tmp.98 176 23 29 ];
+        %tmp.98 = getv function %tmp.97 :equals;
+        %tmp.99 = "mode";
+        %tmp.100 = invoke %tmp.97 %tmp.98(%tmp.99);
+        bf %tmp.100 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_15_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_39_179_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 177 12 ]
+        %tmp.101 = self;
+        symbol [ _pushChoice %tmp.102 177 12 23 ];
+        %tmp.102 = getv function %tmp.101 :_pushChoice;
+        %tmp.103 = "Alert";
+        %tmp.104 = "mode";
+        %tmp.105 = self;
+        symbol [ _modeOptions %tmp.106 177 41 53 ];
+        %tmp.106 = getv function %tmp.105 :_modeOptions;
+        %tmp.107 = invoke %tmp.105 %tmp.106();
+        symbol [ AlarmStore %tmp.109 177 57 67 ];
+        %tmp.109 = getv ? :AlarmStore;
+        symbol [ mode %tmp.110 177 68 72 ];
+        %tmp.110 = getv function %tmp.109 :mode;
+        %tmp.111 = lgetv %a.2;
+        symbol [ a %tmp.111 177 73 74 ];
+        %tmp.112 = invoke %tmp.109 %tmp.110(%tmp.111);
+        %tmp.113 = lgetv %a.2;
+        symbol [ a %tmp.113 177 77 78 ];
+        invoke %tmp.101 %tmp.102(%tmp.103, %tmp.104, %tmp.107, %tmp.112, %tmp.113);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_39_179_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_15_191_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 179 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_15_191_8_if_stmt:
+        %tmp.114 = lgetv %key.1;
+        symbol [ key %tmp.114 179 19 22 ];
+        symbol [ equals %tmp.115 179 23 29 ];
+        %tmp.115 = getv function %tmp.114 :equals;
+        %tmp.116 = "on";
+        %tmp.117 = invoke %tmp.114 %tmp.115(%tmp.116);
+        bf %tmp.117 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_15_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_37_183_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 180 12 ]
+        %tmp.118 = lgetv %a.2;
+        symbol [ a %tmp.118 180 12 13 ];
+        symbol [ put %tmp.119 180 14 17 ];
+        %tmp.119 = getv function %tmp.118 :put;
+        %tmp.120 = "on";
+        symbol [ AlarmStore %tmp.122 180 25 35 ];
+        %tmp.122 = getv ? :AlarmStore;
+        symbol [ isOn %tmp.123 180 36 40 ];
+        %tmp.123 = getv function %tmp.122 :isOn;
+        %tmp.124 = lgetv %a.2;
+        symbol [ a %tmp.124 180 41 42 ];
+        %tmp.125 = invoke %tmp.122 %tmp.123(%tmp.124);
+        %tmp.126 = not %tmp.125;
+        invoke %tmp.118 %tmp.119(%tmp.120, %tmp.126);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 181 12 ]
+        symbol [ WatchUi %tmp.127 181 12 19 ];
+        %tmp.127 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.128 181 20 33 ];
+        %tmp.128 = getv function %tmp.127 :requestUpdate;
+        invoke %tmp.127 %tmp.128();
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_37_183_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_15_191_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 183 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_15_191_8_if_stmt:
+        %tmp.129 = lgetv %key.1;
+        symbol [ key %tmp.129 183 19 22 ];
+        symbol [ equals %tmp.130 183 23 29 ];
+        %tmp.130 = getv function %tmp.129 :equals;
+        %tmp.131 = "save";
+        %tmp.132 = invoke %tmp.129 %tmp.130(%tmp.131);
+        bf %tmp.132 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_15_191_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_39_187_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 184 12 ]
+        symbol [ _view %tmp.134 184 12 17 ];
+        %tmp.134 = getv ? :_view;
+        symbol [ commit %tmp.135 184 18 24 ];
+        %tmp.135 = getv function %tmp.134 :commit;
+        invoke %tmp.134 %tmp.135();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 185 12 ]
+        symbol [ WatchUi %tmp.136 185 12 19 ];
+        %tmp.136 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.137 185 20 27 ];
+        %tmp.137 = getv function %tmp.136 :popView;
+        symbol [ WatchUi %tmp.138 185 28 35 ];
+        %tmp.138 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.139 185 36 47 ];
+        %tmp.139 = getv %tmp.138 :SLIDE_RIGHT;
+        invoke %tmp.136 %tmp.137(%tmp.139);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_39_187_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_15_191_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 187 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_187_15_191_8_if_stmt:
+        %tmp.140 = lgetv %key.1;
+        symbol [ key %tmp.140 187 19 22 ];
+        symbol [ equals %tmp.141 187 23 29 ];
+        %tmp.141 = getv function %tmp.140 :equals;
+        %tmp.142 = "del";
+        %tmp.143 = invoke %tmp.140 %tmp.141(%tmp.142);
+        bf %tmp.143 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_187_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_187_15_191_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_187_38_191_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 188 12 ]
+        symbol [ AlarmStore %tmp.145 188 12 22 ];
+        %tmp.145 = getv ? :AlarmStore;
+        symbol [ deleteAlarm %tmp.146 188 23 34 ];
+        %tmp.146 = getv function %tmp.145 :deleteAlarm;
+        symbol [ _view %tmp.148 188 35 40 ];
+        %tmp.148 = getv ? :_view;
+        symbol [ index %tmp.149 188 41 46 ];
+        %tmp.149 = getv %tmp.148 :index;
+        invoke %tmp.145 %tmp.146(%tmp.149);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 189 12 ]
+        symbol [ SmartAlarmApp %tmp.151 189 12 25 ];
+        %tmp.151 = getv ? :SmartAlarmApp;
+        symbol [ syncBackground %tmp.152 189 26 40 ];
+        %tmp.152 = getv function %tmp.151 :syncBackground;
+        invoke %tmp.151 %tmp.152();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 190 12 ]
+        symbol [ WatchUi %tmp.153 190 12 19 ];
+        %tmp.153 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.154 190 20 27 ];
+        %tmp.154 = getv function %tmp.153 :popView;
+        symbol [ WatchUi %tmp.155 190 28 35 ];
+        %tmp.155 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.156 190 36 47 ];
+        %tmp.156 = getv %tmp.155 :SLIDE_RIGHT;
+        invoke %tmp.153 %tmp.154(%tmp.156);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_187_38_191_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_187_15_191_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_187_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_183_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_179_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_176_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_173_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_170_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_167_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_163_15_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_159_8_191_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_155_41_192_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 194; @symbol_functiondef = [_pushChoice,194,21,32]; @symbol_param<0> = [title,194,33,38]; @symbol_param<0>_type<0> = [String,194,42,48]; @symbol_param<1> = [key,194,50,53]; @symbol_param<1>_type<0> = [String,194,57,63]; @symbol_param<2> = [options,194,65,72]; @symbol_param<2>_type<0> = [Array,194,76,81]; @symbol_param<3> = [current,195,33,40]; @symbol_param<4> = [a,195,42,43]; @symbol_param<4>_type<0> = [Dictionary,195,47,57]; ]
+    private
+    function _pushChoice(title as String, key as String, options as Array, current, a as Dictionary) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_195_67_198_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 196 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_195_67_198_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_195_67_198_4_stop" ]
+        %cv.1 = local;
+        symbol [ cv %cv.1 196 12 14 ];
+        symbol [ ChoiceView %tmp.4 196 21 31 ];
+        %tmp.4 = getv ? :ChoiceView;
+        %tmp.5 = lgetv %title;
+        symbol [ title %tmp.5 196 32 37 ];
+        %tmp.6 = lgetv %key;
+        symbol [ key %tmp.6 196 39 42 ];
+        %tmp.7 = lgetv %options;
+        symbol [ options %tmp.7 196 44 51 ];
+        %tmp.8 = lgetv %current;
+        symbol [ current %tmp.8 196 53 60 ];
+        %tmp.9 = lgetv %a;
+        symbol [ a %tmp.9 196 62 63 ];
+        %tmp.1 = newc %tmp.4 (%tmp.5, %tmp.6, %tmp.7, %tmp.8, %tmp.9);
+        lputv %cv.1 %tmp.1;
+        symbol [ cv %cv.1 196 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 197 8 ]
+        symbol [ WatchUi %tmp.10 197 8 15 ];
+        %tmp.10 = getm $.Toybox.WatchUi;
+        symbol [ pushView %tmp.11 197 16 24 ];
+        %tmp.11 = getv function %tmp.10 :pushView;
+        %tmp.12 = lgetv %cv.1;
+        symbol [ cv %tmp.12 197 25 27 ];
+        symbol [ ChoiceDelegate %tmp.16 197 33 47 ];
+        %tmp.16 = getv ? :ChoiceDelegate;
+        %tmp.17 = lgetv %cv.1;
+        symbol [ cv %tmp.17 197 48 50 ];
+        %tmp.13 = newc %tmp.16 (%tmp.17);
+        symbol [ WatchUi %tmp.18 197 53 60 ];
+        %tmp.18 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_LEFT %tmp.19 197 61 71 ];
+        %tmp.19 = getv %tmp.18 :SLIDE_LEFT;
+        invoke %tmp.10 %tmp.11(%tmp.12, %tmp.13, %tmp.19);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_195_67_198_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 200; @symbol_functiondef = [_typeOptions,200,21,33]; @symbol_return<0> = [Array,200,39,44]; ]
+    private
+    function _typeOptions() as Array {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_200_45_207_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 201 8 ]
+        %tmp.1 = newa 2;
+        %tmp.2 = newa 3;
+        symbol [ TYPE_SLEEP %tmp.4 202 13 23 ];
+        %tmp.4 = getv ? :TYPE_SLEEP;
+        %tmp.5 = dup %tmp.2;
+        %tmp.6 = aputv %tmp.5 0 %tmp.4;
+        %tmp.7 = "Sleep";
+        %tmp.8 = dup %tmp.6;
+        %tmp.9 = aputv %tmp.8 1 %tmp.7;
+        %tmp.10 = "Wakes you during light sleep in the window before your set time, so you feel less groggy.";
+        %tmp.11 = dup %tmp.9;
+        %tmp.12 = aputv %tmp.11 2 %tmp.10;
+        %tmp.13 = dup %tmp.1;
+        %tmp.14 = aputv %tmp.13 0 %tmp.12;
+        %tmp.15 = newa 3;
+        symbol [ TYPE_REMINDER %tmp.17 204 13 26 ];
+        %tmp.17 = getv ? :TYPE_REMINDER;
+        %tmp.18 = dup %tmp.15;
+        %tmp.19 = aputv %tmp.18 0 %tmp.17;
+        %tmp.20 = "Reminder";
+        %tmp.21 = dup %tmp.19;
+        %tmp.22 = aputv %tmp.21 1 %tmp.20;
+        %tmp.23 = "Rings exactly at the set time. Use for reminders, not for waking from sleep.";
+        %tmp.24 = dup %tmp.22;
+        %tmp.25 = aputv %tmp.24 2 %tmp.23;
+        %tmp.26 = dup %tmp.14;
+        %tmp.27 = aputv %tmp.26 1 %tmp.25;
+        ret %tmp.27;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_200_45_207_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 209; @symbol_functiondef = [_windowOptions,209,21,35]; @symbol_return<0> = [Array,209,41,46]; ]
+    private
+    function _windowOptions() as Array {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_209_47_217_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 210 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_209_47_217_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_209_47_217_4_stop" ]
+        %d.1 = local;
+        symbol [ d %d.1 210 12 13 ];
+        %tmp.1 = "How long before the set time the app watches your sleep to find a light moment to wake you.";
+        lputv %d.1 %tmp.1;
+        symbol [ d %d.1 210 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 211 8 ]
+        %tmp.2 = newa 4;
+        %tmp.3 = newa 3;
+        %tmp.4 = 15;
+        %tmp.5 = dup %tmp.3;
+        %tmp.6 = aputv %tmp.5 0 %tmp.4;
+        %tmp.7 = "15 Minutes";
+        %tmp.8 = dup %tmp.6;
+        %tmp.9 = aputv %tmp.8 1 %tmp.7;
+        %tmp.10 = lgetv %d.1;
+        symbol [ d %tmp.10 212 31 32 ];
+        %tmp.11 = dup %tmp.9;
+        %tmp.12 = aputv %tmp.11 2 %tmp.10;
+        %tmp.13 = dup %tmp.2;
+        %tmp.14 = aputv %tmp.13 0 %tmp.12;
+        %tmp.15 = newa 3;
+        %tmp.16 = 30;
+        %tmp.17 = dup %tmp.15;
+        %tmp.18 = aputv %tmp.17 0 %tmp.16;
+        %tmp.19 = "30 Minutes";
+        %tmp.20 = dup %tmp.18;
+        %tmp.21 = aputv %tmp.20 1 %tmp.19;
+        %tmp.22 = lgetv %d.1;
+        symbol [ d %tmp.22 213 31 32 ];
+        %tmp.23 = dup %tmp.21;
+        %tmp.24 = aputv %tmp.23 2 %tmp.22;
+        %tmp.25 = dup %tmp.14;
+        %tmp.26 = aputv %tmp.25 1 %tmp.24;
+        %tmp.27 = newa 3;
+        %tmp.28 = 45;
+        %tmp.29 = dup %tmp.27;
+        %tmp.30 = aputv %tmp.29 0 %tmp.28;
+        %tmp.31 = "45 Minutes";
+        %tmp.32 = dup %tmp.30;
+        %tmp.33 = aputv %tmp.32 1 %tmp.31;
+        %tmp.34 = lgetv %d.1;
+        symbol [ d %tmp.34 214 31 32 ];
+        %tmp.35 = dup %tmp.33;
+        %tmp.36 = aputv %tmp.35 2 %tmp.34;
+        %tmp.37 = dup %tmp.26;
+        %tmp.38 = aputv %tmp.37 2 %tmp.36;
+        %tmp.39 = newa 3;
+        %tmp.40 = 60;
+        %tmp.41 = dup %tmp.39;
+        %tmp.42 = aputv %tmp.41 0 %tmp.40;
+        %tmp.43 = "60 Minutes";
+        %tmp.44 = dup %tmp.42;
+        %tmp.45 = aputv %tmp.44 1 %tmp.43;
+        %tmp.46 = lgetv %d.1;
+        symbol [ d %tmp.46 215 31 32 ];
+        %tmp.47 = dup %tmp.45;
+        %tmp.48 = aputv %tmp.47 2 %tmp.46;
+        %tmp.49 = dup %tmp.38;
+        %tmp.50 = aputv %tmp.49 3 %tmp.48;
+        ret %tmp.50;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_209_47_217_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 219; @symbol_functiondef = [_modeOptions,219,21,33]; @symbol_return<0> = [Array,219,39,44]; ]
+    private
+    function _modeOptions() as Array {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_219_45_225_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 220 8 ]
+        %tmp.1 = newa 3;
+        %tmp.2 = newa 3;
+        symbol [ MODE_BOTH %tmp.4 221 13 22 ];
+        %tmp.4 = getv ? :MODE_BOTH;
+        %tmp.5 = dup %tmp.2;
+        %tmp.6 = aputv %tmp.5 0 %tmp.4;
+        %tmp.7 = "Sound + Vibrate";
+        %tmp.8 = dup %tmp.6;
+        %tmp.9 = aputv %tmp.8 1 %tmp.7;
+        %tmp.10 = "";
+        %tmp.11 = dup %tmp.9;
+        %tmp.12 = aputv %tmp.11 2 %tmp.10;
+        %tmp.13 = dup %tmp.1;
+        %tmp.14 = aputv %tmp.13 0 %tmp.12;
+        %tmp.15 = newa 3;
+        symbol [ MODE_SOUND %tmp.17 222 13 23 ];
+        %tmp.17 = getv ? :MODE_SOUND;
+        %tmp.18 = dup %tmp.15;
+        %tmp.19 = aputv %tmp.18 0 %tmp.17;
+        %tmp.20 = "Sound only";
+        %tmp.21 = dup %tmp.19;
+        %tmp.22 = aputv %tmp.21 1 %tmp.20;
+        %tmp.23 = "";
+        %tmp.24 = dup %tmp.22;
+        %tmp.25 = aputv %tmp.24 2 %tmp.23;
+        %tmp.26 = dup %tmp.14;
+        %tmp.27 = aputv %tmp.26 1 %tmp.25;
+        %tmp.28 = newa 3;
+        symbol [ MODE_VIBE %tmp.30 223 13 22 ];
+        %tmp.30 = getv ? :MODE_VIBE;
+        %tmp.31 = dup %tmp.28;
+        %tmp.32 = aputv %tmp.31 0 %tmp.30;
+        %tmp.33 = "Vibrate only";
+        %tmp.34 = dup %tmp.32;
+        %tmp.35 = aputv %tmp.34 1 %tmp.33;
+        %tmp.36 = "";
+        %tmp.37 = dup %tmp.35;
+        %tmp.38 = aputv %tmp.37 2 %tmp.36;
+        %tmp.39 = dup %tmp.27;
+        %tmp.40 = aputv %tmp.39 2 %tmp.38;
+        ret %tmp.40;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_219_45_225_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 227; @symbol_functiondef = [_labelOptions,227,21,34]; @symbol_return<0> = [Array,227,40,45]; ]
+    private
+    function _labelOptions() as Array {
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_227_46_235_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 228 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_227_46_235_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_227_46_235_4_stop" ]
+        %names.1 = local;
+        symbol [ names %names.1 228 12 17 ];
+        %tmp.1 = newa 8;
+        %tmp.2 = "Wake up";
+        %tmp.3 = dup %tmp.1;
+        %tmp.4 = aputv %tmp.3 0 %tmp.2;
+        %tmp.5 = "Work";
+        %tmp.6 = dup %tmp.4;
+        %tmp.7 = aputv %tmp.6 1 %tmp.5;
+        %tmp.8 = "Gym";
+        %tmp.9 = dup %tmp.7;
+        %tmp.10 = aputv %tmp.9 2 %tmp.8;
+        %tmp.11 = "Medication";
+        %tmp.12 = dup %tmp.10;
+        %tmp.13 = aputv %tmp.12 3 %tmp.11;
+        %tmp.14 = "Meeting";
+        %tmp.15 = dup %tmp.13;
+        %tmp.16 = aputv %tmp.15 4 %tmp.14;
+        %tmp.17 = "Study";
+        %tmp.18 = dup %tmp.16;
+        %tmp.19 = aputv %tmp.18 5 %tmp.17;
+        %tmp.20 = "Nap";
+        %tmp.21 = dup %tmp.19;
+        %tmp.22 = aputv %tmp.21 6 %tmp.20;
+        %tmp.23 = "Reminder";
+        %tmp.24 = dup %tmp.22;
+        %tmp.25 = aputv %tmp.24 7 %tmp.23;
+        lputv %names.1 %tmp.25;
+        symbol [ names %names.1 228 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 230 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_227_46_235_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_227_46_235_4_stop" ]
+        %out.2 = local;
+        symbol [ out %out.2 230 12 15 ];
+        %tmp.26 = newa 0;
+        lputv %out.2 %tmp.26;
+        symbol [ out %out.2 230 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 231 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_end" ]
+        %i.3 = local;
+        symbol [ i %i.3 231 17 18 ];
+        %tmp.27 = 0;
+        lputv %i.3 %tmp.27;
+        symbol [ i %i.3 231 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_test:
+        %tmp.28 = lgetv %i.3;
+        symbol [ i %tmp.28 231 24 25 ];
+        %tmp.29 = lgetv %names.1;
+        symbol [ names %tmp.29 231 28 33 ];
+        symbol [ size %tmp.30 231 34 38 ];
+        %tmp.30 = getv function %tmp.29 :size;
+        %tmp.31 = invoke %tmp.29 %tmp.30();
+        %tmp.32 = lt %tmp.28 %tmp.31;
+        bf %tmp.32 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_47_233_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 232 12 ]
+        %tmp.33 = lgetv %out.2;
+        symbol [ out %tmp.33 232 12 15 ];
+        symbol [ add %tmp.34 232 16 19 ];
+        %tmp.34 = getv function %tmp.33 :add;
+        %tmp.35 = newa 3;
+        %tmp.36 = lgetv %names.1;
+        symbol [ names %tmp.36 232 21 26 ];
+        %tmp.37 = lgetv %i.3;
+        symbol [ i %tmp.37 232 27 28 ];
+        %tmp.38 = agetv %tmp.36 %tmp.37;
+        %tmp.39 = dup %tmp.35;
+        %tmp.40 = aputv %tmp.39 0 %tmp.38;
+        %tmp.41 = lgetv %names.1;
+        symbol [ names %tmp.41 232 31 36 ];
+        %tmp.42 = lgetv %i.3;
+        symbol [ i %tmp.42 232 37 38 ];
+        %tmp.43 = agetv %tmp.41 %tmp.42;
+        %tmp.44 = dup %tmp.40;
+        %tmp.45 = aputv %tmp.44 1 %tmp.43;
+        %tmp.46 = "";
+        %tmp.47 = dup %tmp.45;
+        %tmp.48 = aputv %tmp.47 2 %tmp.46;
+        invoke %tmp.33 %tmp.34(%tmp.48);
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_47_233_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 231 ]
+        %tmp.51 = lgetv %i.3;
+        symbol [ i %tmp.51 231 42 43 ];
+        %tmp.52 = add %tmp.51 1;
+        lputv %i.3 %tmp.52;
+        symbol [ i %i.3 231 42 43 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_231_8_233_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc" 234 8 ]
+        %tmp.53 = lgetv %out.2;
+        symbol [ out %tmp.53 234 15 18 ];
+        ret %tmp.53;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEditView_mc_227_46_235_4_stop:
     }
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 9; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEditView.mc"; @line = 7; ]
 <init> {
 }

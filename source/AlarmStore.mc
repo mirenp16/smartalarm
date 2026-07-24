@@ -204,6 +204,16 @@ class AlarmStore {
         return Application.Storage.getValue(KEY_RING_START);
     }
 
+    // Start ringing an alarm. One-time alarms are switched off immediately since
+    // they've done their job. Used by both the background service and Bedside Mode.
+    static function beginRing(alarmId as Number) as Void {
+        setRinging(alarmId);
+        var found = findById(alarmId);
+        if (found[1] != null && days(found[1] as Dictionary) == 0) {
+            disableById(alarmId);
+        }
+    }
+
     // A ring is "stale" if it was set more than the grace period ago. This happens
     // when the background fired the alarm but the watch couldn't surface the app
     // until much later. We drop stale rings so an old alarm never goes off hours
@@ -267,6 +277,26 @@ class AlarmStore {
     static function maxSnooze() as Number {
         var v = Application.Storage.getValue(KEY_MAX_SNOOZE);
         return (v != null) ? v : DEFAULT_MAX_SNOOZE;
+    }
+
+    static function setSnoozeMinutes(n as Number) as Void {
+        Application.Storage.setValue(KEY_SNOOZE_MINS, n);
+    }
+
+    static function setMaxSnooze(n as Number) as Void {
+        Application.Storage.setValue(KEY_MAX_SNOOZE, n);
+    }
+
+    // Shallow copy of an alarm dict (all values are primitives). Used so the
+    // editor can work on a copy and discard changes on cancel.
+    static function clone(a as Dictionary) as Dictionary {
+        var keys = a.keys();
+        var out = {};
+        for (var i = 0; i < keys.size(); i++) {
+            var k = keys[i];
+            out.put(k, a.get(k));
+        }
+        return out;
     }
 
     // ── Tiny typed helpers ───────────────────────────────────────────────────
