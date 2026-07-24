@@ -1,0 +1,770 @@
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 10; @symbol_importdef<0> = [Toybox,10,7,13]; @symbol_importdef<1> = [Graphics,10,14,22]; ]
+import Toybox.Graphics;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 11; @symbol_importdef<0> = [Toybox,11,7,13]; @symbol_importdef<1> = [Lang,11,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 12; @symbol_importdef<0> = [Toybox,12,7,13]; @symbol_importdef<1> = [WatchUi,12,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 14; @symbol_classdef = [TimePickerView,14,6,20]; @symbol_extends<0> = [WatchUi,14,29,36]; @symbol_extends<1> = [View,14,37,41]; ]
+class TimePickerView extends WatchUi.View {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 14; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 14; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 16; @position = 16; @symbol_vardef = [_alarm,16,16,22]; @symbol_type<0> = [Dictionary,16,26,36]; ]
+    private
+    var _alarm as Dictionary;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 17; @position = 16; @symbol_vardef = [_focus,17,16,22]; @symbol_type<0> = [Number,17,26,32]; ]
+    private
+    var _focus as Number = 0;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 18; @position = 16; @symbol_vardef = [_hour12,18,16,23]; @symbol_type<0> = [Number,18,27,33]; ]
+    private
+    var _hour12 as Number;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 19; @position = 16; @symbol_vardef = [_min,19,16,20]; @symbol_type<0> = [Number,19,24,30]; ]
+    private
+    var _min as Number;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 20; @position = 16; @symbol_vardef = [_pm,20,16,19]; @symbol_type<0> = [Boolean,20,23,30]; ]
+    private
+    var _pm as Boolean;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 21; @position = 16; @symbol_vardef = [_w,21,16,18]; @symbol_type<0> = [Number,21,22,28]; ]
+    private
+    var _w as Number = 260;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 22; @position = 16; @symbol_vardef = [_h,22,16,18]; @symbol_type<0> = [Number,22,22,28]; ]
+    private
+    var _h as Number = 260;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 23; @position = 16; @symbol_vardef = [_cx,23,16,19]; @symbol_type<0> = [Number,23,23,29]; ]
+    private
+    var _cx as Number = 130;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 24; @position = 16; @symbol_vardef = [_cy,24,16,19]; @symbol_type<0> = [Number,24,23,29]; ]
+    private
+    var _cy as Number = 130;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 26; @symbol_functiondef = [initialize,26,13,23]; @symbol_param<0> = [alarm,26,24,29]; @symbol_param<0>_type<0> = [Dictionary,26,33,43]; ]
+    function initialize(alarm as Dictionary) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_26_45_34_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 27 8 ]
+        symbol [ View %tmp.2 27 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 27 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 28 8 ]
+        %tmp.4 = lgetv %alarm;
+        symbol [ alarm %tmp.4 28 17 22 ];
+        symbol [ _alarm ? 28 8 14 ];
+        putv self :_alarm %tmp.4;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 29 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_26_45_34_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_26_45_34_4_stop" ]
+        %h24.1 = local;
+        symbol [ h24 %h24.1 29 12 15 ];
+        symbol [ AlarmStore %tmp.6 29 18 28 ];
+        %tmp.6 = getv ? :AlarmStore;
+        symbol [ hour %tmp.7 29 29 33 ];
+        %tmp.7 = getv function %tmp.6 :hour;
+        %tmp.8 = lgetv %alarm;
+        symbol [ alarm %tmp.8 29 34 39 ];
+        %tmp.9 = invoke %tmp.6 %tmp.7(%tmp.8);
+        lputv %h24.1 %tmp.9;
+        symbol [ h24 %h24.1 29 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 30 8 ]
+        symbol [ AlarmStore %tmp.11 30 15 25 ];
+        %tmp.11 = getv ? :AlarmStore;
+        symbol [ minute %tmp.12 30 26 32 ];
+        %tmp.12 = getv function %tmp.11 :minute;
+        %tmp.13 = lgetv %alarm;
+        symbol [ alarm %tmp.13 30 33 38 ];
+        %tmp.14 = invoke %tmp.11 %tmp.12(%tmp.13);
+        symbol [ _min ? 30 8 12 ];
+        putv self :_min %tmp.14;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 31 8 ]
+        %tmp.15 = lgetv %h24.1;
+        symbol [ h24 %tmp.15 31 15 18 ];
+        %tmp.16 = 12;
+        %tmp.17 = gte %tmp.15 %tmp.16;
+        symbol [ _pm ? 31 8 11 ];
+        putv self :_pm %tmp.17;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 32 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_26_45_34_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_26_45_34_4_stop" ]
+        %h.2 = local;
+        symbol [ h %h.2 32 12 13 ];
+        %tmp.18 = lgetv %h24.1;
+        symbol [ h24 %tmp.18 32 16 19 ];
+        %tmp.19 = 12;
+        %tmp.20 = mod %tmp.18 %tmp.19;
+        lputv %h.2 %tmp.20;
+        symbol [ h %h.2 32 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 33 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_begin:
+        %tmp.21 = lgetv %h.2;
+        symbol [ h %tmp.21 33 19 20 ];
+        %tmp.22 = 0;
+        %tmp.23 = eq %tmp.21 %tmp.22;
+        bf %tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_true:
+        %tmp.24 = 12;
+        push %tmp.24;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_else_false:
+        %tmp.25 = lgetv %h.2;
+        symbol [ h %tmp.25 33 34 35 ];
+        push %tmp.25;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_end:
+        %tmp.26 = phi [%tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_begin] [%tmp.24 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_true] [%tmp.25 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_else_false] [%tmp.26 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_33_18_33_34_end];
+        symbol [ _hour12 ? 33 8 15 ];
+        putv self :_hour12 %tmp.26;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_26_45_34_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 36; @symbol_functiondef = [onLayout,36,13,21]; @symbol_param<0> = [dc,36,22,24]; @symbol_param<0>_type<0> = [Graphics,36,28,36]; @symbol_param<0>_type<1> = [Dc,36,37,39]; ]
+    function onLayout(dc as Graphics.Dc) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_36_49_39_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 37 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 37 13 15 ];
+        symbol [ getWidth %tmp.2 37 16 24 ];
+        %tmp.2 = getv function %tmp.1 :getWidth;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        symbol [ _w ? 37 8 10 ];
+        putv self :_w %tmp.3;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 37 29 ]
+        %tmp.4 = lgetv %dc;
+        symbol [ dc %tmp.4 37 34 36 ];
+        symbol [ getHeight %tmp.5 37 37 46 ];
+        %tmp.5 = getv function %tmp.4 :getHeight;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        symbol [ _h ? 37 29 31 ];
+        putv self :_h %tmp.6;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 38 8 ]
+        symbol [ _w %tmp.8 38 14 16 ];
+        %tmp.8 = getv ? :_w;
+        %tmp.9 = 2;
+        %tmp.10 = div %tmp.8 %tmp.9;
+        symbol [ _cx ? 38 8 11 ];
+        putv self :_cx %tmp.10;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 38 29 ]
+        symbol [ _h %tmp.12 38 35 37 ];
+        %tmp.12 = getv ? :_h;
+        %tmp.13 = 2;
+        %tmp.14 = div %tmp.12 %tmp.13;
+        symbol [ _cy ? 38 29 32 ];
+        putv self :_cy %tmp.14;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_36_49_39_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 41; @symbol_functiondef = [onUpdate,41,13,21]; @symbol_param<0> = [dc,41,22,24]; @symbol_param<0>_type<0> = [Graphics,41,28,36]; @symbol_param<0>_type<1> = [Dc,41,37,39]; ]
+    function onUpdate(dc as Graphics.Dc) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_41_49_69_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 42 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 42 8 10 ];
+        symbol [ setColor %tmp.2 42 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Graphics %tmp.3 42 20 28 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.4 42 29 40 ];
+        %tmp.4 = getv %tmp.3 :COLOR_BLACK;
+        symbol [ Graphics %tmp.5 42 42 50 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.6 42 51 62 ];
+        %tmp.6 = getv %tmp.5 :COLOR_BLACK;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 43 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 43 8 10 ];
+        symbol [ clear %tmp.8 43 11 16 ];
+        %tmp.8 = getv function %tmp.7 :clear;
+        invoke %tmp.7 %tmp.8();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 45 8 ]
+        %tmp.9 = lgetv %dc;
+        symbol [ dc %tmp.9 45 8 10 ];
+        symbol [ setColor %tmp.10 45 11 19 ];
+        %tmp.10 = getv function %tmp.9 :setColor;
+        %tmp.11 = 0xAAAAAA;
+        symbol [ Graphics %tmp.12 45 30 38 ];
+        %tmp.12 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.13 45 39 56 ];
+        %tmp.13 = getv %tmp.12 :COLOR_TRANSPARENT;
+        invoke %tmp.9 %tmp.10(%tmp.11, %tmp.13);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 46 8 ]
+        %tmp.14 = lgetv %dc;
+        symbol [ dc %tmp.14 46 8 10 ];
+        symbol [ drawText %tmp.15 46 11 19 ];
+        %tmp.15 = getv function %tmp.14 :drawText;
+        symbol [ _cx %tmp.17 46 20 23 ];
+        %tmp.17 = getv ? :_cx;
+        symbol [ _h %tmp.19 46 25 27 ];
+        %tmp.19 = getv ? :_h;
+        %tmp.20 = 14;
+        %tmp.21 = mul %tmp.19 %tmp.20;
+        %tmp.22 = 100;
+        %tmp.23 = div %tmp.21 %tmp.22;
+        symbol [ Graphics %tmp.24 46 40 48 ];
+        %tmp.24 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.25 46 49 59 ];
+        %tmp.25 = getv %tmp.24 :FONT_XTINY;
+        %tmp.26 = "SET TIME";
+        symbol [ Graphics %tmp.27 47 20 28 ];
+        %tmp.27 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.28 47 29 48 ];
+        %tmp.28 = getv %tmp.27 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.14 %tmp.15(%tmp.17, %tmp.23, %tmp.25, %tmp.26, %tmp.28);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 49 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_41_49_69_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_41_49_69_4_stop" ]
+        %numY.1 = local;
+        symbol [ numY %numY.1 49 12 16 ];
+        symbol [ _cy %tmp.30 49 19 22 ];
+        %tmp.30 = getv ? :_cy;
+        %tmp.31 = 46;
+        %tmp.32 = sub %tmp.30 %tmp.31;
+        lputv %numY.1 %tmp.32;
+        symbol [ numY %numY.1 49 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 51 8 ]
+        %tmp.33 = lgetv %dc;
+        symbol [ dc %tmp.33 51 8 10 ];
+        symbol [ setColor %tmp.34 51 11 19 ];
+        %tmp.34 = getv function %tmp.33 :setColor;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_begin:
+        symbol [ _focus %tmp.36 51 21 27 ];
+        %tmp.36 = getv ? :_focus;
+        %tmp.37 = 0;
+        %tmp.38 = eq %tmp.36 %tmp.37;
+        bf %tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_true:
+        symbol [ Graphics %tmp.39 51 36 44 ];
+        %tmp.39 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.40 51 45 56 ];
+        %tmp.40 = getv %tmp.39 :COLOR_WHITE;
+        push %tmp.40;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_else_false:
+        %tmp.41 = 0x666666;
+        push %tmp.41;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_end:
+        %tmp.42 = phi [%tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_begin] [%tmp.40 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_true] [%tmp.41 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_else_false] [%tmp.42 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_51_20_51_59_end];
+        symbol [ Graphics %tmp.43 51 69 77 ];
+        %tmp.43 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.44 51 78 95 ];
+        %tmp.44 = getv %tmp.43 :COLOR_TRANSPARENT;
+        invoke %tmp.33 %tmp.34(%tmp.42, %tmp.44);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 52 8 ]
+        %tmp.45 = lgetv %dc;
+        symbol [ dc %tmp.45 52 8 10 ];
+        symbol [ drawText %tmp.46 52 11 19 ];
+        %tmp.46 = getv function %tmp.45 :drawText;
+        symbol [ _cx %tmp.48 52 20 23 ];
+        %tmp.48 = getv ? :_cx;
+        %tmp.49 = 34;
+        %tmp.50 = sub %tmp.48 %tmp.49;
+        %tmp.51 = lgetv %numY.1;
+        symbol [ numY %tmp.51 52 30 34 ];
+        symbol [ Graphics %tmp.52 52 36 44 ];
+        %tmp.52 = getm $.Toybox.Graphics;
+        symbol [ FONT_NUMBER_HOT %tmp.53 52 45 60 ];
+        %tmp.53 = getv %tmp.52 :FONT_NUMBER_HOT;
+        symbol [ _hour12 %tmp.55 52 62 69 ];
+        %tmp.55 = getv ? :_hour12;
+        symbol [ format %tmp.56 52 70 76 ];
+        %tmp.56 = getv function %tmp.55 :format;
+        %tmp.57 = "%d";
+        %tmp.58 = invoke %tmp.55 %tmp.56(%tmp.57);
+        symbol [ Graphics %tmp.59 53 20 28 ];
+        %tmp.59 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_RIGHT %tmp.60 53 29 47 ];
+        %tmp.60 = getv %tmp.59 :TEXT_JUSTIFY_RIGHT;
+        invoke %tmp.45 %tmp.46(%tmp.50, %tmp.51, %tmp.53, %tmp.58, %tmp.60);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 55 8 ]
+        %tmp.61 = lgetv %dc;
+        symbol [ dc %tmp.61 55 8 10 ];
+        symbol [ setColor %tmp.62 55 11 19 ];
+        %tmp.62 = getv function %tmp.61 :setColor;
+        %tmp.63 = 0x999999;
+        symbol [ Graphics %tmp.64 55 30 38 ];
+        %tmp.64 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.65 55 39 56 ];
+        %tmp.65 = getv %tmp.64 :COLOR_TRANSPARENT;
+        invoke %tmp.61 %tmp.62(%tmp.63, %tmp.65);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 56 8 ]
+        %tmp.66 = lgetv %dc;
+        symbol [ dc %tmp.66 56 8 10 ];
+        symbol [ drawText %tmp.67 56 11 19 ];
+        %tmp.67 = getv function %tmp.66 :drawText;
+        symbol [ _cx %tmp.69 56 20 23 ];
+        %tmp.69 = getv ? :_cx;
+        %tmp.70 = lgetv %numY.1;
+        symbol [ numY %tmp.70 56 25 29 ];
+        symbol [ Graphics %tmp.71 56 31 39 ];
+        %tmp.71 = getm $.Toybox.Graphics;
+        symbol [ FONT_NUMBER_HOT %tmp.72 56 40 55 ];
+        %tmp.72 = getv %tmp.71 :FONT_NUMBER_HOT;
+        %tmp.73 = ":";
+        symbol [ Graphics %tmp.74 56 62 70 ];
+        %tmp.74 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.75 56 71 90 ];
+        %tmp.75 = getv %tmp.74 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.66 %tmp.67(%tmp.69, %tmp.70, %tmp.72, %tmp.73, %tmp.75);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 58 8 ]
+        %tmp.76 = lgetv %dc;
+        symbol [ dc %tmp.76 58 8 10 ];
+        symbol [ setColor %tmp.77 58 11 19 ];
+        %tmp.77 = getv function %tmp.76 :setColor;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_begin:
+        symbol [ _focus %tmp.79 58 21 27 ];
+        %tmp.79 = getv ? :_focus;
+        %tmp.80 = 1;
+        %tmp.81 = eq %tmp.79 %tmp.80;
+        bf %tmp.81 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_true:
+        symbol [ Graphics %tmp.82 58 36 44 ];
+        %tmp.82 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.83 58 45 56 ];
+        %tmp.83 = getv %tmp.82 :COLOR_WHITE;
+        push %tmp.83;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_else_false:
+        %tmp.84 = 0x666666;
+        push %tmp.84;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_end:
+        %tmp.85 = phi [%tmp.81 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_begin] [%tmp.83 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_true] [%tmp.84 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_else_false] [%tmp.85 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_58_20_58_59_end];
+        symbol [ Graphics %tmp.86 58 69 77 ];
+        %tmp.86 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.87 58 78 95 ];
+        %tmp.87 = getv %tmp.86 :COLOR_TRANSPARENT;
+        invoke %tmp.76 %tmp.77(%tmp.85, %tmp.87);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 59 8 ]
+        %tmp.88 = lgetv %dc;
+        symbol [ dc %tmp.88 59 8 10 ];
+        symbol [ drawText %tmp.89 59 11 19 ];
+        %tmp.89 = getv function %tmp.88 :drawText;
+        symbol [ _cx %tmp.91 59 20 23 ];
+        %tmp.91 = getv ? :_cx;
+        %tmp.92 = 34;
+        %tmp.93 = add %tmp.91 %tmp.92;
+        %tmp.94 = lgetv %numY.1;
+        symbol [ numY %tmp.94 59 30 34 ];
+        symbol [ Graphics %tmp.95 59 36 44 ];
+        %tmp.95 = getm $.Toybox.Graphics;
+        symbol [ FONT_NUMBER_HOT %tmp.96 59 45 60 ];
+        %tmp.96 = getv %tmp.95 :FONT_NUMBER_HOT;
+        symbol [ _min %tmp.98 59 62 66 ];
+        %tmp.98 = getv ? :_min;
+        symbol [ format %tmp.99 59 67 73 ];
+        %tmp.99 = getv function %tmp.98 :format;
+        %tmp.100 = "%02d";
+        %tmp.101 = invoke %tmp.98 %tmp.99(%tmp.100);
+        symbol [ Graphics %tmp.102 60 20 28 ];
+        %tmp.102 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_LEFT %tmp.103 60 29 46 ];
+        %tmp.103 = getv %tmp.102 :TEXT_JUSTIFY_LEFT;
+        invoke %tmp.88 %tmp.89(%tmp.93, %tmp.94, %tmp.96, %tmp.101, %tmp.103);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 63 8 ]
+        %tmp.104 = lgetv %dc;
+        symbol [ dc %tmp.104 63 8 10 ];
+        symbol [ setColor %tmp.105 63 11 19 ];
+        %tmp.105 = getv function %tmp.104 :setColor;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_begin:
+        symbol [ _focus %tmp.107 63 21 27 ];
+        %tmp.107 = getv ? :_focus;
+        %tmp.108 = 2;
+        %tmp.109 = eq %tmp.107 %tmp.108;
+        bf %tmp.109 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_true:
+        symbol [ Graphics %tmp.110 63 36 44 ];
+        %tmp.110 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.111 63 45 56 ];
+        %tmp.111 = getv %tmp.110 :COLOR_WHITE;
+        push %tmp.111;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_else_false:
+        %tmp.112 = 0x666666;
+        push %tmp.112;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_end:
+        %tmp.113 = phi [%tmp.109 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_begin] [%tmp.111 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_true] [%tmp.112 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_else_false] [%tmp.113 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_63_20_63_59_end];
+        symbol [ Graphics %tmp.114 63 69 77 ];
+        %tmp.114 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.115 63 78 95 ];
+        %tmp.115 = getv %tmp.114 :COLOR_TRANSPARENT;
+        invoke %tmp.104 %tmp.105(%tmp.113, %tmp.115);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 64 8 ]
+        %tmp.116 = lgetv %dc;
+        symbol [ dc %tmp.116 64 8 10 ];
+        symbol [ drawText %tmp.117 64 11 19 ];
+        %tmp.117 = getv function %tmp.116 :drawText;
+        symbol [ _cx %tmp.119 64 20 23 ];
+        %tmp.119 = getv ? :_cx;
+        symbol [ _cy %tmp.121 64 25 28 ];
+        %tmp.121 = getv ? :_cy;
+        %tmp.122 = 44;
+        %tmp.123 = add %tmp.121 %tmp.122;
+        symbol [ Graphics %tmp.124 64 35 43 ];
+        %tmp.124 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.125 64 44 55 ];
+        %tmp.125 = getv %tmp.124 :FONT_MEDIUM;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_begin:
+        symbol [ _pm %tmp.127 64 57 60 ];
+        %tmp.127 = getv ? :_pm;
+        bf %tmp.127 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_true:
+        %tmp.128 = "PM";
+        push %tmp.128;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_else_false:
+        %tmp.129 = "AM";
+        push %tmp.129;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_end:
+        %tmp.130 = phi [%tmp.127 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_begin] [%tmp.128 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_true] [%tmp.129 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_else_false] [%tmp.130 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_64_57_64_70_end];
+        symbol [ Graphics %tmp.131 65 20 28 ];
+        %tmp.131 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.132 65 29 48 ];
+        %tmp.132 = getv %tmp.131 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.116 %tmp.117(%tmp.119, %tmp.123, %tmp.125, %tmp.130, %tmp.132);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 67 8 ]
+        symbol [ Ui %tmp.134 67 8 10 ];
+        %tmp.134 = getv ? :Ui;
+        symbol [ start %tmp.135 67 11 16 ];
+        %tmp.135 = getv function %tmp.134 :start;
+        %tmp.136 = lgetv %dc;
+        symbol [ dc %tmp.136 67 17 19 ];
+        symbol [ _w %tmp.138 67 21 23 ];
+        %tmp.138 = getv ? :_w;
+        symbol [ _h %tmp.140 67 25 27 ];
+        %tmp.140 = getv ? :_h;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_begin:
+        symbol [ _focus %tmp.142 67 30 36 ];
+        %tmp.142 = getv ? :_focus;
+        %tmp.143 = 2;
+        %tmp.144 = eq %tmp.142 %tmp.143;
+        bf %tmp.144 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_true:
+        %tmp.145 = "Confirm";
+        push %tmp.145;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_else_false:
+        %tmp.146 = "Next";
+        push %tmp.146;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_end:
+        %tmp.147 = phi [%tmp.144 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_begin] [%tmp.145 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_true] [%tmp.146 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_else_false] [%tmp.147 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_67_29_67_57_end];
+        invoke %tmp.134 %tmp.135(%tmp.136, %tmp.138, %tmp.140, %tmp.147);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 68 8 ]
+        symbol [ Ui %tmp.149 68 8 10 ];
+        %tmp.149 = getv ? :Ui;
+        symbol [ back %tmp.150 68 11 15 ];
+        %tmp.150 = getv function %tmp.149 :back;
+        %tmp.151 = lgetv %dc;
+        symbol [ dc %tmp.151 68 16 18 ];
+        symbol [ _w %tmp.153 68 20 22 ];
+        %tmp.153 = getv ? :_w;
+        symbol [ _h %tmp.155 68 24 26 ];
+        %tmp.155 = getv ? :_h;
+        %tmp.156 = "Back";
+        invoke %tmp.149 %tmp.150(%tmp.151, %tmp.153, %tmp.155, %tmp.156);
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_41_49_69_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 71; @symbol_functiondef = [bump,71,13,17]; @symbol_param<0> = [delta,71,18,23]; @symbol_param<0>_type<0> = [Number,71,27,33]; ]
+    function bump(delta as Number) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_71_43_80_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 72 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_8_78_8_if_stmt:
+        symbol [ _focus %tmp.2 72 12 18 ];
+        %tmp.2 = getv ? :_focus;
+        %tmp.3 = 0;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_8_78_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_8_78_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_25_74_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 73 12 ]
+        symbol [ _hour12 %tmp.6 73 24 31 ];
+        %tmp.6 = getv ? :_hour12;
+        %tmp.7 = 1;
+        %tmp.8 = sub %tmp.6 %tmp.7;
+        %tmp.9 = lgetv %delta;
+        symbol [ delta %tmp.9 73 38 43 ];
+        %tmp.10 = add %tmp.8 %tmp.9;
+        %tmp.11 = 12;
+        %tmp.12 = add %tmp.10 %tmp.11;
+        %tmp.13 = 12;
+        %tmp.14 = mod %tmp.12 %tmp.13;
+        %tmp.15 = 1;
+        %tmp.16 = add %tmp.14 %tmp.15;
+        symbol [ _hour12 ? 73 12 19 ];
+        putv self :_hour12 %tmp.16;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_25_74_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_8_78_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_8_78_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 74 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_15_78_8_if_stmt:
+        symbol [ _focus %tmp.18 74 19 25 ];
+        %tmp.18 = getv ? :_focus;
+        %tmp.19 = 1;
+        %tmp.20 = eq %tmp.18 %tmp.19;
+        bf %tmp.20 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_15_78_8_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_15_78_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_32_76_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 75 12 ]
+        symbol [ _min %tmp.22 75 20 24 ];
+        %tmp.22 = getv ? :_min;
+        %tmp.23 = 60;
+        %tmp.24 = add %tmp.22 %tmp.23;
+        %tmp.25 = lgetv %delta;
+        symbol [ delta %tmp.25 75 32 37 ];
+        %tmp.26 = add %tmp.24 %tmp.25;
+        %tmp.27 = 60;
+        %tmp.28 = mod %tmp.26 %tmp.27;
+        symbol [ _min ? 75 12 16 ];
+        putv self :_min %tmp.28;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_32_76_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_15_78_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_15_78_8_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_76_15_78_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 77 12 ]
+        symbol [ _pm %tmp.30 77 19 22 ];
+        %tmp.30 = getv ? :_pm;
+        %tmp.31 = not %tmp.30;
+        symbol [ _pm ? 77 12 15 ];
+        putv self :_pm %tmp.31;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_76_15_78_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_74_15_78_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_72_8_78_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 79 8 ]
+        symbol [ WatchUi %tmp.32 79 8 15 ];
+        %tmp.32 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.33 79 16 29 ];
+        %tmp.33 = getv function %tmp.32 :requestUpdate;
+        invoke %tmp.32 %tmp.33();
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_71_43_80_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 83; @symbol_functiondef = [advance,83,13,20]; @symbol_return<0> = [Boolean,83,26,33]; ]
+    function advance() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_83_34_93_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 84 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_84_8_88_8_if_stmt:
+        symbol [ _focus %tmp.2 84 12 18 ];
+        %tmp.2 = getv ? :_focus;
+        %tmp.3 = 2;
+        %tmp.4 = lt %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_84_8_88_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_84_8_88_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_84_24_88_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 85 12 ]
+        symbol [ _focus %tmp.7 85 12 18 ];
+        %tmp.7 = getv ? :_focus;
+        %tmp.8 = add %tmp.7 1;
+        symbol [ _focus ? 85 12 18 ];
+        putv self :_focus dup %tmp.8;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 86 12 ]
+        symbol [ WatchUi %tmp.9 86 12 19 ];
+        %tmp.9 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.10 86 20 33 ];
+        %tmp.10 = getv function %tmp.9 :requestUpdate;
+        invoke %tmp.9 %tmp.10();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 87 12 ]
+        %tmp.11 = false;
+        ret %tmp.11;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_84_24_88_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_84_8_88_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_84_8_88_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 89 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_83_34_93_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_83_34_93_4_stop" ]
+        %h24.1 = local;
+        symbol [ h24 %h24.1 89 12 15 ];
+        symbol [ _hour12 %tmp.13 89 19 26 ];
+        %tmp.13 = getv ? :_hour12;
+        %tmp.14 = 12;
+        %tmp.15 = mod %tmp.13 %tmp.14;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_begin:
+        symbol [ _pm %tmp.17 89 36 39 ];
+        %tmp.17 = getv ? :_pm;
+        bf %tmp.17 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_true:
+        %tmp.18 = 12;
+        push %tmp.18;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_else_false:
+        %tmp.19 = 0;
+        push %tmp.19;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_end:
+        %tmp.20 = phi [%tmp.17 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_begin] [%tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_true] [%tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_else_false] [%tmp.20 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_89_36_89_47_end];
+        %tmp.21 = add %tmp.15 %tmp.20;
+        lputv %h24.1 %tmp.21;
+        symbol [ h24 %h24.1 89 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 90 8 ]
+        symbol [ _alarm %tmp.23 90 8 14 ];
+        %tmp.23 = getv ? :_alarm;
+        symbol [ put %tmp.24 90 15 18 ];
+        %tmp.24 = getv function %tmp.23 :put;
+        %tmp.25 = "h";
+        %tmp.26 = lgetv %h24.1;
+        symbol [ h24 %tmp.26 90 24 27 ];
+        invoke %tmp.23 %tmp.24(%tmp.25, %tmp.26);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 91 8 ]
+        symbol [ _alarm %tmp.28 91 8 14 ];
+        %tmp.28 = getv ? :_alarm;
+        symbol [ put %tmp.29 91 15 18 ];
+        %tmp.29 = getv function %tmp.28 :put;
+        %tmp.30 = "m";
+        symbol [ _min %tmp.32 91 24 28 ];
+        %tmp.32 = getv ? :_min;
+        invoke %tmp.28 %tmp.29(%tmp.30, %tmp.32);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 92 8 ]
+        %tmp.33 = true;
+        ret %tmp.33;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_83_34_93_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 96; @symbol_functiondef = [back,96,13,17]; @symbol_return<0> = [Boolean,96,23,30]; ]
+    function back() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_96_31_103_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 97 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_97_8_101_8_if_stmt:
+        symbol [ _focus %tmp.2 97 12 18 ];
+        %tmp.2 = getv ? :_focus;
+        %tmp.3 = 0;
+        %tmp.4 = gt %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_97_8_101_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_97_8_101_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_97_24_101_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 98 12 ]
+        symbol [ _focus %tmp.7 98 12 18 ];
+        %tmp.7 = getv ? :_focus;
+        %tmp.8 = sub %tmp.7 1;
+        symbol [ _focus ? 98 12 18 ];
+        putv self :_focus dup %tmp.8;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 99 12 ]
+        symbol [ WatchUi %tmp.9 99 12 19 ];
+        %tmp.9 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.10 99 20 33 ];
+        %tmp.10 = getv function %tmp.9 :requestUpdate;
+        invoke %tmp.9 %tmp.10();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 100 12 ]
+        %tmp.11 = false;
+        ret %tmp.11;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_97_24_101_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_97_8_101_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_97_8_101_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 102 8 ]
+        %tmp.12 = true;
+        ret %tmp.12;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_96_31_103_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 106; @symbol_classdef = [TimePickerDelegate,106,6,24]; @symbol_extends<0> = [WatchUi,106,33,40]; @symbol_extends<1> = [BehaviorDelegate,106,41,57]; ]
+class TimePickerDelegate extends WatchUi.BehaviorDelegate {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 106; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 106; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 108; @position = 16; @symbol_vardef = [_view,108,16,21]; @symbol_type<0> = [TimePickerView,108,25,39]; ]
+    private
+    var _view as TimePickerView;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 110; @symbol_functiondef = [initialize,110,13,23]; @symbol_param<0> = [view,110,24,28]; @symbol_param<0>_type<0> = [TimePickerView,110,32,46]; ]
+    function initialize(view as TimePickerView) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_110_48_113_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 111 8 ]
+        symbol [ BehaviorDelegate %tmp.2 111 8 24 ];
+        %tmp.2 = getv ? :BehaviorDelegate;
+        symbol [ initialize %tmp.3 111 25 35 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 112 8 ]
+        %tmp.4 = lgetv %view;
+        symbol [ view %tmp.4 112 16 20 ];
+        symbol [ _view ? 112 8 13 ];
+        putv self :_view %tmp.4;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_110_48_113_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 115; @symbol_functiondef = [onPreviousPage,115,13,27]; @symbol_return<0> = [Boolean,115,33,40]; ]
+    function onPreviousPage() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_115_41_115_71_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 115 43 ]
+        symbol [ _view %tmp.2 115 43 48 ];
+        %tmp.2 = getv ? :_view;
+        symbol [ bump %tmp.3 115 49 53 ];
+        %tmp.3 = getv function %tmp.2 :bump;
+        %tmp.4 = 1;
+        invoke %tmp.2 %tmp.3(%tmp.4);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 115 58 ]
+        %tmp.5 = true;
+        ret %tmp.5;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_115_41_115_71_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 116; @symbol_functiondef = [onNextPage,116,13,23]; @symbol_return<0> = [Boolean,116,29,36]; ]
+    function onNextPage() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_116_37_116_68_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 116 39 ]
+        symbol [ _view %tmp.2 116 39 44 ];
+        %tmp.2 = getv ? :_view;
+        symbol [ bump %tmp.3 116 45 49 ];
+        %tmp.3 = getv function %tmp.2 :bump;
+        %tmp.4 = -1;
+        invoke %tmp.2 %tmp.3(%tmp.4);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 116 55 ]
+        %tmp.5 = true;
+        ret %tmp.5;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_116_37_116_68_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 118; @symbol_functiondef = [onSelect,118,13,21]; @symbol_return<0> = [Boolean,118,27,34]; ]
+    function onSelect() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_118_35_123_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 119 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_119_8_121_8_if_stmt:
+        symbol [ _view %tmp.2 119 12 17 ];
+        %tmp.2 = getv ? :_view;
+        symbol [ advance %tmp.3 119 18 25 ];
+        %tmp.3 = getv function %tmp.2 :advance;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_119_8_121_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_119_8_121_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_119_29_121_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 120 12 ]
+        symbol [ WatchUi %tmp.5 120 12 19 ];
+        %tmp.5 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.6 120 20 27 ];
+        %tmp.6 = getv function %tmp.5 :popView;
+        symbol [ WatchUi %tmp.7 120 28 35 ];
+        %tmp.7 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.8 120 36 47 ];
+        %tmp.8 = getv %tmp.7 :SLIDE_RIGHT;
+        invoke %tmp.5 %tmp.6(%tmp.8);
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_119_29_121_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_119_8_121_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_119_8_121_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 122 8 ]
+        %tmp.9 = true;
+        ret %tmp.9;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_118_35_123_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 125; @symbol_functiondef = [onBack,125,13,19]; @symbol_return<0> = [Boolean,125,25,32]; ]
+    function onBack() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_125_33_130_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 126 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_126_8_128_8_if_stmt:
+        symbol [ _view %tmp.2 126 12 17 ];
+        %tmp.2 = getv ? :_view;
+        symbol [ back %tmp.3 126 18 22 ];
+        %tmp.3 = getv function %tmp.2 :back;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_126_8_128_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_126_8_128_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_126_26_128_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 127 12 ]
+        symbol [ WatchUi %tmp.5 127 12 19 ];
+        %tmp.5 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.6 127 20 27 ];
+        %tmp.6 = getv function %tmp.5 :popView;
+        symbol [ WatchUi %tmp.7 127 28 35 ];
+        %tmp.7 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.8 127 36 47 ];
+        %tmp.8 = getv %tmp.7 :SLIDE_RIGHT;
+        invoke %tmp.5 %tmp.6(%tmp.8);
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_126_26_128_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_126_8_128_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_126_8_128_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc" 129 8 ]
+        %tmp.9 = true;
+        ret %tmp.9;
+_Users_miren_Documents_GitHub_smartalarm_source_TimePicker_mc_125_33_130_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/TimePicker.mc"; @line = 10; ]
+<init> {
+}

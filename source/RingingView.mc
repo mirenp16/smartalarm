@@ -1,13 +1,13 @@
 // RingingView.mc
-// Shown when an alarm fires (foreground only — the foreground can vibrate/beep,
-// the background cannot). Alerts on a repeating timer.
+// Shown when an alarm fires (foreground only can vibrate/beep). Alerts on a timer.
 //
-// Controls (deliberately limited so it can't be dismissed by accident):
-//   START            -> Snooze   (green)
-//   LIGHT or BACK    -> Dismiss / "I'm awake"  (red)
-//   UP / DOWN / tap  -> ignored
+// Controls (nothing dismisses by accident):
+//   START            -> Snooze              (red)
+//   BACK, then UP    -> "I'm Awake!"         (green)  -- same deliberate combo as
+//                                                        exiting Active Alarm mode
+//   anything else    -> ignored (keeps vibrating)
 //
-// Snooze is capped by Max Snoozes (Settings). At the cap only Dismiss works.
+// When snoozes run out, only BACK-then-UP ("I'm Awake!") stops it.
 
 import Toybox.Application;
 import Toybox.Attention;
@@ -22,6 +22,8 @@ class RingingView extends WatchUi.View {
 
     private var _timer as Timer.Timer?;
     private var _alarm as Dictionary?;
+    private var _awakeArmed as Boolean = false;
+    private var _armSecs as Number = 0;
     private var _w as Number = 260;
     private var _h as Number = 260;
     private var _cx as Number = 130;
@@ -52,6 +54,7 @@ class RingingView extends WatchUi.View {
     function onHide() as Void { stopTimer(); }
 
     function onTick() as Void {
+        if (_awakeArmed && (Time.now().value() - _armSecs) > 5) { _awakeArmed = false; }
         alert();
         WatchUi.requestUpdate();
     }
@@ -72,31 +75,37 @@ class RingingView extends WatchUi.View {
     function onUpdate(dc as Graphics.Dc) as Void {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
+        var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
 
         var label = (_alarm != null) ? AlarmStore.label(_alarm) : "Alarm";
         var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var atMax = snoozeExhausted();
 
-        // Label
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 56, Graphics.FONT_MEDIUM, label, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy - 52, Graphics.FONT_MEDIUM, label, vc);
+        dc.drawText(_cx, _cy - 14, Graphics.FONT_LARGE, Fmt.time12(now.hour, now.min), vc);
 
-        // Current time (large)
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 20, Graphics.FONT_LARGE, Fmt.time12(now.hour, now.min),
-                    Graphics.TEXT_JUSTIFY_CENTER);
-
-        // Snoozes remaining
         dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
         var info = atMax
             ? "No snoozes left"
             : ((AlarmStore.maxSnooze() - snoozeCount()).format("%d") + " snoozes left");
-        dc.drawText(_cx, _cy + 30, Graphics.FONT_XTINY, info, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy + 22, Graphics.FONT_XTINY, info, vc);
 
-        // Button arrows: START snoozes (unless capped), BACK dismisses.
-        if (!atMax) { Ui.start(dc, _w, _h, "Snooze"); }
-        Ui.back(dc, _w, _h, "I'm awake");
+        if (_awakeArmed) {
+            dc.setColor(UI_GREEN, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _h * 78 / 100, Graphics.FONT_XTINY, "Press UP: I'm Awake!", vc);
+        } else {
+            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _h * 78 / 100, Graphics.FONT_XTINY, "BACK then UP: I'm Awake!", vc);
+        }
+
+        // Arrows: Snooze red on START (if any left); I'm Awake green on BACK + UP.
+        if (!atMax) { Ui.at(dc, _w, _h, UI_DEG_START, UI_RED, "Snooze"); }
+        Ui.at(dc, _w, _h, UI_DEG_BACK, UI_GREEN, "BACK");
+        Ui.at(dc, _w, _h, UI_DEG_UP, UI_GREEN, "UP");
     }
+
+    // ── State ────────────────────────────────────────────────────────────────
 
     function snoozeCount() as Number {
         var id = AlarmStore.ringingId();
@@ -104,14 +113,25 @@ class RingingView extends WatchUi.View {
     }
     function snoozeExhausted() as Boolean { return snoozeCount() >= AlarmStore.maxSnooze(); }
 
+    function armAwake() as Void {
+        _awakeArmed = true;
+        _armSecs = Time.now().value();
+        WatchUi.requestUpdate();
+    }
+    function awakeReady() as Boolean {
+        return _awakeArmed && (Time.now().value() - _armSecs) <= 5;
+    }
+
     function stopTimer() as Void {
         if (_timer != null) { _timer.stop(); _timer = null; }
     }
 
+    // ── Actions ──────────────────────────────────────────────────────────────
+
     function doSnooze() as Void {
         var id = AlarmStore.ringingId();
         if (id == null) { close(); return; }
-        if (snoozeExhausted()) { return; }   // must dismiss instead
+        if (snoozeExhausted()) { return; }        // must use I'm Awake instead
         AlarmStore.incSnooze(id);
         var until = Time.now().value() + AlarmStore.snoozeMinutes() * 60;
         AlarmStore.scheduleSnooze(id, until);
@@ -119,7 +139,7 @@ class RingingView extends WatchUi.View {
         close();
     }
 
-    function doDismiss() as Void {
+    function doAwake() as Void {
         var id = AlarmStore.ringingId();
         if (id != null) { AlarmStore.markFired(id); }
         AlarmStore.setRinging(null);
@@ -145,11 +165,14 @@ class RingingDelegate extends WatchUi.BehaviorDelegate {
     // START = snooze
     function onSelect() as Boolean { _view.doSnooze(); return true; }
 
-    // BACK = dismiss
-    function onBack() as Boolean { _view.doDismiss(); return true; }
+    // BACK arms "I'm Awake"; UP completes it.
+    function onBack() as Boolean { _view.armAwake(); return true; }
+    function onPreviousPage() as Boolean {
+        if (_view.awakeReady()) { _view.doAwake(); }
+        return true;
+    }
 
-    // Swallow everything else so the alarm can't be dismissed by accident.
+    // Everything else keeps it vibrating.
     function onNextPage() as Boolean { return true; }
-    function onPreviousPage() as Boolean { return true; }
     function onTap(evt as WatchUi.ClickEvent) as Boolean { return true; }
 }

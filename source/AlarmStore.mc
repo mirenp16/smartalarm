@@ -182,6 +182,15 @@ class AlarmStore {
         setStateFor(alarmId, s);
     }
 
+    // Re-arm an alarm: clear today's fired/plain flags so it can fire again (used
+    // when the user edits an alarm that had already gone off).
+    static function clearFired(alarmId as Number) as Void {
+        var s = stateFor(alarmId);
+        s.put("f", false);
+        s.put("p", false);
+        setStateFor(alarmId, s);
+    }
+
     static function markPlainFire(alarmId as Number) as Void {
         var s = stateFor(alarmId);
         s.put("p", true);

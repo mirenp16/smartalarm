@@ -311,7 +311,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_42_67_47_4_stop:
     }
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 49; @symbol_functiondef = [onUpdate,49,13,21]; @symbol_param<0> = [dc,49,22,24]; @symbol_param<0>_type<0> = [Graphics,49,28,36]; @symbol_param<0>_type<1> = [Dc,49,37,39]; ]
     function onUpdate(dc as Graphics.Dc) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_start:
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_73_4_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 50 8 ]
         %tmp.1 = lgetv %dc;
         symbol [ dc %tmp.1 50 8 10 ];
@@ -367,7 +367,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_start
         %tmp.28 = getv %tmp.27 :TEXT_JUSTIFY_CENTER;
         invoke %tmp.14 %tmp.15(%tmp.17, %tmp.23, %tmp.25, %tmp.26, %tmp.28);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 57 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_73_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_73_4_stop" ]
         %title.1 = local;
         symbol [ title %title.1 57 12 17 ];
 _Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_57_20_57_52_begin:
@@ -388,7 +388,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_57_20_57_52_end:
         lputv %title.1 %tmp.35;
         symbol [ title %title.1 57 12 17 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 58 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_73_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_73_4_stop" ]
         %value.2 = local;
         symbol [ value %value.2 58 12 17 ];
 _Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_58_20_60_48_begin:
@@ -427,256 +427,247 @@ _Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_58_20_60_48_end:
         lputv %value.2 %tmp.56;
         symbol [ value %value.2 58 12 17 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 62 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_stop" ]
-        %vc.3 = local;
-        symbol [ vc %vc.3 62 12 14 ];
-        symbol [ Graphics %tmp.57 62 17 25 ];
-        %tmp.57 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.58 62 26 45 ];
-        %tmp.58 = getv %tmp.57 :TEXT_JUSTIFY_CENTER;
-        symbol [ Graphics %tmp.59 62 48 56 ];
+        %tmp.57 = lgetv %dc;
+        symbol [ dc %tmp.57 62 8 10 ];
+        symbol [ setColor %tmp.58 62 11 19 ];
+        %tmp.58 = getv function %tmp.57 :setColor;
+        symbol [ Graphics %tmp.59 62 20 28 ];
         %tmp.59 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_VCENTER %tmp.60 62 57 77 ];
-        %tmp.60 = getv %tmp.59 :TEXT_JUSTIFY_VCENTER;
-        %tmp.61 = bitor %tmp.58 %tmp.60;
-        lputv %vc.3 %tmp.61;
-        symbol [ vc %vc.3 62 12 14 ];
+        symbol [ COLOR_WHITE %tmp.60 62 29 40 ];
+        %tmp.60 = getv %tmp.59 :COLOR_WHITE;
+        symbol [ Graphics %tmp.61 62 42 50 ];
+        %tmp.61 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.62 62 51 68 ];
+        %tmp.62 = getv %tmp.61 :COLOR_TRANSPARENT;
+        invoke %tmp.57 %tmp.58(%tmp.60, %tmp.62);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 63 8 ]
-        %tmp.62 = lgetv %dc;
-        symbol [ dc %tmp.62 63 8 10 ];
-        symbol [ setColor %tmp.63 63 11 19 ];
-        %tmp.63 = getv function %tmp.62 :setColor;
-        symbol [ Graphics %tmp.64 63 20 28 ];
-        %tmp.64 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.65 63 29 40 ];
-        %tmp.65 = getv %tmp.64 :COLOR_WHITE;
-        symbol [ Graphics %tmp.66 63 42 50 ];
-        %tmp.66 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.67 63 51 68 ];
-        %tmp.67 = getv %tmp.66 :COLOR_TRANSPARENT;
-        invoke %tmp.62 %tmp.63(%tmp.65, %tmp.67);
+        %tmp.63 = lgetv %dc;
+        symbol [ dc %tmp.63 63 8 10 ];
+        symbol [ drawText %tmp.64 63 11 19 ];
+        %tmp.64 = getv function %tmp.63 :drawText;
+        symbol [ _cx %tmp.66 63 20 23 ];
+        %tmp.66 = getv ? :_cx;
+        symbol [ _cy %tmp.68 63 25 28 ];
+        %tmp.68 = getv ? :_cy;
+        %tmp.69 = 26;
+        %tmp.70 = sub %tmp.68 %tmp.69;
+        symbol [ Graphics %tmp.71 63 35 43 ];
+        %tmp.71 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.72 63 44 55 ];
+        %tmp.72 = getv %tmp.71 :FONT_MEDIUM;
+        %tmp.73 = lgetv %title.1;
+        symbol [ title %tmp.73 63 57 62 ];
+        symbol [ Graphics %tmp.74 63 64 72 ];
+        %tmp.74 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.75 63 73 92 ];
+        %tmp.75 = getv %tmp.74 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.63 %tmp.64(%tmp.66, %tmp.70, %tmp.72, %tmp.73, %tmp.75);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 64 8 ]
-        %tmp.68 = lgetv %dc;
-        symbol [ dc %tmp.68 64 8 10 ];
-        symbol [ drawText %tmp.69 64 11 19 ];
-        %tmp.69 = getv function %tmp.68 :drawText;
-        symbol [ _cx %tmp.71 64 20 23 ];
-        %tmp.71 = getv ? :_cx;
-        symbol [ _cy %tmp.73 64 25 28 ];
-        %tmp.73 = getv ? :_cy;
-        %tmp.74 = 28;
-        %tmp.75 = sub %tmp.73 %tmp.74;
-        symbol [ Graphics %tmp.76 64 35 43 ];
-        %tmp.76 = getm $.Toybox.Graphics;
-        symbol [ FONT_SMALL %tmp.77 64 44 54 ];
-        %tmp.77 = getv %tmp.76 :FONT_SMALL;
-        %tmp.78 = lgetv %title.1;
-        symbol [ title %tmp.78 64 56 61 ];
-        %tmp.79 = lgetv %vc.3;
-        symbol [ vc %tmp.79 64 63 65 ];
-        invoke %tmp.68 %tmp.69(%tmp.71, %tmp.75, %tmp.77, %tmp.78, %tmp.79);
+        %tmp.76 = lgetv %dc;
+        symbol [ dc %tmp.76 64 8 10 ];
+        symbol [ setColor %tmp.77 64 11 19 ];
+        %tmp.77 = getv function %tmp.76 :setColor;
+        %tmp.78 = 0xCCCCCC;
+        symbol [ Graphics %tmp.79 64 30 38 ];
+        %tmp.79 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.80 64 39 56 ];
+        %tmp.80 = getv %tmp.79 :COLOR_TRANSPARENT;
+        invoke %tmp.76 %tmp.77(%tmp.78, %tmp.80);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 65 8 ]
-        %tmp.80 = lgetv %dc;
-        symbol [ dc %tmp.80 65 8 10 ];
-        symbol [ setColor %tmp.81 65 11 19 ];
-        %tmp.81 = getv function %tmp.80 :setColor;
-        %tmp.82 = 0xCCCCCC;
-        symbol [ Graphics %tmp.83 65 30 38 ];
-        %tmp.83 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.84 65 39 56 ];
-        %tmp.84 = getv %tmp.83 :COLOR_TRANSPARENT;
-        invoke %tmp.80 %tmp.81(%tmp.82, %tmp.84);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 66 8 ]
-        %tmp.85 = lgetv %dc;
-        symbol [ dc %tmp.85 66 8 10 ];
-        symbol [ drawText %tmp.86 66 11 19 ];
-        %tmp.86 = getv function %tmp.85 :drawText;
-        symbol [ _cx %tmp.88 66 20 23 ];
-        %tmp.88 = getv ? :_cx;
-        symbol [ _cy %tmp.90 66 25 28 ];
-        %tmp.90 = getv ? :_cy;
-        %tmp.91 = 14;
-        %tmp.92 = add %tmp.90 %tmp.91;
-        symbol [ Graphics %tmp.93 66 35 43 ];
-        %tmp.93 = getm $.Toybox.Graphics;
-        symbol [ FONT_SMALL %tmp.94 66 44 54 ];
-        %tmp.94 = getv %tmp.93 :FONT_SMALL;
-        %tmp.95 = lgetv %value.2;
-        symbol [ value %tmp.95 66 56 61 ];
-        %tmp.96 = lgetv %vc.3;
-        symbol [ vc %tmp.96 66 63 65 ];
-        invoke %tmp.85 %tmp.86(%tmp.88, %tmp.92, %tmp.94, %tmp.95, %tmp.96);
+        %tmp.81 = lgetv %dc;
+        symbol [ dc %tmp.81 65 8 10 ];
+        symbol [ drawText %tmp.82 65 11 19 ];
+        %tmp.82 = getv function %tmp.81 :drawText;
+        symbol [ _cx %tmp.84 65 20 23 ];
+        %tmp.84 = getv ? :_cx;
+        symbol [ _cy %tmp.86 65 25 28 ];
+        %tmp.86 = getv ? :_cy;
+        %tmp.87 = 12;
+        %tmp.88 = add %tmp.86 %tmp.87;
+        symbol [ Graphics %tmp.89 65 35 43 ];
+        %tmp.89 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.90 65 44 54 ];
+        %tmp.90 = getv %tmp.89 :FONT_SMALL;
+        %tmp.91 = lgetv %value.2;
+        symbol [ value %tmp.91 65 56 61 ];
+        symbol [ Graphics %tmp.92 65 63 71 ];
+        %tmp.92 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.93 65 72 91 ];
+        %tmp.93 = getv %tmp.92 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.81 %tmp.82(%tmp.84, %tmp.88, %tmp.90, %tmp.91, %tmp.93);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 67 8 ]
+        %tmp.94 = lgetv %dc;
+        symbol [ dc %tmp.94 67 8 10 ];
+        symbol [ setColor %tmp.95 67 11 19 ];
+        %tmp.95 = getv function %tmp.94 :setColor;
+        %tmp.96 = 0x777777;
+        symbol [ Graphics %tmp.97 67 30 38 ];
+        %tmp.97 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.98 67 39 56 ];
+        %tmp.98 = getv %tmp.97 :COLOR_TRANSPARENT;
+        invoke %tmp.94 %tmp.95(%tmp.96, %tmp.98);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 68 8 ]
-        %tmp.97 = lgetv %dc;
-        symbol [ dc %tmp.97 68 8 10 ];
-        symbol [ setColor %tmp.98 68 11 19 ];
-        %tmp.98 = getv function %tmp.97 :setColor;
-        %tmp.99 = 0x777777;
-        symbol [ Graphics %tmp.100 68 30 38 ];
-        %tmp.100 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.101 68 39 56 ];
-        %tmp.101 = getv %tmp.100 :COLOR_TRANSPARENT;
-        invoke %tmp.97 %tmp.98(%tmp.99, %tmp.101);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 69 8 ]
-        %tmp.102 = lgetv %dc;
-        symbol [ dc %tmp.102 69 8 10 ];
-        symbol [ drawText %tmp.103 69 11 19 ];
-        %tmp.103 = getv function %tmp.102 :drawText;
-        symbol [ _cx %tmp.105 69 20 23 ];
-        %tmp.105 = getv ? :_cx;
-        symbol [ _h %tmp.107 69 25 27 ];
-        %tmp.107 = getv ? :_h;
-        %tmp.108 = 72;
-        %tmp.109 = mul %tmp.107 %tmp.108;
-        %tmp.110 = 100;
-        %tmp.111 = div %tmp.109 %tmp.110;
-        symbol [ Graphics %tmp.112 69 40 48 ];
-        %tmp.112 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.113 69 49 59 ];
-        %tmp.113 = getv %tmp.112 :FONT_XTINY;
-        symbol [ _sel %tmp.115 70 21 25 ];
-        %tmp.115 = getv ? :_sel;
-        %tmp.116 = 1;
-        %tmp.117 = add %tmp.115 %tmp.116;
-        symbol [ format %tmp.118 70 31 37 ];
-        %tmp.118 = getv function %tmp.117 :format;
-        %tmp.119 = "%d";
-        %tmp.120 = invoke %tmp.117 %tmp.118(%tmp.119);
-        %tmp.121 = " / 2";
-        %tmp.122 = add %tmp.120 %tmp.121;
-        %tmp.123 = lgetv %vc.3;
-        symbol [ vc %tmp.123 70 54 56 ];
-        invoke %tmp.102 %tmp.103(%tmp.105, %tmp.111, %tmp.113, %tmp.122, %tmp.123);
+        %tmp.99 = lgetv %dc;
+        symbol [ dc %tmp.99 68 8 10 ];
+        symbol [ drawText %tmp.100 68 11 19 ];
+        %tmp.100 = getv function %tmp.99 :drawText;
+        symbol [ _cx %tmp.102 68 20 23 ];
+        %tmp.102 = getv ? :_cx;
+        symbol [ _h %tmp.104 68 25 27 ];
+        %tmp.104 = getv ? :_h;
+        %tmp.105 = 70;
+        %tmp.106 = mul %tmp.104 %tmp.105;
+        %tmp.107 = 100;
+        %tmp.108 = div %tmp.106 %tmp.107;
+        symbol [ Graphics %tmp.109 68 40 48 ];
+        %tmp.109 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.110 68 49 59 ];
+        %tmp.110 = getv %tmp.109 :FONT_XTINY;
+        symbol [ _sel %tmp.112 69 21 25 ];
+        %tmp.112 = getv ? :_sel;
+        %tmp.113 = 1;
+        %tmp.114 = add %tmp.112 %tmp.113;
+        symbol [ format %tmp.115 69 31 37 ];
+        %tmp.115 = getv function %tmp.114 :format;
+        %tmp.116 = "%d";
+        %tmp.117 = invoke %tmp.114 %tmp.115(%tmp.116);
+        %tmp.118 = " / 2";
+        %tmp.119 = add %tmp.117 %tmp.118;
+        symbol [ Graphics %tmp.120 69 54 62 ];
+        %tmp.120 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.121 69 63 82 ];
+        %tmp.121 = getv %tmp.120 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.99 %tmp.100(%tmp.102, %tmp.108, %tmp.110, %tmp.119, %tmp.121);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 71 8 ]
+        symbol [ Ui %tmp.123 71 8 10 ];
+        %tmp.123 = getv ? :Ui;
+        symbol [ start %tmp.124 71 11 16 ];
+        %tmp.124 = getv function %tmp.123 :start;
+        %tmp.125 = lgetv %dc;
+        symbol [ dc %tmp.125 71 17 19 ];
+        symbol [ _w %tmp.127 71 21 23 ];
+        %tmp.127 = getv ? :_w;
+        symbol [ _h %tmp.129 71 25 27 ];
+        %tmp.129 = getv ? :_h;
+        %tmp.130 = "Change";
+        invoke %tmp.123 %tmp.124(%tmp.125, %tmp.127, %tmp.129, %tmp.130);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 72 8 ]
-        symbol [ Ui %tmp.125 72 8 10 ];
-        %tmp.125 = getv ? :Ui;
-        symbol [ start %tmp.126 72 11 16 ];
-        %tmp.126 = getv function %tmp.125 :start;
-        %tmp.127 = lgetv %dc;
-        symbol [ dc %tmp.127 72 17 19 ];
-        symbol [ _w %tmp.129 72 21 23 ];
-        %tmp.129 = getv ? :_w;
-        symbol [ _h %tmp.131 72 25 27 ];
-        %tmp.131 = getv ? :_h;
-        %tmp.132 = "Change";
-        invoke %tmp.125 %tmp.126(%tmp.127, %tmp.129, %tmp.131, %tmp.132);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 73 8 ]
-        symbol [ Ui %tmp.134 73 8 10 ];
-        %tmp.134 = getv ? :Ui;
-        symbol [ back %tmp.135 73 11 15 ];
-        %tmp.135 = getv function %tmp.134 :back;
-        %tmp.136 = lgetv %dc;
-        symbol [ dc %tmp.136 73 16 18 ];
-        symbol [ _w %tmp.138 73 20 22 ];
-        %tmp.138 = getv ? :_w;
-        symbol [ _h %tmp.140 73 24 26 ];
-        %tmp.140 = getv ? :_h;
-        %tmp.141 = "Back";
-        invoke %tmp.134 %tmp.135(%tmp.136, %tmp.138, %tmp.140, %tmp.141);
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_74_4_stop:
+        symbol [ Ui %tmp.132 72 8 10 ];
+        %tmp.132 = getv ? :Ui;
+        symbol [ back %tmp.133 72 11 15 ];
+        %tmp.133 = getv function %tmp.132 :back;
+        %tmp.134 = lgetv %dc;
+        symbol [ dc %tmp.134 72 16 18 ];
+        symbol [ _w %tmp.136 72 20 22 ];
+        %tmp.136 = getv ? :_w;
+        symbol [ _h %tmp.138 72 24 26 ];
+        %tmp.138 = getv ? :_h;
+        %tmp.139 = "Back";
+        invoke %tmp.132 %tmp.133(%tmp.134, %tmp.136, %tmp.138, %tmp.139);
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_49_49_73_4_stop:
     }
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 77; @symbol_classdef = [SettingsDelegate,77,6,22]; @symbol_extends<0> = [WatchUi,77,31,38]; @symbol_extends<1> = [BehaviorDelegate,77,39,55]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 76; @symbol_classdef = [SettingsDelegate,76,6,22]; @symbol_extends<0> = [WatchUi,76,31,38]; @symbol_extends<1> = [BehaviorDelegate,76,39,55]; ]
 class SettingsDelegate extends WatchUi.BehaviorDelegate {
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 77; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 76; ]
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 77; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 76; ]
     static
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 79; @position = 16; @symbol_vardef = [_view,79,16,21]; @symbol_type<0> = [SettingsView,79,25,37]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 78; @position = 16; @symbol_vardef = [_view,78,16,21]; @symbol_type<0> = [SettingsView,78,25,37]; ]
     private
     var _view as SettingsView;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 81; @symbol_functiondef = [initialize,81,13,23]; @symbol_param<0> = [view,81,24,28]; @symbol_param<0>_type<0> = [SettingsView,81,32,44]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 80; @symbol_functiondef = [initialize,80,13,23]; @symbol_param<0> = [view,80,24,28]; @symbol_param<0>_type<0> = [SettingsView,80,32,44]; ]
     function initialize(view as SettingsView) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_81_46_84_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 82 8 ]
-        symbol [ BehaviorDelegate %tmp.2 82 8 24 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_80_46_83_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 81 8 ]
+        symbol [ BehaviorDelegate %tmp.2 81 8 24 ];
         %tmp.2 = getv ? :BehaviorDelegate;
-        symbol [ initialize %tmp.3 82 25 35 ];
+        symbol [ initialize %tmp.3 81 25 35 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 83 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 82 8 ]
         %tmp.4 = lgetv %view;
-        symbol [ view %tmp.4 83 16 20 ];
-        symbol [ _view ? 83 8 13 ];
+        symbol [ view %tmp.4 82 16 20 ];
+        symbol [ _view ? 82 8 13 ];
         putv self :_view %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_81_46_84_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_80_46_83_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 86; @symbol_functiondef = [onNextPage,86,13,23]; @symbol_return<0> = [Boolean,86,29,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 85; @symbol_functiondef = [onNextPage,85,13,23]; @symbol_return<0> = [Boolean,85,29,36]; ]
     function onNextPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_86_37_86_70_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 86 39 ]
-        symbol [ _view %tmp.2 86 39 44 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_85_37_85_70_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 85 39 ]
+        symbol [ _view %tmp.2 85 39 44 ];
         %tmp.2 = getv ? :_view;
-        symbol [ moveDown %tmp.3 86 45 53 ];
+        symbol [ moveDown %tmp.3 85 45 53 ];
         %tmp.3 = getv function %tmp.2 :moveDown;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 86 57 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 85 57 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_86_37_86_70_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_85_37_85_70_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 87; @symbol_functiondef = [onPreviousPage,87,13,27]; @symbol_return<0> = [Boolean,87,33,40]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 86; @symbol_functiondef = [onPreviousPage,86,13,27]; @symbol_return<0> = [Boolean,86,33,40]; ]
     function onPreviousPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_87_41_87_72_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 87 43 ]
-        symbol [ _view %tmp.2 87 43 48 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_86_41_86_72_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 86 43 ]
+        symbol [ _view %tmp.2 86 43 48 ];
         %tmp.2 = getv ? :_view;
-        symbol [ moveUp %tmp.3 87 49 55 ];
+        symbol [ moveUp %tmp.3 86 49 55 ];
         %tmp.3 = getv function %tmp.2 :moveUp;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 87 59 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 86 59 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_87_41_87_72_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_86_41_86_72_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 88; @symbol_functiondef = [onSelect,88,13,21]; @symbol_return<0> = [Boolean,88,27,34]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 87; @symbol_functiondef = [onSelect,87,13,21]; @symbol_return<0> = [Boolean,87,27,34]; ]
     function onSelect() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_88_35_88_65_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 88 37 ]
-        symbol [ _view %tmp.2 88 37 42 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_87_35_87_65_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 87 37 ]
+        symbol [ _view %tmp.2 87 37 42 ];
         %tmp.2 = getv ? :_view;
-        symbol [ cycle %tmp.3 88 43 48 ];
+        symbol [ cycle %tmp.3 87 43 48 ];
         %tmp.3 = getv function %tmp.2 :cycle;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 88 52 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 87 52 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_88_35_88_65_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_87_35_87_65_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 89; @symbol_functiondef = [onTap,89,13,18]; @symbol_param<0> = [evt,89,19,22]; @symbol_param<0>_type<0> = [WatchUi,89,26,33]; @symbol_param<0>_type<1> = [ClickEvent,89,34,44]; @symbol_return<0> = [Boolean,89,49,56]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 88; @symbol_functiondef = [onTap,88,13,18]; @symbol_param<0> = [evt,88,19,22]; @symbol_param<0>_type<0> = [WatchUi,88,26,33]; @symbol_param<0>_type<1> = [ClickEvent,88,34,44]; @symbol_return<0> = [Boolean,88,49,56]; ]
     function onTap(evt as WatchUi.ClickEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_89_57_89_87_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 89 59 ]
-        symbol [ _view %tmp.2 89 59 64 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_88_57_88_87_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 88 59 ]
+        symbol [ _view %tmp.2 88 59 64 ];
         %tmp.2 = getv ? :_view;
-        symbol [ cycle %tmp.3 89 65 70 ];
+        symbol [ cycle %tmp.3 88 65 70 ];
         %tmp.3 = getv function %tmp.2 :cycle;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 89 74 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 88 74 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_89_57_89_87_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_88_57_88_87_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 91; @symbol_functiondef = [onBack,91,13,19]; @symbol_return<0> = [Boolean,91,25,32]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 90; @symbol_functiondef = [onBack,90,13,19]; @symbol_return<0> = [Boolean,90,25,32]; ]
     function onBack() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_91_33_91_86_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 91 35 ]
-        symbol [ WatchUi %tmp.1 91 35 42 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_90_33_90_86_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 90 35 ]
+        symbol [ WatchUi %tmp.1 90 35 42 ];
         %tmp.1 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.2 91 43 50 ];
+        symbol [ popView %tmp.2 90 43 50 ];
         %tmp.2 = getv function %tmp.1 :popView;
-        symbol [ WatchUi %tmp.3 91 51 58 ];
+        symbol [ WatchUi %tmp.3 90 51 58 ];
         %tmp.3 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_RIGHT %tmp.4 91 59 70 ];
+        symbol [ SLIDE_RIGHT %tmp.4 90 59 70 ];
         %tmp.4 = getv %tmp.3 :SLIDE_RIGHT;
         invoke %tmp.1 %tmp.2(%tmp.4);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 91 73 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc" 90 73 ]
         %tmp.5 = true;
         ret %tmp.5;
-_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_91_33_91_86_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SettingsView_mc_90_33_90_86_stop:
     }
 }
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SettingsView.mc"; @line = 6; ]

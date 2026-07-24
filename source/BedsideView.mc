@@ -79,41 +79,37 @@ class BedsideView extends WatchUi.View {
 
         var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var next = AlarmEngine.nextAlarm(Time.now().value());
+        var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
 
-        // Title
+        // Title (small, grey, one line)
         dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _h * 12 / 100, Graphics.FONT_XTINY, "ACTIVE ALARM",
-                    Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy - 80, Graphics.FONT_XTINY, "Active Alarm Mode", vc);
 
-        // Next alarm
+        // Current time (grey, smaller)
+        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _cy - 52, Graphics.FONT_XTINY, "Current Time", vc);
         dc.setColor(0x999999, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 46, Graphics.FONT_XTINY, "Next alarm", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy - 26, Graphics.FONT_SMALL, Fmt.time12(now.hour, now.min), vc);
+
+        // Next alarm (white, bigger)
+        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _cy + 4, Graphics.FONT_XTINY, "Next Alarm", vc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         var nextStr = (next != null)
             ? Fmt.time12(AlarmStore.hour(next), AlarmStore.minute(next))
             : "None";
-        dc.drawText(_cx, _cy - 30, Graphics.FONT_MEDIUM, nextStr, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy + 38, Graphics.FONT_MEDIUM, nextStr, vc);
 
-        // Current time
-        dc.setColor(0x999999, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 12, Graphics.FONT_XTINY, "Now", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 26, Graphics.FONT_SMALL, Fmt.time12(now.hour, now.min),
-                    Graphics.TEXT_JUSTIFY_CENTER);
-
-        // Exit hints
+        // Exit hint + button arrows (BACK then UP)
         if (_exitArmed) {
             dc.setColor(0x33AAFF, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _h * 82 / 100, Graphics.FONT_XTINY, "Press UP now to exit",
-                        Graphics.TEXT_JUSTIFY_CENTER);
-            Ui.up(dc, _w, _h, "Exit");
+            dc.drawText(_cx, _h * 82 / 100, Graphics.FONT_XTINY, "Press UP now to exit", vc);
         } else {
-            dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _h * 82 / 100, Graphics.FONT_XTINY, "BACK then UP to exit",
-                        Graphics.TEXT_JUSTIFY_CENTER);
-            Ui.back(dc, _w, _h, "Exit");
-            Ui.up(dc, _w, _h, "then");
+            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _h * 82 / 100, Graphics.FONT_XTINY, "BACK and then UP to Exit", vc);
         }
+        Ui.back(dc, _w, _h, "BACK");
+        Ui.up(dc, _w, _h, "UP");
     }
 
     // Called by the delegate.

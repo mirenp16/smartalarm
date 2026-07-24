@@ -59,14 +59,15 @@ class SettingsView extends WatchUi.View {
             ? (AlarmStore.snoozeMinutes().format("%d") + " Minutes")
             : AlarmStore.maxSnooze().format("%d");
 
+        var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 26, Graphics.FONT_MEDIUM, title, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy - 28, Graphics.FONT_SMALL, title, vc);
         dc.setColor(0xCCCCCC, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 12, Graphics.FONT_SMALL, value, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy + 14, Graphics.FONT_SMALL, value, vc);
 
         dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _h * 70 / 100, Graphics.FONT_XTINY,
-                    (_sel + 1).format("%d") + " / 2", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _h * 72 / 100, Graphics.FONT_XTINY,
+                    (_sel + 1).format("%d") + " / 2", vc);
 
         Ui.start(dc, _w, _h, "Change");
         Ui.back(dc, _w, _h, "Back");

@@ -63,24 +63,24 @@ class ChoiceView extends WatchUi.View {
         dc.clear();
 
         // Title
+        var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
         dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _h * 12 / 100, Graphics.FONT_XTINY, _title,
-                    Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _h * 12 / 100, Graphics.FONT_XTINY, _title, vc);
 
         // Option name (big)
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         var hasDesc = (desc.length() > 0);
-        var nameY = hasDesc ? (_cy - 40) : (_cy - 14);
-        dc.drawText(_cx, nameY, Graphics.FONT_MEDIUM, name, Graphics.TEXT_JUSTIFY_CENTER);
+        var nameY = hasDesc ? (_cy - 44) : _cy;
+        dc.drawText(_cx, nameY, Graphics.FONT_MEDIUM, name, vc);
 
         // Wrapped description
         if (hasDesc) {
-            var lines = ChoiceView.wrap(dc, desc, Graphics.FONT_XTINY, _w * 78 / 100);
+            var lines = ChoiceView.wrap(dc, desc, Graphics.FONT_XTINY, _w * 76 / 100);
             dc.setColor(0xBBBBBB, Graphics.COLOR_TRANSPARENT);
-            var y = _cy - 6;
+            var y = _cy - 8;
             for (var i = 0; i < lines.size() && i < 4; i++) {
-                dc.drawText(_cx, y, Graphics.FONT_XTINY, lines[i], Graphics.TEXT_JUSTIFY_CENTER);
-                y += 20;
+                dc.drawText(_cx, y, Graphics.FONT_XTINY, lines[i], vc);
+                y += 22;
             }
         }
 

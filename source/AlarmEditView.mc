@@ -71,6 +71,8 @@ class AlarmEditView extends WatchUi.View {
         } else {
             AlarmStore.updateAlarm(index, alarm);
         }
+        // Re-arm: clear any leftover "fired" flag so an edited alarm goes off again.
+        AlarmStore.clearFired(AlarmStore.id(alarm));
         SmartAlarmApp.syncBackground();
     }
 
@@ -92,17 +94,20 @@ class AlarmEditView extends WatchUi.View {
                     Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm)),
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Title (FONT_SMALL so long labels like "Sleep Cycle Window" fit)
+        // Title (FONT_SMALL so long labels like "Sleep Cycle Window" fit).
+        // Vertically centred with a clear gap so title and value never overlap.
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 22, Graphics.FONT_SMALL, title, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, _cy - 26, Graphics.FONT_SMALL, title,
+                    Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         if (value.length() > 0) {
             dc.setColor(0xCCCCCC, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 6, Graphics.FONT_SMALL, value, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(_cx, _cy + 16, Graphics.FONT_SMALL, value,
+                        Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
 
         dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _h * 70 / 100, Graphics.FONT_XTINY,
+        dc.drawText(_cx, _h * 72 / 100, Graphics.FONT_XTINY,
                     (_sel + 1).format("%d") + " / " + r.size().format("%d"),
                     Graphics.TEXT_JUSTIFY_CENTER);
 
