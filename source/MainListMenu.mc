@@ -97,8 +97,9 @@ class SimpleRow extends WatchUi.CustomMenuItem {
         var disabled = (getId() == :add) && AlarmStore.isFull();
         var color = disabled ? 0x666666 : (focused ? Graphics.COLOR_WHITE : 0xBBBBBB);
 
+        // Font size stays constant; only the colour changes with focus.
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(w / 2, h / 2, focused ? Graphics.FONT_SMALL : Graphics.FONT_XTINY, _text, vc);
+        dc.drawText(w / 2, h / 2, Graphics.FONT_SMALL, _text, vc);
     }
 }
 
@@ -125,22 +126,22 @@ class AlarmRow extends WatchUi.CustomMenuItem {
         var left = w * 10 / 100;
         var toggleX = w - 26;
 
-        // Time
+        // Time (font size is constant; only colour changes with focus)
         dc.setColor(focused ? Graphics.COLOR_WHITE : 0xBBBBBB, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(left, h / 2 - 14, focused ? Graphics.FONT_SMALL : Graphics.FONT_XTINY,
+        dc.drawText(left, h / 2 - 13, Graphics.FONT_SMALL,
                     Fmt.time12(AlarmStore.hour(a), AlarmStore.minute(a)),
                     Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Days
         dc.setColor(focused ? 0xCCCCCC : 0x888888, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(left, h / 2 + 12, Graphics.FONT_XTINY, Fmt.days(AlarmStore.days(a)),
+        dc.drawText(left, h / 2 + 13, Graphics.FONT_XTINY, Fmt.days(AlarmStore.days(a)),
                     Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Sound / vibration glyphs
-        Icons.alertPair(dc, toggleX - 46, h / 2 + 10, 12, AlarmStore.mode(a));
+        Icons.alertPair(dc, toggleX - 42, h / 2 + 12, AlarmStore.mode(a), false);
 
-        // ON/OFF pill
-        Icons.toggle(dc, toggleX, h / 2, 18, 36, on);
+        // ON/OFF pill (same switch as the alarm's Status row)
+        Icons.toggle(dc, toggleX, h / 2, 20, 40, on);
     }
 }
 

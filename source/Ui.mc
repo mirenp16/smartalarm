@@ -49,12 +49,18 @@ class Ui {
         at(dc, w, h, UI_DEG_DOWN, UI_RED, l);
     }
 
-    // Curved-or-vertical text at a bezel angle.
+    // Curved-or-vertical text at a bezel angle. `size` sets the vector font size.
     static function label(dc as Graphics.Dc, w as Number, h as Number,
                           deg as Number, color as Number, text as String) as Void {
+        labelSized(dc, w, h, deg, color, text, 20);
+    }
+
+    static function labelSized(dc as Graphics.Dc, w as Number, h as Number,
+                               deg as Number, color as Number, text as String,
+                               size as Number) as Void {
         var cx = w / 2;
         var cy = h / 2;
-        var vf = _vectorFont();
+        var vf = _vectorFont(size);
         if (vf != null && (dc has :drawRadialText)) {
             try {
                 dc.setColor(color, Graphics.COLOR_TRANSPARENT);
@@ -70,15 +76,15 @@ class Ui {
             } catch (e) {
             }
         }
-        _vertical(dc, cx, cy, deg, color, text);
+        _vertical(dc, cx, cy, deg, color, text, size);
     }
 
-    private static function _vectorFont() as Graphics.VectorFont? {
+    private static function _vectorFont(size as Number) as Graphics.VectorFont? {
         try {
             if (Graphics has :getVectorFont) {
                 return Graphics.getVectorFont({
                     :face => ["RobotoCondensedBold", "RobotoBold", "Roboto"],
-                    :size => 20
+                    :size => size
                 });
             }
         } catch (e) {
@@ -86,18 +92,30 @@ class Ui {
         return null;
     }
 
-    // Fallback: stack the letters vertically near the button.
+    // Fallback when curved text isn't available.
+    // Short labels stack vertically beside the button; longer ones (like a screen
+    // title) are drawn as ordinary horizontal text so they stay readable.
     private static function _vertical(dc as Graphics.Dc, cx as Number, cy as Number,
-                                      deg as Number, color as Number, text as String) as Void {
-        var rad = deg.toFloat() * 0.0174533;
+                                      deg as Number, color as Number, text as String,
+                                      size as Number) as Void {
+        var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+
+        if (text.length() > 6) {
+            var font = (size >= 26) ? Graphics.FONT_SMALL : Graphics.FONT_XTINY;
+            var rad = deg.toFloat() * 0.0174533;
+            var ty = (cy - (cx - 26) * Math.sin(rad)).toNumber();
+            dc.drawText(cx, ty, font, text, vc);
+            return;
+        }
+
+        var rad2 = deg.toFloat() * 0.0174533;
         var r = cx - 30;
-        var ax = (cx + r * Math.cos(rad)).toNumber();
-        var ay = (cy - r * Math.sin(rad)).toNumber();
+        var ax = (cx + r * Math.cos(rad2)).toNumber();
+        var ay = (cy - r * Math.sin(rad2)).toNumber();
         var n = text.length();
         var chH = 16;
         var startY = ay - (n * chH) / 2;
-        var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         for (var i = 0; i < n; i++) {
             dc.drawText(ax, startY + i * chH + chH / 2, Graphics.FONT_XTINY,
                         text.substring(i, i + 1), vc);

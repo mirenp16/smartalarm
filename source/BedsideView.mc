@@ -75,7 +75,7 @@ class BedsideView extends WatchUi.View {
         var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
         // Title, curved along the top of the bezel (falls back to straight text).
-        Ui.label(dc, _w, _h, 90, 0x888888, "Active Alarm Mode");
+        Ui.labelSized(dc, _w, _h, 90, 0xAAAAAA, "Active Alarm Mode", 28);
 
         // Current time
         dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);

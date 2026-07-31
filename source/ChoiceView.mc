@@ -76,7 +76,7 @@ class ChoiceView extends WatchUi.View {
 
         // Alert options also show the speaker / vibration glyphs.
         if (isAlert) {
-            Icons.alertPair(dc, _cx, _cy + 26, 18, (opt[0] as Number));
+            Icons.alertPair(dc, _cx, _cy + 30, (opt[0] as Number), true);
         }
 
         // Wrapped description

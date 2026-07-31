@@ -1,94 +1,79 @@
 // Icons.mc
-// Small status glyphs drawn with primitives (no bitmaps needed, so they stay
-// crisp at any size):
-//   speaker  - sound on/off (struck through when off)
-//   vibe     - vibration waves on/off (struck through when off)
-//   toggle   - the green/grey pill switch used on the alarm rows
+// Alert status glyphs (sound / vibration) drawn from bitmap resources, plus the
+// ON/OFF pill switch used on the alarm rows.
 //
-// These mirror the native Garmin alarm list: speaker + vibration side by side,
-// with a slash through whichever one is off.
+// Two glyph sizes are provided: _s (22px) for list rows and _l (36px) for the
+// Alert picker. Bitmaps are cached after first load so scrolling stays smooth.
 
 import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.WatchUi;
 
 class Icons {
 
-    // Speaker glyph centred at (x, y), roughly `s` pixels tall.
-    static function speaker(dc as Graphics.Dc, x as Number, y as Number,
-                            s as Number, on as Boolean) as Void {
-        var c = on ? Graphics.COLOR_WHITE : 0x777777;
-        dc.setColor(c, Graphics.COLOR_TRANSPARENT);
+    // Cached bitmaps (loaded lazily; null until first use).
+    private static var _cache = {};
 
-        var bh = s / 2;             // box half-height
-        var bw = s / 4;             // box half-width
-        // Cone body
-        dc.fillRectangle(x - bw - 2, y - bh / 2, bw, bh);
-        var pts = [
-            [x - 2,      y - bh],
-            [x + bw,     y - bh],
-            [x + bw,     y + bh],
-            [x - 2,      y + bh]
-        ];
-        dc.fillPolygon(pts);
-
-        if (on) {
-            // Two sound waves
-            dc.setPenWidth(2);
-            dc.drawArc(x + bw, y, s / 3, Graphics.ARC_COUNTER_CLOCKWISE, -50, 50);
-            dc.drawArc(x + bw, y, s / 2, Graphics.ARC_COUNTER_CLOCKWISE, -40, 40);
-            dc.setPenWidth(1);
-        } else {
-            strike(dc, x, y, s);
+    private static function bmp(key as String, rez) {
+        if (_cache.hasKey(key)) { return _cache.get(key); }
+        var b = null;
+        try {
+            b = WatchUi.loadResource(rez);
+        } catch (e) {
         }
+        _cache.put(key, b);
+        return b;
     }
 
-    // Vibration glyph: three vertical wave bars.
-    static function vibe(dc as Graphics.Dc, x as Number, y as Number,
-                         s as Number, on as Boolean) as Void {
-        var c = on ? Graphics.COLOR_WHITE : 0x777777;
-        dc.setColor(c, Graphics.COLOR_TRANSPARENT);
-        dc.setPenWidth(2);
-        var h = s;
-        for (var i = -1; i <= 1; i++) {
-            var bx = x + i * (s / 3);
-            var bh = (i == 0) ? h : (h * 2 / 3);
-            dc.drawLine(bx, y - bh / 2, bx, y + bh / 2);
-        }
-        dc.setPenWidth(1);
-        if (!on) { strike(dc, x, y, s); }
-    }
-
-    // Diagonal slash marking a glyph as off.
-    static function strike(dc as Graphics.Dc, x as Number, y as Number, s as Number) as Void {
-        dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
-        dc.setPenWidth(2);
-        dc.drawLine(x - s / 2 - 2, y + s / 2, x + s / 2 + 2, y - s / 2);
-        dc.setPenWidth(1);
-    }
-
-    // Draws the sound + vibration pair for an alert mode, centred on x.
+    // Draws the sound + vibration pair centred on (x, y).
+    // large=true uses the 36px glyphs, otherwise the 22px ones.
     static function alertPair(dc as Graphics.Dc, x as Number, y as Number,
-                              s as Number, mode as Number) as Void {
+                              mode as Number, large as Boolean) as Void {
         var soundOn = (mode == MODE_BOTH || mode == MODE_SOUND);
         var vibeOn  = (mode == MODE_BOTH || mode == MODE_VIBE);
-        speaker(dc, x - s, y, s, soundOn);
-        vibe(dc, x + s, y, s, vibeOn);
+
+        var sIcon = large
+            ? (soundOn ? bmp("sl", Rez.Drawables.IconSoundL) : bmp("nsl", Rez.Drawables.IconNoSoundL))
+            : (soundOn ? bmp("ss", Rez.Drawables.IconSoundS) : bmp("nss", Rez.Drawables.IconNoSoundS));
+        var vIcon = large
+            ? (vibeOn ? bmp("vl", Rez.Drawables.IconVibeL) : bmp("nvl", Rez.Drawables.IconNoVibeL))
+            : (vibeOn ? bmp("vs", Rez.Drawables.IconVibeS) : bmp("nvs", Rez.Drawables.IconNoVibeS));
+
+        var gap = large ? 6 : 3;
+        var sw = (sIcon != null) ? sIcon.getWidth() : 0;
+        var vw = (vIcon != null) ? vIcon.getWidth() : 0;
+        var total = sw + gap + vw;
+        var left = x - total / 2;
+
+        if (sIcon != null) {
+            dc.drawBitmap(left, y - sIcon.getHeight() / 2, sIcon);
+        }
+        if (vIcon != null) {
+            dc.drawBitmap(left + sw + gap, y - vIcon.getHeight() / 2, vIcon);
+        }
     }
 
-    // Pill toggle: green with the knob right when on, grey with knob left when off.
+    // The ON/OFF pill switch, matching the one on the alarm's Status row:
+    // a tall rounded track with the knob at the TOP when on (green) and at the
+    // BOTTOM when off (grey).
     static function toggle(dc as Graphics.Dc, x as Number, y as Number,
                            w as Number, h as Number, on as Boolean) as Void {
-        var r = h / 2;
-        // Track
-        dc.setColor(on ? 0x004411 : 0x333333, Graphics.COLOR_TRANSPARENT);
+        var r = w / 2;
+        var trackColor  = on ? 0x0A3D1A : 0x2B2B2B;
+        var borderColor = on ? UI_GREEN : 0x9A9A9A;
+        var knobColor   = on ? UI_GREEN : 0xD0D0D0;
+
+        dc.setColor(trackColor, Graphics.COLOR_TRANSPARENT);
         dc.fillRoundedRectangle(x - w / 2, y - h / 2, w, h, r);
-        dc.setColor(on ? UI_GREEN : 0x888888, Graphics.COLOR_TRANSPARENT);
+
+        dc.setColor(borderColor, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(2);
         dc.drawRoundedRectangle(x - w / 2, y - h / 2, w, h, r);
         dc.setPenWidth(1);
-        // Knob
+
+        var knobR = r - 3;
         var ky = on ? (y - h / 2 + r) : (y + h / 2 - r);
-        dc.setColor(on ? UI_GREEN : 0xAAAAAA, Graphics.COLOR_TRANSPARENT);
-        dc.fillCircle(x, ky, r - 3);
+        dc.setColor(knobColor, Graphics.COLOR_TRANSPARENT);
+        dc.fillCircle(x, ky, knobR);
     }
 }
