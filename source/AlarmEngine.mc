@@ -14,7 +14,6 @@ import Toybox.Lang;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
 
-(:background)
 class AlarmEngine {
 
     static function evaluate(nowSecs as Number) as Number {

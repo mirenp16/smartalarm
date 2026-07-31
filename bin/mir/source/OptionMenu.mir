@@ -1,0 +1,193 @@
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 6; @symbol_importdef<0> = [Toybox,6,7,13]; @symbol_importdef<1> = [Lang,6,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [WatchUi,7,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 9; @symbol_classdef = [OptionMenu,9,6,16]; @symbol_extends<0> = [WatchUi,9,25,32]; @symbol_extends<1> = [Menu2,9,33,38]; ]
+class OptionMenu extends WatchUi.Menu2 {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 9; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 9; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 11; @position = 15; @symbol_vardef = [key,11,15,18]; @symbol_type<0> = [String,11,22,28]; ]
+    public
+    var key as String;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 12; @position = 15; @symbol_vardef = [alarm,12,15,20]; @symbol_type<0> = [Dictionary,12,24,34]; ]
+    public
+    var alarm as Dictionary;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 14; @symbol_functiondef = [initialize,14,13,23]; @symbol_param<0> = [title,14,24,29]; @symbol_param<0>_type<0> = [String,14,33,39]; @symbol_param<1> = [fieldKey,14,41,49]; @symbol_param<1>_type<0> = [String,14,53,59]; @symbol_param<2> = [options,14,61,68]; @symbol_param<2>_type<0> = [Array,14,72,77]; @symbol_param<3> = [working,14,79,86]; @symbol_param<3>_type<0> = [Dictionary,14,90,100]; ]
+    function initialize(title as String, fieldKey as String, options as Array, working as Dictionary) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_14_102_22_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 15 8 ]
+        symbol [ Menu2 %tmp.2 15 8 13 ];
+        %tmp.2 = getv ? :Menu2;
+        symbol [ initialize %tmp.3 15 14 24 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        %tmp.4 = newd 1;
+        %tmp.6 = const :title;
+        symbol [ title %tmp.6 15 27 32 const ];
+        %tmp.7 = lgetv %title;
+        symbol [ title %tmp.7 15 36 41 ];
+        %tmp.8 = dup %tmp.4;
+        %tmp.9 = aputv %tmp.8 %tmp.6 %tmp.7;
+        invoke %tmp.2 %tmp.3(%tmp.9);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 16 8 ]
+        %tmp.10 = lgetv %fieldKey;
+        symbol [ fieldKey %tmp.10 16 14 22 ];
+        symbol [ key ? 16 8 11 ];
+        putv self :key %tmp.10;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 17 8 ]
+        %tmp.11 = lgetv %working;
+        symbol [ working %tmp.11 17 16 23 ];
+        symbol [ alarm ? 17 8 13 ];
+        putv self :alarm %tmp.11;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 18 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_end" ]
+        %i.1 = local;
+        symbol [ i %i.1 18 17 18 ];
+        %tmp.12 = 0;
+        lputv %i.1 %tmp.12;
+        symbol [ i %i.1 18 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_test:
+        %tmp.13 = lgetv %i.1;
+        symbol [ i %tmp.13 18 24 25 ];
+        %tmp.14 = lgetv %options;
+        symbol [ options %tmp.14 18 28 35 ];
+        symbol [ size %tmp.15 18 36 40 ];
+        %tmp.15 = getv function %tmp.14 :size;
+        %tmp.16 = invoke %tmp.14 %tmp.15();
+        %tmp.17 = lt %tmp.13 %tmp.16;
+        bf %tmp.17 @_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_49_21_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 19 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_49_21_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_49_21_8_stop" ]
+        %opt.2 = local;
+        symbol [ opt %opt.2 19 16 19 ];
+        %tmp.18 = lgetv %options;
+        symbol [ options %tmp.18 19 22 29 ];
+        %tmp.19 = lgetv %i.1;
+        symbol [ i %tmp.19 19 30 31 ];
+        %tmp.20 = agetv %tmp.18 %tmp.19;
+        %tmp.21 = as %tmp.20 Array;
+        symbol [ Array %tmp.21 19 36 41 ];
+        lputv %opt.2 %tmp.21;
+        symbol [ opt %opt.2 19 16 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 20 12 ]
+        %tmp.22 = self;
+        symbol [ addItem %tmp.23 20 12 19 ];
+        %tmp.23 = getv function %tmp.22 :addItem;
+        symbol [ WatchUi %tmp.26 20 24 31 ];
+        %tmp.26 = getm $.Toybox.WatchUi;
+        symbol [ MenuItem %tmp.27 20 32 40 ];
+        %tmp.27 = getv function ? %tmp.26 :MenuItem;
+        %tmp.28 = lgetv %opt.2;
+        symbol [ opt %tmp.28 20 41 44 ];
+        %tmp.29 = 1;
+        %tmp.30 = agetv %tmp.28 %tmp.29;
+        %tmp.31 = as %tmp.30 String;
+        symbol [ String %tmp.31 20 51 57 ];
+        %tmp.32 = null;
+        %tmp.33 = lgetv %opt.2;
+        symbol [ opt %tmp.33 20 65 68 ];
+        %tmp.34 = 0;
+        %tmp.35 = agetv %tmp.33 %tmp.34;
+        %tmp.36 = null;
+        %tmp.24 = newc %tmp.27 (%tmp.31, %tmp.32, %tmp.35, %tmp.36);
+        invoke %tmp.22 %tmp.23(%tmp.24);
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_49_21_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 18 ]
+        %tmp.39 = lgetv %i.1;
+        symbol [ i %tmp.39 18 44 45 ];
+        %tmp.40 = add %tmp.39 1;
+        lputv %i.1 %tmp.40;
+        symbol [ i %i.1 18 44 45 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_18_8_21_8_for_end:
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_14_102_22_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 25; @symbol_classdef = [OptionMenuDelegate,25,6,24]; @symbol_extends<0> = [WatchUi,25,33,40]; @symbol_extends<1> = [Menu2InputDelegate,25,41,59]; ]
+class OptionMenuDelegate extends WatchUi.Menu2InputDelegate {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 25; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 25; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 27; @position = 16; @symbol_vardef = [_menu,27,16,21]; @symbol_type<0> = [OptionMenu,27,25,35]; ]
+    private
+    var _menu as OptionMenu;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 29; @symbol_functiondef = [initialize,29,13,23]; @symbol_param<0> = [menu,29,24,28]; @symbol_param<0>_type<0> = [OptionMenu,29,32,42]; ]
+    function initialize(menu as OptionMenu) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_29_44_32_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 30 8 ]
+        symbol [ Menu2InputDelegate %tmp.2 30 8 26 ];
+        %tmp.2 = getv ? :Menu2InputDelegate;
+        symbol [ initialize %tmp.3 30 27 37 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 31 8 ]
+        %tmp.4 = lgetv %menu;
+        symbol [ menu %tmp.4 31 16 20 ];
+        symbol [ _menu ? 31 8 13 ];
+        putv self :_menu %tmp.4;
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_29_44_32_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 34; @symbol_functiondef = [onSelect,34,13,21]; @symbol_param<0> = [item,34,22,26]; @symbol_param<0>_type<0> = [WatchUi,34,30,37]; @symbol_param<0>_type<1> = [MenuItem,34,38,46]; ]
+    function onSelect(item as WatchUi.MenuItem) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_34_56_37_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 35 8 ]
+        symbol [ _menu %tmp.2 35 8 13 ];
+        %tmp.2 = getv ? :_menu;
+        symbol [ alarm %tmp.3 35 14 19 ];
+        %tmp.3 = getv %tmp.2 :alarm;
+        symbol [ put %tmp.4 35 20 23 ];
+        %tmp.4 = getv function %tmp.3 :put;
+        symbol [ _menu %tmp.6 35 24 29 ];
+        %tmp.6 = getv ? :_menu;
+        symbol [ key %tmp.7 35 30 33 ];
+        %tmp.7 = getv %tmp.6 :key;
+        %tmp.8 = lgetv %item;
+        symbol [ item %tmp.8 35 35 39 ];
+        symbol [ getId %tmp.9 35 40 45 ];
+        %tmp.9 = getv function %tmp.8 :getId;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        invoke %tmp.3 %tmp.4(%tmp.7, %tmp.10);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 36 8 ]
+        symbol [ WatchUi %tmp.11 36 8 15 ];
+        %tmp.11 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.12 36 16 23 ];
+        %tmp.12 = getv function %tmp.11 :popView;
+        symbol [ WatchUi %tmp.13 36 24 31 ];
+        %tmp.13 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.14 36 32 43 ];
+        %tmp.14 = getv %tmp.13 :SLIDE_RIGHT;
+        invoke %tmp.11 %tmp.12(%tmp.14);
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_34_56_37_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 39; @symbol_functiondef = [onBack,39,13,19]; ]
+    function onBack() as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_39_30_41_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc" 40 8 ]
+        symbol [ WatchUi %tmp.1 40 8 15 ];
+        %tmp.1 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.2 40 16 23 ];
+        %tmp.2 = getv function %tmp.1 :popView;
+        symbol [ WatchUi %tmp.3 40 24 31 ];
+        %tmp.3 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.4 40 32 43 ];
+        %tmp.4 = getv %tmp.3 :SLIDE_RIGHT;
+        invoke %tmp.1 %tmp.2(%tmp.4);
+_Users_miren_Documents_GitHub_smartalarm_source_OptionMenu_mc_39_30_41_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/OptionMenu.mc"; @line = 6; ]
+<init> {
+}

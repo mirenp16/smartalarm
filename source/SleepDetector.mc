@@ -16,7 +16,6 @@ import Toybox.SensorHistory;
 import Toybox.Sensor;
 import Toybox.Time;
 
-(:background)
 class SleepDetector {
 
     // Blended 0–100 lightness score. Call every 5 min from the service.

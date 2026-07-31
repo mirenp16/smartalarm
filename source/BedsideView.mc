@@ -1,14 +1,12 @@
-// BedsideView.mc  ("Active Alarm" mode)
-// The reliable, on-time, prompt-free path. Runs in the foreground so it can
-// vibrate/beep and open the ringing screen directly. Shows the next alarm and the
-// current time on a near-black screen (AMOLED-friendly).
+// BedsideView.mc  ("Active Alarm Mode")
+// The only place alarms ring. Runs in the foreground so it can vibrate/beep and
+// open the ringing screen directly. You enter it at bedtime; ON alarms fire while
+// it's up. Battery-minimal: near-black screen, checks the clock every 15 s, and
+// only samples sensors while inside a Sleep Cycle Window.
 //
-// Battery-minimal: wakes every 15 s just to compare the clock; it only touches the
-// heart-rate/motion sensors while inside a Sleep Cycle Window (AlarmEngine does the
-// sensor work only then).
-//
-// Hard to leave on purpose: exit requires BACK, then UP within 5 seconds — so you
-// can't drop out of it in your sleep. Single button presses do nothing.
+// When idle the screen shows ONLY the title, current time and next alarm (dim, so
+// it barely lights the AMOLED). Pressing any button reveals the exit controls for
+// a few seconds. Exit is deliberately a two-step combo: BACK, then UP.
 
 import Toybox.Application;
 import Toybox.Graphics;
@@ -24,6 +22,7 @@ class BedsideView extends WatchUi.View {
     private var _ringingShown as Boolean = false;
     private var _exitArmed as Boolean = false;
     private var _armSecs as Number = 0;
+    private var _controlsSecs as Number = -100;    // when controls were last revealed
     private var _w as Number = 260;
     private var _h as Number = 260;
     private var _cx as Number = 130;
@@ -37,26 +36,22 @@ class BedsideView extends WatchUi.View {
     }
 
     function onShow() as Void {
-        // Silence the background service while we own the foreground.
-        SmartAlarmApp.unregisterBackground();
         if (AlarmStore.ringingId() == null) { _ringingShown = false; }
         if (_timer == null) {
             _timer = new Timer.Timer();
-            _timer.start(method(:onTick), 15000, true);   // every 15 s
+            _timer.start(method(:onTick), 15000, true);
         }
     }
 
     function onHide() as Void { stopTimer(); }
 
     function onTick() as Void {
-        // Cancel a stale exit-arm.
-        if (_exitArmed && (Time.now().value() - _armSecs) > 5) {
-            _exitArmed = false;
-        }
+        var now = Time.now().value();
+        if (_exitArmed && (now - _armSecs) > 5) { _exitArmed = false; }
 
         if (AlarmStore.ringingId() != null) { showRinging(); return; }
 
-        var id = AlarmEngine.evaluate(Time.now().value());
+        var id = AlarmEngine.evaluate(now);
         if (id >= 0) {
             AlarmStore.beginRing(id);
             showRinging();
@@ -76,54 +71,63 @@ class BedsideView extends WatchUi.View {
     function onUpdate(dc as Graphics.Dc) as Void {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
-
-        var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var next = AlarmEngine.nextAlarm(Time.now().value());
         var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
+        var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
-        // Title (small, grey, one line)
+        // Title
         dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 80, Graphics.FONT_XTINY, "Active Alarm Mode", vc);
+        dc.drawText(_cx, _cy - 78, Graphics.FONT_XTINY, "Active Alarm Mode", vc);
 
-        // Current time (grey, smaller)
+        // Current time
         dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 52, Graphics.FONT_XTINY, "Current Time", vc);
+        dc.drawText(_cx, _cy - 46, Graphics.FONT_XTINY, "Current Time", vc);
         dc.setColor(0x999999, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 26, Graphics.FONT_SMALL, Fmt.time12(now.hour, now.min), vc);
+        dc.drawText(_cx, _cy - 22, Graphics.FONT_SMALL, Fmt.time12(now.hour, now.min), vc);
 
-        // Next alarm (white, bigger)
+        // Next alarm (shows the snooze time if an alarm is snoozed)
         dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 4, Graphics.FONT_XTINY, "Next Alarm", vc);
+        dc.drawText(_cx, _cy + 14, Graphics.FONT_XTINY, "Next Alarm", vc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        var nextStr = (next != null)
-            ? Fmt.time12(AlarmStore.hour(next), AlarmStore.minute(next))
-            : "None";
-        dc.drawText(_cx, _cy + 38, Graphics.FONT_MEDIUM, nextStr, vc);
+        dc.drawText(_cx, _cy + 44, Graphics.FONT_MEDIUM, nextAlarmStr(), vc);
 
-        // Exit hint + button arrows (BACK then UP)
-        if (_exitArmed) {
-            dc.setColor(0x33AAFF, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _h * 82 / 100, Graphics.FONT_XTINY, "Press UP now to exit", vc);
-        } else {
-            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _h * 82 / 100, Graphics.FONT_XTINY, "BACK and then UP to Exit", vc);
+        // Exit controls only appear briefly after a button press.
+        if (controlsVisible()) {
+            dc.setColor(_exitArmed ? 0x33AAFF : 0x777777, Graphics.COLOR_TRANSPARENT);
+            var hint = _exitArmed ? "Press UP now to exit" : "BACK then UP to exit";
+            dc.drawText(_cx, _h * 84 / 100, Graphics.FONT_XTINY, hint, vc);
+            Ui.back(dc, _w, _h, "BACK");
+            Ui.up(dc, _w, _h, "UP");
         }
-        Ui.back(dc, _w, _h, "BACK");
-        Ui.up(dc, _w, _h, "UP");
     }
 
-    // Called by the delegate.
+    function nextAlarmStr() as String {
+        var nowSecs = Time.now().value();
+        var snU = AlarmStore.snoozeUntil();
+        if (snU != null && snU > nowSecs) {
+            var si = Gregorian.info(new Time.Moment(snU), Time.FORMAT_SHORT);
+            return Fmt.time12(si.hour, si.min);
+        }
+        var next = AlarmEngine.nextAlarm(nowSecs);
+        return (next != null) ? Fmt.time12(AlarmStore.hour(next), AlarmStore.minute(next)) : "None";
+    }
+
+    // ── Controls / exit ──────────────────────────────────────────────────────
+
+    function revealControls() as Void {
+        _controlsSecs = Time.now().value();
+        WatchUi.requestUpdate();
+    }
+    function controlsVisible() as Boolean {
+        return (Time.now().value() - _controlsSecs) <= 6;
+    }
+
     function armExit() as Void {
         _exitArmed = true;
         _armSecs = Time.now().value();
-        WatchUi.requestUpdate();
+        revealControls();
     }
-
-    function tryExit() as Boolean {
-        if (_exitArmed && (Time.now().value() - _armSecs) <= 5) {
-            return true;
-        }
-        return false;
+    function exitReady() as Boolean {
+        return _exitArmed && (Time.now().value() - _armSecs) <= 5;
     }
 
     function stopTimer() as Void {
@@ -140,30 +144,26 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
         _view = view;
     }
 
-    // Handle raw keys so single presses can't leave the screen.
-    function onKey(evt as WatchUi.KeyEvent) as Boolean {
-        var k = evt.getKey();
-        if (k == WatchUi.KEY_ESC) {          // BACK arms the exit
-            _view.armExit();
-        } else if (k == WatchUi.KEY_UP) {    // UP completes it (if armed)
-            tryLeave();
+    // BACK reveals controls and arms the exit.
+    function onBack() as Boolean { _view.armExit(); return true; }
+
+    // UP completes the exit if armed; otherwise just reveals the controls.
+    function onPreviousPage() as Boolean {
+        if (_view.exitReady()) {
+            _leave();
+        } else {
+            _view.revealControls();
         }
-        return true;                          // swallow everything else
+        return true;
     }
 
-    // Also swallow the mapped behaviours so nothing exits by accident.
-    function onBack() as Boolean { _view.armExit(); return true; }
-    function onPreviousPage() as Boolean { tryLeave(); return true; }
-    function onNextPage() as Boolean { return true; }
-    function onSelect() as Boolean { return true; }
-    function onTap(evt as WatchUi.ClickEvent) as Boolean { return true; }
+    // Other buttons only reveal the controls.
+    function onSelect() as Boolean { _view.revealControls(); return true; }
+    function onNextPage() as Boolean { _view.revealControls(); return true; }
+    function onTap(evt as WatchUi.ClickEvent) as Boolean { _view.revealControls(); return true; }
 
-    private function tryLeave() as Void {
-        if (_view.tryExit()) {
-            _view.stopTimer();
-            SmartAlarmApp.syncBackground();
-            var lv = new AlarmListView();
-            WatchUi.switchToView(lv, new AlarmListDelegate(lv), WatchUi.SLIDE_DOWN);
-        }
+    private function _leave() as Void {
+        _view.stopTimer();
+        MainListMenu.show(WatchUi.SLIDE_DOWN);
     }
 }

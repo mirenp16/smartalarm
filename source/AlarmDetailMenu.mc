@@ -1,0 +1,193 @@
+// AlarmDetailMenu.mc
+// Native-style settings list for one alarm (add or edit). Works on a COPY; only
+// "Done"/"Save" writes to storage. Sub-values are picked on their own screens and
+// the sublabels refresh when we return (onShow).
+//
+// Edit order: Status, Time, Scheduled Days, Label, Sleep Cycle Window, Alert,
+//             Snooze Length, Max Snoozes, Done, Delete Alarm.
+// Add order : Save, Time, Scheduled Days, Label, Sleep Cycle Window, Alert,
+//             Snooze Length, Max Snoozes.
+
+import Toybox.Lang;
+import Toybox.WatchUi;
+
+class AlarmDetailMenu extends WatchUi.Menu2 {
+
+    public var alarm as Dictionary;
+    public var index as Number;
+    public var isNew as Boolean;
+
+    function initialize(idx as Number, working as Dictionary, brandNew as Boolean) {
+        Menu2.initialize({:title => Fmt.time12(AlarmStore.hour(working), AlarmStore.minute(working))});
+        index = idx;
+        alarm = working;
+        isNew = brandNew;
+
+        if (isNew) {
+            addItem(new WatchUi.MenuItem("Save", null, :save, null));
+        } else {
+            addItem(new WatchUi.ToggleMenuItem("Status", null, :status,
+                AlarmStore.isOn(working), null));
+        }
+        addItem(new WatchUi.MenuItem("Time", timeSub(), :time, null));
+        addItem(new WatchUi.MenuItem("Scheduled Days", daysSub(), :days, null));
+        addItem(new WatchUi.MenuItem("Label", labelSub(), :label, null));
+        addItem(new WatchUi.MenuItem("Sleep Cycle Window", winSub(), :win, null));
+        addItem(new WatchUi.MenuItem("Alert", modeSub(), :mode, null));
+        addItem(new WatchUi.MenuItem("Snooze Length", snLenSub(), :snlen, null));
+        addItem(new WatchUi.MenuItem("Max Snoozes", snMaxSub(), :snmax, null));
+        if (!isNew) {
+            addItem(new WatchUi.MenuItem("Done", null, :done, null));
+            addItem(new WatchUi.MenuItem("Delete Alarm", null, :delete, null));
+        }
+    }
+
+    // Refresh sublabels + title when returning from a sub-picker.
+    function onShow() as Void {
+        setTitle(Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm)));
+        _set(:time, timeSub());
+        _set(:days, daysSub());
+        _set(:label, labelSub());
+        _set(:win, winSub());
+        _set(:mode, modeSub());
+        _set(:snlen, snLenSub());
+        _set(:snmax, snMaxSub());
+    }
+
+    // findItemById returns the item's INDEX (-1 if absent), not the item itself.
+    private function _set(id as Symbol, sub as String) as Void {
+        var idx = findItemById(id);
+        if (idx != null && idx >= 0) {
+            var item = getItem(idx);
+            if (item != null) { item.setSubLabel(sub); }
+        }
+    }
+
+    function timeSub()  as String { return Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm)); }
+    function daysSub()  as String { return Fmt.days(AlarmStore.days(alarm)); }
+    function labelSub() as String { return AlarmStore.label(alarm); }
+    function winSub()   as String { return AlarmStore.window(alarm).format("%d") + " Minutes"; }
+    function modeSub()  as String { return Fmt.modeName(AlarmStore.mode(alarm)); }
+    function snLenSub() as String { return AlarmStore.snoozeLen(alarm).format("%d") + " Minutes"; }
+    function snMaxSub() as String { return AlarmStore.maxSnoozeOf(alarm).format("%d"); }
+}
+
+class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
+
+    private var _menu as AlarmDetailMenu;
+
+    function initialize(menu as AlarmDetailMenu) {
+        Menu2InputDelegate.initialize();
+        _menu = menu;
+    }
+
+    function onSelect(item as WatchUi.MenuItem) as Void {
+        var id = item.getId();
+        var a = _menu.alarm;
+
+        if (id == :status) {
+            a.put("on", (item as WatchUi.ToggleMenuItem).isEnabled());
+
+        } else if (id == :time) {
+            var tp = new TimePickerView(a);
+            WatchUi.pushView(tp, new TimePickerDelegate(tp, false, a), WatchUi.SLIDE_LEFT);
+
+        } else if (id == :days) {
+            var dp = new DaysPicker(a);
+            WatchUi.pushView(dp, new DaysPickerDelegate(dp), WatchUi.SLIDE_LEFT);
+
+        } else if (id == :label) {
+            var lp = new OptionMenu("Label", "label", _labelOptions(), a);
+            WatchUi.pushView(lp, new OptionMenuDelegate(lp), WatchUi.SLIDE_LEFT);
+
+        } else if (id == :win) {
+            var wd = "Select how far ahead of your set time the app should look for light sleep to wake you up gently";
+            var cv = new ChoiceView("Sleep Cycle Window", "win", _winOptions(wd), AlarmStore.window(a), a);
+            WatchUi.pushView(cv, new ChoiceDelegate(cv), WatchUi.SLIDE_LEFT);
+
+        } else if (id == :mode) {
+            var mp = new OptionMenu("Alert", "mode", _modeOptions(), a);
+            WatchUi.pushView(mp, new OptionMenuDelegate(mp), WatchUi.SLIDE_LEFT);
+
+        } else if (id == :snlen) {
+            var sp = new OptionMenu("Snooze Length", "snLen", _snLenOptions(), a);
+            WatchUi.pushView(sp, new OptionMenuDelegate(sp), WatchUi.SLIDE_LEFT);
+
+        } else if (id == :snmax) {
+            var xp = new OptionMenu("Max Snoozes", "snMax", _snMaxOptions(), a);
+            WatchUi.pushView(xp, new OptionMenuDelegate(xp), WatchUi.SLIDE_LEFT);
+
+        } else if (id == :save || id == :done) {
+            _commit();
+
+        } else if (id == :delete) {
+            var dialog = new WatchUi.Confirmation("Delete this alarm?");
+            WatchUi.pushView(dialog, new DetailDeleteDelegate(_menu.index), WatchUi.SLIDE_UP);
+        }
+    }
+
+    // BACK cancels (discard) and returns to the fresh list.
+    function onBack() as Void {
+        MainListMenu.show(WatchUi.SLIDE_RIGHT);
+    }
+
+    private function _commit() as Void {
+        var a = _menu.alarm;
+        if (AlarmStore.days(a) == 0) {
+            a.put("fireAt", AlarmStore.nextOccurrence(AlarmStore.hour(a), AlarmStore.minute(a)));
+        }
+        if (_menu.isNew) {
+            AlarmStore.addAlarm(a);
+        } else {
+            AlarmStore.updateAlarm(_menu.index, a);
+        }
+        AlarmStore.clearFired(AlarmStore.id(a));
+        MainListMenu.show(WatchUi.SLIDE_RIGHT);
+    }
+
+    private function _labelOptions() as Array {
+        var names = ["Wake up", "Work", "Gym", "Medication", "Meeting", "Study", "Nap", "Reminder"];
+        var out = [];
+        for (var i = 0; i < names.size(); i++) { out.add([names[i], names[i]]); }
+        return out;
+    }
+    private function _winOptions(desc as String) as Array {
+        return [[15, "15 Minutes", desc], [30, "30 Minutes", desc],
+                [45, "45 Minutes", desc], [60, "60 Minutes", desc]];
+    }
+    private function _modeOptions() as Array {
+        return [[MODE_BOTH, "Sound + Vibrate"], [MODE_SOUND, "Sound Only"], [MODE_VIBE, "Vibrate Only"]];
+    }
+    private function _snLenOptions() as Array {
+        var out = [];
+        for (var i = 0; i < SNOOZE_LEN_OPTIONS.size(); i++) {
+            var m = SNOOZE_LEN_OPTIONS[i];
+            out.add([m, m.format("%d") + " Minutes"]);
+        }
+        return out;
+    }
+    private function _snMaxOptions() as Array {
+        var out = [];
+        for (var i = 0; i < SNOOZE_MAX_OPTIONS.size(); i++) {
+            var m = SNOOZE_MAX_OPTIONS[i];
+            out.add([m, m.format("%d")]);
+        }
+        return out;
+    }
+}
+
+// Confirms deletion, then returns to the fresh list.
+class DetailDeleteDelegate extends WatchUi.ConfirmationDelegate {
+    private var _index as Number;
+    function initialize(index as Number) {
+        ConfirmationDelegate.initialize();
+        _index = index;
+    }
+    function onResponse(response) as Boolean {
+        if (response == WatchUi.CONFIRM_YES) {
+            AlarmStore.deleteAlarm(_index);
+            MainListMenu.show(WatchUi.SLIDE_RIGHT);
+        }
+        return true;
+    }
+}

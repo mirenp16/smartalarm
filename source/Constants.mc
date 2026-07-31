@@ -50,6 +50,11 @@ const FIRE_GRACE_MINS = 15;
 // ── Snooze defaults ──────────────────────────────────────────────────────────
 const DEFAULT_SNOOZE_MINUTES = 5;
 const DEFAULT_MAX_SNOOZE      = 5;
+const SNOOZE_LEN_OPTIONS = [1, 3, 5, 10, 15];
+const SNOOZE_MAX_OPTIONS = [1, 2, 3, 4, 5, 10];
+
+// ── Limits ───────────────────────────────────────────────────────────────────
+const MAX_ALARMS = 20;   // most saved alarms allowed
 
 // ── Storage keys ─────────────────────────────────────────────────────────────
 // Kept here so foreground and background always agree on the exact strings.

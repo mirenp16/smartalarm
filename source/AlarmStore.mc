@@ -21,7 +21,6 @@ import Toybox.Lang;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
 
-(:background)
 class AlarmStore {
 
     // ── Alarm list CRUD ──────────────────────────────────────────────────────
@@ -48,9 +47,27 @@ class AlarmStore {
             "label"  => "Wake up",
             "win"    => 30,
             "mode"   => MODE_BOTH,
+            "snLen"  => DEFAULT_SNOOZE_MINUTES,
+            "snMax"  => DEFAULT_MAX_SNOOZE,
             "fireAt" => nextOccurrence(6, 0)
         };
     }
+
+    // Per-alarm snooze settings (fall back to defaults for older saved alarms).
+    static function snoozeLen(a as Dictionary) as Number { return _n(a, "snLen", DEFAULT_SNOOZE_MINUTES); }
+    static function maxSnoozeOf(a as Dictionary) as Number { return _n(a, "snMax", DEFAULT_MAX_SNOOZE); }
+
+    // How many saved alarms are enabled (for the "X Alarms On" header).
+    static function countOn() as Number {
+        var list = getAlarms();
+        var c = 0;
+        for (var i = 0; i < list.size(); i++) {
+            if (isOn(list[i] as Dictionary)) { c++; }
+        }
+        return c;
+    }
+
+    static function isFull() as Boolean { return getAlarms().size() >= MAX_ALARMS; }
 
     // Epoch seconds of the next time this alarm will fire (repeating: scans up to
     // 7 days ahead for a scheduled day; one-time: its fireAt). -1 if none.

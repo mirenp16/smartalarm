@@ -88,7 +88,7 @@ class RingingView extends WatchUi.View {
         dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
         var info = atMax
             ? "No snoozes left"
-            : ((AlarmStore.maxSnooze() - snoozeCount()).format("%d") + " snoozes left");
+            : ((maxSn() - snoozeCount()).format("%d") + " snoozes left");
         dc.drawText(_cx, _cy + 22, Graphics.FONT_XTINY, info, vc);
 
         if (_awakeArmed) {
@@ -111,7 +111,13 @@ class RingingView extends WatchUi.View {
         var id = AlarmStore.ringingId();
         return (id != null) ? AlarmStore.snoozeCount(id) : 0;
     }
-    function snoozeExhausted() as Boolean { return snoozeCount() >= AlarmStore.maxSnooze(); }
+    function maxSn() as Number {
+        return (_alarm != null) ? AlarmStore.maxSnoozeOf(_alarm) : DEFAULT_MAX_SNOOZE;
+    }
+    function snLen() as Number {
+        return (_alarm != null) ? AlarmStore.snoozeLen(_alarm) : DEFAULT_SNOOZE_MINUTES;
+    }
+    function snoozeExhausted() as Boolean { return snoozeCount() >= maxSn(); }
 
     function armAwake() as Void {
         _awakeArmed = true;
@@ -133,7 +139,7 @@ class RingingView extends WatchUi.View {
         if (id == null) { close(); return; }
         if (snoozeExhausted()) { return; }        // must use I'm Awake instead
         AlarmStore.incSnooze(id);
-        var until = Time.now().value() + AlarmStore.snoozeMinutes() * 60;
+        var until = Time.now().value() + snLen() * 60;
         AlarmStore.scheduleSnooze(id, until);
         AlarmStore.setRinging(null);
         close();

@@ -106,10 +106,16 @@ class TimePickerView extends WatchUi.View {
 class TimePickerDelegate extends WatchUi.BehaviorDelegate {
 
     private var _view as TimePickerView;
+    private var _addFlow as Boolean;
+    private var _alarm as Dictionary;
 
-    function initialize(view as TimePickerView) {
+    // addFlow=true: this is the first step of adding a new alarm (confirm -> detail).
+    // addFlow=false: editing an existing alarm's time (confirm -> back to detail).
+    function initialize(view as TimePickerView, addFlow as Boolean, alarm as Dictionary) {
         BehaviorDelegate.initialize();
         _view = view;
+        _addFlow = addFlow;
+        _alarm = alarm;
     }
 
     function onPreviousPage() as Boolean { _view.bump(1); return true; }   // UP
@@ -117,14 +123,23 @@ class TimePickerDelegate extends WatchUi.BehaviorDelegate {
 
     function onSelect() as Boolean {
         if (_view.advance()) {
-            WatchUi.popView(WatchUi.SLIDE_RIGHT);
+            if (_addFlow) {
+                var m = new AlarmDetailMenu(-1, _alarm, true);
+                WatchUi.switchToView(m, new AlarmDetailDelegate(m), WatchUi.SLIDE_LEFT);
+            } else {
+                WatchUi.popView(WatchUi.SLIDE_RIGHT);
+            }
         }
         return true;
     }
 
     function onBack() as Boolean {
         if (_view.back()) {
-            WatchUi.popView(WatchUi.SLIDE_RIGHT);
+            if (_addFlow) {
+                MainListMenu.show(WatchUi.SLIDE_RIGHT);   // cancel add
+            } else {
+                WatchUi.popView(WatchUi.SLIDE_RIGHT);     // back to detail
+            }
         }
         return true;
     }

@@ -1,18 +1,12 @@
 // SmartAlarmApp.mc
-// Application entry point. Decides whether to open the normal alarm list or jump
-// straight to the ringing screen, wires up the background service, and keeps the
-// repeating temporal event registered whenever at least one alarm is enabled.
+// Application entry point. There is no background service: alarms only ring while
+// you are inside Active Alarm Mode (a foreground screen you enter at bedtime).
+// The home screen is the native-style alarm list.
 
 import Toybox.Application;
-import Toybox.Background;
-import Toybox.System;
 import Toybox.Lang;
-import Toybox.Time;
 import Toybox.WatchUi;
 
-// NOTE: the class itself is NOT annotated (:background). Only getServiceDelegate()
-// below is, so the background build pulls in the service (and what it needs)
-// without dragging the foreground UI classes into the tiny background context.
 class SmartAlarmApp extends Application.AppBase {
 
     function initialize() {
@@ -20,80 +14,14 @@ class SmartAlarmApp extends Application.AppBase {
     }
 
     function onStart(state as Dictionary?) as Void {
-        // Drop any alarm that fired long ago but couldn't surface until now, so
-        // it doesn't ring hours late.
-        AlarmStore.clearStaleRing();
-        syncBackground();
     }
 
     function onStop(state as Dictionary?) as Void {
     }
 
-    // If an alarm is currently ringing (flagged by the background service), open
-    // straight into the ringing screen. Otherwise show the alarm list.
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
-        if (AlarmStore.ringingId() != null) {
-            var rv = new RingingView();
-            return [rv, new RingingDelegate(rv)];
-        }
-        // If an alarm is enabled, go straight to Active Alarm mode — so reopening
-        // the app after a glance drops you right back into it.
-        if (anyAlarmEnabled()) {
-            var bv = new BedsideView();
-            return [bv, new BedsideDelegate(bv)];
-        }
-        var lv = new AlarmListView();
-        return [lv, new AlarmListDelegate(lv)];
-    }
-
-    // The background service that runs while the app is closed.
-    (:background)
-    function getServiceDelegate() as [System.ServiceDelegate] {
-        return [new SmartAlarmService()];
-    }
-
-    // Called when the background service surfaces the app. If an alarm is ringing,
-    // push the ringing screen on top of whatever is showing.
-    function onBackgroundData(data) as Void {
-        if (AlarmStore.ringingId() != null) {
-            var rv = new RingingView();
-            WatchUi.pushView(rv, new RingingDelegate(rv), WatchUi.SLIDE_UP);
-        }
-        WatchUi.requestUpdate();
-    }
-
-    // ── Background registration helpers ──────────────────────────────────────
-
-    // Registers the repeating 5-minute temporal event if any alarm is enabled;
-    // otherwise cancels it to save battery.
-    static function syncBackground() as Void {
-        if (anyAlarmEnabled()) {
-            registerBackground();
-        } else {
-            unregisterBackground();
-        }
-    }
-
-    static function registerBackground() as Void {
-        try {
-            Background.registerForTemporalEvent(new Time.Duration(CHECK_INTERVAL_SECS));
-        } catch (e) {
-        }
-    }
-
-    static function unregisterBackground() as Void {
-        try {
-            Background.deleteTemporalEvent();
-        } catch (e) {
-        }
-    }
-
-    static function anyAlarmEnabled() as Boolean {
-        var list = AlarmStore.getAlarms();
-        for (var i = 0; i < list.size(); i++) {
-            if (AlarmStore.isOn(list[i] as Dictionary)) { return true; }
-        }
-        return false;
+        var menu = new MainListMenu();
+        return [menu, new MainListDelegate(menu)];
     }
 }
 
