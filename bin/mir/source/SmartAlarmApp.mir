@@ -50,12 +50,10 @@ _Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_22_92_25_4_star
         %tmp.8 = aputv %tmp.7 0 %tmp.6;
         symbol [ MainListDelegate %tmp.12 24 26 42 ];
         %tmp.12 = getv ? :MainListDelegate;
-        %tmp.13 = lgetv %menu.1;
-        symbol [ menu %tmp.13 24 43 47 ];
-        %tmp.9 = newc %tmp.12 (%tmp.13);
-        %tmp.14 = dup %tmp.8;
-        %tmp.15 = aputv %tmp.14 1 %tmp.9;
-        ret %tmp.15;
+        %tmp.9 = newc %tmp.12 ();
+        %tmp.13 = dup %tmp.8;
+        %tmp.14 = aputv %tmp.13 1 %tmp.9;
+        ret %tmp.14;
 _Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_22_92_25_4_stop:
     }
 }

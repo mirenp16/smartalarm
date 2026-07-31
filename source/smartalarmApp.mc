@@ -21,7 +21,7 @@ class SmartAlarmApp extends Application.AppBase {
 
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
         var menu = new MainListMenu();
-        return [menu, new MainListDelegate(menu)];
+        return [menu, new MainListDelegate()];
     }
 }
 
