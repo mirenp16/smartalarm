@@ -39,9 +39,9 @@ const CHECK_INTERVAL_SECS = 300;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 48; @position = 6; @symbol_constdef = [FIRE_GRACE_MINS,48,6,21]; ]
 const FIRE_GRACE_MINS = 15;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 51; @position = 6; @symbol_constdef = [DEFAULT_SNOOZE_MINUTES,51,6,28]; ]
-const DEFAULT_SNOOZE_MINUTES = 5;
+const DEFAULT_SNOOZE_MINUTES = 3;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 52; @position = 6; @symbol_constdef = [DEFAULT_MAX_SNOOZE,52,6,24]; ]
-const DEFAULT_MAX_SNOOZE = 5;
+const DEFAULT_MAX_SNOOZE = 2;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 53; @position = 6; @symbol_constdef = [SNOOZE_LEN_OPTIONS,53,6,24]; ]
 const SNOOZE_LEN_OPTIONS;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 54; @position = 6; @symbol_constdef = [SNOOZE_MAX_OPTIONS,54,6,24]; ]

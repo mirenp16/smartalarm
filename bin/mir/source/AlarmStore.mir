@@ -105,7 +105,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmStore_mc_40_45_54_4_start:
         %tmp.22 = dup %tmp.19;
         %tmp.23 = aputv %tmp.22 %tmp.20 %tmp.21;
         %tmp.24 = "label";
-        %tmp.25 = "Wake up";
+        %tmp.25 = "Wake Up!";
         %tmp.26 = dup %tmp.23;
         %tmp.27 = aputv %tmp.26 %tmp.24 %tmp.25;
         %tmp.28 = "win";

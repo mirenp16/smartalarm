@@ -44,11 +44,11 @@ class AlarmStore {
             "h"      => 6,
             "m"      => 0,
             "days"   => 0,
-            "label"  => "Wake up",
+            "label"  => "Wake Up!",
             "win"    => 30,
             "mode"   => MODE_BOTH,
-            "snLen"  => DEFAULT_SNOOZE_MINUTES,
-            "snMax"  => DEFAULT_MAX_SNOOZE,
+            "snLen"  => DEFAULT_SNOOZE_MINUTES,   // 3 minutes
+            "snMax"  => DEFAULT_MAX_SNOOZE,       // 2 snoozes
             "fireAt" => nextOccurrence(6, 0)
         };
     }

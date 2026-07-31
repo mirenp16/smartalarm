@@ -58,9 +58,12 @@ class Ui {
         if (vf != null && (dc has :drawRadialText)) {
             try {
                 dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-                var dir = (deg > 90 && deg < 270)
-                    ? Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
-                    : Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE;
+                // Upper half of the bezel (deg < 180) arcs UP; the lower half
+                // (deg >= 180, plus the UP button at 180) arcs DOWN, so every
+                // label reads right-side up.
+                var dir = (deg < 180)
+                    ? Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE
+                    : Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE;
                 dc.drawRadialText(cx, cy, vf, text, Graphics.TEXT_JUSTIFY_CENTER,
                                   deg, cx - 24, dir);
                 return;

@@ -48,8 +48,8 @@ const CHECK_INTERVAL_SECS = 300;
 const FIRE_GRACE_MINS = 15;
 
 // ── Snooze defaults ──────────────────────────────────────────────────────────
-const DEFAULT_SNOOZE_MINUTES = 5;
-const DEFAULT_MAX_SNOOZE      = 5;
+const DEFAULT_SNOOZE_MINUTES = 3;
+const DEFAULT_MAX_SNOOZE      = 2;
 const SNOOZE_LEN_OPTIONS = [1, 3, 5, 10, 15];
 const SNOOZE_MAX_OPTIONS = [1, 2, 3, 4, 5, 10];
 

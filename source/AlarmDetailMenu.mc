@@ -16,6 +16,9 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
     public var alarm as Dictionary;
     public var index as Number;
     public var isNew as Boolean;
+    // Set when the delete confirmation says yes. We can't switch views from inside
+    // onResponse (the dialog pops back on top of us), so we do it on the next show.
+    public var pendingClose as Boolean = false;
 
     function initialize(idx as Number, working as Dictionary, brandNew as Boolean) {
         Menu2.initialize({:title => Fmt.time12(AlarmStore.hour(working), AlarmStore.minute(working))});
@@ -44,6 +47,11 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
 
     // Refresh sublabels + title when returning from a sub-picker.
     function onShow() as Void {
+        if (pendingClose) {
+            pendingClose = false;
+            MainListMenu.show(WatchUi.SLIDE_RIGHT);
+            return;
+        }
         setTitle(Fmt.time12(AlarmStore.hour(alarm), AlarmStore.minute(alarm)));
         _set(:time, timeSub());
         _set(:days, daysSub());
@@ -106,8 +114,9 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
             WatchUi.pushView(cv, new ChoiceDelegate(cv), WatchUi.SLIDE_LEFT);
 
         } else if (id == :mode) {
-            var mp = new OptionMenu("Alert", "mode", _modeOptions(), a);
-            WatchUi.pushView(mp, new OptionMenuDelegate(mp), WatchUi.SLIDE_LEFT);
+            // Uses ChoiceView so each option can show the speaker / vibration icons.
+            var cv2 = new ChoiceView("Alert", "mode", _modeChoices(), AlarmStore.mode(a), a);
+            WatchUi.pushView(cv2, new ChoiceDelegate(cv2), WatchUi.SLIDE_LEFT);
 
         } else if (id == :snlen) {
             var sp = new OptionMenu("Snooze Length", "snLen", _snLenOptions(), a);
@@ -122,7 +131,7 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
 
         } else if (id == :delete) {
             var dialog = new WatchUi.Confirmation("Delete this alarm?");
-            WatchUi.pushView(dialog, new DetailDeleteDelegate(_menu.index), WatchUi.SLIDE_UP);
+            WatchUi.pushView(dialog, new DetailDeleteDelegate(_menu), WatchUi.SLIDE_UP);
         }
     }
 
@@ -146,7 +155,7 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     private function _labelOptions() as Array {
-        var names = ["Wake up", "Work", "Gym", "Medication", "Meeting", "Study", "Nap", "Reminder"];
+        var names = ["Wake Up!", "Work", "Gym", "Medication", "Meeting", "Study", "Nap", "Reminder"];
         var out = [];
         for (var i = 0; i < names.size(); i++) { out.add([names[i], names[i]]); }
         return out;
@@ -155,8 +164,13 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         return [[15, "15 Minutes", desc], [30, "30 Minutes", desc],
                 [45, "45 Minutes", desc], [60, "60 Minutes", desc]];
     }
-    private function _modeOptions() as Array {
-        return [[MODE_BOTH, "Sound + Vibrate"], [MODE_SOUND, "Sound Only"], [MODE_VIBE, "Vibrate Only"]];
+    // [value, name, description] — ChoiceView draws the alert icons for these.
+    private function _modeChoices() as Array {
+        return [
+            [MODE_BOTH,  "Sound + Vibrate", ""],
+            [MODE_SOUND, "Sound Only",      ""],
+            [MODE_VIBE,  "Vibrate Only",    ""]
+        ];
     }
     private function _snLenOptions() as Array {
         var out = [];
@@ -176,17 +190,18 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
     }
 }
 
-// Confirms deletion, then returns to the fresh list.
+// Confirms deletion. Flags the detail menu to close itself once the dialog has
+// popped, so we land back on the main list instead of the detail screen.
 class DetailDeleteDelegate extends WatchUi.ConfirmationDelegate {
-    private var _index as Number;
-    function initialize(index as Number) {
+    private var _menu as AlarmDetailMenu;
+    function initialize(menu as AlarmDetailMenu) {
         ConfirmationDelegate.initialize();
-        _index = index;
+        _menu = menu;
     }
     function onResponse(response) as Boolean {
         if (response == WatchUi.CONFIRM_YES) {
-            AlarmStore.deleteAlarm(_index);
-            MainListMenu.show(WatchUi.SLIDE_RIGHT);
+            AlarmStore.deleteAlarm(_menu.index);
+            _menu.pendingClose = true;
         }
         return true;
     }

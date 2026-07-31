@@ -24,6 +24,7 @@ class RingingView extends WatchUi.View {
     private var _alarm as Dictionary?;
     private var _awakeArmed as Boolean = false;
     private var _armSecs as Number = 0;
+    private var _controlsSecs as Number = -100;   // when controls were last revealed
     private var _w as Number = 260;
     private var _h as Number = 260;
     private var _cx as Number = 130;
@@ -86,23 +87,26 @@ class RingingView extends WatchUi.View {
         dc.drawText(_cx, _cy - 14, Graphics.FONT_LARGE, Fmt.time12(now.hour, now.min), vc);
 
         dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
+        var left = maxSn() - snoozeCount();
         var info = atMax
             ? "No snoozes left"
-            : ((maxSn() - snoozeCount()).format("%d") + " snoozes left");
+            : (left.format("%d") + (left == 1 ? " snooze left" : " snoozes left"));
         dc.drawText(_cx, _cy + 22, Graphics.FONT_XTINY, info, vc);
 
-        if (_awakeArmed) {
-            dc.setColor(UI_GREEN, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _h * 78 / 100, Graphics.FONT_XTINY, "Press UP: I'm Awake!", vc);
-        } else {
-            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _h * 78 / 100, Graphics.FONT_XTINY, "BACK then UP: I'm Awake!", vc);
-        }
+        // Controls stay hidden until a button is pressed, so the alarm just rings.
+        if (controlsVisible()) {
+            var msg = _awakeArmed ? "Press UP: I'm Awake!" : "Press BACK and then UP: I'm Awake!";
+            var lines = ChoiceView.wrap(dc, msg, Graphics.FONT_XTINY, _w * 62 / 100);
+            var ly = _h * 74 / 100;
+            dc.setColor(_awakeArmed ? UI_GREEN : 0xCCCCCC, Graphics.COLOR_TRANSPARENT);
+            for (var i = 0; i < lines.size() && i < 2; i++) {
+                dc.drawText(_cx, ly + i * 18, Graphics.FONT_XTINY, lines[i], vc);
+            }
 
-        // Arrows: Snooze red on START (if any left); I'm Awake green on BACK + UP.
-        if (!atMax) { Ui.at(dc, _w, _h, UI_DEG_START, UI_RED, "Snooze"); }
-        Ui.at(dc, _w, _h, UI_DEG_BACK, UI_GREEN, "BACK");
-        Ui.at(dc, _w, _h, UI_DEG_UP, UI_GREEN, "UP");
+            if (!atMax) { Ui.at(dc, _w, _h, UI_DEG_START, UI_RED, "Snooze"); }
+            Ui.at(dc, _w, _h, UI_DEG_BACK, UI_GREEN, "BACK");
+            Ui.at(dc, _w, _h, UI_DEG_UP, UI_GREEN, "UP");
+        }
     }
 
     // ── State ────────────────────────────────────────────────────────────────
@@ -119,10 +123,19 @@ class RingingView extends WatchUi.View {
     }
     function snoozeExhausted() as Boolean { return snoozeCount() >= maxSn(); }
 
+    // Controls appear for a few seconds after any button press.
+    function revealControls() as Void {
+        _controlsSecs = Time.now().value();
+        WatchUi.requestUpdate();
+    }
+    function controlsVisible() as Boolean {
+        return (Time.now().value() - _controlsSecs) <= 8;
+    }
+
     function armAwake() as Void {
         _awakeArmed = true;
         _armSecs = Time.now().value();
-        WatchUi.requestUpdate();
+        revealControls();
     }
     function awakeReady() as Boolean {
         return _awakeArmed && (Time.now().value() - _armSecs) <= 5;
@@ -168,17 +181,28 @@ class RingingDelegate extends WatchUi.BehaviorDelegate {
         _view = view;
     }
 
-    // START = snooze
-    function onSelect() as Boolean { _view.doSnooze(); return true; }
-
-    // BACK arms "I'm Awake"; UP completes it.
-    function onBack() as Boolean { _view.armAwake(); return true; }
-    function onPreviousPage() as Boolean {
-        if (_view.awakeReady()) { _view.doAwake(); }
+    // First press just reveals the controls; a second START then snoozes.
+    function onSelect() as Boolean {
+        if (_view.controlsVisible()) {
+            _view.doSnooze();
+        } else {
+            _view.revealControls();
+        }
         return true;
     }
 
-    // Everything else keeps it vibrating.
-    function onNextPage() as Boolean { return true; }
-    function onTap(evt as WatchUi.ClickEvent) as Boolean { return true; }
+    // BACK arms "I'm Awake" (and reveals controls); UP completes it.
+    function onBack() as Boolean { _view.armAwake(); return true; }
+    function onPreviousPage() as Boolean {
+        if (_view.awakeReady()) {
+            _view.doAwake();
+        } else {
+            _view.revealControls();
+        }
+        return true;
+    }
+
+    // Everything else just reveals the controls and keeps it ringing.
+    function onNextPage() as Boolean { _view.revealControls(); return true; }
+    function onTap(evt as WatchUi.ClickEvent) as Boolean { _view.revealControls(); return true; }
 }

@@ -70,8 +70,14 @@ class ChoiceView extends WatchUi.View {
         // Option name (big)
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         var hasDesc = (desc.length() > 0);
-        var nameY = hasDesc ? (_cy - 44) : _cy;
+        var isAlert = _key.equals("mode");
+        var nameY = hasDesc ? (_cy - 44) : (isAlert ? (_cy - 18) : _cy);
         dc.drawText(_cx, nameY, Graphics.FONT_MEDIUM, name, vc);
+
+        // Alert options also show the speaker / vibration glyphs.
+        if (isAlert) {
+            Icons.alertPair(dc, _cx, _cy + 26, 18, (opt[0] as Number));
+        }
 
         // Wrapped description
         if (hasDesc) {

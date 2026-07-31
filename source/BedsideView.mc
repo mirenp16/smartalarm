@@ -74,21 +74,20 @@ class BedsideView extends WatchUi.View {
         var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
         var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
-        // Title
-        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 78, Graphics.FONT_XTINY, "Active Alarm Mode", vc);
+        // Title, curved along the top of the bezel (falls back to straight text).
+        Ui.label(dc, _w, _h, 90, 0x888888, "Active Alarm Mode");
 
         // Current time
         dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 46, Graphics.FONT_XTINY, "Current Time", vc);
-        dc.setColor(0x999999, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 22, Graphics.FONT_SMALL, Fmt.time12(now.hour, now.min), vc);
+        dc.drawText(_cx, _cy - 62, Graphics.FONT_XTINY, "Current Time", vc);
+        dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _cy - 32, Graphics.FONT_MEDIUM, Fmt.time12(now.hour, now.min), vc);
 
         // Next alarm (shows the snooze time if an alarm is snoozed)
         dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy + 14, Graphics.FONT_XTINY, "Next Alarm", vc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 44, Graphics.FONT_MEDIUM, nextAlarmStr(), vc);
+        dc.drawText(_cx, _cy + 48, Graphics.FONT_LARGE, nextAlarmStr(), vc);
 
         // Exit controls only appear briefly after a button press.
         if (controlsVisible()) {

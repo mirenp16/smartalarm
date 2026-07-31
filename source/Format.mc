@@ -28,10 +28,13 @@ class Fmt {
 
         var names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         var out = "";
+        var shown = 0;
         for (var i = 0; i < 7; i++) {
             if ((mask & (1 << i)) != 0) {
-                if (out.length() > 0) { out += " "; }
+                if (shown == 3) { return out + "..."; }   // cap at three days
+                if (out.length() > 0) { out += ", "; }
                 out += names[i];
+                shown++;
             }
         }
         return out;
