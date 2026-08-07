@@ -12,8 +12,9 @@ class RingtoneMenu extends WatchUi.Menu2 {
     function initialize(working as Dictionary) {
         Menu2.initialize({:title => "Ringtone"});
         alarm = working;
-        for (var i = 0; i < RINGTONE_NAMES.size(); i++) {
-            addItem(new WatchUi.MenuItem(RINGTONE_NAMES[i], null, i, null));
+        var names = Ringtone.names();
+        for (var i = 0; i < names.size(); i++) {
+            addItem(new WatchUi.MenuItem(names[i] as String, null, i, null));
         }
     }
 }

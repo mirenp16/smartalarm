@@ -40,7 +40,7 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
         addItem(new WatchUi.MenuItem("Ringtone", toneSub(), :tone, null));
         addItem(new WatchUi.MenuItem("Snooze Length", snLenSub(), :snlen, null));
         addItem(new WatchUi.MenuItem("Max Snoozes", snMaxSub(), :snmax, null));
-        addItem(new WatchUi.ToggleMenuItem("Pass Code", null, :pc,
+        addItem(new WatchUi.ToggleMenuItem("Passcode", null, :pc,
             AlarmStore.passcodeOn(working), null));
         if (!isNew) {
             addItem(new WatchUi.MenuItem("Done", null, :done, null));
@@ -86,12 +86,10 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
     function labelSub() as String { return AlarmStore.label(alarm); }
     function winSub()   as String { return AlarmStore.window(alarm).format("%d") + " Minutes"; }
     function modeSub()  as String { return Fmt.modeName(AlarmStore.mode(alarm)); }
-    // Greyed-out wording when the alarm is Vibrate Only.
+    // Ringtone only means something when the alarm actually makes sound.
     function toneSub()  as String {
-        if (!soundEnabled()) { return "Needs sound"; }
-        var i = AlarmStore.ringtone(alarm);
-        if (i < 0 || i >= RINGTONE_NAMES.size()) { i = 0; }
-        return RINGTONE_NAMES[i];
+        if (!soundEnabled()) { return "Not Applicable"; }
+        return Ringtone.nameAt(AlarmStore.ringtone(alarm));
     }
     function snLenSub() as String { return AlarmStore.snoozeLen(alarm).format("%d") + " Minutes"; }
     function snMaxSub() as String { return AlarmStore.maxSnoozeOf(alarm).format("%d"); }
@@ -119,7 +117,7 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         } else if (id == :tone) {
             // Only reachable when the alarm actually makes sound.
             if (!_menu.soundEnabled()) {
-                var msg = "Ringtone needs sound. Set Alert to Sound Only or Sound + Vibrate first.";
+                var msg = "Set Alert to 'Sound Only' or 'Sound + Vibrate' first!";
                 WatchUi.pushView(new MessageView(msg), new MessageDelegate(), WatchUi.SLIDE_UP);
             } else {
                 var tp = new RingtoneMenu(a);

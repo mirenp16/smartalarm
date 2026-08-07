@@ -45,17 +45,23 @@ class RingingView extends WatchUi.View {
     }
 
     function onShow() as Void {
-        alert();
         if (_timer == null) {
+            alert();
             _timer = new Timer.Timer();
             _timer.start(method(:onTick), 3000, true);
         }
     }
 
-    function onHide() as Void { stopTimer(); }
+    // NOTE: deliberately does NOT stop the alert timer. The passcode screen is
+    // pushed on top of this view, and the alarm must keep sounding while the user
+    // types the code - stopping here made it fall silent. The timer is stopped
+    // explicitly in close() instead.
+    function onHide() as Void { }
 
     function onTick() as Void {
-        if (_awakeArmed && (Time.now().value() - _armSecs) > 5) { _awakeArmed = false; }
+        if (_awakeArmed && (Time.now().value() - _armSecs) > EXIT_ARM_SECS) {
+            _awakeArmed = false;
+        }
         alert();
         WatchUi.requestUpdate();
     }
@@ -91,9 +97,14 @@ class RingingView extends WatchUi.View {
 
         dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
         var left = maxSn() - snoozeCount();
-        var info = atMax
-            ? "No snoozes left"
-            : (left.format("%d") + (left == 1 ? " snooze left" : " snoozes left"));
+        var info;
+        if (maxSn() == 0) {
+            info = "Snooze disabled";        // user chose 0 max snoozes
+        } else if (atMax) {
+            info = "No snoozes left";
+        } else {
+            info = left.format("%d") + (left == 1 ? " snooze left" : " snoozes left");
+        }
         dc.drawText(_cx, _cy + 22, Graphics.FONT_XTINY, info, vc);
 
         // Controls stay hidden until a button is pressed, so the alarm just rings.

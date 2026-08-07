@@ -45,8 +45,8 @@ class Fmt {
     }
 
     static function modeName(mode as Number) as String {
-        if (mode == MODE_SOUND) { return "Sound only"; }
-        if (mode == MODE_VIBE)  { return "Vibrate only"; }
+        if (mode == MODE_SOUND) { return "Sound Only"; }
+        if (mode == MODE_VIBE)  { return "Vibrate Only"; }
         return "Sound + Vibrate";
     }
 }

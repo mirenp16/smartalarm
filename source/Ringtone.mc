@@ -1,59 +1,80 @@
 // Ringtone.mc
-// Plays a ringtone through the watch's buzzer using Attention.ToneProfile, which
-// takes a list of (frequency, duration) pairs. The sequences in Ringtones.mc were
-// derived from the user's .wav files.
+// Ringtones are Garmin's BUILT-IN alarm tones.
 //
-// Every call is wrapped in try/catch and falls back to Garmin's built-in alarm
-// tone, so a device without a tone generator can never crash the alarm.
+// We originally rebuilt the user's .wav files as custom ToneProfile sequences,
+// but the FR265S does not play them, so that approach is gone. Connect IQ apps
+// cannot play audio files at all, and custom tone profiles need a tone generator
+// this watch doesn't expose - the only sounds available are Garmin's presets.
+//
+// The list is built at RUNTIME and only includes tones the device actually has
+// (checked with `Attention has :TONE_X`), so nothing can be selected that the
+// watch can't play.
 
 import Toybox.Attention;
 import Toybox.Lang;
 
 class Ringtone {
 
-    // Plays ringtone `index` once. The ringing screen calls this on a repeating
-    // timer, which is what makes it loop continuously until you snooze or wake.
-    static function play(index as Number) as Void {
-        var i = index;
-        if (i < 0 || i >= RINGTONE_DATA.size()) { i = 0; }
+    // Cached list of [displayName, toneConstant] for this device.
+    private static var _list as Array? = null;
 
-        try {
-            if (Attention has :ToneProfile) {
-                var seq = RINGTONE_DATA[i] as Array;
-                var profile = [];
-                for (var n = 0; n < seq.size(); n++) {
-                    var note = seq[n] as Array;
-                    var freq = note[0] as Number;
-                    var ms   = note[1] as Number;
-                    // A frequency of 0 is a rest; the tone generator wants a real
-                    // frequency, so use an inaudible one to create the gap.
-                    if (freq <= 0) { freq = 20; }
-                    profile.add(new Attention.ToneProfile(freq, ms));
-                }
-                if (profile.size() > 0) {
-                    Attention.playTone({:toneProfile => profile, :repeatCount => 1});
-                    return;
-                }
-            }
-        } catch (e) {
-        }
+    private static function build() as Array {
+        if (_list != null) { return _list as Array; }
+        var out = [];
 
-        // Fallback: the standard alarm tone.
-        try {
-            Attention.playTone(Attention.TONE_ALARM);
-        } catch (e2) {
-        }
+        // Each entry is only added if this device supports that tone.
+        if (Attention has :TONE_ALARM)          { out.add(["Alarm",      Attention.TONE_ALARM]); }
+        if (Attention has :TONE_LOUD_BEEP)      { out.add(["Loud Beep",  Attention.TONE_LOUD_BEEP]); }
+        if (Attention has :TONE_ALERT_HI)       { out.add(["Alert High", Attention.TONE_ALERT_HI]); }
+        if (Attention has :TONE_ALERT_LO)       { out.add(["Alert Low",  Attention.TONE_ALERT_LO]); }
+        if (Attention has :TONE_INTERVAL_ALERT) { out.add(["Interval",   Attention.TONE_INTERVAL_ALERT]); }
+        if (Attention has :TONE_CANARY)         { out.add(["Canary",     Attention.TONE_CANARY]); }
+        if (Attention has :TONE_ATTENTION)      { out.add(["Attention",  Attention.TONE_ATTENTION]); }
+        if (Attention has :TONE_TIME_ALERT)     { out.add(["Time Alert", Attention.TONE_TIME_ALERT]); }
+        if (Attention has :TONE_MSG)            { out.add(["Message",    Attention.TONE_MSG]); }
+        if (Attention has :TONE_SUCCESS)        { out.add(["Success",    Attention.TONE_SUCCESS]); }
+        if (Attention has :TONE_LAP)            { out.add(["Lap",        Attention.TONE_LAP]); }
+        if (Attention has :TONE_START)          { out.add(["Start",      Attention.TONE_START]); }
+
+        // Absolute fallback so the list is never empty.
+        if (out.size() == 0) { out.add(["Alarm", 0]); }
+
+        _list = out;
+        return out;
     }
 
-    // Total length of a ringtone in milliseconds (used to time the repeat).
-    static function durationMs(index as Number) as Number {
-        var i = index;
-        if (i < 0 || i >= RINGTONE_DATA.size()) { i = 0; }
-        var seq = RINGTONE_DATA[i] as Array;
-        var total = 0;
-        for (var n = 0; n < seq.size(); n++) {
-            total += (seq[n] as Array)[1] as Number;
+    // Display names, for the Ringtone menu.
+    static function names() as Array {
+        var l = build();
+        var out = [];
+        for (var i = 0; i < l.size(); i++) {
+            out.add((l[i] as Array)[0]);
         }
-        return total;
+        return out;
+    }
+
+    static function count() as Number { return build().size(); }
+
+    static function nameAt(index as Number) as String {
+        var l = build();
+        var i = index;
+        if (i < 0 || i >= l.size()) { i = 0; }
+        return (l[i] as Array)[0] as String;
+    }
+
+    // Plays ringtone `index` once. The ringing screen calls this on a repeating
+    // timer, which is what makes it loop until you snooze or wake.
+    static function play(index as Number) as Void {
+        var l = build();
+        var i = index;
+        if (i < 0 || i >= l.size()) { i = 0; }
+        try {
+            Attention.playTone((l[i] as Array)[1] as Number);
+        } catch (e) {
+            try {
+                Attention.playTone(Attention.TONE_ALARM);
+            } catch (e2) {
+            }
+        }
     }
 }

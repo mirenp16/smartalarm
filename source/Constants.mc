@@ -25,16 +25,18 @@ const MODE_BOTH  = 0;  // vibration + sound
 const MODE_SOUND = 1;  // sound only
 const MODE_VIBE  = 2;  // vibration only
 const DEFAULT_ALERT_MODE = MODE_VIBE;
-const DEFAULT_RINGTONE   = 0;   // index into RINGTONE_NAMES ("Alert")
+const DEFAULT_RINGTONE   = 0;   // index into Ringtone.names() (first available tone)
 
 // ── Passcode ─────────────────────────────────────────────────────────────────
 // Plain text on purpose: this is friction to make you wake up, not security.
-const DEFAULT_PASSCODE = "5555";   // used until the user sets their own
-const MASTER_PASSCODE  = "0000";   // always works, in case you forget yours
+const DEFAULT_PASSCODE = "9999";   // used until the user sets their own
+// Always works, in case you forget yours. Deliberately NOT 0000, because 0000 is
+// what the entry screen already shows - that would be too easy to type by reflex.
+const MASTER_PASSCODE  = "1234";
 // After this many wrong tries the entry screen pre-fills the master code so you
 // can simply confirm and get out.
 const PASSCODE_MAX_TRIES = 5;
-const DEFAULT_PASSCODE_ON = true;  // per-alarm "Pass Code" toggle default
+const DEFAULT_PASSCODE_ON = true;  // per-alarm "Passcode" toggle default
 
 // How long the BACK half of the BACK-then-UP exit stays armed before it lapses.
 const EXIT_ARM_SECS = 15;
@@ -83,7 +85,8 @@ const FIRE_GRACE_MINS = 15;
 const DEFAULT_SNOOZE_MINUTES = 5;
 const DEFAULT_MAX_SNOOZE      = 3;
 const SNOOZE_LEN_OPTIONS = [1, 3, 5, 10, 15];
-const SNOOZE_MAX_OPTIONS = [1, 2, 3, 4, 5, 10];
+// 0 = no snoozing at all (the alarm can only be turned off by waking up).
+const SNOOZE_MAX_OPTIONS = [0, 1, 2, 3, 4, 5, 10];
 
 // ── Limits ───────────────────────────────────────────────────────────────────
 const MAX_ALARMS = 20;   // most saved alarms allowed

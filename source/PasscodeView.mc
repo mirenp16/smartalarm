@@ -1,15 +1,20 @@
 // PasscodeView.mc
 // Four-digit code entry, using the same one-digit-at-a-time mechanism as the
 // time picker: UP/DOWN change the highlighted digit, START moves to the next
-// digit and confirms on the last one.
+// digit and submits on the last one.
 //
-// Two modes:
+// Modes:
 //   PC_MODE_ENTER - unlock (exit Active Alarm Mode / dismiss a ringing alarm)
 //   PC_MODE_SET   - choose a new code (Passcode Setup)
 //
-// After PASSCODE_MAX_TRIES wrong attempts the digits are pre-filled with the
-// master code so a half-asleep user can simply press START to get out.
-// This is deliberate friction, not security - the code is stored in plain text.
+// IMPORTANT ordering rule: the delegate closes this screen FIRST and only then
+// runs the callback. Doing it the other way round meant the callback's
+// switchToView replaced *this* view, and the following popView then undid it -
+// which is why entering a correct code appeared to do nothing.
+//
+// After PASSCODE_MAX_TRIES wrong attempts the master code is filled in and shown
+// on screen, so a half-asleep user can simply press START to get out. The code is
+// stored in plain text on purpose: this is friction to wake you, not security.
 
 import Toybox.Graphics;
 import Toybox.Lang;
@@ -18,26 +23,29 @@ import Toybox.WatchUi;
 const PC_MODE_ENTER = 0;
 const PC_MODE_SET   = 1;
 
+// advance() results
+const PC_CONTINUE = 0;   // stay on screen (more digits, or wrong code)
+const PC_DONE     = 1;   // accepted / saved - close and run the callback
+
 class PasscodeView extends WatchUi.View {
 
-    // Typed so the compiler knows these are Numbers (silences container warnings).
     private var _digits as Array<Number> = [0, 0, 0, 0];
     private var _pos as Number = 0;
     private var _mode as Number;
     private var _tries as Number = 0;
     private var _error as Boolean = false;
-    private var _onOk as Method?;          // called when the code is accepted / set
+    private var _savedCode as String = "";     // shown after a successful SET
     private var _w as Number = 260;
     private var _h as Number = 260;
     private var _cx as Number = 130;
     private var _cy as Number = 130;
 
-    // onOk is invoked with no arguments once the code is accepted (ENTER) or
-    // saved (SET). It is responsible for whatever should happen next.
-    function initialize(mode as Number, onOk as Method?) {
+    public var onOk as Method?;   // run by the delegate AFTER this view closes
+
+    function initialize(mode as Number, callback as Method?) {
         View.initialize();
         _mode = mode;
-        _onOk = onOk;
+        onOk = callback;
     }
 
     function onLayout(dc as Graphics.Dc) as Void {
@@ -49,37 +57,60 @@ class PasscodeView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
         var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
+        var exhausted = (_tries >= PASSCODE_MAX_TRIES);
 
         // Title
         dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
         var title = (_mode == PC_MODE_SET) ? "Set Passcode" : "Enter Passcode";
-        dc.drawText(_cx, _h * 16 / 100, Graphics.FONT_XTINY, title, vc);
+        dc.drawText(_cx, _h * 13 / 100, Graphics.FONT_XTINY, title, vc);
 
-        // The four digits, spaced out; the active one is white, the rest dim.
-        var spacing = 44;
+        // The four digits; the active one is white and underlined.
+        var spacing = 42;
         var startX = _cx - (spacing * 3) / 2;
+        var digitsY = exhausted ? (_cy - 34) : (_cy - 20);
         for (var i = 0; i < 4; i++) {
             var focused = (i == _pos);
             dc.setColor(focused ? Graphics.COLOR_WHITE : 0x666666, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(startX + i * spacing, _cy - 14, Graphics.FONT_NUMBER_MEDIUM,
+            dc.drawText(startX + i * spacing, digitsY, Graphics.FONT_NUMBER_MEDIUM,
                         _digits[i].format("%d"), vc);
-            // underline the active digit
             if (focused) {
                 dc.setPenWidth(3);
-                dc.drawLine(startX + i * spacing - 14, _cy + 16,
-                            startX + i * spacing + 14, _cy + 16);
+                dc.drawLine(startX + i * spacing - 13, digitsY + 24,
+                            startX + i * spacing + 13, digitsY + 24);
                 dc.setPenWidth(1);
             }
         }
 
-        // Wrong-code message, in red, on two lines.
         if (_error) {
+            // Wrong code, in red, on two lines.
             dc.setColor(UI_RED, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 44, Graphics.FONT_XTINY, "Wrong Code!", vc);
-            dc.drawText(_cx, _cy + 64, Graphics.FONT_XTINY, "Please Try Again!", vc);
-        } else if (_tries >= PASSCODE_MAX_TRIES) {
+            dc.drawText(_cx, _cy + 34, Graphics.FONT_XTINY, "Wrong Code!", vc);
+            dc.drawText(_cx, _cy + 54, Graphics.FONT_XTINY, "Please Try Again!", vc);
+
+        } else if (exhausted) {
+            // Out of attempts: show the master code and how to use it.
+            dc.setColor(UI_RED, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _cy + 18, Graphics.FONT_XTINY, "5 Wrong Attempts!", vc);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _cy + 38, Graphics.FONT_XTINY,
+                        "Master Code: " + MASTER_PASSCODE, vc);
             dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 50, Graphics.FONT_XTINY, "Master code filled in", vc);
+            dc.drawText(_cx, _cy + 58, Graphics.FONT_XTINY, "Press Start to Exit", vc);
+
+        } else if (_mode == PC_MODE_SET) {
+            if (_savedCode.length() > 0) {
+                // Confirmation of the code just saved, in green.
+                dc.setColor(UI_GREEN, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(_cx, _cy + 34, Graphics.FONT_XTINY,
+                            "New Passcode: " + _savedCode, vc);
+            } else {
+                // Reference info so the user can see what's currently in effect.
+                dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(_cx, _cy + 34, Graphics.FONT_XTINY,
+                            "Current Passcode: " + AlarmStore.passcode(), vc);
+                dc.drawText(_cx, _cy + 54, Graphics.FONT_XTINY,
+                            "Master Passcode: " + MASTER_PASSCODE, vc);
+            }
         }
 
         Ui.start(dc, _w, _h, (_pos == 3) ? "OK" : "Next");
@@ -90,6 +121,7 @@ class PasscodeView extends WatchUi.View {
     function bump(delta as Number) as Void {
         _digits[_pos] = (_digits[_pos] + 10 + delta) % 10;
         _error = false;
+        _savedCode = "";
         WatchUi.requestUpdate();
     }
 
@@ -99,36 +131,43 @@ class PasscodeView extends WatchUi.View {
     }
 
     // START: next digit, or submit on the last one.
-    // Returns true when the screen should close.
-    function advance() as Boolean {
+    function advance() as Number {
         if (_pos < 3) {
             _pos++;
             WatchUi.requestUpdate();
-            return false;
+            return PC_CONTINUE;
         }
 
         if (_mode == PC_MODE_SET) {
-            AlarmStore.setPasscode(code());
-            fireOk();
-            return true;
+            _savedCode = code();
+            AlarmStore.setPasscode(_savedCode);
+            WatchUi.requestUpdate();
+            return PC_DONE;
         }
 
         if (AlarmStore.checkPasscode(code())) {
-            fireOk();
-            return true;
+            return PC_DONE;
         }
 
-        // Wrong code
+        // Wrong code.
         _tries++;
         _error = true;
         _pos = 0;
         if (_tries >= PASSCODE_MAX_TRIES) {
-            // Pre-fill the master code so the user can just confirm.
-            _digits = [0, 0, 0, 0] as Array<Number>;
+            // Fill in the master code and tell the user, so they can just press START.
+            setDigits(MASTER_PASSCODE);
             _error = false;
+            _pos = 3;
         }
         WatchUi.requestUpdate();
-        return false;
+        return PC_CONTINUE;
+    }
+
+    private function setDigits(s as String) as Void {
+        var chars = s.toCharArray();
+        for (var i = 0; i < 4 && i < chars.size(); i++) {
+            _digits[i] = (chars[i].toString()).toNumber();
+        }
     }
 
     // Step back a digit; returns true if the screen should close.
@@ -139,16 +178,11 @@ class PasscodeView extends WatchUi.View {
             WatchUi.requestUpdate();
             return false;
         }
-        // In ENTER mode you can't escape by pressing BACK - that would defeat
-        // the point. Only SET mode can be cancelled.
+        // In ENTER mode BACK can't escape - that would defeat the point.
         return (_mode == PC_MODE_SET);
     }
 
-    private function fireOk() as Void {
-        if (_onOk != null) {
-            _onOk.invoke();
-        }
-    }
+    function isSetMode() as Boolean { return _mode == PC_MODE_SET; }
 }
 
 class PasscodeDelegate extends WatchUi.BehaviorDelegate {
@@ -164,8 +198,16 @@ class PasscodeDelegate extends WatchUi.BehaviorDelegate {
     function onNextPage() as Boolean { _view.bump(-1); return true; }      // DOWN
 
     function onSelect() as Boolean {
-        if (_view.advance()) {
+        if (_view.advance() == PC_DONE) {
+            // In SET mode, leave the confirmation on screen briefly instead of
+            // closing instantly, so the user can read the new code.
+            if (_view.isSetMode()) {
+                return true;
+            }
+            // Close FIRST, then run the callback (see the note at the top).
             WatchUi.popView(WatchUi.SLIDE_DOWN);
+            var cb = _view.onOk;
+            if (cb != null) { cb.invoke(); }
         }
         return true;
     }
@@ -177,7 +219,7 @@ class PasscodeDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    // Touch is ignored here so a palm/stray touch can't interfere.
+    // Touch ignored so a palm/stray touch can't interfere.
     function onTap(evt as WatchUi.ClickEvent) as Boolean { return true; }
     function onSwipe(evt as WatchUi.SwipeEvent) as Boolean { return true; }
 }
