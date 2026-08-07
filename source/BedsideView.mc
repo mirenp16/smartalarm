@@ -180,7 +180,19 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     function onRelease(evt as WatchUi.ClickEvent) as Boolean { return true; }
     function onFlick(evt) as Boolean { return true; }
 
+    // Leaving Active Alarm Mode. Whether a passcode is needed is decided by the
+    // NEXT upcoming alarm - if its Pass Code toggle is off, BACK->UP just exits.
     private function _leave() as Void {
+        var next = AlarmEngine.nextAlarm(Time.now().value());
+        if (next != null && AlarmStore.passcodeOn(next)) {
+            var pv = new PasscodeView(PC_MODE_ENTER, method(:finishLeave));
+            WatchUi.pushView(pv, new PasscodeDelegate(pv), WatchUi.SLIDE_UP);
+            return;
+        }
+        finishLeave();
+    }
+
+    function finishLeave() as Void {
         _view.stopTimer();
         MainListMenu.show(WatchUi.SLIDE_DOWN);
     }

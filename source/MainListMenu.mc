@@ -30,6 +30,7 @@ class MainListMenu extends WatchUi.CustomMenu {
         }
 
         addItem(new SimpleRow(:add, "Add Alarm"));
+        addItem(new SimpleRow(:passcode, "Passcode Setup"));
     }
 
     static function titleText() as String {
@@ -157,6 +158,11 @@ class MainListDelegate extends WatchUi.Menu2InputDelegate {
         if (id == :active) {
             var bv = new BedsideView();
             WatchUi.switchToView(bv, new BedsideDelegate(bv), WatchUi.SLIDE_UP);
+
+        } else if (id == :passcode) {
+            // Set the global code. It's shared by every alarm.
+            var pv = new PasscodeView(PC_MODE_SET, null);
+            WatchUi.pushView(pv, new PasscodeDelegate(pv), WatchUi.SLIDE_LEFT);
 
         } else if (id == :add) {
             if (AlarmStore.isFull()) {

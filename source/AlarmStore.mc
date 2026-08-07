@@ -49,6 +49,8 @@ class AlarmStore {
             "mode"   => DEFAULT_ALERT_MODE,   // Vibrate Only
             "snLen"  => DEFAULT_SNOOZE_MINUTES,   // 5 minutes
             "snMax"  => DEFAULT_MAX_SNOOZE,       // 3 snoozes
+            "tone"   => DEFAULT_RINGTONE,         // "Alert"
+            "pc"     => DEFAULT_PASSCODE_ON,      // require passcode to get up
             "fireAt" => nextOccurrence(6, 0)
         };
     }
@@ -56,6 +58,24 @@ class AlarmStore {
     // Per-alarm snooze settings (fall back to defaults for older saved alarms).
     static function snoozeLen(a as Dictionary) as Number { return _n(a, "snLen", DEFAULT_SNOOZE_MINUTES); }
     static function maxSnoozeOf(a as Dictionary) as Number { return _n(a, "snMax", DEFAULT_MAX_SNOOZE); }
+    static function ringtone(a as Dictionary) as Number { return _n(a, "tone", DEFAULT_RINGTONE); }
+    static function passcodeOn(a as Dictionary) as Boolean { return _b(a, "pc", DEFAULT_PASSCODE_ON); }
+
+    // ── Global passcode (plain text - it's friction, not security) ───────────
+
+    static function passcode() as String {
+        var v = Application.Storage.getValue(KEY_PASSCODE);
+        return (v != null) ? v as String : DEFAULT_PASSCODE;
+    }
+
+    static function setPasscode(code as String) as Void {
+        Application.Storage.setValue(KEY_PASSCODE, code);
+    }
+
+    // Accepts the user's code or the master code.
+    static function checkPasscode(entered as String) as Boolean {
+        return entered.equals(passcode()) || entered.equals(MASTER_PASSCODE);
+    }
 
     // How many saved alarms are enabled (for the "X Alarms On" header).
     static function countOn() as Number {

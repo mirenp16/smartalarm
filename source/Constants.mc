@@ -25,6 +25,16 @@ const MODE_BOTH  = 0;  // vibration + sound
 const MODE_SOUND = 1;  // sound only
 const MODE_VIBE  = 2;  // vibration only
 const DEFAULT_ALERT_MODE = MODE_VIBE;
+const DEFAULT_RINGTONE   = 0;   // index into RINGTONE_NAMES ("Alert")
+
+// ── Passcode ─────────────────────────────────────────────────────────────────
+// Plain text on purpose: this is friction to make you wake up, not security.
+const DEFAULT_PASSCODE = "5555";   // used until the user sets their own
+const MASTER_PASSCODE  = "0000";   // always works, in case you forget yours
+// After this many wrong tries the entry screen pre-fills the master code so you
+// can simply confirm and get out.
+const PASSCODE_MAX_TRIES = 5;
+const DEFAULT_PASSCODE_ON = true;  // per-alarm "Pass Code" toggle default
 
 // How long the BACK half of the BACK-then-UP exit stays armed before it lapses.
 const EXIT_ARM_SECS = 15;
@@ -90,3 +100,4 @@ const KEY_SNOOZE_UNTIL = "snoozeUntil"; // epoch secs to re-fire a snoozed alarm
 const KEY_SNOOZE_ID    = "snoozeAlarmId"; // which alarm id is snoozed
 const KEY_SNOOZE_MINS  = "snoozeMins";  // configurable snooze length
 const KEY_MAX_SNOOZE   = "maxSnooze";   // configurable max snooze count
+const KEY_PASSCODE     = "passcode";    // global 4-digit code (plain text)

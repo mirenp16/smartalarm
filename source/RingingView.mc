@@ -60,16 +60,19 @@ class RingingView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
 
+    // Plays one pass of the alert. The repeating timer calls this over and over,
+    // so the ringtone loops continuously until you snooze or wake.
     function alert() as Void {
-        var mode = (_alarm != null) ? AlarmStore.mode(_alarm) : MODE_BOTH;
-        try {
-            if (mode == MODE_BOTH || mode == MODE_SOUND) {
-                Attention.playTone(Attention.TONE_ALARM);
-            }
-            if (mode == MODE_BOTH || mode == MODE_VIBE) {
+        var mode = (_alarm != null) ? AlarmStore.mode(_alarm) : DEFAULT_ALERT_MODE;
+        if (mode == MODE_BOTH || mode == MODE_SOUND) {
+            var tone = (_alarm != null) ? AlarmStore.ringtone(_alarm) : DEFAULT_RINGTONE;
+            Ringtone.play(tone);
+        }
+        if (mode == MODE_BOTH || mode == MODE_VIBE) {
+            try {
                 Attention.vibrate([new Attention.VibeProfile(100, 1500)]);
+            } catch (e) {
             }
-        } catch (e) {
         }
     }
 
@@ -164,7 +167,17 @@ class RingingView extends WatchUi.View {
         close();
     }
 
+    // "I'm Awake!" - if this alarm requires a passcode, prove it first.
     function doAwake() as Void {
+        if (_alarm != null && AlarmStore.passcodeOn(_alarm)) {
+            var pv = new PasscodeView(PC_MODE_ENTER, method(:finishAwake));
+            WatchUi.pushView(pv, new PasscodeDelegate(pv), WatchUi.SLIDE_UP);
+            return;
+        }
+        finishAwake();
+    }
+
+    function finishAwake() as Void {
         var id = AlarmStore.ringingId();
         if (id != null) {
             AlarmStore.markFired(id);
