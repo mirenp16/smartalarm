@@ -46,9 +46,9 @@ class AlarmStore {
             "days"   => 0,
             "label"  => "Wake Up!",
             "win"    => DEFAULT_WINDOW,   // 45 minutes
-            "mode"   => MODE_BOTH,
-            "snLen"  => DEFAULT_SNOOZE_MINUTES,   // 3 minutes
-            "snMax"  => DEFAULT_MAX_SNOOZE,       // 2 snoozes
+            "mode"   => DEFAULT_ALERT_MODE,   // Vibrate Only
+            "snLen"  => DEFAULT_SNOOZE_MINUTES,   // 5 minutes
+            "snMax"  => DEFAULT_MAX_SNOOZE,       // 3 snoozes
             "fireAt" => nextOccurrence(6, 0)
         };
     }
@@ -142,7 +142,7 @@ class AlarmStore {
     static function days(a as Dictionary)    as Number  { return _n(a, "days", 0); }
     static function type(a as Dictionary)    as Number  { return _n(a, "type", TYPE_SLEEP); }
     static function window(a as Dictionary)  as Number  { return _n(a, "win", DEFAULT_WINDOW); }
-    static function mode(a as Dictionary)    as Number  { return _n(a, "mode", MODE_BOTH); }
+    static function mode(a as Dictionary)    as Number  { return _n(a, "mode", DEFAULT_ALERT_MODE); }
     static function label(a as Dictionary)   as String  {
         var v = a.get("label");
         return (v != null) ? v as String : "Alarm";

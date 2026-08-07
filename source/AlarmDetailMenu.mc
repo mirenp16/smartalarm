@@ -135,9 +135,15 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         }
     }
 
-    // BACK cancels (discard) and returns to the fresh list.
+    // BACK on an EXISTING alarm saves your changes (so flipping Status and
+    // backing out just works - no need to scroll down to Done). On a NEW alarm
+    // it cancels, since that alarm was never saved in the first place.
     function onBack() as Void {
-        MainListMenu.show(WatchUi.SLIDE_RIGHT);
+        if (_menu.isNew) {
+            MainListMenu.show(WatchUi.SLIDE_RIGHT);
+        } else {
+            _commit();
+        }
     }
 
     private function _commit() as Void {

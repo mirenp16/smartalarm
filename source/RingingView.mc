@@ -132,13 +132,19 @@ class RingingView extends WatchUi.View {
         return (Time.now().value() - _controlsSecs) <= 8;
     }
 
+    // BACK arms "I'm Awake". It must be followed IMMEDIATELY by UP - pressing
+    // anything else disarms it, so you can't dismiss the alarm by accident.
     function armAwake() as Void {
         _awakeArmed = true;
         _armSecs = Time.now().value();
         revealControls();
     }
+    function disarmAwake() as Void {
+        _awakeArmed = false;
+        revealControls();
+    }
     function awakeReady() as Boolean {
-        return _awakeArmed && (Time.now().value() - _armSecs) <= 5;
+        return _awakeArmed && (Time.now().value() - _armSecs) <= EXIT_ARM_SECS;
     }
 
     function stopTimer() as Void {
@@ -190,27 +196,29 @@ class RingingDelegate extends WatchUi.BehaviorDelegate {
     }
 
     // First press just reveals the controls; a second START then snoozes.
+    // Either way it breaks a pending BACK->UP sequence.
     function onSelect() as Boolean {
         if (_view.controlsVisible()) {
+            _view.disarmAwake();
             _view.doSnooze();
         } else {
-            _view.revealControls();
+            _view.disarmAwake();
         }
         return true;
     }
 
-    // BACK arms "I'm Awake" (and reveals controls); UP completes it.
+    // BACK arms "I'm Awake"; UP completes it only if BACK came immediately before.
     function onBack() as Boolean { _view.armAwake(); return true; }
     function onPreviousPage() as Boolean {
         if (_view.awakeReady()) {
             _view.doAwake();
         } else {
-            _view.revealControls();
+            _view.disarmAwake();
         }
         return true;
     }
 
-    // Everything else just reveals the controls and keeps it ringing.
-    function onNextPage() as Boolean { _view.revealControls(); return true; }
-    function onTap(evt as WatchUi.ClickEvent) as Boolean { _view.revealControls(); return true; }
+    // Everything else keeps it ringing and breaks the sequence.
+    function onNextPage() as Boolean { _view.disarmAwake(); return true; }
+    function onTap(evt as WatchUi.ClickEvent) as Boolean { _view.disarmAwake(); return true; }
 }

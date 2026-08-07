@@ -24,6 +24,10 @@ const TYPE_REMINDER = 1;  // fires exactly at the set time, no sleep checking
 const MODE_BOTH  = 0;  // vibration + sound
 const MODE_SOUND = 1;  // sound only
 const MODE_VIBE  = 2;  // vibration only
+const DEFAULT_ALERT_MODE = MODE_VIBE;
+
+// How long the BACK half of the BACK-then-UP exit stays armed before it lapses.
+const EXIT_ARM_SECS = 15;
 
 // ── Sleep Cycle Window options (minutes before the set time) ─────────────────
 // 15 min was dropped: simulation showed it barely beats a plain alarm (0.53 vs

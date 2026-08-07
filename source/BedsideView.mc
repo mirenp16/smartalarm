@@ -123,13 +123,19 @@ class BedsideView extends WatchUi.View {
         return (Time.now().value() - _controlsSecs) <= 6;
     }
 
+    // BACK arms the exit. It must be followed IMMEDIATELY by UP - any other
+    // button in between calls disarm() and the sequence starts over.
     function armExit() as Void {
         _exitArmed = true;
         _armSecs = Time.now().value();
         revealControls();
     }
+    function disarmExit() as Void {
+        _exitArmed = false;
+        revealControls();
+    }
     function exitReady() as Boolean {
-        return _exitArmed && (Time.now().value() - _armSecs) <= 5;
+        return _exitArmed && (Time.now().value() - _armSecs) <= EXIT_ARM_SECS;
     }
 
     function stopTimer() as Void {
@@ -149,19 +155,20 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     // BACK reveals controls and arms the exit.
     function onBack() as Boolean { _view.armExit(); return true; }
 
-    // UP completes the exit if armed; otherwise just reveals the controls.
+    // UP completes the exit ONLY if BACK was the button pressed immediately
+    // before it. Otherwise it just reveals the controls (and stays disarmed).
     function onPreviousPage() as Boolean {
         if (_view.exitReady()) {
             _leave();
         } else {
-            _view.revealControls();
+            _view.disarmExit();
         }
         return true;
     }
 
-    // Other buttons only reveal the controls.
-    function onSelect() as Boolean { _view.revealControls(); return true; }
-    function onNextPage() as Boolean { _view.revealControls(); return true; }
+    // Any other button breaks the BACK->UP sequence.
+    function onSelect() as Boolean { _view.disarmExit(); return true; }
+    function onNextPage() as Boolean { _view.disarmExit(); return true; }
 
     // ── Touchscreen fully disabled ───────────────────────────────────────────
     // Every touch gesture is swallowed (returning true stops it being handled),
