@@ -37,7 +37,7 @@ class Ringtone {
         if (Attention has :TONE_START)          { out.add(["Start",      Attention.TONE_START]); }
 
         // Absolute fallback so the list is never empty.
-        if (out.size() == 0) { out.add(["Alarm", 0]); }
+        if (out.size() == 0) { out.add(["Alarm", Attention.TONE_ALARM]); }
 
         _list = out;
         return out;
@@ -69,7 +69,9 @@ class Ringtone {
         var i = index;
         if (i < 0 || i >= l.size()) { i = 0; }
         try {
-            Attention.playTone((l[i] as Array)[1] as Number);
+            // No cast here: these are Attention.Tone values, not Numbers.
+            var entry = l[i] as Array;
+            Attention.playTone(entry[1]);
         } catch (e) {
             try {
                 Attention.playTone(Attention.TONE_ALARM);
