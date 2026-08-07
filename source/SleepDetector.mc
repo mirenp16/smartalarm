@@ -32,7 +32,8 @@ import Toybox.Time;
 
 class SleepDetector {
 
-    private static var _samples = [];      // heart-rate samples, oldest first
+    // Typed so the compiler knows these are Numbers (silences container warnings).
+    private static var _samples as Array<Number> = [];   // HR samples, oldest first
     private static var _best as Number = -1;   // best score seen this window
     private static var _armed as Boolean = false;
 
@@ -147,7 +148,7 @@ class SleepDetector {
 
     // ── Helpers ──────────────────────────────────────────────────────────────
 
-    private static function meanAbsDiff(arr as Array, from as Number, to as Number) as Float {
+    private static function meanAbsDiff(arr as Array<Number>, from as Number, to as Number) as Float {
         if (to - from < 2) { return 0.0; }
         var sum = 0.0;
         for (var i = from + 1; i < to; i++) {
@@ -157,8 +158,8 @@ class SleepDetector {
         return sum / (to - from - 1);
     }
 
-    private static function sortedCopy(arr as Array) as Array {
-        var a = [];
+    private static function sortedCopy(arr as Array<Number>) as Array<Number> {
+        var a = [] as Array<Number>;
         for (var i = 0; i < arr.size(); i++) { a.add(arr[i]); }
         // Insertion sort - the buffer is small and this runs at most once per tick.
         for (var i = 1; i < a.size(); i++) {
@@ -173,7 +174,7 @@ class SleepDetector {
         return a;
     }
 
-    private static function percentile(sorted as Array, p as Number) as Float {
+    private static function percentile(sorted as Array<Number>, p as Number) as Float {
         var n = sorted.size();
         if (n == 0) { return 0.0; }
         var idx = (n - 1) * p / 100;

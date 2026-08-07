@@ -20,7 +20,8 @@ const PC_MODE_SET   = 1;
 
 class PasscodeView extends WatchUi.View {
 
-    private var _digits = [0, 0, 0, 0];
+    // Typed so the compiler knows these are Numbers (silences container warnings).
+    private var _digits as Array<Number> = [0, 0, 0, 0];
     private var _pos as Number = 0;
     private var _mode as Number;
     private var _tries as Number = 0;
@@ -123,7 +124,7 @@ class PasscodeView extends WatchUi.View {
         _pos = 0;
         if (_tries >= PASSCODE_MAX_TRIES) {
             // Pre-fill the master code so the user can just confirm.
-            _digits = [0, 0, 0, 0];
+            _digits = [0, 0, 0, 0] as Array<Number>;
             _error = false;
         }
         WatchUi.requestUpdate();
