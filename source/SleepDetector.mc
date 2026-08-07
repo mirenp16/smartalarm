@@ -29,7 +29,6 @@ import Toybox.Lang;
 import Toybox.Math;
 import Toybox.SensorHistory;
 import Toybox.Time;
-import Toybox.Toybox;
 
 class SleepDetector {
 
@@ -66,7 +65,7 @@ class SleepDetector {
     // Higher stress generally tracks lighter sleep. Returns 0..100 or -1.
     static function stressLevel() as Number {
         try {
-            if ((Toybox has :SensorHistory) && (SensorHistory has :getStressHistory)) {
+            if (SensorHistory has :getStressHistory) {
                 var iter = SensorHistory.getStressHistory({:period => 1});
                 if (iter != null) {
                     var s = iter.next();
