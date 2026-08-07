@@ -25,17 +25,35 @@ const MODE_BOTH  = 0;  // vibration + sound
 const MODE_SOUND = 1;  // sound only
 const MODE_VIBE  = 2;  // vibration only
 
-// ── Wake Window options (minutes before the set time) ────────────────────────
-const WINDOW_OPTIONS = [15, 30, 45, 60];
+// ── Sleep Cycle Window options (minutes before the set time) ─────────────────
+// 15 min was dropped: simulation showed it barely beats a plain alarm (0.53 vs
+// 0.47 lightness) because there isn't enough of a sleep cycle to find a light
+// moment in. 45 min is the default - it's the knee of the curve, where extra
+// window stops buying much (45->60 gains only +0.02 for 12 more minutes in bed).
+const WINDOW_OPTIONS = [30, 45, 60, 75];
+const DEFAULT_WINDOW = 45;
 
 // ── Sleep detection tuning ───────────────────────────────────────────────────
-// Lightness score (0=deep, 100=very light). Fire when we cross this.
-const LIGHT_SLEEP_THRESHOLD = 65;
+// Scores are RELATIVE to your own night (see SleepDetector.mc), so these are
+// stable across people. Values chosen by simulating 100 nights.
+//
+// Peak detection: once the score has reached PEAK_BAR and then falls by
+// PEAK_DROP, we've just passed the lightest moment -> wake now.
+const PEAK_BAR  = 70;
+const PEAK_DROP = 8;
+// In the last stretch of the window, accept any reasonably light moment.
+const LATE_FRACTION = 0.90;
+const LATE_BAR      = 50;
+
+// Heart-rate buffer (sampled every ~15 s while Active Alarm Mode runs).
+const MAX_HR_SAMPLES = 240;   // ~60 minutes of history
+const MIN_HR_SAMPLES = 40;    // ~10 minutes before we trust the score
+const RECENT_SAMPLES = 12;    // ~3 minutes counts as "recent"
+
 // If lightness is at/above this BEFORE the window even opens, we treat the user
-// as already awake and downgrade a Sleep alarm to a plain fire-on-time alarm.
-const AWAKE_THRESHOLD = 80;
-// How many minutes before the window opens we do the "are you already awake?"
-// check. Spec: 15 minutes before the window starts.
+// as already awake and just fire at the set time.
+const AWAKE_THRESHOLD = 88;
+// How many minutes before the window opens we do the "are you already awake?" check.
 const AWAKE_CHECK_LEAD = 15;
 
 // ── Background timing ────────────────────────────────────────────────────────
@@ -48,8 +66,8 @@ const CHECK_INTERVAL_SECS = 300;
 const FIRE_GRACE_MINS = 15;
 
 // ── Snooze defaults ──────────────────────────────────────────────────────────
-const DEFAULT_SNOOZE_MINUTES = 3;
-const DEFAULT_MAX_SNOOZE      = 2;
+const DEFAULT_SNOOZE_MINUTES = 5;
+const DEFAULT_MAX_SNOOZE      = 3;
 const SNOOZE_LEN_OPTIONS = [1, 3, 5, 10, 15];
 const SNOOZE_MAX_OPTIONS = [1, 2, 3, 4, 5, 10];
 

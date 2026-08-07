@@ -160,9 +160,14 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         for (var i = 0; i < names.size(); i++) { out.add([names[i], names[i]]); }
         return out;
     }
+    // Built from WINDOW_OPTIONS so the list and the defaults can't drift apart.
     private function _winOptions(desc as String) as Array {
-        return [[15, "15 Minutes", desc], [30, "30 Minutes", desc],
-                [45, "45 Minutes", desc], [60, "60 Minutes", desc]];
+        var out = [];
+        for (var i = 0; i < WINDOW_OPTIONS.size(); i++) {
+            var m = WINDOW_OPTIONS[i];
+            out.add([m, m.format("%d") + " Minutes", desc]);
+        }
+        return out;
     }
     // [value, name, description] — ChoiceView draws the alert icons for these.
     private function _modeChoices() as Array {

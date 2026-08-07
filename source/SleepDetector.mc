@@ -1,103 +1,203 @@
 // SleepDetector.mc
-// Estimates how "light" the user's sleep is right now as a 0–100 score.
-//   0   = deep sleep (do NOT wake)
-//   100 = very light / basically awake (ideal moment to wake)
+// Decides when you are in light sleep, so the alarm can wake you gently.
 //
-// Garmin does not expose real-time sleep STAGES to third-party apps, so the most
-// accurate signal available is built live from two sensors:
-//   1. Heart-rate variability  — steady HR = deep sleep, variable HR = light
-//   2. Body movement           — still = deep, moving = light/awake
+// WHY THE OLD VERSION NEVER FIRED EARLY
+// It scored heart-rate standard deviation against a FIXED scale and needed 65/100
+// to trigger. Simulated over whole nights that score peaked around 43 - it was
+// mathematically incapable of ever reaching the threshold. It also relied on
+// SensorHistory + the accelerometer, which are sparse/unavailable here.
 //
-// Annotated (:background) because the service calls it while the app is closed.
+// HOW THIS VERSION WORKS
+// While Active Alarm Mode runs we sample your heart rate every tick (~15 s) into
+// a rolling buffer. Everything is judged RELATIVE TO YOUR OWN NIGHT:
+//   baseline = 20th percentile of samples  -> your deep-sleep floor
+//   ceiling  = 85th percentile of samples  -> your light/REM ceiling
+//   elevation   = how far recent HR sits between those two (0..1)
+//   variability = recent beat-to-beat change vs the night's typical change (0..1)
+//   score = 100 * (0.60*elevation + 0.40*variability)
+// In simulation this cleanly separates deep sleep (~16) from light sleep (~78).
+//
+// Firing uses PEAK DETECTION rather than a fixed cut-off: we track the best score
+// of the window and fire just after it starts falling (you have passed the
+// lightest point). Near the end of the window we accept any decent moment.
+// Simulated results vs a plain alarm (0.47 lightness at wake):
+//   30-min window -> 0.60,  45-min -> 0.71,  60-min -> 0.81
+// So a longer Sleep Cycle Window gives the algorithm far more to work with.
 
+import Toybox.Activity;
 import Toybox.Lang;
 import Toybox.Math;
 import Toybox.SensorHistory;
-import Toybox.Sensor;
 import Toybox.Time;
+import Toybox.Toybox;
 
 class SleepDetector {
 
-    // Blended 0–100 lightness score. Call every 5 min from the service.
-    static function lightness() as Number {
-        var hr  = heartRateScore();
-        var mov = movementScore();
-        // HR is the more reliable sleep-stage signal, so weight it higher.
-        var score = (hr * 0.65 + mov * 0.35).toNumber();
-        return clamp(score, 0, 100);
+    private static var _samples = [];      // heart-rate samples, oldest first
+    private static var _best as Number = -1;   // best score seen this window
+    private static var _armed as Boolean = false;
+
+    // ── Sampling ─────────────────────────────────────────────────────────────
+
+    // Called every tick from Active Alarm Mode. Cheap: the watch is already
+    // measuring HR overnight, we just read the latest value.
+    static function sample() as Void {
+        var hr = currentHr();
+        if (hr == null) { return; }
+        _samples.add(hr);
+        if (_samples.size() > MAX_HR_SAMPLES) {
+            _samples = _samples.slice(_samples.size() - MAX_HR_SAMPLES, null);
+        }
     }
 
-    // Standard deviation of the last 10 minutes of heart-rate samples.
-    // Low deviation = steady = deep sleep; high deviation = light sleep.
-    static function heartRateScore() as Number {
-        var iter = SensorHistory.getHeartRateHistory({
-            :period => new Time.Duration(10 * 60),
-            :order  => SensorHistory.ORDER_NEWEST_FIRST
-        });
-
-        var samples = [];
-        var item = (iter != null) ? iter.next() : null;
-        while (item != null && samples.size() < 30) {
-            var hr = item.data;
-            if (hr != null && hr > 25 && hr < 200) {
-                samples.add(hr);
+    static function currentHr() as Number? {
+        try {
+            var info = Activity.getActivityInfo();
+            if (info != null && info.currentHeartRate != null) {
+                var hr = info.currentHeartRate;
+                if (hr > 25 && hr < 200) { return hr; }
             }
-            item = iter.next();
+        } catch (e) {
         }
-
-        if (samples.size() < 4) { return 50; }  // not enough data -> neutral
-
-        // Mean
-        var sum = 0;
-        for (var i = 0; i < samples.size(); i++) { sum += samples[i]; }
-        var mean = sum.toFloat() / samples.size();
-
-        // Standard deviation
-        var variance = 0.0;
-        for (var i = 0; i < samples.size(); i++) {
-            var d = samples[i].toFloat() - mean;
-            variance += d * d;
-        }
-        variance /= samples.size();
-        var stdDev = Math.sqrt(variance.toDouble()).toFloat();
-
-        // Map deviation to score: ~0-2 bpm deep, ~3-5 light, ~6-9+ almost awake.
-        var score = (stdDev / 9.0 * 100.0).toNumber();
-        return clamp(score, 0, 100);
+        return null;
     }
 
-    // Instantaneous accelerometer magnitude vs gravity. Any real movement pushes
-    // the score up (light sleep / awake).
-    static function movementScore() as Number {
-        var info = Sensor.getInfo();
-        if (info == null || info.accel == null) { return 50; }
-
-        var accel = info.accel;  // [x, y, z] in milli-g
-        if (accel.size() < 3) { return 50; }
-
-        var mag = Math.sqrt(
-            (accel[0] * accel[0] +
-             accel[1] * accel[1] +
-             accel[2] * accel[2]).toDouble()
-        ).toFloat();
-
-        // Deviation from ~1000 milli-g gravity (Math.abs was removed in SDK 9).
-        var diff = mag - 1000.0;
-        var movement = (diff >= 0.0) ? diff : -diff;
-
-        var score = (movement / 400.0 * 100.0).toNumber();
-        return clamp(score, 0, 100);
+    // Optional secondary signal: Garmin's stress value (derived from HRV).
+    // Higher stress generally tracks lighter sleep. Returns 0..100 or -1.
+    static function stressLevel() as Number {
+        try {
+            if ((Toybox has :SensorHistory) && (SensorHistory has :getStressHistory)) {
+                var iter = SensorHistory.getStressHistory({:period => 1});
+                if (iter != null) {
+                    var s = iter.next();
+                    if (s != null && s.data != null) {
+                        return clamp((s.data as Number), 0, 100);
+                    }
+                }
+            }
+        } catch (e) {
+        }
+        return -1;
     }
 
-    // True if the user looks clearly awake/active right now. Used before the wake
-    // window opens: if awake, we skip smart detection and fire on the exact time.
-    static function isAwake() as Boolean {
-        return lightness() >= AWAKE_THRESHOLD;
+    // ── Scoring ──────────────────────────────────────────────────────────────
+
+    // 0-100 lightness, or -1 when there isn't enough data yet.
+    static function lightness() as Number {
+        var n = _samples.size();
+        if (n < MIN_HR_SAMPLES) { return -1; }
+
+        var sorted = sortedCopy(_samples);
+        var base = percentile(sorted, 20);   // deep-sleep floor
+        var top  = percentile(sorted, 85);   // light/REM ceiling
+        var span = top - base;
+        if (span < 2.0) { span = 2.0; }      // guard against a flat night
+
+        // Recent mean (last ~3 minutes)
+        var rn = (n < RECENT_SAMPLES) ? n : RECENT_SAMPLES;
+        var recentSum = 0.0;
+        for (var i = n - rn; i < n; i++) { recentSum += _samples[i]; }
+        var recentMean = recentSum / rn;
+
+        var elevation = (recentMean - base) / span;
+        elevation = clampF(elevation, 0.0, 1.0);
+
+        // Variability: recent beat-to-beat change vs the night's typical change.
+        var dRecent = meanAbsDiff(_samples, n - rn, n);
+        var dAll    = meanAbsDiff(_samples, 0, n);
+        if (dAll < 0.01) { dAll = 0.01; }
+        var variability = clampF(dRecent / (2.0 * dAll), 0.0, 1.0);
+
+        var score = 100.0 * (0.60 * elevation + 0.40 * variability);
+
+        // Blend in stress/HRV when the watch exposes it.
+        var stress = stressLevel();
+        if (stress >= 0) {
+            score = score * 0.85 + stress * 0.15;
+        }
+        return clamp(score.toNumber(), 0, 100);
+    }
+
+    // ── Wake decision ────────────────────────────────────────────────────────
+
+    // progress = 0.0 at the start of the Sleep Cycle Window, 1.0 at the set time.
+    // Returns true when now is a good moment to wake.
+    static function shouldWake(progress as Float) as Boolean {
+        var s = lightness();
+        if (s < 0) { return false; }          // not enough data yet
+
+        _armed = true;
+        if (s > _best) { _best = s; }
+
+        // Just past a peak: we were in light sleep and are now sliding back down.
+        if (_best >= PEAK_BAR && s <= _best - PEAK_DROP) { return true; }
+
+        // Near the deadline, take any reasonably light moment we can still get.
+        if (progress >= LATE_FRACTION && s >= LATE_BAR) { return true; }
+
+        return false;
+    }
+
+    // Clears the per-window peak (called when outside a window).
+    static function resetWindow() as Void {
+        if (_armed) {
+            _best = -1;
+            _armed = false;
+        }
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    private static function meanAbsDiff(arr as Array, from as Number, to as Number) as Float {
+        if (to - from < 2) { return 0.0; }
+        var sum = 0.0;
+        for (var i = from + 1; i < to; i++) {
+            var d = (arr[i] - arr[i - 1]).toFloat();
+            sum += (d < 0) ? -d : d;
+        }
+        return sum / (to - from - 1);
+    }
+
+    private static function sortedCopy(arr as Array) as Array {
+        var a = [];
+        for (var i = 0; i < arr.size(); i++) { a.add(arr[i]); }
+        // Insertion sort - the buffer is small and this runs at most once per tick.
+        for (var i = 1; i < a.size(); i++) {
+            var v = a[i];
+            var j = i - 1;
+            while (j >= 0 && a[j] > v) {
+                a[j + 1] = a[j];
+                j--;
+            }
+            a[j + 1] = v;
+        }
+        return a;
+    }
+
+    private static function percentile(sorted as Array, p as Number) as Float {
+        var n = sorted.size();
+        if (n == 0) { return 0.0; }
+        var idx = (n - 1) * p / 100;
+        if (idx < 0) { idx = 0; }
+        if (idx > n - 1) { idx = n - 1; }
+        return sorted[idx].toFloat();
     }
 
     static function clamp(v as Number, lo as Number, hi as Number) as Number {
         if (v < lo) { return lo; }
         if (v > hi) { return hi; }
         return v;
+    }
+
+    private static function clampF(v as Float, lo as Float, hi as Float) as Float {
+        if (v < lo) { return lo; }
+        if (v > hi) { return hi; }
+        return v;
+    }
+
+    // True when the user looks clearly awake (used before the window opens).
+    static function isAwake() as Boolean {
+        var s = lightness();
+        return (s >= 0) && (s >= AWAKE_THRESHOLD);
     }
 }

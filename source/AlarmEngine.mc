@@ -66,7 +66,8 @@ class AlarmEngine {
             }
 
             // Sleep alarm: smart wake within the window.
-            var windowStartSecs = targetSecs - AlarmStore.window(a) * 60;
+            var winSecs = AlarmStore.window(a) * 60;
+            var windowStartSecs = targetSecs - winSecs;
             var awakeCheckSecs = windowStartSecs - AWAKE_CHECK_LEAD * 60;
 
             if (nowSecs >= awakeCheckSecs && nowSecs < windowStartSecs) {
@@ -75,10 +76,12 @@ class AlarmEngine {
             }
 
             if (nowSecs >= windowStartSecs) {
-                if (nowSecs >= targetSecs) { return aid; }             // deadline
-                if (SleepDetector.lightness() >= LIGHT_SLEEP_THRESHOLD) {
-                    return aid;                                        // light sleep
-                }
+                if (nowSecs >= targetSecs) { return aid; }   // hard deadline
+                // Peak detection: wake just after the lightest moment.
+                var progress = (nowSecs - windowStartSecs).toFloat() / winSecs.toFloat();
+                if (SleepDetector.shouldWake(progress)) { return aid; }
+            } else {
+                SleepDetector.resetWindow();
             }
         }
 

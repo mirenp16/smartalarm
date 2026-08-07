@@ -172,8 +172,10 @@ class MainListDelegate extends WatchUi.Menu2InputDelegate {
             var idx = id as Number;
             var list = AlarmStore.getAlarms();
             if (idx < 0 || idx >= list.size()) { return; }
+            // Open the alarm exactly as stored. (We used to force it back ON here,
+            // which made a spent "Once" alarm look enabled again.) Re-arming now
+            // happens when you switch Status on or save a new time.
             var working = AlarmStore.clone(list[idx] as Dictionary);
-            working.put("on", true);   // editing re-arms
             var m = new AlarmDetailMenu(idx, working, false);
             WatchUi.switchToView(m, new AlarmDetailDelegate(m), WatchUi.SLIDE_LEFT);
         }

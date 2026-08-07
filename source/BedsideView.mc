@@ -49,6 +49,9 @@ class BedsideView extends WatchUi.View {
         var now = Time.now().value();
         if (_exitArmed && (now - _armSecs) > 5) { _exitArmed = false; }
 
+        // Feed the sleep detector every tick so it builds a picture of the night.
+        SleepDetector.sample();
+
         if (AlarmStore.ringingId() != null) { showRinging(); return; }
 
         var id = AlarmEngine.evaluate(now);
@@ -159,7 +162,16 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     // Other buttons only reveal the controls.
     function onSelect() as Boolean { _view.revealControls(); return true; }
     function onNextPage() as Boolean { _view.revealControls(); return true; }
-    function onTap(evt as WatchUi.ClickEvent) as Boolean { _view.revealControls(); return true; }
+
+    // ── Touchscreen fully disabled ───────────────────────────────────────────
+    // Every touch gesture is swallowed (returning true stops it being handled),
+    // so a stray touch or swipe in your sleep can't disturb Active Alarm Mode.
+    function onTap(evt as WatchUi.ClickEvent) as Boolean { return true; }
+    function onSwipe(evt as WatchUi.SwipeEvent) as Boolean { return true; }
+    function onHold(evt as WatchUi.ClickEvent) as Boolean { return true; }
+    function onDrag(evt) as Boolean { return true; }
+    function onRelease(evt as WatchUi.ClickEvent) as Boolean { return true; }
+    function onFlick(evt) as Boolean { return true; }
 
     private function _leave() as Void {
         _view.stopTimer();

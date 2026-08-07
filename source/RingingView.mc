@@ -160,7 +160,15 @@ class RingingView extends WatchUi.View {
 
     function doAwake() as Void {
         var id = AlarmStore.ringingId();
-        if (id != null) { AlarmStore.markFired(id); }
+        if (id != null) {
+            AlarmStore.markFired(id);
+            // A one-time ("Once") alarm has done its job - switch it off so the
+            // list shows OFF afterwards.
+            var found = AlarmStore.findById(id);
+            if (found[1] != null && AlarmStore.days(found[1] as Dictionary) == 0) {
+                AlarmStore.disableById(id);
+            }
+        }
         AlarmStore.setRinging(null);
         AlarmStore.setSnoozeUntil(null);
         close();
