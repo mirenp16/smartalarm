@@ -64,10 +64,11 @@ class PasscodeView extends WatchUi.View {
         var title = (_mode == PC_MODE_SET) ? "Set Passcode" : "Enter Passcode";
         dc.drawText(_cx, _h * 13 / 100, Graphics.FONT_XTINY, title, vc);
 
-        // The four digits; the active one is white and underlined.
+        // The four digits; the active one is white with an underline well clear
+        // of the glyph (it used to sit on top of the digit).
         var spacing = 42;
         var startX = _cx - (spacing * 3) / 2;
-        var digitsY = exhausted ? (_cy - 34) : (_cy - 20);
+        var digitsY = exhausted ? (_cy - 44) : (_cy - 30);
         for (var i = 0; i < 4; i++) {
             var focused = (i == _pos);
             dc.setColor(focused ? Graphics.COLOR_WHITE : 0x666666, Graphics.COLOR_TRANSPARENT);
@@ -75,45 +76,48 @@ class PasscodeView extends WatchUi.View {
                         _digits[i].format("%d"), vc);
             if (focused) {
                 dc.setPenWidth(3);
-                dc.drawLine(startX + i * spacing - 13, digitsY + 24,
-                            startX + i * spacing + 13, digitsY + 24);
+                var uy = digitsY + 30;          // clear gap below the digit
+                dc.drawLine(startX + i * spacing - 13, uy,
+                            startX + i * spacing + 13, uy);
                 dc.setPenWidth(1);
             }
         }
 
+        // Text block starts well below the underline.
         if (_error) {
-            // Wrong code, in red, on two lines.
             dc.setColor(UI_RED, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 34, Graphics.FONT_XTINY, "Wrong Code!", vc);
-            dc.drawText(_cx, _cy + 54, Graphics.FONT_XTINY, "Please Try Again!", vc);
+            dc.drawText(_cx, _cy + 30, Graphics.FONT_XTINY, "Wrong Code!", vc);
+            dc.drawText(_cx, _cy + 52, Graphics.FONT_XTINY, "Please Try Again!", vc);
 
         } else if (exhausted) {
-            // Out of attempts: show the master code and how to use it.
             dc.setColor(UI_RED, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 18, Graphics.FONT_XTINY, "5 Wrong Attempts!", vc);
+            dc.drawText(_cx, _cy + 16, Graphics.FONT_XTINY, "5 Wrong Attempts!", vc);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 38, Graphics.FONT_XTINY,
-                        "Master Code: " + MASTER_PASSCODE, vc);
+            dc.drawText(_cx, _cy + 42, Graphics.FONT_XTINY,
+                        "Master: " + MASTER_PASSCODE, vc);
             dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 58, Graphics.FONT_XTINY, "Press Start to Exit", vc);
+            dc.drawText(_cx, _cy + 68, Graphics.FONT_XTINY, "Press Start to Exit", vc);
 
         } else if (_mode == PC_MODE_SET) {
             if (_savedCode.length() > 0) {
-                // Confirmation of the code just saved, in green.
+                // Confirmation of the code just saved, in green, over two lines.
                 dc.setColor(UI_GREEN, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(_cx, _cy + 34, Graphics.FONT_XTINY,
-                            "New Passcode: " + _savedCode, vc);
+                dc.drawText(_cx, _cy + 30, Graphics.FONT_XTINY, "New Passcode Set!", vc);
+                dc.drawText(_cx, _cy + 52, Graphics.FONT_SMALL, _savedCode, vc);
             } else {
-                // Reference info so the user can see what's currently in effect.
                 dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(_cx, _cy + 34, Graphics.FONT_XTINY,
-                            "Current Passcode: " + AlarmStore.passcode(), vc);
-                dc.drawText(_cx, _cy + 54, Graphics.FONT_XTINY,
-                            "Master Passcode: " + MASTER_PASSCODE, vc);
+                dc.drawText(_cx, _cy + 30, Graphics.FONT_XTINY,
+                            "Current: " + AlarmStore.passcode(), vc);
+                dc.drawText(_cx, _cy + 52, Graphics.FONT_XTINY,
+                            "Master: " + MASTER_PASSCODE, vc);
             }
         }
 
         Ui.start(dc, _w, _h, (_pos == 3) ? "OK" : "Next");
+        // Setup can always be abandoned; entry cannot.
+        if (_mode == PC_MODE_SET) {
+            Ui.back(dc, _w, _h, "Back");
+        }
     }
 
     // ── Input ────────────────────────────────────────────────────────────────
@@ -172,6 +176,9 @@ class PasscodeView extends WatchUi.View {
 
     // Step back a digit; returns true if the screen should close.
     function back() as Boolean {
+        // In Setup, BACK always leaves straight away - it used to walk back through
+        // all four digits, which is why it took several presses to get out.
+        if (_mode == PC_MODE_SET) { return true; }
         if (_pos > 0) {
             _pos--;
             _error = false;
@@ -179,10 +186,11 @@ class PasscodeView extends WatchUi.View {
             return false;
         }
         // In ENTER mode BACK can't escape - that would defeat the point.
-        return (_mode == PC_MODE_SET);
+        return false;
     }
 
     function isSetMode() as Boolean { return _mode == PC_MODE_SET; }
+    function isSaved() as Boolean { return _savedCode.length() > 0; }
 }
 
 class PasscodeDelegate extends WatchUi.BehaviorDelegate {
@@ -198,9 +206,16 @@ class PasscodeDelegate extends WatchUi.BehaviorDelegate {
     function onNextPage() as Boolean { _view.bump(-1); return true; }      // DOWN
 
     function onSelect() as Boolean {
+        // In Setup, once the code is saved the confirmation is showing - a second
+        // START closes the screen (previously nothing happened here).
+        if (_view.isSetMode() && _view.isSaved()) {
+            WatchUi.popView(WatchUi.SLIDE_DOWN);
+            return true;
+        }
+
         if (_view.advance() == PC_DONE) {
-            // In SET mode, leave the confirmation on screen briefly instead of
-            // closing instantly, so the user can read the new code.
+            // In SET mode stay put so the user can read the confirmation; the
+            // next START (handled above) closes it.
             if (_view.isSetMode()) {
                 return true;
             }

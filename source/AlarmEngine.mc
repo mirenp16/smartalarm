@@ -24,12 +24,15 @@ class AlarmEngine {
         var midnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
         var graceSecs = FIRE_GRACE_MINS * 60;
 
-        // A snoozed alarm due to re-fire?
-        var snoozeUntil = AlarmStore.snoozeUntil();
-        if (snoozeUntil != null && nowSecs >= snoozeUntil) {
-            var sid = AlarmStore.snoozedAlarmId();
-            AlarmStore.setSnoozeUntil(null);
-            if (sid != null) { return sid; }
+        // A snoozed alarm due to re-fire? (validSnoozeId drops snoozes whose
+        // alarm has since been deleted, so a ghost can't fire.)
+        var sid = AlarmStore.validSnoozeId();
+        if (sid != null) {
+            var until = AlarmStore.snoozeUntil();
+            if (until != null && nowSecs >= until) {
+                AlarmStore.setSnoozeUntil(null);
+                return sid as Number;
+            }
         }
 
         var list = AlarmStore.getAlarms();
@@ -118,6 +121,27 @@ class AlarmEngine {
             if (nowSecs >= startSecs && nowSecs <= endSecs) { return true; }
         }
         return false;
+    }
+
+    // The alarm that governs "are we still on duty?" - used for the Next Alarm
+    // display and the passcode gate.
+    //
+    // A SNOOZED alarm counts, and takes priority. Without this, snoozing a
+    // one-time alarm switched it off, nextAlarm() returned null, and you could
+    // walk out of Active Alarm Mode with no passcode - exactly the snooze bug.
+    static function governingAlarm(nowSecs as Number) as Dictionary? {
+        var sid = AlarmStore.validSnoozeId();
+        if (sid != null) {
+            var found = AlarmStore.findById(sid as Number);
+            if (found[1] != null) { return found[1] as Dictionary; }
+        }
+        // An alarm that is currently ringing also keeps us on duty.
+        var rid = AlarmStore.ringingId();
+        if (rid != null) {
+            var r = AlarmStore.findById(rid as Number);
+            if (r[1] != null) { return r[1] as Dictionary; }
+        }
+        return nextAlarm(nowSecs);
     }
 
     // The enabled alarm that will fire soonest (for the Active Alarm display), or

@@ -104,10 +104,14 @@ class BedsideView extends WatchUi.View {
 
     function nextAlarmStr() as String {
         var nowSecs = Time.now().value();
-        var snU = AlarmStore.snoozeUntil();
-        if (snU != null && snU > nowSecs) {
-            var si = Gregorian.info(new Time.Moment(snU), Time.FORMAT_SHORT);
-            return Fmt.time12(si.hour, si.min);
+        // Only show a snooze time if that alarm still exists (validSnoozeId
+        // clears the snooze when its alarm has been deleted).
+        if (AlarmStore.validSnoozeId() != null) {
+            var snU = AlarmStore.snoozeUntil();
+            if (snU != null && snU > nowSecs) {
+                var si = Gregorian.info(new Time.Moment(snU), Time.FORMAT_SHORT);
+                return Fmt.time12(si.hour, si.min);
+            }
         }
         var next = AlarmEngine.nextAlarm(nowSecs);
         return (next != null) ? Fmt.time12(AlarmStore.hour(next), AlarmStore.minute(next)) : "None";
@@ -184,7 +188,9 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     // NEXT upcoming alarm - if its Passcode toggle is off, BACK->UP just exits.
     // With no upcoming alarm at all, no code is needed either.
     private function _leave() as Void {
-        var next = AlarmEngine.nextAlarm(Time.now().value());
+        // governingAlarm counts a snoozed/ringing alarm too, so hitting snooze
+        // can't be used to slip out without the passcode.
+        var next = AlarmEngine.governingAlarm(Time.now().value());
         if (next != null && AlarmStore.passcodeOn(next)) {
             var pv = new PasscodeView(PC_MODE_ENTER, method(:finishLeave));
             WatchUi.pushView(pv, new PasscodeDelegate(pv), WatchUi.SLIDE_UP);

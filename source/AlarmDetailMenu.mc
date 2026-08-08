@@ -184,7 +184,7 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         } else {
             AlarmStore.updateAlarm(_menu.index, a);
         }
-        AlarmStore.clearFired(AlarmStore.id(a));
+        AlarmStore.armForNextOccurrence(a);
         MainListMenu.show(WatchUi.SLIDE_RIGHT);
     }
 

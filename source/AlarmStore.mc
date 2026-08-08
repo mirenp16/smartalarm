@@ -141,9 +141,38 @@ class AlarmStore {
     static function deleteAlarm(index as Number) as Void {
         var list = getAlarms();
         if (index >= 0 && index < list.size()) {
+            var doomed = id(list[index] as Dictionary);
             list.remove(list[index]);
             saveAlarms(list);
+            // Clear any pending snooze / ringing state that belonged to it,
+            // otherwise its snooze time keeps showing up as the Next Alarm.
+            clearStateFor(doomed);
         }
+    }
+
+    // Drops snooze + ringing state for an alarm that no longer exists (or is off).
+    static function clearStateFor(alarmId as Number) as Void {
+        if (snoozedAlarmId() == alarmId) {
+            Application.Storage.setValue(KEY_SNOOZE_ID, null);
+            Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
+        }
+        if (ringingId() == alarmId) {
+            Application.Storage.setValue(KEY_RING_ID, null);
+        }
+    }
+
+    // A snooze is only valid while its alarm still exists AND is enabled.
+    static function validSnoozeId() as Number or Null {
+        var until = snoozeUntil();
+        if (until == null) { return null; }
+        var sid = snoozedAlarmId();
+        if (sid == null) { return null; }
+        var found = findById(sid as Number);
+        if (found[1] == null) {
+            clearStateFor(sid as Number);   // alarm was deleted - forget the snooze
+            return null;
+        }
+        return sid;
     }
 
     // Returns a unique, ever-increasing id.
@@ -217,6 +246,33 @@ class AlarmStore {
         var s = stateFor(alarmId);
         s.put("f", true);
         setStateFor(alarmId, s);
+    }
+
+    // Arms a saved alarm for its NEXT genuine occurrence.
+    //
+    // Re-enabling a repeating alarm whose time already passed today used to make
+    // it ring the instant you saved (the fired flag was cleared and the engine
+    // saw it as due inside the grace window). So: clear the flags, but if today's
+    // slot is already gone, mark it fired for today so it waits for tomorrow.
+    static function armForNextOccurrence(a as Dictionary) as Void {
+        var aid = id(a);
+        clearFired(aid);
+        clearStateFor(aid);
+        if (!isOn(a)) { return; }
+
+        var d = days(a);
+        if (d == 0) { return; }   // one-time alarms use fireAt, already correct
+
+        var now = Time.now();
+        var info = Gregorian.info(now, Time.FORMAT_SHORT);
+        var todayBit = 1 << (info.day_of_week - 1);
+        if ((d & todayBit) == 0) { return; }   // not scheduled today anyway
+
+        var midnight = now.value() - (info.hour * 3600 + info.min * 60 + info.sec);
+        var target = midnight + totalMinutes(a) * 60;
+        if (now.value() >= target) {
+            markFired(aid);   // today's slot has passed - wait for the next day
+        }
     }
 
     // Re-arm an alarm: clear today's fired/plain flags so it can fire again (used
