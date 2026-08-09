@@ -67,16 +67,27 @@ class ChoiceView extends WatchUi.View {
         dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _h * 12 / 100, Graphics.FONT_XTINY, _title, vc);
 
-        // Option name (big)
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         var hasDesc = (desc.length() > 0);
         var isAlert = _key.equals("mode");
+        var optVal = isAlert ? (opt[0] as Number) : -1;
+
+        // If the watch has its Alert Tones muted, say so above any option that
+        // relies on sound. Vibrate Only is unaffected, so it gets no warning.
+        var warnTones = isAlert && Ringtone.tonesSuppressed()
+                        && (optVal == MODE_SOUND || optVal == MODE_BOTH);
+        if (warnTones) {
+            dc.setColor(UI_RED, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _cy - 52, Graphics.FONT_XTINY, "Alert Tones: OFF", vc);
+        }
+
+        // Option name (big)
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         var nameY = hasDesc ? (_cy - 44) : (isAlert ? (_cy - 18) : _cy);
         dc.drawText(_cx, nameY, Graphics.FONT_MEDIUM, name, vc);
 
         // Alert options also show the speaker / vibration glyphs.
         if (isAlert) {
-            Icons.alertPair(dc, _cx, _cy + 30, (opt[0] as Number), true);
+            Icons.alertPair(dc, _cx, _cy + 30, optVal, true);
         }
 
         // Wrapped description

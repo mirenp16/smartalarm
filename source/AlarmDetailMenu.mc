@@ -85,16 +85,9 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
     function daysSub()  as String { return Fmt.days(AlarmStore.days(alarm)); }
     function labelSub() as String { return AlarmStore.label(alarm); }
     function winSub()   as String { return AlarmStore.window(alarm).format("%d") + " Minutes"; }
-    // Warns about the one genuinely dangerous combination: Sound Only while the
-    // watch mutes app tones (Sleep Mode / DND) = an alarm that makes no signal
-    // at all. Every other combination still vibrates.
-    function modeSub()  as String {
-        var name = Fmt.modeName(AlarmStore.mode(alarm));
-        if (AlarmStore.mode(alarm) == MODE_SOUND && Ringtone.tonesSuppressed()) {
-            return name + " - may be silent!";
-        }
-        return name;
-    }
+    // The "watch tones are muted" warning lives on the Alert screen itself
+    // (see ChoiceView), where there's room to show it clearly.
+    function modeSub()  as String { return Fmt.modeName(AlarmStore.mode(alarm)); }
     // Ringtone only means something when the alarm actually makes sound.
     function toneSub()  as String {
         if (!soundEnabled()) { return "Not Applicable"; }

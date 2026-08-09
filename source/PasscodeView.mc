@@ -101,9 +101,11 @@ class PasscodeView extends WatchUi.View {
         } else if (_mode == PC_MODE_SET) {
             if (_savedCode.length() > 0) {
                 // Confirmation of the code just saved, in green, over two lines.
+                // The code below uses a taller font, so it needs a bigger gap
+                // than the plain 22px used elsewhere or the two lines collide.
                 dc.setColor(UI_GREEN, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(_cx, _cy + 30, Graphics.FONT_XTINY, "New Passcode Set!", vc);
-                dc.drawText(_cx, _cy + 52, Graphics.FONT_SMALL, _savedCode, vc);
+                dc.drawText(_cx, _cy + 26, Graphics.FONT_XTINY, "New Passcode Set!", vc);
+                dc.drawText(_cx, _cy + 60, Graphics.FONT_SMALL, _savedCode, vc);
             } else {
                 dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
                 dc.drawText(_cx, _cy + 30, Graphics.FONT_XTINY,
