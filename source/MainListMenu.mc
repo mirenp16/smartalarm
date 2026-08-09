@@ -31,6 +31,7 @@ class MainListMenu extends WatchUi.CustomMenu {
 
         addItem(new SimpleRow(:add, "Add Alarm"));
         addItem(new SimpleRow(:passcode, "Passcode Setup"));
+        addItem(new SimpleRow(:soundtest, "Sound Test"));
     }
 
     static function titleText() as String {
@@ -170,6 +171,12 @@ class MainListDelegate extends WatchUi.Menu2InputDelegate {
         if (id == :active) {
             var bv = new BedsideView();
             WatchUi.switchToView(bv, new BedsideDelegate(bv), WatchUi.SLIDE_UP);
+
+        } else if (id == :soundtest) {
+            // Plays a tone and reports exactly what the watch did with it.
+            var result = Ringtone.playReport(0);
+            var msg = result + ". " + Ringtone.diagnostics();
+            WatchUi.pushView(new MessageView(msg), new MessageDelegate(), WatchUi.SLIDE_UP);
 
         } else if (id == :passcode) {
             // Set the global code. It's shared by every alarm.

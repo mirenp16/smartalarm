@@ -92,6 +92,17 @@ class Ringtone {
     // Plays ringtone `index` once. The ringing screen calls this on a repeating
     // timer, which is what makes it loop until you snooze or wake.
     static function play(index as Number) as Void {
+        playReport(index);
+    }
+
+    // Same as play(), but returns what actually happened. Silent failures were
+    // impossible to diagnose before: the old code caught every exception and
+    // threw the reason away, so a device that can't play tones looked identical
+    // to one that simply had the volume down.
+    static function playReport(index as Number) as String {
+        if (!(Attention has :playTone)) {
+            return "This watch has no tone support";
+        }
         var l = build();
         var i = index;
         if (i < 0 || i >= l.size()) { i = 0; }
@@ -99,11 +110,32 @@ class Ringtone {
             // No cast here: these are Attention.Tone values, not Numbers.
             var entry = l[i] as Array;
             Attention.playTone(entry[1]);
+            return "OK";
         } catch (e) {
+            // Fall back to the plain alarm tone before giving up.
             try {
                 Attention.playTone(Attention.TONE_ALARM);
+                return "Fallback tone used";
             } catch (e2) {
+                return "Tone rejected by watch";
             }
         }
+    }
+
+    // Plain-language summary of the device's sound capability, shown by the
+    // Sound Test screen so a silent alarm can actually be explained.
+    static function diagnostics() as String {
+        var parts = "";
+        if (!(Attention has :playTone)) {
+            return "No tone support on this watch. Use Vibrate Only.";
+        }
+        parts += "Tones found: " + count().format("%d") + ". ";
+        if (tonesSuppressed()) {
+            parts += "Watch tones are MUTED - turn on Sound & Vibe. ";
+        } else {
+            parts += "Watch reports sound is on. ";
+        }
+        parts += "If still silent, enable Alert Tones (separate from Alarm Tones).";
+        return parts;
     }
 }

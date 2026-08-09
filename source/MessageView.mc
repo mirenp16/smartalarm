@@ -29,13 +29,21 @@ class MessageView extends WatchUi.View {
         dc.clear();
         var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
 
-        var lines = ChoiceView.wrap(dc, _msg, Graphics.FONT_SMALL, _w * 74 / 100);
+        // Long diagnostic text needs a smaller font so nothing is cut off on a
+        // round screen; short messages stay large and readable.
+        var probe = ChoiceView.wrap(dc, _msg, Graphics.FONT_SMALL, _w * 74 / 100);
+        var font = (probe.size() > 4) ? Graphics.FONT_XTINY : Graphics.FONT_SMALL;
+        var lh   = (probe.size() > 4) ? 19 : 26;
+        var lines = (font == Graphics.FONT_SMALL)
+            ? probe
+            : ChoiceView.wrap(dc, _msg, Graphics.FONT_XTINY, _w * 80 / 100);
+
         var n = lines.size();
-        var lh = 26;
+        if (n > 9) { n = 9; }                     // never overflow the screen
         var y = _cy - ((n - 1) * lh) / 2;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         for (var i = 0; i < n; i++) {
-            dc.drawText(_cx, y + i * lh, Graphics.FONT_SMALL, lines[i], vc);
+            dc.drawText(_cx, y + i * lh, font, lines[i], vc);
         }
 
         Ui.back(dc, _w, _h, "OK");

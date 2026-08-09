@@ -62,12 +62,11 @@ class RingtoneMenuDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId();
 
         if (id == :test) {
-            // Play the currently chosen tone and explain if nothing can be heard.
-            Ringtone.play(AlarmStore.ringtone(_menu.alarm));
-            var reason = Ringtone.silentReason();
-            if (reason != null) {
-                WatchUi.pushView(new MessageView(reason), new MessageDelegate(), WatchUi.SLIDE_UP);
-            }
+            // Play the chosen tone and report exactly what the watch did, so a
+            // silent alarm can be diagnosed instead of guessed at.
+            var result = Ringtone.playReport(AlarmStore.ringtone(_menu.alarm));
+            var msg = result + ". " + Ringtone.diagnostics();
+            WatchUi.pushView(new MessageView(msg), new MessageDelegate(), WatchUi.SLIDE_UP);
             return;
         }
 
