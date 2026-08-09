@@ -25,8 +25,8 @@ class Ringtone {
     // Returns true when the watch is currently muting app tones.
     static function tonesSuppressed() as Boolean {
         try {
+            // getDeviceSettings() always returns an object, so no null check.
             var s = System.getDeviceSettings();
-            if (s == null) { return false; }
             if ((s has :doNotDisturb) && s.doNotDisturb) { return true; }
             if ((s has :tonesOn) && !s.tonesOn) { return true; }
         } catch (e) {
