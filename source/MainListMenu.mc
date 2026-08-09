@@ -50,6 +50,21 @@ class MainListMenu extends WatchUi.CustomMenu {
 // Header: the app logo with the "X Alarms On" count beneath it.
 class MainListTitle extends WatchUi.Drawable {
 
+    private static var _logoBmp = null;
+    private static var _logoTried as Boolean = false;
+
+    private static function _logo() {
+        if (!_logoTried) {
+            _logoTried = true;
+            try {
+                _logoBmp = WatchUi.loadResource(Rez.Drawables.AlarmLogo);
+            } catch (e) {
+                _logoBmp = null;
+            }
+        }
+        return _logoBmp;
+    }
+
     function initialize() {
         Drawable.initialize({});
     }
@@ -62,11 +77,8 @@ class MainListTitle extends WatchUi.Drawable {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
-        var logo = null;
-        try {
-            logo = WatchUi.loadResource(Rez.Drawables.AlarmLogo);
-        } catch (e) {
-        }
+        // Cached: loadResource on every draw leaked memory.
+        var logo = _logo();
         if (logo != null) {
             dc.drawBitmap(w / 2 - logo.getWidth() / 2, h / 2 - logo.getHeight() - 2, logo);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);

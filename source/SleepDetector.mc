@@ -82,14 +82,26 @@ class SleepDetector {
 
     // ── Scoring ──────────────────────────────────────────────────────────────
 
+    // Cached baseline/ceiling. Sorting a 240-element buffer on every tick was a
+    // big source of allocation churn overnight, and the percentiles barely move
+    // minute to minute - so recompute them only every RECALC_EVERY samples.
+    private static var _base as Float = 0.0;
+    private static var _top as Float = 0.0;
+    private static var _lastCalc as Number = -9999;
+
     // 0-100 lightness, or -1 when there isn't enough data yet.
     static function lightness() as Number {
         var n = _samples.size();
         if (n < MIN_HR_SAMPLES) { return -1; }
 
-        var sorted = sortedCopy(_samples);
-        var base = percentile(sorted, 20);   // deep-sleep floor
-        var top  = percentile(sorted, 85);   // light/REM ceiling
+        if (_lastCalc < 0 || (n - _lastCalc) >= RECALC_EVERY || _top <= _base) {
+            var sorted = sortedCopy(_samples);
+            _base = percentile(sorted, 20);   // deep-sleep floor
+            _top  = percentile(sorted, 85);   // light/REM ceiling
+            _lastCalc = n;
+        }
+        var base = _base;
+        var top = _top;
         var span = top - base;
         if (span < 2.0) { span = 2.0; }      // guard against a flat night
 

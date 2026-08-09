@@ -79,17 +79,27 @@ class Ui {
         _vertical(dc, cx, cy, deg, color, text, size);
     }
 
+    // Vector fonts are CACHED per size. Creating one on every draw was the main
+    // cause of the overnight "IQ!" crash: Active Alarm Mode redraws every 15 s,
+    // so a whole night allocated ~1900 font objects and eventually ran the app
+    // out of memory.
+    private static var _fontCache = {};
+
     private static function _vectorFont(size as Number) as Graphics.VectorFont? {
+        if (_fontCache.hasKey(size)) { return _fontCache.get(size); }
+        var f = null;
         try {
             if (Graphics has :getVectorFont) {
-                return Graphics.getVectorFont({
+                f = Graphics.getVectorFont({
                     :face => ["RobotoCondensedBold", "RobotoBold", "Roboto"],
                     :size => size
                 });
             }
         } catch (e) {
+            f = null;
         }
-        return null;
+        _fontCache.put(size, f);
+        return f;
     }
 
     // Fallback when curved text isn't available.

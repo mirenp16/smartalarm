@@ -12,8 +12,35 @@
 
 import Toybox.Attention;
 import Toybox.Lang;
+import Toybox.System;
 
 class Ringtone {
+
+    // ── Why sound may be silent ──────────────────────────────────────────────
+    // Garmin suppresses APP tones while the watch is in Sleep Mode / Do Not
+    // Disturb - which is exactly when an alarm app runs. Garmin's own alarm is
+    // privileged and allowed to override it; a Connect IQ app is not.
+    // Vibration is unaffected, which is why Vibrate Only is the default.
+    //
+    // Returns true when the watch is currently muting app tones.
+    static function tonesSuppressed() as Boolean {
+        try {
+            var s = System.getDeviceSettings();
+            if (s == null) { return false; }
+            if ((s has :doNotDisturb) && s.doNotDisturb) { return true; }
+            if ((s has :tonesOn) && !s.tonesOn) { return true; }
+        } catch (e) {
+        }
+        return false;
+    }
+
+    // Human-readable reason, or null when sound should work.
+    static function silentReason() as String? {
+        if (tonesSuppressed()) {
+            return "Watch tones are muted (Sleep Mode / Do Not Disturb). Vibration still works.";
+        }
+        return null;
+    }
 
     // Cached list of [displayName, toneConstant] for this device.
     private static var _list as Array? = null;

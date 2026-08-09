@@ -65,6 +65,9 @@ const LATE_BAR      = 50;
 const MAX_HR_SAMPLES = 240;   // ~60 minutes of history
 const MIN_HR_SAMPLES = 40;    // ~10 minutes before we trust the score
 const RECENT_SAMPLES = 12;    // ~3 minutes counts as "recent"
+// Re-sort the buffer for percentiles only every N new samples (~1 min), instead
+// of every tick. Sorting every tick allocated a new array 4x a minute all night.
+const RECALC_EVERY   = 4;
 
 // If lightness is at/above this BEFORE the window even opens, we treat the user
 // as already awake and just fire at the set time.

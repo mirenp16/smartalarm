@@ -23,6 +23,7 @@ class BedsideView extends WatchUi.View {
     private var _exitArmed as Boolean = false;
     private var _armSecs as Number = 0;
     private var _controlsSecs as Number = -100;    // when controls were last revealed
+    private var _lastDrawMin as Number = -1;       // throttles redraws to once a minute
     private var _w as Number = 260;
     private var _h as Number = 260;
     private var _cx as Number = 130;
@@ -45,22 +46,39 @@ class BedsideView extends WatchUi.View {
 
     function onHide() as Void { stopTimer(); }
 
+    // The whole body is guarded. This runs unattended for hours, and a single
+    // uncaught exception used to kill the app (the "IQ!" screen) and take the
+    // alarm with it. Sleep sampling is best-effort; the alarm itself must survive.
     function onTick() as Void {
         var now = Time.now().value();
-        if (_exitArmed && (now - _armSecs) > 5) { _exitArmed = false; }
+        if (_exitArmed && (now - _armSecs) > EXIT_ARM_SECS) { _exitArmed = false; }
 
-        // Feed the sleep detector every tick so it builds a picture of the night.
-        SleepDetector.sample();
-
-        if (AlarmStore.ringingId() != null) { showRinging(); return; }
-
-        var id = AlarmEngine.evaluate(now);
-        if (id >= 0) {
-            AlarmStore.beginRing(id);
-            showRinging();
-            return;
+        try {
+            SleepDetector.sample();
+        } catch (e) {
+            // Sensor hiccup - keep going, the deadline will still fire.
         }
-        WatchUi.requestUpdate();
+
+        try {
+            if (AlarmStore.ringingId() != null) { showRinging(); return; }
+
+            var id = AlarmEngine.evaluate(now);
+            if (id >= 0) {
+                AlarmStore.beginRing(id);
+                showRinging();
+                return;
+            }
+        } catch (e2) {
+            // Never let a scheduling error stop the clock.
+        }
+
+        // Only redraw when the displayed minute actually changes - redrawing
+        // every 15 s all night was wasted work and extra allocation.
+        var mins = now / 60;
+        if (mins != _lastDrawMin) {
+            _lastDrawMin = mins;
+            WatchUi.requestUpdate();
+        }
     }
 
     private function showRinging() as Void {
