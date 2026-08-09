@@ -18,10 +18,10 @@ class ChoiceView extends WatchUi.View {
     private var _options as Array;      // [[value, name, desc], ...]
     private var _alarm as Dictionary;
     private var _idx as Number = 0;
-    private var _w as Number = 260;
-    private var _h as Number = 260;
-    private var _cx as Number = 130;
-    private var _cy as Number = 130;
+    private var _w as Number = 360;
+    private var _h as Number = 360;
+    private var _cx as Number = 180;
+    private var _cy as Number = 180;
 
     function initialize(title as String, key as String, options as Array,
                         currentValue, alarm as Dictionary) {

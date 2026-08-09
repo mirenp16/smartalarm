@@ -126,7 +126,8 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         } else if (id == :tone) {
             // Only reachable when the alarm actually makes sound.
             if (!_menu.soundEnabled()) {
-                var msg = "Set Alert to 'Sound Only' or 'Sound + Vibrate' first!";
+                // "|" marks explicit line breaks so this reads cleanly.
+                var msg = "Set Alert to|'Sound Only'|OR|'Sound + Vibrate'|first!";
                 WatchUi.pushView(new MessageView(msg), new MessageDelegate(), WatchUi.SLIDE_UP);
             } else {
                 var tp = new RingtoneMenu(a);

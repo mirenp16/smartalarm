@@ -21,10 +21,6 @@ class RingtoneMenu extends WatchUi.Menu2 {
         Menu2.initialize({:title => "Ringtone"});
         alarm = working;
 
-        // Tells you straight away if the watch is muting app tones.
-        addItem(new WatchUi.MenuItem("Test Sound",
-            Ringtone.tonesSuppressed() ? "Tones muted!" : "Play a test", :test, null));
-
         var names = Ringtone.names();
         var current = AlarmStore.ringtone(working);
         for (var i = 0; i < names.size(); i++) {
@@ -35,13 +31,12 @@ class RingtoneMenu extends WatchUi.Menu2 {
         }
     }
 
-    // Refresh which row is marked as selected. Row 0 is "Test Sound", so the
-    // tone at index i lives at menu position i + 1.
+    // Refresh which row is marked as selected.
     function refresh() as Void {
         var current = AlarmStore.ringtone(alarm);
         var n = Ringtone.count();
         for (var i = 0; i < n; i++) {
-            var it = getItem(i + 1);
+            var it = getItem(i);
             if (it != null) {
                 it.setSubLabel((i == current) ? "Selected" : null);
             }
@@ -59,18 +54,7 @@ class RingtoneMenuDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item as WatchUi.MenuItem) as Void {
-        var id = item.getId();
-
-        if (id == :test) {
-            // Play the chosen tone and report exactly what the watch did, so a
-            // silent alarm can be diagnosed instead of guessed at.
-            var result = Ringtone.playReport(AlarmStore.ringtone(_menu.alarm));
-            var msg = result + ". " + Ringtone.diagnostics();
-            WatchUi.pushView(new MessageView(msg), new MessageDelegate(), WatchUi.SLIDE_UP);
-            return;
-        }
-
-        var idx = id as Number;
+        var idx = item.getId() as Number;
         _menu.alarm.put("tone", idx);
         _menu.refresh();
         Ringtone.play(idx);        // stays on screen so the tone is audible

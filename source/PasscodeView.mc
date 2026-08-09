@@ -35,10 +35,10 @@ class PasscodeView extends WatchUi.View {
     private var _tries as Number = 0;
     private var _error as Boolean = false;
     private var _savedCode as String = "";     // shown after a successful SET
-    private var _w as Number = 260;
-    private var _h as Number = 260;
-    private var _cx as Number = 130;
-    private var _cy as Number = 130;
+    private var _w as Number = 360;
+    private var _h as Number = 360;
+    private var _cx as Number = 180;
+    private var _cy as Number = 180;
 
     public var onOk as Method?;   // run by the delegate AFTER this view closes
 

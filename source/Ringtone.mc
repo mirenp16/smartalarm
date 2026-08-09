@@ -34,14 +34,6 @@ class Ringtone {
         return false;
     }
 
-    // Human-readable reason, or null when sound should work.
-    static function silentReason() as String? {
-        if (tonesSuppressed()) {
-            return "Watch tones are muted (Sleep Mode / Do Not Disturb). Vibration still works.";
-        }
-        return null;
-    }
-
     // Cached list of [displayName, toneConstant] for this device.
     private static var _list as Array? = null;
 
@@ -122,20 +114,4 @@ class Ringtone {
         }
     }
 
-    // Plain-language summary of the device's sound capability, shown by the
-    // Sound Test screen so a silent alarm can actually be explained.
-    static function diagnostics() as String {
-        var parts = "";
-        if (!(Attention has :playTone)) {
-            return "No tone support on this watch. Use Vibrate Only.";
-        }
-        parts += "Tones found: " + count().format("%d") + ". ";
-        if (tonesSuppressed()) {
-            parts += "Watch tones are MUTED - turn on Sound & Vibe. ";
-        } else {
-            parts += "Watch reports sound is on. ";
-        }
-        parts += "If still silent, enable Alert Tones (separate from Alarm Tones).";
-        return parts;
-    }
 }

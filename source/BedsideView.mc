@@ -24,10 +24,10 @@ class BedsideView extends WatchUi.View {
     private var _armSecs as Number = 0;
     private var _controlsSecs as Number = -100;    // when controls were last revealed
     private var _lastDrawMin as Number = -1;       // throttles redraws to once a minute
-    private var _w as Number = 260;
-    private var _h as Number = 260;
-    private var _cx as Number = 130;
-    private var _cy as Number = 130;
+    private var _w as Number = 360;
+    private var _h as Number = 360;
+    private var _cx as Number = 180;
+    private var _cy as Number = 180;
 
     function initialize() { View.initialize(); }
 
