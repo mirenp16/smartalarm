@@ -25,7 +25,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_Pickers_mc_14_41_24_4_start:
         %tmp.4 = newd 1;
         %tmp.6 = const :title;
         symbol [ title %tmp.6 15 34 39 const ];
-        %tmp.7 = "Scheduled Days";
+        %tmp.7 = "Custom Days";
         %tmp.8 = dup %tmp.4;
         %tmp.9 = aputv %tmp.8 %tmp.6 %tmp.7;
         invoke %tmp.2 %tmp.3(%tmp.9);

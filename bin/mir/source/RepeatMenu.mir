@@ -1,0 +1,367 @@
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 13; @symbol_importdef<0> = [Toybox,13,7,13]; @symbol_importdef<1> = [Lang,13,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 14; @symbol_importdef<0> = [Toybox,14,7,13]; @symbol_importdef<1> = [WatchUi,14,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 16; @symbol_classdef = [RepeatMenu,16,6,16]; @symbol_extends<0> = [WatchUi,16,25,32]; @symbol_extends<1> = [Menu2,16,33,38]; ]
+class RepeatMenu extends WatchUi.Menu2 {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 16; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 16; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 18; @position = 15; @symbol_vardef = [alarm,18,15,20]; @symbol_type<0> = [Dictionary,18,24,34]; ]
+    public
+    var alarm as Dictionary;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 20; @symbol_functiondef = [initialize,20,13,23]; @symbol_param<0> = [working,20,24,31]; @symbol_param<0>_type<0> = [Dictionary,20,35,45]; ]
+    function initialize(working as Dictionary) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_20_47_38_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 21 8 ]
+        symbol [ Menu2 %tmp.2 21 8 13 ];
+        %tmp.2 = getv ? :Menu2;
+        symbol [ initialize %tmp.3 21 14 24 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        %tmp.4 = newd 1;
+        %tmp.6 = const :title;
+        symbol [ title %tmp.6 21 27 32 const ];
+        %tmp.7 = "Repeat";
+        %tmp.8 = dup %tmp.4;
+        %tmp.9 = aputv %tmp.8 %tmp.6 %tmp.7;
+        invoke %tmp.2 %tmp.3(%tmp.9);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 22 8 ]
+        %tmp.10 = lgetv %working;
+        symbol [ working %tmp.10 22 16 23 ];
+        symbol [ alarm ? 22 8 13 ];
+        putv self :alarm %tmp.10;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 24 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_20_47_38_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_20_47_38_4_stop" ]
+        %current.1 = local;
+        symbol [ current %current.1 24 12 19 ];
+        symbol [ AlarmStore %tmp.12 24 22 32 ];
+        %tmp.12 = getv ? :AlarmStore;
+        symbol [ days %tmp.13 24 33 37 ];
+        %tmp.13 = getv function %tmp.12 :days;
+        %tmp.14 = lgetv %working;
+        symbol [ working %tmp.14 24 38 45 ];
+        %tmp.15 = invoke %tmp.12 %tmp.13(%tmp.14);
+        lputv %current.1 %tmp.15;
+        symbol [ current %current.1 24 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 25 8 ]
+        %tmp.16 = self;
+        symbol [ addPreset %tmp.17 25 8 17 ];
+        %tmp.17 = getv function %tmp.16 :addPreset;
+        %tmp.18 = "Once";
+        symbol [ DAYS_ONCE %tmp.20 25 30 39 ];
+        %tmp.20 = getv ? :DAYS_ONCE;
+        %tmp.21 = lgetv %current.1;
+        symbol [ current %tmp.21 25 45 52 ];
+        invoke %tmp.16 %tmp.17(%tmp.18, %tmp.20, %tmp.21);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 26 8 ]
+        %tmp.22 = self;
+        symbol [ addPreset %tmp.23 26 8 17 ];
+        %tmp.23 = getv function %tmp.22 :addPreset;
+        %tmp.24 = "Daily";
+        symbol [ DAYS_ALL %tmp.26 26 30 38 ];
+        %tmp.26 = getv ? :DAYS_ALL;
+        %tmp.27 = lgetv %current.1;
+        symbol [ current %tmp.27 26 45 52 ];
+        invoke %tmp.22 %tmp.23(%tmp.24, %tmp.26, %tmp.27);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 27 8 ]
+        %tmp.28 = self;
+        symbol [ addPreset %tmp.29 27 8 17 ];
+        %tmp.29 = getv function %tmp.28 :addPreset;
+        %tmp.30 = "4x10";
+        symbol [ DAYS_4X10 %tmp.32 27 30 39 ];
+        %tmp.32 = getv ? :DAYS_4X10;
+        %tmp.33 = lgetv %current.1;
+        symbol [ current %tmp.33 27 45 52 ];
+        invoke %tmp.28 %tmp.29(%tmp.30, %tmp.32, %tmp.33);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 28 8 ]
+        %tmp.34 = self;
+        symbol [ addPreset %tmp.35 28 8 17 ];
+        %tmp.35 = getv function %tmp.34 :addPreset;
+        %tmp.36 = "Weekdays";
+        symbol [ DAYS_WEEKDAYS %tmp.38 28 30 43 ];
+        %tmp.38 = getv ? :DAYS_WEEKDAYS;
+        %tmp.39 = lgetv %current.1;
+        symbol [ current %tmp.39 28 45 52 ];
+        invoke %tmp.34 %tmp.35(%tmp.36, %tmp.38, %tmp.39);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 29 8 ]
+        %tmp.40 = self;
+        symbol [ addPreset %tmp.41 29 8 17 ];
+        %tmp.41 = getv function %tmp.40 :addPreset;
+        %tmp.42 = "Weekend";
+        symbol [ DAYS_WEEKEND %tmp.44 29 30 42 ];
+        %tmp.44 = getv ? :DAYS_WEEKEND;
+        %tmp.45 = lgetv %current.1;
+        symbol [ current %tmp.45 29 45 52 ];
+        invoke %tmp.40 %tmp.41(%tmp.42, %tmp.44, %tmp.45);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 32 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_20_47_38_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_20_47_38_4_stop" ]
+        %isCustom.2 = local;
+        symbol [ isCustom %isCustom.2 32 12 20 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_34_36_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_33_60_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_33_36_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_32_60_begin:
+        %tmp.46 = lgetv %current.1;
+        symbol [ current %tmp.46 32 25 32 ];
+        symbol [ DAYS_ONCE %tmp.48 32 36 45 ];
+        %tmp.48 = getv ? :DAYS_ONCE;
+        %tmp.49 = eq %tmp.46 %tmp.48;
+        %tmp.50 = dup %tmp.49;
+        bt %tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_49_32_60_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_49_32_60_false:
+        %tmp.51 = lgetv %current.1;
+        symbol [ current %tmp.51 32 49 56 ];
+        symbol [ DAYS_ALL %tmp.53 32 60 68 ];
+        %tmp.53 = getv ? :DAYS_ALL;
+        %tmp.54 = eq %tmp.51 %tmp.53;
+        %tmp.55 = or %tmp.49 %tmp.54;
+        push %tmp.55;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_49_32_60_end:
+        %tmp.56 = phi [%tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_32_60_begin] [%tmp.55 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_49_32_60_false] [%tmp.56 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_49_32_60_end];
+        %tmp.57 = dup %tmp.56;
+        bt %tmp.57 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_25_33_36_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_25_33_36_false:
+        %tmp.58 = lgetv %current.1;
+        symbol [ current %tmp.58 33 25 32 ];
+        symbol [ DAYS_4X10 %tmp.60 33 36 45 ];
+        %tmp.60 = getv ? :DAYS_4X10;
+        %tmp.61 = eq %tmp.58 %tmp.60;
+        %tmp.62 = or %tmp.56 %tmp.61;
+        push %tmp.62;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_25_33_36_end:
+        %tmp.63 = phi [%tmp.57 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_33_36_begin] [%tmp.62 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_25_33_36_false] [%tmp.63 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_25_33_36_end];
+        %tmp.64 = dup %tmp.63;
+        bt %tmp.64 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_49_33_60_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_49_33_60_false:
+        %tmp.65 = lgetv %current.1;
+        symbol [ current %tmp.65 33 49 56 ];
+        symbol [ DAYS_WEEKDAYS %tmp.67 33 60 73 ];
+        %tmp.67 = getv ? :DAYS_WEEKDAYS;
+        %tmp.68 = eq %tmp.65 %tmp.67;
+        %tmp.69 = or %tmp.63 %tmp.68;
+        push %tmp.69;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_49_33_60_end:
+        %tmp.70 = phi [%tmp.64 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_33_60_begin] [%tmp.69 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_49_33_60_false] [%tmp.70 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_33_49_33_60_end];
+        %tmp.71 = dup %tmp.70;
+        bt %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_34_25_34_36_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_34_25_34_36_false:
+        %tmp.72 = lgetv %current.1;
+        symbol [ current %tmp.72 34 25 32 ];
+        symbol [ DAYS_WEEKEND %tmp.74 34 36 48 ];
+        %tmp.74 = getv ? :DAYS_WEEKEND;
+        %tmp.75 = eq %tmp.72 %tmp.74;
+        %tmp.76 = or %tmp.70 %tmp.75;
+        push %tmp.76;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_34_25_34_36_end:
+        %tmp.77 = phi [%tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_32_25_34_36_begin] [%tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_34_25_34_36_false] [%tmp.77 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_34_25_34_36_end];
+        %tmp.78 = not %tmp.77;
+        lputv %isCustom.2 %tmp.78;
+        symbol [ isCustom %isCustom.2 32 12 20 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 35 8 ]
+        %tmp.79 = self;
+        symbol [ addItem %tmp.80 35 8 15 ];
+        %tmp.80 = getv function %tmp.79 :addItem;
+        symbol [ WatchUi %tmp.83 35 20 27 ];
+        %tmp.83 = getm $.Toybox.WatchUi;
+        symbol [ MenuItem %tmp.84 35 28 36 ];
+        %tmp.84 = getv function ? %tmp.83 :MenuItem;
+        %tmp.85 = "Custom";
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_begin:
+        %tmp.86 = lgetv %isCustom.2;
+        symbol [ isCustom %tmp.86 36 12 20 ];
+        bf %tmp.86 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_true:
+        symbol [ Fmt %tmp.88 36 23 26 ];
+        %tmp.88 = getv ? :Fmt;
+        symbol [ days %tmp.89 36 27 31 ];
+        %tmp.89 = getv function %tmp.88 :days;
+        %tmp.90 = lgetv %current.1;
+        symbol [ current %tmp.90 36 32 39 ];
+        %tmp.91 = invoke %tmp.88 %tmp.89(%tmp.90);
+        push %tmp.91;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_else_false:
+        %tmp.92 = "Pick days";
+        push %tmp.92;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_end:
+        %tmp.93 = phi [%tmp.86 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_begin] [%tmp.91 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_true] [%tmp.92 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_else_false] [%tmp.93 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_36_12_36_43_end];
+        symbol [ REPEAT_CUSTOM %tmp.95 37 12 25 ];
+        %tmp.95 = getv ? :REPEAT_CUSTOM;
+        %tmp.96 = null;
+        %tmp.81 = newc %tmp.84 (%tmp.85, %tmp.93, %tmp.95, %tmp.96);
+        invoke %tmp.79 %tmp.80(%tmp.81);
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_20_47_38_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 40; @symbol_functiondef = [addPreset,40,21,30]; @symbol_param<0> = [name,40,31,35]; @symbol_param<0>_type<0> = [String,40,39,45]; @symbol_param<1> = [mask,40,47,51]; @symbol_param<1>_type<0> = [Number,40,55,61]; @symbol_param<2> = [current,40,63,70]; @symbol_param<2>_type<0> = [Number,40,74,80]; ]
+    private
+    function addPreset(name as String, mask as Number, current as Number) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_40_90_43_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 41 8 ]
+        %tmp.1 = self;
+        symbol [ addItem %tmp.2 41 8 15 ];
+        %tmp.2 = getv function %tmp.1 :addItem;
+        symbol [ WatchUi %tmp.5 41 20 27 ];
+        %tmp.5 = getm $.Toybox.WatchUi;
+        symbol [ MenuItem %tmp.6 41 28 36 ];
+        %tmp.6 = getv function ? %tmp.5 :MenuItem;
+        %tmp.7 = lgetv %name;
+        symbol [ name %tmp.7 41 37 41 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_begin:
+        %tmp.8 = lgetv %current;
+        symbol [ current %tmp.8 42 13 20 ];
+        %tmp.9 = lgetv %mask;
+        symbol [ mask %tmp.9 42 24 28 ];
+        %tmp.10 = eq %tmp.8 %tmp.9;
+        bf %tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_true:
+        %tmp.11 = "Selected";
+        push %tmp.11;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_else_false:
+        %tmp.12 = null;
+        push %tmp.12;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_end:
+        %tmp.13 = phi [%tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_begin] [%tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_true] [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_else_false] [%tmp.13 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_42_12_42_45_end];
+        %tmp.14 = lgetv %mask;
+        symbol [ mask %tmp.14 42 51 55 ];
+        %tmp.15 = null;
+        %tmp.3 = newc %tmp.6 (%tmp.7, %tmp.13, %tmp.14, %tmp.15);
+        invoke %tmp.1 %tmp.2(%tmp.3);
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_40_90_43_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 46; @symbol_classdef = [RepeatMenuDelegate,46,6,24]; @symbol_extends<0> = [WatchUi,46,33,40]; @symbol_extends<1> = [Menu2InputDelegate,46,41,59]; ]
+class RepeatMenuDelegate extends WatchUi.Menu2InputDelegate {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 46; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 46; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 48; @position = 16; @symbol_vardef = [_menu,48,16,21]; @symbol_type<0> = [RepeatMenu,48,25,35]; ]
+    private
+    var _menu as RepeatMenu;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 50; @symbol_functiondef = [initialize,50,13,23]; @symbol_param<0> = [menu,50,24,28]; @symbol_param<0>_type<0> = [RepeatMenu,50,32,42]; ]
+    function initialize(menu as RepeatMenu) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_50_44_53_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 51 8 ]
+        symbol [ Menu2InputDelegate %tmp.2 51 8 26 ];
+        %tmp.2 = getv ? :Menu2InputDelegate;
+        symbol [ initialize %tmp.3 51 27 37 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 52 8 ]
+        %tmp.4 = lgetv %menu;
+        symbol [ menu %tmp.4 52 16 20 ];
+        symbol [ _menu ? 52 8 13 ];
+        putv self :_menu %tmp.4;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_50_44_53_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 55; @symbol_functiondef = [onSelect,55,13,21]; @symbol_param<0> = [item,55,22,26]; @symbol_param<0>_type<0> = [WatchUi,55,30,37]; @symbol_param<0>_type<1> = [MenuItem,55,38,46]; ]
+    function onSelect(item as WatchUi.MenuItem) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_55_56_67_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 56 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_55_56_67_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_55_56_67_4_stop" ]
+        %id.1 = local;
+        symbol [ id %id.1 56 12 14 ];
+        %tmp.1 = lgetv %item;
+        symbol [ item %tmp.1 56 17 21 ];
+        symbol [ getId %tmp.2 56 22 27 ];
+        %tmp.2 = getv function %tmp.1 :getId;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        %tmp.4 = as %tmp.3 Number;
+        symbol [ Number %tmp.4 56 33 39 ];
+        lputv %id.1 %tmp.4;
+        symbol [ id %id.1 56 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 58 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_8_63_8_if_stmt:
+        %tmp.5 = lgetv %id.1;
+        symbol [ id %tmp.5 58 12 14 ];
+        symbol [ REPEAT_CUSTOM %tmp.7 58 18 31 ];
+        %tmp.7 = getv ? :REPEAT_CUSTOM;
+        %tmp.8 = eq %tmp.5 %tmp.7;
+        bf %tmp.8 @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_8_63_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_8_63_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_33_63_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 60 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_33_63_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_33_63_8_stop" ]
+        %dp.2 = local;
+        symbol [ dp %dp.2 60 16 18 ];
+        symbol [ DaysPicker %tmp.12 60 25 35 ];
+        %tmp.12 = getv ? :DaysPicker;
+        symbol [ _menu %tmp.14 60 36 41 ];
+        %tmp.14 = getv ? :_menu;
+        symbol [ alarm %tmp.15 60 42 47 ];
+        %tmp.15 = getv %tmp.14 :alarm;
+        %tmp.9 = newc %tmp.12 (%tmp.15);
+        lputv %dp.2 %tmp.9;
+        symbol [ dp %dp.2 60 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 61 12 ]
+        symbol [ WatchUi %tmp.16 61 12 19 ];
+        %tmp.16 = getm $.Toybox.WatchUi;
+        symbol [ pushView %tmp.17 61 20 28 ];
+        %tmp.17 = getv function %tmp.16 :pushView;
+        %tmp.18 = lgetv %dp.2;
+        symbol [ dp %tmp.18 61 29 31 ];
+        symbol [ DaysPickerDelegate %tmp.22 61 37 55 ];
+        %tmp.22 = getv ? :DaysPickerDelegate;
+        %tmp.23 = lgetv %dp.2;
+        symbol [ dp %tmp.23 61 56 58 ];
+        %tmp.19 = newc %tmp.22 (%tmp.23);
+        symbol [ WatchUi %tmp.24 61 61 68 ];
+        %tmp.24 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_LEFT %tmp.25 61 69 79 ];
+        %tmp.25 = getv %tmp.24 :SLIDE_LEFT;
+        invoke %tmp.16 %tmp.17(%tmp.18, %tmp.19, %tmp.25);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 62 12 ]
+        ret ?;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_33_63_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_8_63_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_58_8_63_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 65 8 ]
+        symbol [ _menu %tmp.27 65 8 13 ];
+        %tmp.27 = getv ? :_menu;
+        symbol [ alarm %tmp.28 65 14 19 ];
+        %tmp.28 = getv %tmp.27 :alarm;
+        symbol [ put %tmp.29 65 20 23 ];
+        %tmp.29 = getv function %tmp.28 :put;
+        %tmp.30 = "days";
+        %tmp.31 = lgetv %id.1;
+        symbol [ id %tmp.31 65 32 34 ];
+        invoke %tmp.28 %tmp.29(%tmp.30, %tmp.31);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 66 8 ]
+        symbol [ WatchUi %tmp.32 66 8 15 ];
+        %tmp.32 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.33 66 16 23 ];
+        %tmp.33 = getv function %tmp.32 :popView;
+        symbol [ WatchUi %tmp.34 66 24 31 ];
+        %tmp.34 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.35 66 32 43 ];
+        %tmp.35 = getv %tmp.34 :SLIDE_RIGHT;
+        invoke %tmp.32 %tmp.33(%tmp.35);
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_55_56_67_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 69; @symbol_functiondef = [onBack,69,13,19]; ]
+    function onBack() as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_69_30_71_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc" 70 8 ]
+        symbol [ WatchUi %tmp.1 70 8 15 ];
+        %tmp.1 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.2 70 16 23 ];
+        %tmp.2 = getv function %tmp.1 :popView;
+        symbol [ WatchUi %tmp.3 70 24 31 ];
+        %tmp.3 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.4 70 32 43 ];
+        %tmp.4 = getv %tmp.3 :SLIDE_RIGHT;
+        invoke %tmp.1 %tmp.2(%tmp.4);
+_Users_miren_Documents_GitHub_smartalarm_source_RepeatMenu_mc_69_30_71_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RepeatMenu.mc"; @line = 13; ]
+<init> {
+}

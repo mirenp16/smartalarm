@@ -16,6 +16,7 @@
 // Everything is guarded: if recording is unavailable the alarm still works
 // exactly as before, just without the palm protection.
 
+import Toybox.Activity;
 import Toybox.ActivityRecording;
 import Toybox.Lang;
 
@@ -28,9 +29,12 @@ class SessionKeeper {
         if (_session != null) { return true; }
         try {
             if (!(Toybox has :ActivityRecording)) { return false; }
+            // Activity.SPORT_GENERIC - the ActivityRecording.SPORT_* constants
+            // are deprecated. Generic means no GPS and no sport-specific
+            // sensors, which keeps the battery cost as low as possible.
             _session = ActivityRecording.createSession({
                 :name  => "Smart Alarm",
-                :sport => ActivityRecording.SPORT_GENERIC
+                :sport => Activity.SPORT_GENERIC
             });
             if (_session != null) {
                 _session.start();

@@ -7,6 +7,14 @@ using Toybox.Graphics as Gfx;
 module Rez {
     module Drawables {
         (:initialized) var AlarmLogo as ResourceId;
+        (:initialized) var IconSoundS as ResourceId;
+        (:initialized) var IconNoSoundS as ResourceId;
+        (:initialized) var IconVibeS as ResourceId;
+        (:initialized) var IconNoVibeS as ResourceId;
+        (:initialized) var IconSoundL as ResourceId;
+        (:initialized) var IconNoSoundL as ResourceId;
+        (:initialized) var IconVibeL as ResourceId;
+        (:initialized) var IconNoVibeL as ResourceId;
         (:initialized) var LauncherIcon as ResourceId;
     } // Drawables
 

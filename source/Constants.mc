@@ -75,6 +75,18 @@ const RECENT_SAMPLES = 12;    // ~3 minutes counts as "recent"
 // Re-sort the buffer for percentiles only every N new samples (~1 min), instead
 // of every tick. Sorting every tick allocated a new array 4x a minute all night.
 const RECALC_EVERY   = 4;
+// Longest Sleep Cycle Window offered, plus how long before it we start reading
+// the heart-rate sensor. Outside that span the app just watches the clock, which
+// is most of the night - this is the single biggest battery saving.
+const MAX_WINDOW_MINS  = 75;
+const SAMPLE_LEAD_MINS = 20;
+
+// Timer cadence. We only need 15 s precision near the alarm; the rest of the
+// night a 60 s tick is plenty and wakes the CPU 4x less often.
+const TICK_FAST_MS = 15000;
+const TICK_SLOW_MS = 60000;
+// Switch to the fast tick when the next alarm is within this many seconds.
+const FAST_TICK_WITHIN_SECS = (MAX_WINDOW_MINS + SAMPLE_LEAD_MINS) * 60;
 
 // If lightness is at/above this BEFORE the window even opens, we treat the user
 // as already awake and just fire at the set time.

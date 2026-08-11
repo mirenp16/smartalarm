@@ -123,6 +123,39 @@ class AlarmEngine {
         return false;
     }
 
+    // Seconds until the next alarm needs attention, or -1 if nothing is pending.
+    // Used to decide how hard the app should work: for most of the night there
+    // is nothing to do but watch the clock.
+    static function secsUntilNextTarget(nowSecs as Number) as Number {
+        var soonest = -1;
+        var list = AlarmStore.getAlarms();
+        for (var i = 0; i < list.size(); i++) {
+            var a = list[i] as Dictionary;
+            if (!AlarmStore.isOn(a)) { continue; }
+            if (AlarmStore.hasFired(AlarmStore.id(a))) { continue; }
+            var e = AlarmStore.nextFireEpoch(a, nowSecs);
+            if (e < 0) { continue; }
+            var d = e - nowSecs;
+            if (soonest < 0 || d < soonest) { soonest = d; }
+        }
+        var sn = AlarmStore.snoozeUntil();
+        if (sn != null) {
+            var ds = sn - nowSecs;
+            if (ds >= 0 && (soonest < 0 || ds < soonest)) { soonest = ds; }
+        }
+        return soonest;
+    }
+
+    // Should we be reading the heart-rate sensor yet? Sampling all night wastes
+    // battery: the detector only needs about an hour of history to build a
+    // baseline, so it stays idle until the wake window is approaching.
+    static function shouldSample(nowSecs as Number) as Boolean {
+        var d = secsUntilNextTarget(nowSecs);
+        if (d < 0) { return false; }
+        var lead = (MAX_WINDOW_MINS + SAMPLE_LEAD_MINS) * 60;
+        return d <= lead;
+    }
+
     // The alarm that governs "are we still on duty?" - used for the Next Alarm
     // display and the passcode gate.
     //

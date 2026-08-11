@@ -24,6 +24,7 @@ class BedsideView extends WatchUi.View {
     private var _armSecs as Number = 0;
     private var _controlsSecs as Number = -100;    // when controls were last revealed
     private var _lastDrawMin as Number = -1;       // throttles redraws to once a minute
+    private var _tickMs as Number = 0;             // current timer cadence
     private var _w as Number = 360;
     private var _h as Number = 360;
     private var _cx as Number = 180;
@@ -54,10 +55,22 @@ class BedsideView extends WatchUi.View {
         SessionKeeper.start();
 
         if (AlarmStore.ringingId() == null) { _ringingShown = false; }
-        if (_timer == null) {
-            _timer = new Timer.Timer();
-            _timer.start(method(:onTick), 15000, true);
-        }
+        startTimer(pickInterval());
+    }
+
+    // 15 s near an alarm, 60 s the rest of the night (4x fewer CPU wakeups).
+    private function pickInterval() as Number {
+        var d = AlarmEngine.secsUntilNextTarget(Time.now().value());
+        if (d >= 0 && d <= FAST_TICK_WITHIN_SECS) { return TICK_FAST_MS; }
+        return TICK_SLOW_MS;
+    }
+
+    private function startTimer(ms as Number) as Void {
+        if (_timer != null && _tickMs == ms) { return; }   // already correct
+        stopTimer();
+        _tickMs = ms;
+        _timer = new Timer.Timer();
+        _timer.start(method(:onTick), ms, true);
     }
 
     function onHide() as Void { stopTimer(); }
@@ -70,7 +83,12 @@ class BedsideView extends WatchUi.View {
         if (_exitArmed && (now - _armSecs) > EXIT_ARM_SECS) { _exitArmed = false; }
 
         try {
-            SleepDetector.sample();
+            // Only read the heart-rate sensor when a wake window is approaching.
+            // For most of the night there is nothing to detect, so staying idle
+            // here saves a large amount of battery.
+            if (AlarmEngine.shouldSample(now)) {
+                SleepDetector.sample();
+            }
         } catch (e) {
             // Sensor hiccup - keep going, the deadline will still fire.
         }
@@ -87,6 +105,9 @@ class BedsideView extends WatchUi.View {
         } catch (e2) {
             // Never let a scheduling error stop the clock.
         }
+
+        // Speed up as the alarm approaches, slow down again afterwards.
+        startTimer(pickInterval());
 
         // Only redraw when the displayed minute actually changes - redrawing
         // every 15 s all night was wasted work and extra allocation.
