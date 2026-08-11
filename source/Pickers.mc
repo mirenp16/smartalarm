@@ -12,7 +12,7 @@ class DaysPicker extends WatchUi.CheckboxMenu {
     public var alarm as Dictionary;
 
     function initialize(a as Dictionary) {
-        CheckboxMenu.initialize({:title => "Scheduled Days"});
+        CheckboxMenu.initialize({:title => "Custom Days"});
         alarm = a;
         var names = ["Sunday", "Monday", "Tuesday", "Wednesday",
                      "Thursday", "Friday", "Saturday"];

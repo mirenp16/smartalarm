@@ -19,12 +19,14 @@ class Fmt {
         return (hour >= 12) ? "PM" : "AM";
     }
 
-    // Human-readable day summary from a bitmask.
+    // Human-readable repeat summary from a bitmask. Named presets first, then a
+    // day list for anything custom.
     static function days(mask as Number) as String {
-        if (mask == DAYS_ALL)      { return "Every day"; }
-        if (mask == DAYS_WEEKDAYS) { return "Mon-Fri"; }
-        if (mask == (DAY_SAT | DAY_SUN)) { return "Weekends"; }
-        if (mask == 0)             { return "Once"; }
+        if (mask == DAYS_ONCE)     { return "Once"; }
+        if (mask == DAYS_ALL)      { return "Daily"; }
+        if (mask == DAYS_4X10)     { return "4x10"; }
+        if (mask == DAYS_WEEKDAYS) { return "Weekdays"; }
+        if (mask == DAYS_WEEKEND)  { return "Weekend"; }
 
         var names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         var out = "";

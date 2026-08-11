@@ -36,7 +36,23 @@ class BedsideView extends WatchUi.View {
         _cx = _w / 2;        _cy = _h / 2;
     }
 
+    // Set by the ringing screen once an alarm has been dismissed and there is
+    // nothing left to wait for - we then close Active Alarm Mode automatically
+    // instead of making the user enter the passcode a second time.
+    public static var exitRequested as Boolean = false;
+
     function onShow() as Void {
+        if (exitRequested) {
+            exitRequested = false;
+            stopTimer();
+            SessionKeeper.stop();
+            MainListMenu.show(WatchUi.SLIDE_DOWN);
+            return;
+        }
+
+        // Anchor the app in the foreground so a palm touch can't drop out of it.
+        SessionKeeper.start();
+
         if (AlarmStore.ringingId() == null) { _ringingShown = false; }
         if (_timer == null) {
             _timer = new Timer.Timer();
@@ -221,6 +237,7 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     // Active Alarm view (not the passcode view) and the exit actually sticks.
     function finishLeave() as Void {
         _view.stopTimer();
+        SessionKeeper.stop();     // release the foreground anchor
         MainListMenu.show(WatchUi.SLIDE_DOWN);
     }
 }

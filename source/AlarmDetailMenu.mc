@@ -3,9 +3,9 @@
 // "Done"/"Save" writes to storage. Sub-values are picked on their own screens and
 // the sublabels refresh when we return (onShow).
 //
-// Edit order: Status, Time, Scheduled Days, Label, Sleep Cycle Window, Alert,
+// Edit order: Status, Time, Repeat, Label, Sleep Cycle Window, Alert,
 //             Snooze Length, Max Snoozes, Done, Delete Alarm.
-// Add order : Save, Time, Scheduled Days, Label, Sleep Cycle Window, Alert,
+// Add order : Save, Time, Repeat, Label, Sleep Cycle Window, Alert,
 //             Snooze Length, Max Snoozes.
 
 import Toybox.Lang;
@@ -33,7 +33,7 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
                 AlarmStore.isOn(working), null));
         }
         addItem(new WatchUi.MenuItem("Time", timeSub(), :time, null));
-        addItem(new WatchUi.MenuItem("Scheduled Days", daysSub(), :days, null));
+        addItem(new WatchUi.MenuItem("Repeat", daysSub(), :days, null));
         addItem(new WatchUi.MenuItem("Label", labelSub(), :label, null));
         addItem(new WatchUi.MenuItem("Sleep Cycle Window", winSub(), :win, null));
         addItem(new WatchUi.MenuItem("Alert", modeSub(), :mode, null));
@@ -132,8 +132,8 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
             WatchUi.pushView(tp, new TimePickerDelegate(tp, false, a), WatchUi.SLIDE_LEFT);
 
         } else if (id == :days) {
-            var dp = new DaysPicker(a);
-            WatchUi.pushView(dp, new DaysPickerDelegate(dp), WatchUi.SLIDE_LEFT);
+            var rp = new RepeatMenu(a);
+            WatchUi.pushView(rp, new RepeatMenuDelegate(rp), WatchUi.SLIDE_LEFT);
 
         } else if (id == :label) {
             var lp = new OptionMenu("Label", "label", _labelOptions(), a);

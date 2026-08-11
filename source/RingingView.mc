@@ -201,6 +201,13 @@ class RingingView extends WatchUi.View {
         }
         AlarmStore.setRinging(null);
         AlarmStore.setSnoozeUntil(null);
+
+        // You've proved you're awake. Unless a snooze is still pending, close
+        // Active Alarm Mode too - otherwise you land back on it and are asked
+        // for the passcode a second time for no reason.
+        if (AlarmStore.validSnoozeId() == null) {
+            BedsideView.exitRequested = true;
+        }
         close();
     }
 
