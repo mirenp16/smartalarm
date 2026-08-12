@@ -14,10 +14,6 @@
         <iq:permissions>
             <iq:uses-permission id="Sensor"/>
             <iq:uses-permission id="SensorHistory"/>
-            <!-- Fit is needed only for the ActivityRecording session that pins
-                 Active Alarm Mode in the foreground. The session is always
-                 discarded, never saved, so no activity is ever recorded. -->
-            <iq:uses-permission id="Fit"/>
         </iq:permissions>
 
         <iq:languages>

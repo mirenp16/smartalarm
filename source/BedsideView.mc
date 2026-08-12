@@ -46,14 +46,15 @@ class BedsideView extends WatchUi.View {
         if (exitRequested) {
             exitRequested = false;
             stopTimer();
-            SessionKeeper.stop();
             MainListMenu.show(WatchUi.SLIDE_DOWN);
             return;
         }
 
-        // Anchor the app in the foreground so a palm touch can't drop out of it.
-        SessionKeeper.start();
-
+        // NOTE: an ActivityRecording session was tried here to pin the app in the
+        // foreground against the palm gesture. It worked, but the watch logged the
+        // whole night as an activity (destroying sleep tracking) and cost ~24%
+        // battery, so it was removed. The palm gesture remains unavoidable; the
+        // practical defence is turning the touchscreen off overnight.
         if (AlarmStore.ringingId() == null) { _ringingShown = false; }
         startTimer(pickInterval());
     }
@@ -258,7 +259,6 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     // Active Alarm view (not the passcode view) and the exit actually sticks.
     function finishLeave() as Void {
         _view.stopTimer();
-        SessionKeeper.stop();     // release the foreground anchor
         MainListMenu.show(WatchUi.SLIDE_DOWN);
     }
 }
