@@ -1,48 +1,48 @@
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 6; @symbol_importdef<0> = [Toybox,6,7,13]; @symbol_importdef<1> = [Application,6,14,25]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 6; @symbol_importdef<0> = [Toybox,6,7,13]; @symbol_importdef<1> = [Application,6,14,25]; ]
 import Toybox.Application;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [Lang,7,14,18]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [Lang,7,14,18]; ]
 import Toybox.Lang;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 8; @symbol_importdef<0> = [Toybox,8,7,13]; @symbol_importdef<1> = [WatchUi,8,14,21]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 8; @symbol_importdef<0> = [Toybox,8,7,13]; @symbol_importdef<1> = [WatchUi,8,14,21]; ]
 import Toybox.WatchUi;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 10; @symbol_classdef = [SmartAlarmApp,10,6,19]; @symbol_extends<0> = [Application,10,28,39]; @symbol_extends<1> = [AppBase,10,40,47]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 10; @symbol_classdef = [SmartAlarmApp,10,6,19]; @symbol_extends<0> = [Application,10,28,39]; @symbol_extends<1> = [AppBase,10,40,47]; ]
 class SmartAlarmApp extends Application.AppBase {
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 10; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 10; ]
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 10; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 10; ]
     static
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 12; @symbol_functiondef = [initialize,12,13,23]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 12; @symbol_functiondef = [initialize,12,13,23]; ]
     function initialize() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_12_26_14_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc" 13 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_12_26_14_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc" 13 8 ]
         symbol [ AppBase %tmp.2 13 8 15 ];
         %tmp.2 = getv ? :AppBase;
         symbol [ initialize %tmp.3 13 16 26 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_12_26_14_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_12_26_14_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 16; @symbol_functiondef = [onStart,16,13,20]; @symbol_param<0> = [state,16,21,26]; @symbol_param<0>_type<0> = [Dictionary,16,30,40]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 16; @symbol_functiondef = [onStart,16,13,20]; @symbol_param<0> = [state,16,21,26]; @symbol_param<0>_type<0> = [Dictionary,16,30,40]; ]
     function onStart(state as Dictionary or Null) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_16_51_19_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc" 18 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_16_51_19_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc" 18 8 ]
         symbol [ AlarmStore %tmp.2 18 8 18 ];
         %tmp.2 = getv ? :AlarmStore;
         symbol [ invalidate %tmp.3 18 19 29 ];
         %tmp.3 = getv function %tmp.2 :invalidate;
         invoke %tmp.2 %tmp.3();
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_16_51_19_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_16_51_19_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 21; @symbol_functiondef = [onStop,21,13,19]; @symbol_param<0> = [state,21,20,25]; @symbol_param<0>_type<0> = [Dictionary,21,29,39]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 21; @symbol_functiondef = [onStop,21,13,19]; @symbol_param<0> = [state,21,20,25]; @symbol_param<0>_type<0> = [Dictionary,21,29,39]; ]
     function onStop(state as Dictionary or Null) as Void {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 24; @symbol_functiondef = [getInitialView,24,13,27]; @symbol_return<0> = [WatchUi,24,34,41]; @symbol_return<1> = [Views,24,42,47]; @symbol_return<2> = [WatchUi,24,53,60]; @symbol_return<3> = [Views,24,61,66]; @symbol_return<4> = [WatchUi,24,68,75]; @symbol_return<5> = [InputDelegates,24,76,90]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 24; @symbol_functiondef = [getInitialView,24,13,27]; @symbol_return<0> = [WatchUi,24,34,41]; @symbol_return<1> = [Views,24,42,47]; @symbol_return<2> = [WatchUi,24,53,60]; @symbol_return<3> = [Views,24,61,66]; @symbol_return<4> = [WatchUi,24,68,75]; @symbol_return<5> = [InputDelegates,24,76,90]; ]
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_24_92_27_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc" 25 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_24_92_27_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_24_92_27_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_24_92_27_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc" 25 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_24_92_27_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_24_92_27_4_stop" ]
         %menu.1 = local;
         symbol [ menu %menu.1 25 12 16 ];
         symbol [ MainListMenu %tmp.4 25 23 35 ];
@@ -50,7 +50,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_24_92_27_4_star
         %tmp.1 = newc %tmp.4 ();
         lputv %menu.1 %tmp.1;
         symbol [ menu %menu.1 25 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc" 26 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc" 26 8 ]
         %tmp.5 = newa 2;
         %tmp.6 = lgetv %menu.1;
         symbol [ menu %tmp.6 26 16 20 ];
@@ -62,13 +62,13 @@ _Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_24_92_27_4_star
         %tmp.13 = dup %tmp.8;
         %tmp.14 = aputv %tmp.13 1 %tmp.9;
         ret %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_24_92_27_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_24_92_27_4_stop:
     }
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 30; @symbol_functiondef = [getApp,30,9,15]; @symbol_return<0> = [SmartAlarmApp,30,21,34]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 30; @symbol_functiondef = [getApp,30,9,15]; @symbol_return<0> = [SmartAlarmApp,30,21,34]; ]
 function getApp() as SmartAlarmApp {
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_30_35_32_0_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc" 31 4 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_30_35_32_0_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc" 31 4 ]
     symbol [ Application %tmp.1 31 11 22 ];
     %tmp.1 = getm $.Toybox.Application;
     symbol [ getApp %tmp.2 31 23 29 ];
@@ -77,8 +77,8 @@ _Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_30_35_32_0_star
     %tmp.4 = as %tmp.3 SmartAlarmApp;
     symbol [ SmartAlarmApp %tmp.4 31 35 48 ];
     ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_smartalarmApp_mc_30_35_32_0_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SmartAlarmApp_mc_30_35_32_0_stop:
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/smartalarmApp.mc"; @line = 6; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SmartAlarmApp.mc"; @line = 6; ]
 <init> {
 }
