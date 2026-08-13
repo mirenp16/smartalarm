@@ -142,8 +142,13 @@ class AlarmStore {
         var list = getAlarms();
         if (index >= 0 && index < list.size()) {
             var doomed = id(list[index] as Dictionary);
-            list.remove(list[index]);
-            saveAlarms(list);
+            // Rebuild by index rather than Array.remove(), which deletes by
+            // value and could pick the wrong entry if two alarms ever matched.
+            var kept = [];
+            for (var i = 0; i < list.size(); i++) {
+                if (i != index) { kept.add(list[i]); }
+            }
+            saveAlarms(kept);
             // Clear any pending snooze / ringing state that belonged to it,
             // otherwise its snooze time keeps showing up as the Next Alarm.
             clearStateFor(doomed);

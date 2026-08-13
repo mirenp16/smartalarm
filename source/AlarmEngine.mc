@@ -81,7 +81,10 @@ class AlarmEngine {
             if (nowSecs >= windowStartSecs) {
                 if (nowSecs >= targetSecs) { return aid; }   // hard deadline
                 // Peak detection: wake just after the lightest moment.
-                var progress = (nowSecs - windowStartSecs).toFloat() / winSecs.toFloat();
+                // winSecs is guarded so corrupt storage can't divide by zero.
+                var progress = (winSecs > 0)
+                    ? ((nowSecs - windowStartSecs).toFloat() / winSecs.toFloat())
+                    : 1.0;
                 if (SleepDetector.shouldWake(progress)) { return aid; }
             } else {
                 SleepDetector.resetWindow();
@@ -89,38 +92,6 @@ class AlarmEngine {
         }
 
         return -1;
-    }
-
-    // True if any enabled alarm is currently inside (or near) its active period,
-    // so Bedside Mode knows when to sample sensors vs. idle to save battery.
-    static function inActiveWindow(nowSecs as Number) as Boolean {
-        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var todayBit = 1 << (info.day_of_week - 1);
-        var midnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
-
-        var list = AlarmStore.getAlarms();
-        for (var i = 0; i < list.size(); i++) {
-            var a = list[i] as Dictionary;
-            if (!AlarmStore.isOn(a)) { continue; }
-            var aid = AlarmStore.id(a);
-            if (AlarmStore.hasFired(aid)) { continue; }
-
-            var days = AlarmStore.days(a);
-            var targetSecs = 0;
-            if (days == 0) {
-                targetSecs = AlarmStore.fireAt(a);
-                if (targetSecs == 0) { continue; }
-            } else {
-                if ((days & todayBit) == 0) { continue; }
-                targetSecs = midnight + AlarmStore.totalMinutes(a) * 60;
-            }
-
-            var win = AlarmStore.window(a);
-            var startSecs = targetSecs - (win + AWAKE_CHECK_LEAD) * 60;
-            var endSecs = targetSecs + FIRE_GRACE_MINS * 60;
-            if (nowSecs >= startSecs && nowSecs <= endSecs) { return true; }
-        }
-        return false;
     }
 
     // Seconds until the next alarm needs attention, or -1 if nothing is pending.

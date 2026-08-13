@@ -79,7 +79,10 @@ const RECALC_EVERY   = 4;
 // the heart-rate sensor. Outside that span the app just watches the clock, which
 // is most of the night - this is the single biggest battery saving.
 const MAX_WINDOW_MINS  = 75;
-const SAMPLE_LEAD_MINS = 20;
+// Must cover AWAKE_CHECK_LEAD (15) plus the detector's ~10 min warm-up, or the
+// "are you already awake?" check runs before enough samples exist and can never
+// trigger. 30 leaves a safe margin.
+const SAMPLE_LEAD_MINS = 30;
 
 // Timer cadence. We only need 15 s precision near the alarm; the rest of the
 // night a 60 s tick is plenty and wakes the CPU 4x less often.

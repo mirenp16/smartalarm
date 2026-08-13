@@ -172,6 +172,11 @@ class RingingView extends WatchUi.View {
         if (id == null) { close(); return; }
         if (snoozeExhausted()) { return; }        // must use I'm Awake instead
         AlarmStore.incSnooze(id);
+        // Mark today's slot as done. Without this a REPEATING alarm is still
+        // "due" (we're inside its 15-minute grace window), so the base schedule
+        // re-fires it a second later and the snooze is ignored entirely.
+        // The snooze entry below is what brings it back.
+        AlarmStore.markFired(id);
         var until = Time.now().value() + snLen() * 60;
         AlarmStore.scheduleSnooze(id, until);
         AlarmStore.setRinging(null);
