@@ -88,13 +88,18 @@ class SleepDetector {
     private static var _base as Float = 0.0;
     private static var _top as Float = 0.0;
     private static var _lastCalc as Number = -9999;
+    // Explicit validity flag rather than testing _top <= _base. On a very steady
+    // night the two percentiles legitimately land on the same value, and that
+    // test then forced a recompute on every single tick - exactly the kind of
+    // repeated work that trips the instruction watchdog.
+    private static var _boundsValid as Boolean = false;
 
     // 0-100 lightness, or -1 when there isn't enough data yet.
     static function lightness() as Number {
         var n = _samples.size();
         if (n < MIN_HR_SAMPLES) { return -1; }
 
-        if (_lastCalc < 0 || (n - _lastCalc) >= RECALC_EVERY || _top <= _base) {
+        if (!_boundsValid || (n - _lastCalc) >= RECALC_EVERY) {
             recomputeBounds();
             _lastCalc = n;
         }
@@ -148,11 +153,14 @@ class SleepDetector {
         return false;
     }
 
-    // Clears the per-window peak (called when outside a window).
+    // Clears the per-window peak (called when outside a window). The cached
+    // percentiles are also dropped so the next window recalibrates from the
+    // heart-rate data that actually belongs to it.
     static function resetWindow() as Void {
         if (_armed) {
             _best = -1;
             _armed = false;
+            _boundsValid = false;
         }
     }
 
@@ -210,6 +218,7 @@ class SleepDetector {
 
         _base = (lo + HR_MIN).toFloat();
         _top  = (hi + HR_MIN).toFloat();
+        _boundsValid = true;
     }
 
     static function clamp(v as Number, lo as Number, hi as Number) as Number {

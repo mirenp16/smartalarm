@@ -409,6 +409,9 @@ runs, since several suites generate randomised scenarios.)
 | 5–6 | Repeat presets, auto-exit, battery model | 2,200 |
 | 7 | General alarm functionality | 3,400 |
 | 8 | Code-audit regressions | 2,900 |
+| 9 | Cache correctness and stale-state recovery | 2,600 |
+| 10 | Time-picker hold-to-step | 900 |
+| 11 | Degenerate-input edge cases | 3,000 |
 
 Representative coverage:
 
@@ -417,6 +420,8 @@ Representative coverage:
 - **All 128 day-bitmask combinations** verified against every weekday
 - **400 simulated nights** confirming the deadline guarantee never fails
 - **100,000 randomised press sequences** producing zero accidental dismissals
+- **Degenerate sensor input** — flat-line heart rate, boundary values and sub-threshold
+  buffers, confirming the score never inflates into a false wake
 
 ### Bugs caught by testing
 
