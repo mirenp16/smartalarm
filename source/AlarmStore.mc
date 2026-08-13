@@ -130,7 +130,7 @@ class AlarmStore {
     static function nextFireEpoch(a as Dictionary, nowSecs as Number) as Number {
         var d = days(a);
         if (d == 0) {
-            var fa = fireAt(a);
+            var fa = ensureFireAt(a);   // repairs a legacy alarm with no fireAt
             return (fa > nowSecs) ? fa : -1;
         }
         // Uses the cached day context - this used to call Gregorian.info() once
@@ -161,6 +161,23 @@ class AlarmStore {
 
     static function fireAt(a as Dictionary) as Number {
         return _n(a, "fireAt", 0);
+    }
+
+    // MIGRATION SAFETY.
+    // A one-time alarm stores its trigger moment in "fireAt". An alarm saved by
+    // an older build can lack that field entirely, which reads back as 0 - and 0
+    // is treated as "nothing scheduled", so the alarm would sit in the list
+    // looking enabled while being permanently unable to fire, with no warning.
+    // Repair it the first time we look at it.
+    static function ensureFireAt(a as Dictionary) as Number {
+        var fa = fireAt(a);
+        if (fa > 0) { return fa; }
+        fa = nextOccurrence(hour(a), minute(a));
+        a.put("fireAt", fa);
+        var found = findById(id(a));
+        var idx = found[0] as Number;
+        if (idx >= 0) { updateAlarm(idx, a); }
+        return fa;
     }
 
     static function addAlarm(alarm as Dictionary) as Void {

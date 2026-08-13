@@ -47,8 +47,10 @@ class AlarmEngine {
 
             var targetSecs = 0;
             if (oneTime) {
-                targetSecs = AlarmStore.fireAt(a);
-                if (targetSecs == 0) { continue; }
+                // ensureFireAt repairs alarms saved before "fireAt" existed,
+                // which would otherwise never be able to fire.
+                targetSecs = AlarmStore.ensureFireAt(a);
+                if (targetSecs <= 0) { continue; }
             } else {
                 if ((days & todayBit) == 0) { continue; }
                 targetSecs = midnight + AlarmStore.totalMinutes(a) * 60;

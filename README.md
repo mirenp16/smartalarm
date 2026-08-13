@@ -8,6 +8,32 @@ Written in **Monkey C** against the **Connect IQ SDK 9.x**.
 
 ---
 
+## How it works in one minute
+
+A normal alarm fires at a fixed time, often yanking you out of deep sleep. This one watches a
+**Sleep Cycle Window** before your set time and rings at the lightest moment it finds.
+
+```
+    05:15 ─────────────── 06:00        Alarm set for 06:00
+    └── Sleep Cycle Window ──┘         with a 45-minute window
+
+    Heart rate is sampled every 15 s.
+    It rings at the lightest point inside the window — say 05:38 —
+    or at 06:00 regardless, so you are never late.
+```
+
+**Three things to know before using it:**
+
+1. **Alarms only ring while "Active Alarm Mode" is open.** You start it at bedtime from the
+   main screen. This is a Garmin platform limitation, not a bug — background apps are not
+   permitted to vibrate or make sound ([details below](#why-active-alarm-mode-exists)).
+2. **Vibrate Only is the default**, because the watch mutes app tones when its Alert Tones
+   setting is off — a different setting from the built-in alarm's.
+3. **A passcode is required to switch the alarm off**, which is the point: typing four digits
+   is what proves you're actually awake.
+
+---
+
 ## Engineering highlights
 
 Most of the interesting work here came from designing *around* platform limits rather than
@@ -30,6 +56,7 @@ within them:
 
 ## Contents
 
+- [How it works in one minute](#how-it-works-in-one-minute)
 - [What it does](#what-it-does)
 - [Why Active Alarm Mode exists](#why-active-alarm-mode-exists)
 - [Sleep-cycle detection](#sleep-cycle-detection)
@@ -372,6 +399,13 @@ Repeat presets are bitmask values: `Once` = `0x00`, `4x10` = `0x1E`, `Weekdays` 
 Per-day runtime state (fired, awake-downgraded, snooze count) is stored separately and reset
 automatically at midnight, so scheduling flags never leak across days.
 
+**Schema migration.** Every optional field is read through an accessor with a default, so an
+alarm saved by an older build still loads. One case needed explicit repair: a one-time alarm
+stores its trigger moment in `fireAt`, and an alarm predating that field reads back as `0` —
+which the scheduler treats as "nothing scheduled". Such an alarm would sit in the list looking
+enabled while being permanently unable to ring. `ensureFireAt()` detects this and rewrites a
+valid time on first read.
+
 ---
 
 ## Platform constraints discovered
@@ -412,6 +446,7 @@ runs, since several suites generate randomised scenarios.)
 | 9 | Cache correctness and stale-state recovery | 2,600 |
 | 10 | Time-picker hold-to-step | 900 |
 | 11 | Degenerate-input edge cases | 3,000 |
+| 12 | Backward compatibility with older saved data | 1,250 |
 
 Representative coverage:
 
@@ -432,6 +467,9 @@ Representative coverage:
   wrong entry when two alarms matched; rebuilt by index.
 - **Awake-detection could never trigger** at the 75-minute window — sampling began only 5
   minutes before the check, below the 10-minute warm-up threshold.
+- **Legacy one-time alarms could never fire.** An alarm saved before the `fireAt` field
+  existed read back as `0`, which the scheduler treats as unscheduled — so it appeared
+  enabled in the list but was permanently dead.
 
 ---
 
