@@ -70,6 +70,7 @@ within them:
 - [Testing](#testing)
 - [Build and install](#build-and-install)
 - [Usage](#usage)
+- [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -543,6 +544,21 @@ passcode is only entered once.
 > **Enable Alert Tones** (Hold UP → System → Sound & Vibe) if you want sound. This is a
 > *different setting* from the alarm tone — the native alarm can beep while app tones are
 > muted.
+
+---
+
+## Troubleshooting
+
+| Symptom | Most likely cause | Fix |
+|---|---|---|
+| Alarm didn't ring at all | Active Alarm Mode wasn't running | Open it from the main screen before sleeping |
+| Alarm vibrates but makes no sound | The watch's **Alert Tones** are off — a different setting from the built-in alarm's | Hold UP → System → Sound & Vibe → Alert Tones |
+| Ringtone list is very short | The watch only exposes a few tones; the list is built from what it actually supports | Nothing to fix — those are all the tones available |
+| App exited overnight | The palm-cover gesture returns to the watch face and cannot be intercepted by any app | Hold UP → System → Touch → turn the touchscreen off overnight |
+| An alarm shows ON but never fires | It already fired today, or it's a one-time alarm that has done its job | Check **Status**; re-saving an alarm re-arms it |
+| Woke at the set time, not earlier | No light-sleep moment was found in the window | Use a longer Sleep Cycle Window — 45 min or more |
+| Asked for the passcode twice | Older behaviour; dismissing now closes Active Alarm Mode unless a snooze is pending | Update to the current build |
+| Forgot the passcode | — | Enter the master code **1234**, or get it wrong 5 times and it fills itself in |
 
 ---
 
