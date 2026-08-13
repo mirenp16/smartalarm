@@ -70,6 +70,9 @@ const RECENT_SAMPLES = 12;    // ~3 minutes counts as "recent"
 // Re-sort the buffer for percentiles only every N new samples (~1 min), instead
 // of every tick. Sorting every tick allocated a new array 4x a minute all night.
 const RECALC_EVERY   = 4;
+// Heart-rate range used for the counting-sort percentile calculation.
+const HR_MIN   = 25;
+const HR_RANGE = 176;   // covers 25-200 bpm
 // Longest Sleep Cycle Window offered, plus how long before it we start reading
 // the heart-rate sensor. Outside that span the app just watches the clock, which
 // is most of the night - this is the single biggest battery saving.

@@ -14,6 +14,8 @@ class SmartAlarmApp extends Application.AppBase {
     }
 
     function onStart(state as Dictionary?) as Void {
+        // Start from persistent storage rather than any stale in-memory cache.
+        AlarmStore.invalidate();
     }
 
     function onStop(state as Dictionary?) as Void {

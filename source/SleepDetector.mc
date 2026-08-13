@@ -95,9 +95,7 @@ class SleepDetector {
         if (n < MIN_HR_SAMPLES) { return -1; }
 
         if (_lastCalc < 0 || (n - _lastCalc) >= RECALC_EVERY || _top <= _base) {
-            var sorted = sortedCopy(_samples);
-            _base = percentile(sorted, 20);   // deep-sleep floor
-            _top  = percentile(sorted, 85);   // light/REM ceiling
+            recomputeBounds();
             _lastCalc = n;
         }
         var base = _base;
@@ -170,29 +168,48 @@ class SleepDetector {
         return sum / (to - from - 1);
     }
 
-    private static function sortedCopy(arr as Array<Number>) as Array<Number> {
-        var a = [] as Array<Number>;
-        for (var i = 0; i < arr.size(); i++) { a.add(arr[i]); }
-        // Insertion sort - the buffer is small and this runs at most once per tick.
-        for (var i = 1; i < a.size(); i++) {
-            var v = a[i];
-            var j = i - 1;
-            while (j >= 0 && a[j] > v) {
-                a[j + 1] = a[j];
-                j--;
-            }
-            a[j + 1] = v;
-        }
-        return a;
-    }
+    // Computes the 20th/85th percentiles with a COUNTING SORT over the heart-rate
+    // range instead of a comparison sort.
+    //
+    // The previous insertion sort was O(n^2) - about 28,800 comparisons for a
+    // 240-sample buffer, executed inside a timer callback. Connect IQ's watchdog
+    // counts VM instructions and terminates the app if a callback runs too long,
+    // so that was a standing crash risk. This version is O(n + range): one pass
+    // to bucket the samples and one pass over ~176 buckets, roughly 60x cheaper,
+    // and it allocates nothing per call.
+    private static function recomputeBounds() as Void {
+        var n = _samples.size();
+        if (n == 0) { return; }
 
-    private static function percentile(sorted as Array<Number>, p as Number) as Float {
-        var n = sorted.size();
-        if (n == 0) { return 0.0; }
-        var idx = (n - 1) * p / 100;
-        if (idx < 0) { idx = 0; }
-        if (idx > n - 1) { idx = n - 1; }
-        return sorted[idx].toFloat();
+        var counts = new [HR_RANGE];              // fixed-size, reused shape
+        for (var i = 0; i < HR_RANGE; i++) { counts[i] = 0; }
+
+        var valid = 0;
+        for (var i = 0; i < n; i++) {
+            var v = _samples[i] - HR_MIN;
+            if (v >= 0 && v < HR_RANGE) {
+                counts[v] = counts[v] + 1;
+                valid++;
+            }
+        }
+        if (valid == 0) { return; }
+
+        var lowTarget  = valid * 20 / 100;        // 20th percentile
+        var highTarget = valid * 85 / 100;        // 85th percentile
+        var cum = 0;
+        var lo = -1;
+        var hi = -1;
+        for (var b = 0; b < HR_RANGE; b++) {
+            if (counts[b] == 0) { continue; }
+            cum += counts[b];
+            if (lo < 0 && cum > lowTarget)  { lo = b; }
+            if (hi < 0 && cum > highTarget) { hi = b; break; }
+        }
+        if (lo < 0) { lo = 0; }
+        if (hi < 0) { hi = HR_RANGE - 1; }
+
+        _base = (lo + HR_MIN).toFloat();
+        _top  = (hi + HR_MIN).toFloat();
     }
 
     static function clamp(v as Number, lo as Number, hi as Number) as Number {

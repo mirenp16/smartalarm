@@ -119,11 +119,13 @@ class AlarmEngine {
     // Should we be reading the heart-rate sensor yet? Sampling all night wastes
     // battery: the detector only needs about an hour of history to build a
     // baseline, so it stays idle until the wake window is approaching.
-    static function shouldSample(nowSecs as Number) as Boolean {
-        var d = secsUntilNextTarget(nowSecs);
-        if (d < 0) { return false; }
-        var lead = (MAX_WINDOW_MINS + SAMPLE_LEAD_MINS) * 60;
-        return d <= lead;
+    //
+    // Takes a pre-computed distance so the caller can work it out ONCE per tick.
+    // Calling secsUntilNextTarget() separately from here and from the timer-rate
+    // logic doubled an already expensive scan.
+    static function shouldSampleAt(secsUntil as Number) as Boolean {
+        if (secsUntil < 0) { return false; }
+        return secsUntil <= (MAX_WINDOW_MINS + SAMPLE_LEAD_MINS) * 60;
     }
 
     // The alarm that governs "are we still on duty?" - used for the Next Alarm

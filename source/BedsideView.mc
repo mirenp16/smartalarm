@@ -27,6 +27,7 @@ class BedsideView extends WatchUi.View {
     private var _controlsSecs as Number = -100;    // when controls were last revealed
     private var _lastDrawMin as Number = -1;       // throttles redraws to once a minute
     private var _tickMs as Number = 0;             // current timer cadence
+    private var _nextStr as String? = null;        // cached "Next Alarm" text
     private var _w as Number = 360;
     private var _h as Number = 360;
     private var _cx as Number = 180;
@@ -85,11 +86,20 @@ class BedsideView extends WatchUi.View {
         var now = Time.now().value();
         if (_exitArmed && (now - _armSecs) > EXIT_ARM_SECS) { _exitArmed = false; }
 
+        // Work out the distance to the next alarm ONCE and reuse it. This scan
+        // walks every alarm, so doing it repeatedly per tick was a large part of
+        // the load that tripped the watchdog.
+        var secsUntil = -1;
+        try {
+            secsUntil = AlarmEngine.secsUntilNextTarget(now);
+        } catch (e0) {
+        }
+
         try {
             // Only read the heart-rate sensor when a wake window is approaching.
             // For most of the night there is nothing to detect, so staying idle
             // here saves a large amount of battery.
-            if (AlarmEngine.shouldSample(now)) {
+            if (AlarmEngine.shouldSampleAt(secsUntil)) {
                 SleepDetector.sample();
             }
         } catch (e) {
@@ -109,14 +119,18 @@ class BedsideView extends WatchUi.View {
             // Never let a scheduling error stop the clock.
         }
 
-        // Speed up as the alarm approaches, slow down again afterwards.
-        startTimer(pickInterval());
+        // Speed up as the alarm approaches, slow down again afterwards. Reuses
+        // the distance computed above rather than scanning the alarms again.
+        var wanted = (secsUntil >= 0 && secsUntil <= FAST_TICK_WITHIN_SECS)
+                     ? TICK_FAST_MS : TICK_SLOW_MS;
+        startTimer(wanted);
 
         // Only redraw when the displayed minute actually changes - redrawing
         // every 15 s all night was wasted work and extra allocation.
         var mins = now / 60;
         if (mins != _lastDrawMin) {
             _lastDrawMin = mins;
+            _nextStr = computeNextAlarmStr();   // done here, not while drawing
             WatchUi.requestUpdate();
         }
     }
@@ -160,7 +174,14 @@ class BedsideView extends WatchUi.View {
         }
     }
 
+    // Cached string, refreshed on tick. Drawing must stay cheap: computing this
+    // inside onUpdate() meant a full alarm scan on every redraw.
     function nextAlarmStr() as String {
+        if (_nextStr == null) { _nextStr = computeNextAlarmStr(); }
+        return _nextStr as String;
+    }
+
+    private function computeNextAlarmStr() as String {
         var nowSecs = Time.now().value();
         // Only show a snooze time if that alarm still exists (validSnoozeId
         // clears the snooze when its alarm has been deleted).

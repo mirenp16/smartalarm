@@ -258,6 +258,33 @@ sensor or scheduling exception can never kill the alarm.
 | Buffer sorts | 1,881 | 51 |
 | Redraws | 1,920 | 480 |
 
+### Execution time: the instruction watchdog
+
+The crash recurred after the memory fixes, which ruled memory out. Connect IQ enforces a
+second, independent limit: a **watchdog that counts VM instructions** and terminates the app
+if a callback runs too long. Profiling the overnight tick found two causes.
+
+**Redundant expensive calls.** Each tick performed ~87 persistent-storage deserialisations of
+the alarm array and ~63 `Gregorian.info()` calendar conversions, because `nextFireEpoch()`
+called `Gregorian.info()` once *per alarm*, and the alarm scan itself ran three separate
+times per tick. Fixed with an in-memory alarm cache invalidated on write, a day-context cache
+recomputed at most once a minute, and computing the next-alarm distance once per tick and
+reusing it.
+
+**An O(n²) sort in a callback.** Percentiles were computed with an insertion sort over the
+240-sample buffer — roughly 14,000 operations inside a timer callback. Replaced with a
+**counting sort** over the 25–200 bpm range: O(n + range), ~416 operations, allocating
+nothing.
+
+| Per tick / recompute | Before | After |
+|---|---|---|
+| Storage reads | ~87 | ~1 |
+| `Gregorian.info()` calls | ~63 | ~1 |
+| Percentile operations | ~14,400 | ~416 |
+
+The substitution was validated for behavioural equivalence across 300 simulated nights:
+identical wake moment on 267, and mean wake quality unchanged (0.715 → 0.722).
+
 ---
 
 ## Architecture
@@ -470,3 +497,7 @@ passcode is only entered once.
 - Ringtones are limited to the device's built-in tones
 - Sleep detection is derived from heart rate, not Garmin's own sleep staging
 - Overnight battery use is significantly higher than a normal night
+
+## License
+
+MIT — free to use, modify and distribute, with attribution. See [LICENSE](LICENSE).

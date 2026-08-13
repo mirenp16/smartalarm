@@ -25,16 +25,50 @@ import Toybox.Time.Gregorian;
 
 class AlarmStore {
 
+    // ── In-memory caches ─────────────────────────────────────────────────────
+    // Persistent storage reads deserialise the whole alarm array, and
+    // Gregorian.info() is a system call. The overnight tick used to trigger ~87
+    // storage reads and ~63 calendar conversions EVERY tick, which trips
+    // Connect IQ's instruction watchdog and kills the app ("IQ!" screen).
+    // These caches reduce that to roughly one of each per minute.
+    private static var _alarmCache = null;      // Array or null when dirty
+    private static var _dayStateCache = null;   // Dictionary or null when dirty
+    private static var _ctxMinute as Number = -1;
+    private static var _ctxMidnight as Number = 0;
+    private static var _ctxDow as Number = 0;   // 0 = Sunday
+
+    // Called whenever anything is written, so nothing can serve stale data.
+    static function invalidate() as Void {
+        _alarmCache = null;
+        _dayStateCache = null;
+    }
+
+    // Midnight (epoch secs) and day-of-week for "now", computed at most once a
+    // minute instead of once per alarm per call.
+    static function dayContext(nowSecs as Number) as Array<Number> {
+        var minute = nowSecs / 60;
+        if (minute != _ctxMinute) {
+            var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+            _ctxMidnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
+            _ctxDow = info.day_of_week - 1;     // Gregorian: 1=Sun -> 0=Sun
+            _ctxMinute = minute;
+        }
+        return [_ctxMidnight, _ctxDow];
+    }
+
     // ── Alarm list CRUD ──────────────────────────────────────────────────────
 
     static function getAlarms() as Array {
+        if (_alarmCache != null) { return _alarmCache as Array; }
         var v = Application.Storage.getValue(KEY_ALARMS);
-        if (v == null) { return []; }
-        return v as Array;
+        _alarmCache = (v == null) ? [] : (v as Array);
+        return _alarmCache as Array;
     }
 
     static function saveAlarms(list as Array) as Void {
         Application.Storage.setValue(KEY_ALARMS, list);
+        _alarmCache = list;
+        _dayStateCache = null;
     }
 
     // Builds a brand-new alarm Dictionary with sensible defaults.
@@ -99,13 +133,16 @@ class AlarmStore {
             var fa = fireAt(a);
             return (fa > nowSecs) ? fa : -1;
         }
-        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var midnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
+        // Uses the cached day context - this used to call Gregorian.info() once
+        // per alarm per lookup, which is what overloaded the watchdog.
+        var ctx = dayContext(nowSecs);
+        var midnight = ctx[0];
+        var dow = ctx[1];
         var secOfDay = totalMinutes(a) * 60;
         for (var off = 0; off < 8; off++) {
             var epoch = midnight + off * 86400 + secOfDay;
             if (epoch <= nowSecs) { continue; }
-            var bit = (info.day_of_week - 1 + off) % 7;
+            var bit = (dow + off) % 7;
             if ((d & (1 << bit)) != 0) { return epoch; }
         }
         return -1;
@@ -216,22 +253,29 @@ class AlarmStore {
     //   "s" => snooze count today
     //   "best" => best lightness seen so far in the window (for debugging)
 
+    // Cheap day check: derives the day number from the cached midnight rather
+    // than making a fresh Gregorian.info() call on every tick.
     static function resetIfNewDay() as Void {
-        var today = Gregorian.info(Time.now(), Time.FORMAT_SHORT).day;
+        var ctx = dayContext(Time.now().value());
+        var today = ctx[0] / 86400;                  // day index from midnight
         var stored = Application.Storage.getValue(KEY_STATE_DAY);
         if (stored == null || stored != today) {
             Application.Storage.setValue(KEY_STATE_DAY, today);
             Application.Storage.setValue(KEY_DAY_STATE, {});
+            _dayStateCache = {};
             // A fresh day also clears any stale ringing/snooze state.
             Application.Storage.setValue(KEY_RING_ID, null);
             Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
         }
     }
 
+    // Cached: hasFired() is called once per alarm per scan, and each call used to
+    // deserialise this dictionary from storage.
     static function getDayState() as Dictionary {
+        if (_dayStateCache != null) { return _dayStateCache as Dictionary; }
         var v = Application.Storage.getValue(KEY_DAY_STATE);
-        if (v == null) { return {}; }
-        return v as Dictionary;
+        _dayStateCache = (v == null) ? {} : (v as Dictionary);
+        return _dayStateCache as Dictionary;
     }
 
     static function stateFor(alarmId as Number) as Dictionary {
@@ -246,6 +290,7 @@ class AlarmStore {
         var all = getDayState();
         all.put(alarmId.toString(), s);
         Application.Storage.setValue(KEY_DAY_STATE, all);
+        _dayStateCache = all;
     }
 
     static function markFired(alarmId as Number) as Void {
