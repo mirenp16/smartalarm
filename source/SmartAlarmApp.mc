@@ -16,6 +16,10 @@ class SmartAlarmApp extends Application.AppBase {
     function onStart(state as Dictionary?) as Void {
         // Start from persistent storage rather than any stale in-memory cache.
         AlarmStore.invalidate();
+        // If the app was killed while an alarm was ringing, that "ringing" flag
+        // survives in storage. Without this the app would open straight into the
+        // ringing screen for an alarm that was due hours ago.
+        AlarmStore.clearStaleRing();
     }
 
     function onStop(state as Dictionary?) as Void {

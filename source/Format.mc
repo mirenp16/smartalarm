@@ -14,10 +14,6 @@ class Fmt {
         return h.format("%d") + ":" + minute.format("%02d") + " " + ampm;
     }
 
-    // Just the "AM"/"PM" suffix.
-    static function ampm(hour as Number) as String {
-        return (hour >= 12) ? "PM" : "AM";
-    }
 
     // Human-readable repeat summary from a bitmask. Named presets first, then a
     // day list for anything custom.

@@ -84,9 +84,9 @@ the app holds the foreground, it can:
 - vibrate and play tones directly, with no system prompt
 - present the ringing screen immediately
 
-The trade-off is explicit: **alarms only fire while Active Alarm Mode is running.** The app
-makes this obvious rather than silently failing — the main screen shows an "Alarm Activation
-Mode" entry, and enabling an alarm takes you straight into it.
+The trade-off is explicit: **alarms only fire while Active Alarm Mode is running.** Rather
+than failing silently, the app surfaces this — "Alarm Activation Mode" is the first entry on
+the main screen, directly beneath the count of enabled alarms.
 
 ---
 
@@ -460,10 +460,14 @@ requires updating `<iq:product>` in `manifest.xml` and re-checking layout consta
 
 ### Nightly routine
 
-1. Enable an alarm — the app enters **Active Alarm Mode** automatically
-2. Leave the app in this mode and go to sleep. The screen is near-black and refreshes once a
-   minute; it displays the current time and next alarm
-3. The alarm fires during light sleep inside your window, or at your set time at the latest
+1. Make sure the alarm's **Status** is On
+2. From the main screen, select **Alarm Activation Mode**
+3. Leave the app in this mode and go to sleep. The screen is near-black and refreshes once a
+   minute, showing the current time and next alarm
+4. The alarm fires during light sleep inside your window, or at your set time at the latest
+
+> Alarms **do not ring** unless Active Alarm Mode is running — this is the platform
+> constraint described above, not an oversight.
 
 To exit Active Alarm Mode deliberately: press **BACK, then UP**, and enter your passcode.
 

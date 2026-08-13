@@ -26,7 +26,7 @@ class MainListMenu extends WatchUi.CustomMenu {
 
         var list = AlarmStore.getAlarms();
         for (var i = 0; i < list.size(); i++) {
-            addItem(new AlarmRow(i, list[i] as Dictionary));
+            addItem(new AlarmRow(i));
         }
 
         addItem(new SimpleRow(:add, "Add Alarm"));
@@ -121,7 +121,8 @@ class AlarmRow extends WatchUi.CustomMenuItem {
 
     private var _index as Number;
 
-    function initialize(index as Number, alarm as Dictionary) {
+    // The alarm is looked up fresh in draw(), so only the index is stored.
+    function initialize(index as Number) {
         CustomMenuItem.initialize(index, {});
         _index = index;
     }

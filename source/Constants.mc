@@ -12,14 +12,14 @@ const DAY_WED = 0x08;  // 0b0001000
 const DAY_THU = 0x10;  // 0b0010000
 const DAY_FRI = 0x20;  // 0b0100000
 const DAY_SAT = 0x40;  // 0b1000000
-const DAYS_WEEKDAYS = 0x3E;  // Mon-Fri (0b0111110)
-const DAYS_ALL      = 0x7F;  // every day
-
 // ── Repeat presets ───────────────────────────────────────────────────────────
-// Shown instead of raw day lists. "Custom" opens the day checkboxes.
-const DAYS_ONCE    = 0x00;   // fires once, then switches itself off
-const DAYS_4X10    = 0x1E;   // Mon-Thu  (bits 1-4)
-const DAYS_WEEKEND = 0x41;   // Sat + Sun (bits 6 and 0)
+// Built from the day bits above so the mapping is self-evident.
+// "Custom" opens the day checkboxes instead of using a preset.
+const DAYS_ONCE     = 0x00;                                        // fires once, then off
+const DAYS_4X10     = DAY_MON | DAY_TUE | DAY_WED | DAY_THU;       // 0x1E
+const DAYS_WEEKDAYS = DAY_MON | DAY_TUE | DAY_WED | DAY_THU | DAY_FRI;  // 0x3E
+const DAYS_WEEKEND  = DAY_SAT | DAY_SUN;                           // 0x41
+const DAYS_ALL      = 0x7F;                                        // every day
 const REPEAT_CUSTOM = -1;    // sentinel: open the day picker
 
 // ── Alert mode ───────────────────────────────────────────────────────────────

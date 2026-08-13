@@ -12,16 +12,16 @@ const DAY_THU = 0x10;
 const DAY_FRI = 0x20;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 14; @position = 6; @symbol_constdef = [DAY_SAT,14,6,13]; ]
 const DAY_SAT = 0x40;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 15; @position = 6; @symbol_constdef = [DAYS_WEEKDAYS,15,6,19]; ]
-const DAYS_WEEKDAYS = 0x3E;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 16; @position = 6; @symbol_constdef = [DAYS_ALL,16,6,14]; ]
-const DAYS_ALL = 0x7F;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 20; @position = 6; @symbol_constdef = [DAYS_ONCE,20,6,15]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 18; @position = 6; @symbol_constdef = [DAYS_ONCE,18,6,15]; ]
 const DAYS_ONCE = 0x00;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 21; @position = 6; @symbol_constdef = [DAYS_4X10,21,6,15]; ]
-const DAYS_4X10 = 0x1E;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 22; @position = 6; @symbol_constdef = [DAYS_WEEKEND,22,6,18]; ]
-const DAYS_WEEKEND = 0x41;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 19; @position = 6; @symbol_constdef = [DAYS_4X10,19,6,15]; ]
+const DAYS_4X10;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 20; @position = 6; @symbol_constdef = [DAYS_WEEKDAYS,20,6,19]; ]
+const DAYS_WEEKDAYS;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 21; @position = 6; @symbol_constdef = [DAYS_WEEKEND,21,6,18]; ]
+const DAYS_WEEKEND;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 22; @position = 6; @symbol_constdef = [DAYS_ALL,22,6,14]; ]
+const DAYS_ALL = 0x7F;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 23; @position = 6; @symbol_constdef = [REPEAT_CUSTOM,23,6,19]; ]
 const REPEAT_CUSTOM = -1;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 26; @position = 6; @symbol_constdef = [MODE_BOTH,26,6,15]; ]
@@ -114,74 +114,110 @@ const KEY_SNOOZE_ID = "snoozeAlarmId";
 const KEY_PASSCODE = "passcode";
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 8; ]
 <init> {
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 19 6 ]
+    symbol [ DAY_MON %tmp.2 19 22 29 ];
+    %tmp.2 = getv ? :DAY_MON;
+    symbol [ DAY_TUE %tmp.4 19 32 39 ];
+    %tmp.4 = getv ? :DAY_TUE;
+    %tmp.5 = bitor %tmp.2 %tmp.4;
+    symbol [ DAY_WED %tmp.7 19 42 49 ];
+    %tmp.7 = getv ? :DAY_WED;
+    %tmp.8 = bitor %tmp.5 %tmp.7;
+    symbol [ DAY_THU %tmp.10 19 52 59 ];
+    %tmp.10 = getv ? :DAY_THU;
+    %tmp.11 = bitor %tmp.8 %tmp.10;
+    putv self :DAYS_4X10 %tmp.11;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 20 6 ]
+    symbol [ DAY_MON %tmp.13 20 22 29 ];
+    %tmp.13 = getv ? :DAY_MON;
+    symbol [ DAY_TUE %tmp.15 20 32 39 ];
+    %tmp.15 = getv ? :DAY_TUE;
+    %tmp.16 = bitor %tmp.13 %tmp.15;
+    symbol [ DAY_WED %tmp.18 20 42 49 ];
+    %tmp.18 = getv ? :DAY_WED;
+    %tmp.19 = bitor %tmp.16 %tmp.18;
+    symbol [ DAY_THU %tmp.21 20 52 59 ];
+    %tmp.21 = getv ? :DAY_THU;
+    %tmp.22 = bitor %tmp.19 %tmp.21;
+    symbol [ DAY_FRI %tmp.24 20 62 69 ];
+    %tmp.24 = getv ? :DAY_FRI;
+    %tmp.25 = bitor %tmp.22 %tmp.24;
+    putv self :DAYS_WEEKDAYS %tmp.25;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 21 6 ]
+    symbol [ DAY_SAT %tmp.27 21 22 29 ];
+    %tmp.27 = getv ? :DAY_SAT;
+    symbol [ DAY_SUN %tmp.29 21 32 39 ];
+    %tmp.29 = getv ? :DAY_SUN;
+    %tmp.30 = bitor %tmp.27 %tmp.29;
+    putv self :DAYS_WEEKEND %tmp.30;
 [ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 29 6 ]
-    symbol [ MODE_VIBE %tmp.2 29 27 36 ];
-    %tmp.2 = getv ? :MODE_VIBE;
-    putv self :DEFAULT_ALERT_MODE %tmp.2;
+    symbol [ MODE_VIBE %tmp.32 29 27 36 ];
+    %tmp.32 = getv ? :MODE_VIBE;
+    putv self :DEFAULT_ALERT_MODE %tmp.32;
 [ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 51 6 ]
-    %tmp.3 = newa 4;
-    %tmp.4 = 30;
-    %tmp.5 = dup %tmp.3;
-    %tmp.6 = aputv %tmp.5 0 %tmp.4;
-    %tmp.7 = 45;
-    %tmp.8 = dup %tmp.6;
-    %tmp.9 = aputv %tmp.8 1 %tmp.7;
-    %tmp.10 = 60;
-    %tmp.11 = dup %tmp.9;
-    %tmp.12 = aputv %tmp.11 2 %tmp.10;
-    %tmp.13 = 75;
-    %tmp.14 = dup %tmp.12;
-    %tmp.15 = aputv %tmp.14 3 %tmp.13;
-    putv self :WINDOW_OPTIONS %tmp.15;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 90 6 ]
-    symbol [ MAX_WINDOW_MINS %tmp.17 90 31 46 ];
-    %tmp.17 = getv ? :MAX_WINDOW_MINS;
-    symbol [ SAMPLE_LEAD_MINS %tmp.19 90 49 65 ];
-    %tmp.19 = getv ? :SAMPLE_LEAD_MINS;
-    %tmp.20 = add %tmp.17 %tmp.19;
-    %tmp.21 = 60;
-    %tmp.22 = mul %tmp.20 %tmp.21;
-    putv self :FAST_TICK_WITHIN_SECS %tmp.22;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 107 6 ]
-    %tmp.23 = newa 5;
-    %tmp.24 = 1;
-    %tmp.25 = dup %tmp.23;
-    %tmp.26 = aputv %tmp.25 0 %tmp.24;
-    %tmp.27 = 3;
-    %tmp.28 = dup %tmp.26;
-    %tmp.29 = aputv %tmp.28 1 %tmp.27;
-    %tmp.30 = 5;
-    %tmp.31 = dup %tmp.29;
-    %tmp.32 = aputv %tmp.31 2 %tmp.30;
-    %tmp.33 = 10;
-    %tmp.34 = dup %tmp.32;
-    %tmp.35 = aputv %tmp.34 3 %tmp.33;
-    %tmp.36 = 15;
-    %tmp.37 = dup %tmp.35;
-    %tmp.38 = aputv %tmp.37 4 %tmp.36;
-    putv self :SNOOZE_LEN_OPTIONS %tmp.38;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 109 6 ]
-    %tmp.39 = newa 7;
-    %tmp.40 = 0;
+    %tmp.33 = newa 4;
+    %tmp.34 = 30;
+    %tmp.35 = dup %tmp.33;
+    %tmp.36 = aputv %tmp.35 0 %tmp.34;
+    %tmp.37 = 45;
+    %tmp.38 = dup %tmp.36;
+    %tmp.39 = aputv %tmp.38 1 %tmp.37;
+    %tmp.40 = 60;
     %tmp.41 = dup %tmp.39;
-    %tmp.42 = aputv %tmp.41 0 %tmp.40;
-    %tmp.43 = 1;
+    %tmp.42 = aputv %tmp.41 2 %tmp.40;
+    %tmp.43 = 75;
     %tmp.44 = dup %tmp.42;
-    %tmp.45 = aputv %tmp.44 1 %tmp.43;
-    %tmp.46 = 2;
-    %tmp.47 = dup %tmp.45;
-    %tmp.48 = aputv %tmp.47 2 %tmp.46;
-    %tmp.49 = 3;
-    %tmp.50 = dup %tmp.48;
-    %tmp.51 = aputv %tmp.50 3 %tmp.49;
-    %tmp.52 = 4;
-    %tmp.53 = dup %tmp.51;
-    %tmp.54 = aputv %tmp.53 4 %tmp.52;
-    %tmp.55 = 5;
-    %tmp.56 = dup %tmp.54;
-    %tmp.57 = aputv %tmp.56 5 %tmp.55;
-    %tmp.58 = 10;
-    %tmp.59 = dup %tmp.57;
-    %tmp.60 = aputv %tmp.59 6 %tmp.58;
-    putv self :SNOOZE_MAX_OPTIONS %tmp.60;
+    %tmp.45 = aputv %tmp.44 3 %tmp.43;
+    putv self :WINDOW_OPTIONS %tmp.45;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 90 6 ]
+    symbol [ MAX_WINDOW_MINS %tmp.47 90 31 46 ];
+    %tmp.47 = getv ? :MAX_WINDOW_MINS;
+    symbol [ SAMPLE_LEAD_MINS %tmp.49 90 49 65 ];
+    %tmp.49 = getv ? :SAMPLE_LEAD_MINS;
+    %tmp.50 = add %tmp.47 %tmp.49;
+    %tmp.51 = 60;
+    %tmp.52 = mul %tmp.50 %tmp.51;
+    putv self :FAST_TICK_WITHIN_SECS %tmp.52;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 107 6 ]
+    %tmp.53 = newa 5;
+    %tmp.54 = 1;
+    %tmp.55 = dup %tmp.53;
+    %tmp.56 = aputv %tmp.55 0 %tmp.54;
+    %tmp.57 = 3;
+    %tmp.58 = dup %tmp.56;
+    %tmp.59 = aputv %tmp.58 1 %tmp.57;
+    %tmp.60 = 5;
+    %tmp.61 = dup %tmp.59;
+    %tmp.62 = aputv %tmp.61 2 %tmp.60;
+    %tmp.63 = 10;
+    %tmp.64 = dup %tmp.62;
+    %tmp.65 = aputv %tmp.64 3 %tmp.63;
+    %tmp.66 = 15;
+    %tmp.67 = dup %tmp.65;
+    %tmp.68 = aputv %tmp.67 4 %tmp.66;
+    putv self :SNOOZE_LEN_OPTIONS %tmp.68;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 109 6 ]
+    %tmp.69 = newa 7;
+    %tmp.70 = 0;
+    %tmp.71 = dup %tmp.69;
+    %tmp.72 = aputv %tmp.71 0 %tmp.70;
+    %tmp.73 = 1;
+    %tmp.74 = dup %tmp.72;
+    %tmp.75 = aputv %tmp.74 1 %tmp.73;
+    %tmp.76 = 2;
+    %tmp.77 = dup %tmp.75;
+    %tmp.78 = aputv %tmp.77 2 %tmp.76;
+    %tmp.79 = 3;
+    %tmp.80 = dup %tmp.78;
+    %tmp.81 = aputv %tmp.80 3 %tmp.79;
+    %tmp.82 = 4;
+    %tmp.83 = dup %tmp.81;
+    %tmp.84 = aputv %tmp.83 4 %tmp.82;
+    %tmp.85 = 5;
+    %tmp.86 = dup %tmp.84;
+    %tmp.87 = aputv %tmp.86 5 %tmp.85;
+    %tmp.88 = 10;
+    %tmp.89 = dup %tmp.87;
+    %tmp.90 = aputv %tmp.89 6 %tmp.88;
+    putv self :SNOOZE_MAX_OPTIONS %tmp.90;
 }
