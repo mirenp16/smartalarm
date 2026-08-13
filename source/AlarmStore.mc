@@ -332,7 +332,7 @@ class AlarmStore {
     }
 
     // Start ringing an alarm. One-time alarms are switched off immediately since
-    // they've done their job. Used by both the background service and Bedside Mode.
+    // they've done their job.
     static function beginRing(alarmId as Number) as Void {
         setRinging(alarmId);
         var found = findById(alarmId);

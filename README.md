@@ -8,6 +8,26 @@ Written in **Monkey C** against the **Connect IQ SDK 9.x**.
 
 ---
 
+## Engineering highlights
+
+Most of the interesting work here came from designing *around* platform limits rather than
+within them:
+
+- **Built sleep staging from scratch.** Garmin does not expose sleep stages to third-party
+  apps, so light sleep is inferred from heart-rate percentiles computed against each
+  individual night — no absolute thresholds, so it generalises across people and nights.
+- **Wake timing by peak detection, not a cut-off.** The alarm fires just *after* the
+  lightness score crests, which detects that the lightest moment has passed rather than
+  guessing when it will arrive.
+- **Tuned by simulation, not intuition.** 200 synthetic nights per configuration, calibrated
+  to real exported sleep data, produced the 45-minute default via marginal-return analysis.
+- **Diagnosed a fatal memory leak** from allocation counting: 1,920 font allocations per
+  night reduced to 1.
+- **Cut overnight workload 60–72%** with adaptive sensor sampling and a variable tick rate,
+  without losing wake-time precision.
+- **Turned silent failures into diagnosable ones** — a swallowed exception in the audio path
+  was hiding a device setting, so capability probing and error reporting were added.
+
 ## Contents
 
 - [What it does](#what-it-does)
@@ -53,9 +73,9 @@ foreground**. The only mechanism available is `Background.requestApplicationWake
 shows a system confirmation prompt and waits for the user to notice it. Background services
 also run at most **once every 5 minutes**, for at most 30 seconds.
 
-In testing, a background-driven alarm behaved exactly as those constraints predict: an alarm
-set for 08:35 did not fire until the wrist was raised at 08:41, and it surfaced a
-"Open Smart Alarm?" prompt rather than an alarm.
+On-device testing matched those constraints exactly: an alarm set for 08:35 stayed silent at
+08:35 and only triggered when the wrist was raised some minutes later — and even then it
+surfaced an "Open Smart Alarm?" confirmation prompt rather than actually ringing.
 
 **Active Alarm Mode** is the workaround. It is a foreground view you enter at bedtime. Because
 the app holds the foreground, it can:
@@ -344,16 +364,17 @@ The scheduling, passcode, snooze, and detection logic are validated by executabl
 mirror the Monkey C implementation, covering paths that are impractical to exercise on-device
 (a full night takes 8 hours; the suite runs in seconds).
 
-**73,401 test cases, 0 failures.**
+**Over 73,000 assertions across 8 suites, 0 failures.** (Exact counts vary slightly between
+runs, since several suites generate randomised scenarios.)
 
-| Suite | Coverage | Cases |
+| Suite | Coverage | Approx. cases |
 |---|---|---|
-| 1–2 | Passcode acceptance, exit gating, snooze/delete state | 4,726 |
-| 3 | Sleep detection, alarm firing, sound gating | 59,774 |
-| 4 | Memory and runtime stability | 567 |
-| 5–6 | Repeat presets, auto-exit, battery model | 2,199 |
-| 7 | General alarm functionality | 3,264 |
-| 8 | Code-audit regressions | 2,871 |
+| 1–2 | Passcode acceptance, exit gating, snooze/delete state | 4,700 |
+| 3 | Sleep detection, alarm firing, sound gating | 59,800 |
+| 4 | Memory and runtime stability | 570 |
+| 5–6 | Repeat presets, auto-exit, battery model | 2,200 |
+| 7 | General alarm functionality | 3,400 |
+| 8 | Code-audit regressions | 2,900 |
 
 Representative coverage:
 
@@ -449,7 +470,3 @@ passcode is only entered once.
 - Ringtones are limited to the device's built-in tones
 - Sleep detection is derived from heart rate, not Garmin's own sleep staging
 - Overnight battery use is significantly higher than a normal night
-
-## License
-
-MIT

@@ -1,8 +1,10 @@
 // BedsideView.mc  ("Active Alarm Mode")
 // The only place alarms ring. Runs in the foreground so it can vibrate/beep and
-// open the ringing screen directly. You enter it at bedtime; ON alarms fire while
-// it's up. Battery-minimal: near-black screen, checks the clock every 15 s, and
-// only samples sensors while inside a Sleep Cycle Window.
+// open the ringing screen directly - a Connect IQ background service can do
+// neither. You enter it at bedtime; enabled alarms fire while it's up.
+//
+// Battery-minimal: near-black screen, a tick that slows to 60 s when no alarm is
+// near, and heart-rate sampling only once a Sleep Cycle Window is approaching.
 //
 // When idle the screen shows ONLY the title, current time and next alarm (dim, so
 // it barely lights the AMOLED). Pressing any button reveals the exit controls for

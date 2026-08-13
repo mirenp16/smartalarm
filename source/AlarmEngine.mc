@@ -3,9 +3,8 @@
 // any) should fire right now, and updates per-day state (awake-downgrade, missed,
 // one-time retirement) along the way.
 //
-// Both the background service AND Bedside Mode call evaluate(), so they behave
-// identically — only what they DO on a fire differs (background nudges with a
-// prompt; Bedside Mode alerts directly).
+// evaluate() is the single source of truth for "should something ring right now?".
+// Active Alarm Mode calls it on every tick.
 //
 // Returns the alarm id to fire, or -1 if nothing should fire yet.
 
