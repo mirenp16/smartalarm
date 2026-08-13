@@ -42,9 +42,6 @@ class Fmt {
         return out;
     }
 
-    static function typeName(type as Number) as String {
-        return (type == TYPE_REMINDER) ? "Reminder" : "Sleep";
-    }
 
     static function modeName(mode as Number) as String {
         if (mode == MODE_SOUND) { return "Sound Only"; }

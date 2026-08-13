@@ -1,7 +1,6 @@
 // Constants.mc
-// Shared, compile-time constants used across the whole app (foreground AND
-// background). These are plain top-level consts so they're available everywhere
-// without needing a (:background) annotation.
+// Shared, compile-time constants used across the whole app. Tuning values are
+// grouped here so behaviour can be adjusted without touching program logic.
 
 // ── Day-of-week bitmask ──────────────────────────────────────────────────────
 // One bit per day. bit 0 = Sunday ... bit 6 = Saturday.
@@ -22,10 +21,6 @@ const DAYS_ONCE    = 0x00;   // fires once, then switches itself off
 const DAYS_4X10    = 0x1E;   // Mon-Thu  (bits 1-4)
 const DAYS_WEEKEND = 0x41;   // Sat + Sun (bits 6 and 0)
 const REPEAT_CUSTOM = -1;    // sentinel: open the day picker
-
-// ── Alarm type ───────────────────────────────────────────────────────────────
-const TYPE_SLEEP    = 0;  // uses the Wake Window + smart light-sleep detection
-const TYPE_REMINDER = 1;  // fires exactly at the set time, no sleep checking
 
 // ── Alert mode ───────────────────────────────────────────────────────────────
 const MODE_BOTH  = 0;  // vibration + sound
@@ -97,10 +92,7 @@ const AWAKE_THRESHOLD = 88;
 // How many minutes before the window opens we do the "are you already awake?" check.
 const AWAKE_CHECK_LEAD = 15;
 
-// ── Background timing ────────────────────────────────────────────────────────
-// Garmin's minimum temporal-event interval is 5 minutes (300 s). We re-register
-// at this cadence so the service keeps polling.
-const CHECK_INTERVAL_SECS = 300;
+// ── Firing tolerance ─────────────────────────────────────────────────────────
 // How long after the set time an alarm may still fire. Past this we treat it as
 // "missed" (so enabling a 7:00 alarm at 11pm doesn't ring instantly). Wider than
 // the 5-min sampling so we never skip a legitimate fire.
@@ -126,6 +118,4 @@ const KEY_RING_ID      = "ringId";      // id of the alarm currently ringing, or
 const KEY_RING_START   = "ringStart";   // moment (epoch secs) ringing began
 const KEY_SNOOZE_UNTIL = "snoozeUntil"; // epoch secs to re-fire a snoozed alarm
 const KEY_SNOOZE_ID    = "snoozeAlarmId"; // which alarm id is snoozed
-const KEY_SNOOZE_MINS  = "snoozeMins";  // configurable snooze length
-const KEY_MAX_SNOOZE   = "maxSnooze";   // configurable max snooze count
 const KEY_PASSCODE     = "passcode";    // global 4-digit code (plain text)

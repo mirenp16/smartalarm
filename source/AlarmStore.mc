@@ -1,7 +1,7 @@
 // AlarmStore.mc
 // The data layer. Manages the list of alarms plus per-day runtime state and the
 // "currently ringing" state. Everything is persisted with Application.Storage so
-// it survives app restarts and is readable from the background service.
+// it survives app restarts.
 //
 // An alarm is stored as a Dictionary with short keys to save space:
 //   "id"    Number   unique id
@@ -10,11 +10,13 @@
 //   "m"     Number   minute (0-59)
 //   "days"  Number   day bitmask (see Constants.mc)
 //   "label" String   user-facing label
-//   "type"  Number   TYPE_SLEEP or TYPE_REMINDER
 //   "win"   Number   wake-window minutes (sleep alarms only)
 //   "mode"  Number   MODE_BOTH / MODE_SOUND / MODE_VIBE
-//
-// This whole class is annotated (:background) so the service can read/write it.
+//   "snLen" Number   snooze length in minutes
+//   "snMax" Number   maximum snoozes allowed
+//   "tone"  Number   index into Ringtone.names()
+//   "pc"    Boolean  require the passcode to dismiss this alarm
+//   "fireAt" Number  epoch seconds for one-time alarms
 
 import Toybox.Application;
 import Toybox.Lang;
@@ -194,7 +196,6 @@ class AlarmStore {
     static function hour(a as Dictionary)    as Number  { return _n(a, "h", 7); }
     static function minute(a as Dictionary)  as Number  { return _n(a, "m", 0); }
     static function days(a as Dictionary)    as Number  { return _n(a, "days", 0); }
-    static function type(a as Dictionary)    as Number  { return _n(a, "type", TYPE_SLEEP); }
     static function window(a as Dictionary)  as Number  { return _n(a, "win", DEFAULT_WINDOW); }
     static function mode(a as Dictionary)    as Number  { return _n(a, "mode", DEFAULT_ALERT_MODE); }
     static function label(a as Dictionary)   as String  {
@@ -393,25 +394,6 @@ class AlarmStore {
         return [-1, null];
     }
 
-    // ── Config: snooze length + max ──────────────────────────────────────────
-
-    static function snoozeMinutes() as Number {
-        var v = Application.Storage.getValue(KEY_SNOOZE_MINS);
-        return (v != null) ? v : DEFAULT_SNOOZE_MINUTES;
-    }
-
-    static function maxSnooze() as Number {
-        var v = Application.Storage.getValue(KEY_MAX_SNOOZE);
-        return (v != null) ? v : DEFAULT_MAX_SNOOZE;
-    }
-
-    static function setSnoozeMinutes(n as Number) as Void {
-        Application.Storage.setValue(KEY_SNOOZE_MINS, n);
-    }
-
-    static function setMaxSnooze(n as Number) as Void {
-        Application.Storage.setValue(KEY_MAX_SNOOZE, n);
-    }
 
     // Shallow copy of an alarm dict (all values are primitives). Used so the
     // editor can work on a copy and discard changes on cancel.
