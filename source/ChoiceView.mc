@@ -80,9 +80,29 @@ class ChoiceView extends WatchUi.View {
             dc.drawText(_cx, _cy - 52, Graphics.FONT_XTINY, "Alert Tones: OFF", vc);
         }
 
-        // Option name (big)
+        // Wrap the description first, so the layout can adapt to its height.
+        // A fixed 4-line cap silently swallowed the last words if the font
+        // measured even slightly wider than expected; the block now tightens and
+        // shifts up instead of truncating.
+        var lines = null;
+        var lineH = 22;
+        var descTop = _cy - 8;
+        if (hasDesc) {
+            lines = ChoiceView.wrap(dc, desc, Graphics.FONT_XTINY, _w * 76 / 100);
+            if (lines.size() > 4) {
+                lineH = 18;
+                descTop = _cy - 30;
+            }
+        }
+
+        // Option name (big). Sits higher when the description needs the room.
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        var nameY = hasDesc ? (_cy - 44) : (isAlert ? (_cy - 18) : _cy);
+        var nameY = _cy;
+        if (hasDesc) {
+            nameY = (lines.size() > 4) ? (_cy - 58) : (_cy - 44);
+        } else if (isAlert) {
+            nameY = _cy - 18;
+        }
         dc.drawText(_cx, nameY, Graphics.FONT_MEDIUM, name, vc);
 
         // Alert options also show the speaker / vibration glyphs.
@@ -92,12 +112,11 @@ class ChoiceView extends WatchUi.View {
 
         // Wrapped description
         if (hasDesc) {
-            var lines = ChoiceView.wrap(dc, desc, Graphics.FONT_XTINY, _w * 76 / 100);
             dc.setColor(0xBBBBBB, Graphics.COLOR_TRANSPARENT);
-            var y = _cy - 8;
-            for (var i = 0; i < lines.size() && i < 4; i++) {
+            var y = descTop;
+            for (var i = 0; i < lines.size() && i < 6; i++) {
                 dc.drawText(_cx, y, Graphics.FONT_XTINY, lines[i], vc);
-                y += 22;
+                y += lineH;
             }
         }
 

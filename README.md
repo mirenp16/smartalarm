@@ -329,6 +329,13 @@ positions (START 2 o'clock, BACK 4 o'clock, UP 9 o'clock, DOWN 8 o'clock) with t
 along the bezel via `drawRadialText` and a vector font. Since that API is unsupported on some
 devices, it degrades automatically to vertically stacked letters rather than failing.
 
+**Hold-to-accelerate input.** Holding UP/DOWN on the time picker's *minutes* field steps in
+5-minute increments (`:45` in 9 presses instead of 45); hours and AM/PM stay at one step per
+press. The raw key handlers return `false` so the normal behaviour callbacks still fire — a
+held press contributes 4 and the callback adds the 5th. That composition means a device which
+doesn't report key press/release events degrades to 1-minute steps rather than breaking the
+picker, and it structurally cannot double-count.
+
 **Runtime capability detection.** Tone constants are probed with `Attention has :TONE_X` at
 runtime, so the ringtone list contains only what the device can actually play. `playTone` is
 similarly guarded — an early version omitted `has :playTone` and swallowed the resulting
@@ -454,9 +461,11 @@ requires updating `<iq:product>` in `manifest.xml` and re-checking layout consta
 
 1. Open the app — the main screen shows **"X Alarms On"**
 2. Select **Passcode Setup** and choose a 4-digit code (default `9999`, master `1234`)
-3. Select **Add Alarm**, set the time, then configure Repeat, Label, Sleep Cycle Window,
-   Alert, Ringtone, Snooze Length, Max Snoozes and Passcode
-4. Choose **Save and Close**
+3. Select **Add Alarm** and set the time — UP/DOWN change the highlighted field, START moves
+   hour → minute → AM/PM. **Hold UP/DOWN on the minutes** to step 5 at a time
+4. Configure Repeat, Label, Sleep Cycle Window, Alert, Ringtone, Snooze Length, Max Snoozes
+   and Passcode
+5. Choose **Save and Close**
 
 ### Nightly routine
 
