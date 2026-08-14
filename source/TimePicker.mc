@@ -9,7 +9,6 @@
 
 import Toybox.Graphics;
 import Toybox.Lang;
-import Toybox.System;
 import Toybox.WatchUi;
 
 class TimePickerView extends WatchUi.View {
@@ -65,13 +64,6 @@ class TimePickerView extends WatchUi.View {
         dc.drawText(_cx, _cy + 44, Graphics.FONT_MEDIUM, _pm ? "PM" : "AM",
                     Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Discoverability: the hold shortcut only exists on the minutes field.
-        if (_focus == 1) {
-            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _cy + 78, Graphics.FONT_XTINY, "Hold for 5 min steps",
-                        Graphics.TEXT_JUSTIFY_CENTER);
-        }
-
         Ui.start(dc, _w, _h, (_focus == 2) ? "Confirm" : "Next");
         Ui.back(dc, _w, _h, "Back");
     }
@@ -100,9 +92,6 @@ class TimePickerView extends WatchUi.View {
         return true;
     }
 
-    // True only while the MINUTES field is selected. Holding is a minutes-only
-    // shortcut: hours and AM/PM always move one step per press.
-    function isMinuteField() as Boolean { return _focus == 1; }
 
     // BACK: step back a field. Returns true if we should exit the picker.
     function back() as Boolean {
@@ -120,8 +109,6 @@ class TimePickerDelegate extends WatchUi.BehaviorDelegate {
     private var _view as TimePickerView;
     private var _addFlow as Boolean;
     private var _alarm as Dictionary;
-    private var _pressKey as Number = -1;   // key currently held, for hold detection
-    private var _pressMs as Number = 0;
 
     // addFlow=true: this is the first step of adding a new alarm (confirm -> detail).
     // addFlow=false: editing an existing alarm's time (confirm -> back to detail).
@@ -132,34 +119,13 @@ class TimePickerDelegate extends WatchUi.BehaviorDelegate {
         _alarm = alarm;
     }
 
-    // ── Hold-to-step-by-5 (minutes only) ─────────────────────────────────────
-    // These raw key handlers deliberately return FALSE so the normal behaviour
-    // callbacks below still run. A held press therefore contributes
-    // (MINUTE_STEP_HOLD - 1) here, and onPreviousPage/onNextPage adds the final
-    // step - totalling 5. A short press adds nothing here and still moves 1.
+    // One step per press, for every field.
     //
-    // Structuring it this way means a device that doesn't report key press/release
-    // events simply falls back to 1-minute steps instead of breaking the picker.
-    function onKeyPressed(evt as WatchUi.KeyEvent) as Boolean {
-        _pressKey = evt.getKey();
-        _pressMs = System.getTimer();
-        return false;
-    }
-
-    function onKeyReleased(evt as WatchUi.KeyEvent) as Boolean {
-        var k = evt.getKey();
-        // Only the minutes field accelerates; AM/PM would just toggle twice and
-        // cancel itself out, and hours are meant to stay one-per-press.
-        if (k == _pressKey && _view.isMinuteField()
-            && (System.getTimer() - _pressMs) >= HOLD_MS) {
-            var extra = MINUTE_STEP_HOLD - 1;
-            if (k == WatchUi.KEY_UP)   { _view.bump(extra); }
-            if (k == WatchUi.KEY_DOWN) { _view.bump(-extra); }
-        }
-        _pressKey = -1;
-        return false;
-    }
-
+    // A hold-to-step-by-5 shortcut was tried here and removed. Two Garmin
+    // behaviours make it unworkable: onKeyPressed/onKeyReleased are widely
+    // reported to fire in the simulator but NOT on real hardware, and a long
+    // press of UP is claimed by the system as a menu gesture before an app sees
+    // it. Anything built on those is unreliable, so the picker stays predictable.
     function onPreviousPage() as Boolean { _view.bump(1); return true; }   // UP
     function onNextPage() as Boolean { _view.bump(-1); return true; }      // DOWN
 

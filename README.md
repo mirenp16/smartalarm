@@ -357,13 +357,6 @@ positions (START 2 o'clock, BACK 4 o'clock, UP 9 o'clock, DOWN 8 o'clock) with t
 along the bezel via `drawRadialText` and a vector font. Since that API is unsupported on some
 devices, it degrades automatically to vertically stacked letters rather than failing.
 
-**Hold-to-accelerate input.** Holding UP/DOWN on the time picker's *minutes* field steps in
-5-minute increments (`:45` in 9 presses instead of 45); hours and AM/PM stay at one step per
-press. The raw key handlers return `false` so the normal behaviour callbacks still fire — a
-held press contributes 4 and the callback adds the 5th. That composition means a device which
-doesn't report key press/release events degrades to 1-minute steps rather than breaking the
-picker, and it structurally cannot double-count.
-
 **Runtime capability detection.** Tone constants are probed with `Attention has :TONE_X` at
 runtime, so the ringtone list contains only what the device can actually play. `playTone` is
 similarly guarded — an early version omitted `has :playTone` and swallowed the resulting
@@ -424,6 +417,8 @@ Documenting these because each cost real debugging time and shaped the design:
 | The palm-cover gesture is handled by the OS before apps see input | Cannot be intercepted; disable touch overnight |
 | `ActivityRecording` pins an app in the foreground | Rejected: logged the night as an activity and cost ~24% battery |
 | `Attention` is not fully supported on all devices | `has` checks required before every call |
+| `onKeyPressed`/`onKeyReleased` fire in the simulator but often not on hardware | Hold-to-repeat input is unreliable; removed |
+| A long press of UP is claimed by the system as a menu gesture | Apps cannot implement their own UP-hold shortcut |
 
 ---
 
@@ -445,7 +440,7 @@ runs, since several suites generate randomised scenarios.)
 | 7 | General alarm functionality | 3,400 |
 | 8 | Code-audit regressions | 2,900 |
 | 9 | Cache correctness and stale-state recovery | 2,600 |
-| 10 | Time-picker hold-to-step | 900 |
+| 10 | Time-picker stepping and navigation | 1,070 |
 | 11 | Degenerate-input edge cases | 3,000 |
 | 12 | Backward compatibility with older saved data | 1,250 |
 
@@ -506,7 +501,8 @@ requires updating `<iq:product>` in `manifest.xml` and re-checking layout consta
 1. Open the app — the main screen shows **"X Alarms On"**
 2. Select **Passcode Setup** and choose a 4-digit code (default `9999`, master `1234`)
 3. Select **Add Alarm** and set the time — UP/DOWN change the highlighted field, START moves
-   hour → minute → AM/PM. **Hold UP/DOWN on the minutes** to step 5 at a time
+   hour → minute → AM/PM. Minutes wrap around, so **DOWN is faster for late minutes**
+   (`:45` is 15 presses down, not 45 up)
 4. Configure Repeat, Label, Sleep Cycle Window, Alert, Ringtone, Snooze Length, Max Snoozes
    and Passcode
 5. Choose **Save and Close**

@@ -43,10 +43,6 @@ const DEFAULT_PASSCODE_ON = true;  // per-alarm "Passcode" toggle default
 // How long the BACK half of the BACK-then-UP exit stays armed before it lapses.
 const EXIT_ARM_SECS = 15;
 
-// Time picker: holding UP/DOWN moves the MINUTES in larger steps, so setting
-// :45 doesn't take 45 presses. Hours and AM/PM always move one step per press.
-const HOLD_MS           = 450;   // press longer than this counts as a hold
-const MINUTE_STEP_HOLD  = 5;     // minutes per held press
 
 // ── Sleep Cycle Window options (minutes before the set time) ─────────────────
 // 15 min was dropped: simulation showed it barely beats a plain alarm (0.53 vs
