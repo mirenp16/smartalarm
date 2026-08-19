@@ -1335,9 +1335,9 @@ _Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_187_31_194_4_stop
     }
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 196; @symbol_functiondef = [finishAwake,196,13,24]; ]
     function finishAwake() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_217_4_start:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_227_4_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 197 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_217_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_217_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_227_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_227_4_stop" ]
         %id.1 = local;
         symbol [ id %id.1 197 12 14 ];
         symbol [ AlarmStore %tmp.2 197 17 27 ];
@@ -1438,203 +1438,230 @@ _Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_198_8_206_8_if_en
         %tmp.46 = getv function %tmp.45 :setSnoozeUntil;
         %tmp.47 = null;
         invoke %tmp.45 %tmp.46(%tmp.47);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 213 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_213_8_215_8_if_stmt:
-        symbol [ AlarmStore %tmp.49 213 12 22 ];
-        %tmp.49 = getv ? :AlarmStore;
-        symbol [ validSnoozeId %tmp.50 213 23 36 ];
-        %tmp.50 = getv function %tmp.49 :validSnoozeId;
-        %tmp.51 = invoke %tmp.49 %tmp.50();
-        %tmp.52 = null;
-        %tmp.53 = eq %tmp.51 %tmp.52;
-        bf %tmp.53 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_213_8_215_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_213_8_215_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_213_48_215_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 214 12 ]
-        symbol [ BedsideView %tmp.54 214 12 23 ];
-        %tmp.54 = getv self :BedsideView;
-        %tmp.55 = true;
-        symbol [ exitRequested ? 214 24 37 ];
-        putv %tmp.54 :exitRequested %tmp.55;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_213_48_215_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_213_8_215_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_213_8_215_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 216 8 ]
-        %tmp.56 = self;
-        symbol [ close %tmp.57 216 8 13 ];
-        %tmp.57 = getv function %tmp.56 :close;
-        invoke %tmp.56 %tmp.57();
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_217_4_stop:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 222 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_227_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_227_4_stop" ]
+        %nextSecs.3 = local;
+        symbol [ nextSecs %nextSecs.3 222 12 20 ];
+        symbol [ AlarmEngine %tmp.49 222 23 34 ];
+        %tmp.49 = getv ? :AlarmEngine;
+        symbol [ secsUntilNextTarget %tmp.50 222 35 54 ];
+        %tmp.50 = getv function %tmp.49 :secsUntilNextTarget;
+        symbol [ Time %tmp.51 222 55 59 ];
+        %tmp.51 = getm $.Toybox.Time;
+        symbol [ now %tmp.52 222 60 63 ];
+        %tmp.52 = getv function %tmp.51 :now;
+        %tmp.53 = invoke %tmp.51 %tmp.52();
+        symbol [ value %tmp.54 222 66 71 ];
+        %tmp.54 = getv function %tmp.53 :value;
+        %tmp.55 = invoke %tmp.53 %tmp.54();
+        %tmp.56 = invoke %tmp.49 %tmp.50(%tmp.55);
+        lputv %nextSecs.3 %tmp.56;
+        symbol [ nextSecs %nextSecs.3 222 12 20 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 223 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_8_225_8_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_12_223_39_begin:
+        %tmp.57 = lgetv %nextSecs.3;
+        symbol [ nextSecs %tmp.57 223 12 20 ];
+        %tmp.58 = 0;
+        %tmp.59 = lt %tmp.57 %tmp.58;
+        bt %tmp.59 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_8_225_8_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_28_223_39_false:
+        %tmp.60 = lgetv %nextSecs.3;
+        symbol [ nextSecs %tmp.60 223 28 36 ];
+        symbol [ KEEP_ACTIVE_WITHIN_SECS %tmp.62 223 39 62 ];
+        %tmp.62 = getv ? :KEEP_ACTIVE_WITHIN_SECS;
+        %tmp.63 = gt %tmp.60 %tmp.62;
+        push %tmp.63;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_28_223_39_end:
+        %tmp.64 = phi [%tmp.59 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_12_223_39_begin] [%tmp.63 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_28_223_39_false] [%tmp.64 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_28_223_39_end];
+        bf %tmp.64 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_8_225_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_8_225_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_64_225_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 224 12 ]
+        symbol [ BedsideView %tmp.65 224 12 23 ];
+        %tmp.65 = getv self :BedsideView;
+        %tmp.66 = true;
+        symbol [ exitRequested ? 224 24 37 ];
+        putv %tmp.65 :exitRequested %tmp.66;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_64_225_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_8_225_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_223_8_225_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 226 8 ]
+        %tmp.67 = self;
+        symbol [ close %tmp.68 226 8 13 ];
+        %tmp.68 = getv function %tmp.67 :close;
+        invoke %tmp.67 %tmp.68();
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_196_35_227_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 219; @symbol_functiondef = [close,219,21,26]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 229; @symbol_functiondef = [close,229,21,26]; ]
     private
     function close() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_219_37_222_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 220 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_229_37_232_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 230 8 ]
         %tmp.1 = self;
-        symbol [ stopTimer %tmp.2 220 8 17 ];
+        symbol [ stopTimer %tmp.2 230 8 17 ];
         %tmp.2 = getv function %tmp.1 :stopTimer;
         invoke %tmp.1 %tmp.2();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 221 8 ]
-        symbol [ WatchUi %tmp.3 221 8 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 231 8 ]
+        symbol [ WatchUi %tmp.3 231 8 15 ];
         %tmp.3 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.4 221 16 23 ];
+        symbol [ popView %tmp.4 231 16 23 ];
         %tmp.4 = getv function %tmp.3 :popView;
-        symbol [ WatchUi %tmp.5 221 24 31 ];
+        symbol [ WatchUi %tmp.5 231 24 31 ];
         %tmp.5 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_DOWN %tmp.6 221 32 42 ];
+        symbol [ SLIDE_DOWN %tmp.6 231 32 42 ];
         %tmp.6 = getv %tmp.5 :SLIDE_DOWN;
         invoke %tmp.3 %tmp.4(%tmp.6);
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_219_37_222_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_229_37_232_4_stop:
     }
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 225; @symbol_classdef = [RingingDelegate,225,6,21]; @symbol_extends<0> = [WatchUi,225,30,37]; @symbol_extends<1> = [BehaviorDelegate,225,38,54]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 235; @symbol_classdef = [RingingDelegate,235,6,21]; @symbol_extends<0> = [WatchUi,235,30,37]; @symbol_extends<1> = [BehaviorDelegate,235,38,54]; ]
 class RingingDelegate extends WatchUi.BehaviorDelegate {
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 225; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 235; ]
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 225; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 235; ]
     static
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 227; @position = 16; @symbol_vardef = [_view,227,16,21]; @symbol_type<0> = [RingingView,227,25,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 237; @position = 16; @symbol_vardef = [_view,237,16,21]; @symbol_type<0> = [RingingView,237,25,36]; ]
     private
     var _view as RingingView;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 229; @symbol_functiondef = [initialize,229,13,23]; @symbol_param<0> = [view,229,24,28]; @symbol_param<0>_type<0> = [RingingView,229,32,43]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 239; @symbol_functiondef = [initialize,239,13,23]; @symbol_param<0> = [view,239,24,28]; @symbol_param<0>_type<0> = [RingingView,239,32,43]; ]
     function initialize(view as RingingView) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_229_45_232_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 230 8 ]
-        symbol [ BehaviorDelegate %tmp.2 230 8 24 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_239_45_242_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 240 8 ]
+        symbol [ BehaviorDelegate %tmp.2 240 8 24 ];
         %tmp.2 = getv ? :BehaviorDelegate;
-        symbol [ initialize %tmp.3 230 25 35 ];
+        symbol [ initialize %tmp.3 240 25 35 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 231 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 241 8 ]
         %tmp.4 = lgetv %view;
-        symbol [ view %tmp.4 231 16 20 ];
-        symbol [ _view ? 231 8 13 ];
+        symbol [ view %tmp.4 241 16 20 ];
+        symbol [ _view ? 241 8 13 ];
         putv self :_view %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_229_45_232_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_239_45_242_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 236; @symbol_functiondef = [onSelect,236,13,21]; @symbol_return<0> = [Boolean,236,27,34]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 246; @symbol_functiondef = [onSelect,246,13,21]; @symbol_return<0> = [Boolean,246,27,34]; ]
     function onSelect() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_236_35_244_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 237 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_8_242_8_if_stmt:
-        symbol [ _view %tmp.2 237 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_246_35_254_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 247 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_8_252_8_if_stmt:
+        symbol [ _view %tmp.2 247 12 17 ];
         %tmp.2 = getv ? :_view;
-        symbol [ controlsVisible %tmp.3 237 18 33 ];
+        symbol [ controlsVisible %tmp.3 247 18 33 ];
         %tmp.3 = getv function %tmp.2 :controlsVisible;
         %tmp.4 = invoke %tmp.2 %tmp.3();
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_8_242_8_if_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_8_242_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_37_240_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 238 12 ]
-        symbol [ _view %tmp.6 238 12 17 ];
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_8_252_8_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_8_252_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_37_250_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 248 12 ]
+        symbol [ _view %tmp.6 248 12 17 ];
         %tmp.6 = getv ? :_view;
-        symbol [ disarmAwake %tmp.7 238 18 29 ];
+        symbol [ disarmAwake %tmp.7 248 18 29 ];
         %tmp.7 = getv function %tmp.6 :disarmAwake;
         invoke %tmp.6 %tmp.7();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 239 12 ]
-        symbol [ _view %tmp.9 239 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 249 12 ]
+        symbol [ _view %tmp.9 249 12 17 ];
         %tmp.9 = getv ? :_view;
-        symbol [ doSnooze %tmp.10 239 18 26 ];
+        symbol [ doSnooze %tmp.10 249 18 26 ];
         %tmp.10 = getv function %tmp.9 :doSnooze;
         invoke %tmp.9 %tmp.10();
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_37_240_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_8_242_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_8_242_8_if_else_false:
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_240_15_242_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 241 12 ]
-        symbol [ _view %tmp.12 241 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_37_250_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_8_252_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_8_252_8_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_250_15_252_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 251 12 ]
+        symbol [ _view %tmp.12 251 12 17 ];
         %tmp.12 = getv ? :_view;
-        symbol [ disarmAwake %tmp.13 241 18 29 ];
+        symbol [ disarmAwake %tmp.13 251 18 29 ];
         %tmp.13 = getv function %tmp.12 :disarmAwake;
         invoke %tmp.12 %tmp.13();
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_240_15_242_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_237_8_242_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 243 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_250_15_252_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_8_252_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 253 8 ]
         %tmp.14 = true;
         ret %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_236_35_244_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_246_35_254_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 247; @symbol_functiondef = [onBack,247,13,19]; @symbol_return<0> = [Boolean,247,25,32]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 257; @symbol_functiondef = [onBack,257,13,19]; @symbol_return<0> = [Boolean,257,25,32]; ]
     function onBack() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_33_247_66_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 247 35 ]
-        symbol [ _view %tmp.2 247 35 40 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_257_33_257_66_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 257 35 ]
+        symbol [ _view %tmp.2 257 35 40 ];
         %tmp.2 = getv ? :_view;
-        symbol [ armAwake %tmp.3 247 41 49 ];
+        symbol [ armAwake %tmp.3 257 41 49 ];
         %tmp.3 = getv function %tmp.2 :armAwake;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 247 53 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 257 53 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_247_33_247_66_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_257_33_257_66_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 248; @symbol_functiondef = [onPreviousPage,248,13,27]; @symbol_return<0> = [Boolean,248,33,40]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 258; @symbol_functiondef = [onPreviousPage,258,13,27]; @symbol_return<0> = [Boolean,258,33,40]; ]
     function onPreviousPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_248_41_255_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 249 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_8_253_8_if_stmt:
-        symbol [ _view %tmp.2 249 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_258_41_265_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 259 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_8_263_8_if_stmt:
+        symbol [ _view %tmp.2 259 12 17 ];
         %tmp.2 = getv ? :_view;
-        symbol [ awakeReady %tmp.3 249 18 28 ];
+        symbol [ awakeReady %tmp.3 259 18 28 ];
         %tmp.3 = getv function %tmp.2 :awakeReady;
         %tmp.4 = invoke %tmp.2 %tmp.3();
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_8_253_8_if_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_8_253_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_32_251_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 250 12 ]
-        symbol [ _view %tmp.6 250 12 17 ];
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_8_263_8_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_8_263_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_32_261_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 260 12 ]
+        symbol [ _view %tmp.6 260 12 17 ];
         %tmp.6 = getv ? :_view;
-        symbol [ doAwake %tmp.7 250 18 25 ];
+        symbol [ doAwake %tmp.7 260 18 25 ];
         %tmp.7 = getv function %tmp.6 :doAwake;
         invoke %tmp.6 %tmp.7();
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_32_251_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_8_253_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_8_253_8_if_else_false:
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_251_15_253_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 252 12 ]
-        symbol [ _view %tmp.9 252 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_32_261_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_8_263_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_8_263_8_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_261_15_263_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 262 12 ]
+        symbol [ _view %tmp.9 262 12 17 ];
         %tmp.9 = getv ? :_view;
-        symbol [ disarmAwake %tmp.10 252 18 29 ];
+        symbol [ disarmAwake %tmp.10 262 18 29 ];
         %tmp.10 = getv function %tmp.9 :disarmAwake;
         invoke %tmp.9 %tmp.10();
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_251_15_253_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_249_8_253_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 254 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_261_15_263_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_8_263_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 264 8 ]
         %tmp.11 = true;
         ret %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_248_41_255_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_258_41_265_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 258; @symbol_functiondef = [onNextPage,258,13,23]; @symbol_return<0> = [Boolean,258,29,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 268; @symbol_functiondef = [onNextPage,268,13,23]; @symbol_return<0> = [Boolean,268,29,36]; ]
     function onNextPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_258_37_258_73_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 258 39 ]
-        symbol [ _view %tmp.2 258 39 44 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_268_37_268_73_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 268 39 ]
+        symbol [ _view %tmp.2 268 39 44 ];
         %tmp.2 = getv ? :_view;
-        symbol [ disarmAwake %tmp.3 258 45 56 ];
+        symbol [ disarmAwake %tmp.3 268 45 56 ];
         %tmp.3 = getv function %tmp.2 :disarmAwake;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 258 60 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 268 60 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_258_37_258_73_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_268_37_268_73_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 259; @symbol_functiondef = [onTap,259,13,18]; @symbol_param<0> = [evt,259,19,22]; @symbol_param<0>_type<0> = [WatchUi,259,26,33]; @symbol_param<0>_type<1> = [ClickEvent,259,34,44]; @symbol_return<0> = [Boolean,259,49,56]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 269; @symbol_functiondef = [onTap,269,13,18]; @symbol_param<0> = [evt,269,19,22]; @symbol_param<0>_type<0> = [WatchUi,269,26,33]; @symbol_param<0>_type<1> = [ClickEvent,269,34,44]; @symbol_return<0> = [Boolean,269,49,56]; ]
     function onTap(evt as WatchUi.ClickEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_57_259_93_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 259 59 ]
-        symbol [ _view %tmp.2 259 59 64 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_269_57_269_93_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 269 59 ]
+        symbol [ _view %tmp.2 269 59 64 ];
         %tmp.2 = getv ? :_view;
-        symbol [ disarmAwake %tmp.3 259 65 76 ];
+        symbol [ disarmAwake %tmp.3 269 65 76 ];
         %tmp.3 = getv function %tmp.2 :disarmAwake;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 259 80 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc" 269 80 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_259_57_259_93_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingingView_mc_269_57_269_93_stop:
     }
 }
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingingView.mc"; @line = 12; ]

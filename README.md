@@ -412,6 +412,13 @@ far-off one wiped the peak on every tick, so "the score has fallen below its pea
 become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
 The reset is now deferred until the whole list has been examined.
 
+**6. Dismissing one alarm disarmed the next.** `finishAwake()` guarded the exit on
+`validSnoozeId() == null` — but the line immediately above it cleared the snooze, so the
+guard was always true and Active Alarm Mode closed unconditionally. Since alarms only ring
+while that screen is open, dismissing a 06:00 alarm silently disarmed a 06:30 backup: exactly
+the failure a backup alarm exists to prevent. The app now stays open when another alarm is
+due within `KEEP_ACTIVE_WITHIN_SECS`.
+
 **5. Covering the screen threw away the night's data.** `onHide()` releases the sensor — but it
 fires whenever the view is merely *covered*, including by the passcode screen. Opening the
 passcode at 06:30 inside a 06:15–07:00 window and then cancelling discarded every sample and
@@ -563,6 +570,7 @@ each round modelled a layer the previous one did not:
 | Monkey C / API validity | The compiler | `Sensor.disableSensorEvents()` does not exist, so a `has` guard was false forever |
 | Component seams | Integration simulation | One alarm's `resetWindow()` erasing another's peak state |
 | Calendar | Date-arithmetic simulation | A snooze spanning midnight being deleted |
+| State machine | Ring/snooze/dismiss simulation | Dismissing one alarm disarming a backup |
 | **Real hardware** | **Only a real night** | — |
 
 The layers above are now all covered. The last one is the genuine remaining gap:
@@ -613,6 +621,7 @@ runs, since several suites generate randomised scenarios.)
 | 14 | Differential, fuzz and boundary verification of the wake decision | 160 |
 | 15 | Integration: view lifecycle, multi-alarm, whole-night sequencing | 30 |
 | 16 | Calendar edges, day rollover, snooze state machine, watchdog budget | 35 |
+| 17 | Ring/snooze/passcode state machine and view lifecycle | 330 |
 
 Representative coverage:
 

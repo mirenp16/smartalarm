@@ -205,12 +205,22 @@ class RingingView extends WatchUi.View {
             }
         }
         AlarmStore.setRinging(null);
-        AlarmStore.setSnoozeUntil(null);
+        AlarmStore.setSnoozeUntil(null);   // "I'm Awake" cancels any pending snooze
 
-        // You've proved you're awake. Unless a snooze is still pending, close
-        // Active Alarm Mode too - otherwise you land back on it and are asked
-        // for the passcode a second time for no reason.
-        if (AlarmStore.validSnoozeId() == null) {
+        // Leave Active Alarm Mode only when nothing else is waiting to ring.
+        //
+        // This used to test validSnoozeId(), which is ALWAYS null by this point
+        // because the line above just cleared the snooze - so the guard was dead
+        // and the app exited unconditionally. That silently disarmed backup
+        // alarms: with a 06:00 and a 06:30 set, dismissing the 06:00 closed
+        // Active Alarm Mode and the 06:30 never rang, which is precisely the
+        // situation a backup alarm exists to protect against.
+        //
+        // Alarms further off than KEEP_ACTIVE_WITHIN_SECS (tomorrow's repeat, for
+        // instance) should not pin you in Active Alarm Mode all day, so only a
+        // genuinely imminent one keeps it open.
+        var nextSecs = AlarmEngine.secsUntilNextTarget(Time.now().value());
+        if (nextSecs < 0 || nextSecs > KEEP_ACTIVE_WITHIN_SECS) {
             BedsideView.exitRequested = true;
         }
         close();

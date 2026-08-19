@@ -43,6 +43,13 @@ const DEFAULT_PASSCODE_ON = true;  // per-alarm "Passcode" toggle default
 // How long the BACK half of the BACK-then-UP exit stays armed before it lapses.
 const EXIT_ARM_SECS = 15;
 
+// After dismissing an alarm with "I'm Awake", Active Alarm Mode stays open if
+// another alarm is due within this long - a backup alarm set a few minutes
+// later, typically. Closing would silently disarm it, since alarms only ring
+// while Active Alarm Mode is running. Anything further off (tomorrow's repeat)
+// lets the app close normally.
+const KEEP_ACTIVE_WITHIN_SECS = 2 * 3600;
+
 
 // ── Sleep Cycle Window options (minutes before the set time) ─────────────────
 // 15 min was dropped: simulation showed it barely beats a plain alarm (0.53 vs
