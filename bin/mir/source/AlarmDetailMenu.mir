@@ -891,7 +891,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmDetailMenu_mc_121_39_125_12
         [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmDetailMenu_mc_121_39_125_12_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmDetailMenu_mc_121_39_125_12_stop" ]
         %msg.3 = local;
         symbol [ msg %msg.3 123 20 23 ];
-        %tmp.38 = "Set Alert to|'Sound Only'|OR|'Sound + Vibrate'|first!";
+        %tmp.38 = "Set \"Alert\" to|'Sound Only' or|'Sound + Vibrate'|first!";
         lputv %msg.3 %tmp.38;
         symbol [ msg %msg.3 123 20 23 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmDetailMenu.mc" 124 16 ]

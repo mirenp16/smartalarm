@@ -45,1533 +45,1793 @@ class BedsideView extends WatchUi.View {
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 30; @position = 16; @symbol_vardef = [_nextStr,30,16,24]; @symbol_type<0> = [String,30,28,34]; ]
     private
     var _nextStr as String or Null = null;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 31; @position = 16; @symbol_vardef = [_w,31,16,18]; @symbol_type<0> = [Number,31,22,28]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 31; @position = 16; @symbol_vardef = [_sampling,31,16,25]; @symbol_type<0> = [Boolean,31,29,36]; ]
+    private
+    var _sampling as Boolean = false;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 32; @position = 16; @symbol_vardef = [_w,32,16,18]; @symbol_type<0> = [Number,32,22,28]; ]
     private
     var _w as Number = 360;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 32; @position = 16; @symbol_vardef = [_h,32,16,18]; @symbol_type<0> = [Number,32,22,28]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 33; @position = 16; @symbol_vardef = [_h,33,16,18]; @symbol_type<0> = [Number,33,22,28]; ]
     private
     var _h as Number = 360;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 33; @position = 16; @symbol_vardef = [_cx,33,16,19]; @symbol_type<0> = [Number,33,23,29]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 34; @position = 16; @symbol_vardef = [_cx,34,16,19]; @symbol_type<0> = [Number,34,23,29]; ]
     private
     var _cx as Number = 180;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 34; @position = 16; @symbol_vardef = [_cy,34,16,19]; @symbol_type<0> = [Number,34,23,29]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 35; @position = 16; @symbol_vardef = [_cy,35,16,19]; @symbol_type<0> = [Number,35,23,29]; ]
     private
     var _cy as Number = 180;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 36; @symbol_functiondef = [initialize,36,13,23]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 37; @symbol_functiondef = [initialize,37,13,23]; ]
     function initialize() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_36_26_36_47_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 36 28 ]
-        symbol [ View %tmp.2 36 28 32 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_37_26_37_47_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 37 28 ]
+        symbol [ View %tmp.2 37 28 32 ];
         %tmp.2 = getv ? :View;
-        symbol [ initialize %tmp.3 36 33 43 ];
+        symbol [ initialize %tmp.3 37 33 43 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_36_26_36_47_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_37_26_37_47_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 38; @symbol_functiondef = [onLayout,38,13,21]; @symbol_param<0> = [dc,38,22,24]; @symbol_param<0>_type<0> = [Graphics,38,28,36]; @symbol_param<0>_type<1> = [Dc,38,37,39]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 39; @symbol_functiondef = [onLayout,39,13,21]; @symbol_param<0> = [dc,39,22,24]; @symbol_param<0>_type<0> = [Graphics,39,28,36]; @symbol_param<0>_type<1> = [Dc,39,37,39]; ]
     function onLayout(dc as Graphics.Dc) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_38_49_41_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 39 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_39_49_42_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 40 8 ]
         %tmp.1 = lgetv %dc;
-        symbol [ dc %tmp.1 39 13 15 ];
-        symbol [ getWidth %tmp.2 39 16 24 ];
+        symbol [ dc %tmp.1 40 13 15 ];
+        symbol [ getWidth %tmp.2 40 16 24 ];
         %tmp.2 = getv function %tmp.1 :getWidth;
         %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ _w ? 39 8 10 ];
+        symbol [ _w ? 40 8 10 ];
         putv self :_w %tmp.3;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 39 29 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 40 29 ]
         %tmp.4 = lgetv %dc;
-        symbol [ dc %tmp.4 39 34 36 ];
-        symbol [ getHeight %tmp.5 39 37 46 ];
+        symbol [ dc %tmp.4 40 34 36 ];
+        symbol [ getHeight %tmp.5 40 37 46 ];
         %tmp.5 = getv function %tmp.4 :getHeight;
         %tmp.6 = invoke %tmp.4 %tmp.5();
-        symbol [ _h ? 39 29 31 ];
+        symbol [ _h ? 40 29 31 ];
         putv self :_h %tmp.6;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 40 8 ]
-        symbol [ _w %tmp.8 40 14 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 41 8 ]
+        symbol [ _w %tmp.8 41 14 16 ];
         %tmp.8 = getv ? :_w;
         %tmp.9 = 2;
         %tmp.10 = div %tmp.8 %tmp.9;
-        symbol [ _cx ? 40 8 11 ];
+        symbol [ _cx ? 41 8 11 ];
         putv self :_cx %tmp.10;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 40 29 ]
-        symbol [ _h %tmp.12 40 35 37 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 41 29 ]
+        symbol [ _h %tmp.12 41 35 37 ];
         %tmp.12 = getv ? :_h;
         %tmp.13 = 2;
         %tmp.14 = div %tmp.12 %tmp.13;
-        symbol [ _cy ? 40 29 32 ];
+        symbol [ _cy ? 41 29 32 ];
         putv self :_cy %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_38_49_41_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_39_49_42_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 46; @position = 22; @symbol_vardef = [exitRequested,46,22,35]; @symbol_type<0> = [Boolean,46,39,46]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 47; @position = 22; @symbol_vardef = [exitRequested,47,22,35]; @symbol_type<0> = [Boolean,47,39,46]; ]
     public static
     var exitRequested as Boolean = false;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 48; @symbol_functiondef = [onShow,48,13,19]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 49; @symbol_functiondef = [onShow,49,13,19]; ]
     function onShow() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_48_30_63_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 49 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_8_54_8_if_stmt:
-        symbol [ exitRequested %tmp.2 49 12 25 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_30_64_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 50 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_50_8_55_8_if_stmt:
+        symbol [ exitRequested %tmp.2 50 12 25 ];
         %tmp.2 = getv ? :exitRequested;
-        bf %tmp.2 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_8_54_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_8_54_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_27_54_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 50 12 ]
-        %tmp.3 = false;
-        symbol [ exitRequested ? 50 12 25 ];
-        putv self :exitRequested %tmp.3;
+        bf %tmp.2 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_50_8_55_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_50_8_55_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_50_27_55_8_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 51 12 ]
+        %tmp.3 = false;
+        symbol [ exitRequested ? 51 12 25 ];
+        putv self :exitRequested %tmp.3;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 52 12 ]
         %tmp.4 = self;
-        symbol [ stopTimer %tmp.5 51 12 21 ];
+        symbol [ stopTimer %tmp.5 52 12 21 ];
         %tmp.5 = getv function %tmp.4 :stopTimer;
         invoke %tmp.4 %tmp.5();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 52 12 ]
-        symbol [ MainListMenu %tmp.7 52 12 24 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 53 12 ]
+        symbol [ MainListMenu %tmp.7 53 12 24 ];
         %tmp.7 = getv ? :MainListMenu;
-        symbol [ show %tmp.8 52 25 29 ];
+        symbol [ show %tmp.8 53 25 29 ];
         %tmp.8 = getv function %tmp.7 :show;
-        symbol [ WatchUi %tmp.9 52 30 37 ];
+        symbol [ WatchUi %tmp.9 53 30 37 ];
         %tmp.9 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_DOWN %tmp.10 52 38 48 ];
+        symbol [ SLIDE_DOWN %tmp.10 53 38 48 ];
         %tmp.10 = getv %tmp.9 :SLIDE_DOWN;
         invoke %tmp.7 %tmp.8(%tmp.10);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 53 12 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 54 12 ]
         ret ?;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_27_54_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_8_54_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_8_54_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 61 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_61_8_61_69_if_stmt:
-        symbol [ AlarmStore %tmp.12 61 12 22 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_50_27_55_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_50_8_55_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_50_8_55_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 62 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_62_8_62_69_if_stmt:
+        symbol [ AlarmStore %tmp.12 62 12 22 ];
         %tmp.12 = getv ? :AlarmStore;
-        symbol [ ringingId %tmp.13 61 23 32 ];
+        symbol [ ringingId %tmp.13 62 23 32 ];
         %tmp.13 = getv function %tmp.12 :ringingId;
         %tmp.14 = invoke %tmp.12 %tmp.13();
         %tmp.15 = null;
         %tmp.16 = eq %tmp.14 %tmp.15;
-        bf %tmp.16 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_61_8_61_69_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_61_8_61_69_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_61_44_61_69_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 61 46 ]
+        bf %tmp.16 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_62_8_62_69_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_62_8_62_69_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_62_44_62_69_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 62 46 ]
         %tmp.17 = false;
-        symbol [ _ringingShown ? 61 46 59 ];
+        symbol [ _ringingShown ? 62 46 59 ];
         putv self :_ringingShown %tmp.17;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_61_44_61_69_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_61_8_61_69_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_61_8_61_69_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 62 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_62_44_62_69_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_62_8_62_69_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_62_8_62_69_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 63 8 ]
         %tmp.18 = self;
-        symbol [ startTimer %tmp.19 62 8 18 ];
+        symbol [ startTimer %tmp.19 63 8 18 ];
         %tmp.19 = getv function %tmp.18 :startTimer;
         %tmp.20 = self;
-        symbol [ pickInterval %tmp.21 62 19 31 ];
+        symbol [ pickInterval %tmp.21 63 19 31 ];
         %tmp.21 = getv function %tmp.20 :pickInterval;
         %tmp.22 = invoke %tmp.20 %tmp.21();
         invoke %tmp.18 %tmp.19(%tmp.22);
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_48_30_63_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_49_30_64_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 66; @symbol_functiondef = [pickInterval,66,21,33]; @symbol_return<0> = [Number,66,39,45]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 67; @symbol_functiondef = [pickInterval,67,21,33]; @symbol_return<0> = [Number,67,39,45]; ]
     private
     function pickInterval() as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_66_46_70_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 67 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_66_46_70_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_66_46_70_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_67_46_71_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 68 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_67_46_71_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_67_46_71_4_stop" ]
         %d.1 = local;
-        symbol [ d %d.1 67 12 13 ];
-        symbol [ AlarmEngine %tmp.2 67 16 27 ];
+        symbol [ d %d.1 68 12 13 ];
+        symbol [ AlarmEngine %tmp.2 68 16 27 ];
         %tmp.2 = getv ? :AlarmEngine;
-        symbol [ secsUntilNextTarget %tmp.3 67 28 47 ];
+        symbol [ secsUntilNextTarget %tmp.3 68 28 47 ];
         %tmp.3 = getv function %tmp.2 :secsUntilNextTarget;
-        symbol [ Time %tmp.4 67 48 52 ];
+        symbol [ Time %tmp.4 68 48 52 ];
         %tmp.4 = getm $.Toybox.Time;
-        symbol [ now %tmp.5 67 53 56 ];
+        symbol [ now %tmp.5 68 53 56 ];
         %tmp.5 = getv function %tmp.4 :now;
         %tmp.6 = invoke %tmp.4 %tmp.5();
-        symbol [ value %tmp.7 67 59 64 ];
+        symbol [ value %tmp.7 68 59 64 ];
         %tmp.7 = getv function %tmp.6 :value;
         %tmp.8 = invoke %tmp.6 %tmp.7();
         %tmp.9 = invoke %tmp.2 %tmp.3(%tmp.8);
         lputv %d.1 %tmp.9;
-        symbol [ d %d.1 67 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 68 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_8_68_73_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_12_68_27_begin:
+        symbol [ d %d.1 68 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 69 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_8_69_73_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_12_69_27_begin:
         %tmp.10 = lgetv %d.1;
-        symbol [ d %tmp.10 68 12 13 ];
+        symbol [ d %tmp.10 69 12 13 ];
         %tmp.11 = 0;
         %tmp.12 = gte %tmp.10 %tmp.11;
-        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_8_68_73_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_22_68_27_true:
+        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_8_69_73_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_22_69_27_true:
         %tmp.13 = lgetv %d.1;
-        symbol [ d %tmp.13 68 22 23 ];
-        symbol [ FAST_TICK_WITHIN_SECS %tmp.15 68 27 48 ];
+        symbol [ d %tmp.13 69 22 23 ];
+        symbol [ FAST_TICK_WITHIN_SECS %tmp.15 69 27 48 ];
         %tmp.15 = getv ? :FAST_TICK_WITHIN_SECS;
         %tmp.16 = lte %tmp.13 %tmp.15;
         push %tmp.16;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_22_68_27_end:
-        %tmp.17 = phi [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_12_68_27_begin] [%tmp.16 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_22_68_27_true] [%tmp.17 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_22_68_27_end];
-        bf %tmp.17 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_8_68_73_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_8_68_73_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_50_68_73_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 68 52 ]
-        symbol [ TICK_FAST_MS %tmp.19 68 59 71 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_22_69_27_end:
+        %tmp.17 = phi [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_12_69_27_begin] [%tmp.16 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_22_69_27_true] [%tmp.17 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_22_69_27_end];
+        bf %tmp.17 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_8_69_73_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_8_69_73_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_50_69_73_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 69 52 ]
+        symbol [ TICK_FAST_MS %tmp.19 69 59 71 ];
         %tmp.19 = getv ? :TICK_FAST_MS;
         ret %tmp.19;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_50_68_73_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_8_68_73_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_68_8_68_73_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 69 8 ]
-        symbol [ TICK_SLOW_MS %tmp.21 69 15 27 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_50_69_73_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_8_69_73_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_69_8_69_73_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 70 8 ]
+        symbol [ TICK_SLOW_MS %tmp.21 70 15 27 ];
         %tmp.21 = getv ? :TICK_SLOW_MS;
         ret %tmp.21;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_66_46_70_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_67_46_71_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 72; @symbol_functiondef = [startTimer,72,21,31]; @symbol_param<0> = [ms,72,32,34]; @symbol_param<0>_type<0> = [Number,72,38,44]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 73; @symbol_functiondef = [startTimer,73,21,31]; @symbol_param<0> = [ms,73,32,34]; @symbol_param<0>_type<0> = [Number,73,38,44]; ]
     private
     function startTimer(ms as Number) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_72_54_78_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 73 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_8_73_55_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_12_73_41_begin:
-        symbol [ _timer %tmp.2 73 12 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_54_79_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 74 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_8_74_55_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_12_74_41_begin:
+        symbol [ _timer %tmp.2 74 12 18 ];
         %tmp.2 = getv ? :_timer;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_8_73_55_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_30_73_41_true:
-        symbol [ _tickMs %tmp.6 73 30 37 ];
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_8_74_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_30_74_41_true:
+        symbol [ _tickMs %tmp.6 74 30 37 ];
         %tmp.6 = getv ? :_tickMs;
         %tmp.7 = lgetv %ms;
-        symbol [ ms %tmp.7 73 41 43 ];
+        symbol [ ms %tmp.7 74 41 43 ];
         %tmp.8 = eq %tmp.6 %tmp.7;
         push %tmp.8;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_30_73_41_end:
-        %tmp.9 = phi [%tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_12_73_41_begin] [%tmp.8 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_30_73_41_true] [%tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_30_73_41_end];
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_8_73_55_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_8_73_55_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_45_73_55_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 73 47 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_30_74_41_end:
+        %tmp.9 = phi [%tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_12_74_41_begin] [%tmp.8 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_30_74_41_true] [%tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_30_74_41_end];
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_8_74_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_8_74_55_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_45_74_55_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 74 47 ]
         ret ?;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_45_73_55_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_8_73_55_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_8_73_55_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 74 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_45_74_55_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_8_74_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_74_8_74_55_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 75 8 ]
         %tmp.10 = self;
-        symbol [ stopTimer %tmp.11 74 8 17 ];
+        symbol [ stopTimer %tmp.11 75 8 17 ];
         %tmp.11 = getv function %tmp.10 :stopTimer;
         invoke %tmp.10 %tmp.11();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 75 8 ]
-        %tmp.12 = lgetv %ms;
-        symbol [ ms %tmp.12 75 18 20 ];
-        symbol [ _tickMs ? 75 8 15 ];
-        putv self :_tickMs %tmp.12;
 [ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 76 8 ]
-        symbol [ Timer %tmp.15 76 21 26 ];
+        %tmp.12 = lgetv %ms;
+        symbol [ ms %tmp.12 76 18 20 ];
+        symbol [ _tickMs ? 76 8 15 ];
+        putv self :_tickMs %tmp.12;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 77 8 ]
+        symbol [ Timer %tmp.15 77 21 26 ];
         %tmp.15 = getm $.Toybox.Timer;
-        symbol [ Timer %tmp.16 76 27 32 ];
+        symbol [ Timer %tmp.16 77 27 32 ];
         %tmp.16 = getv function ? %tmp.15 :Timer;
         %tmp.13 = newc %tmp.16 ();
-        symbol [ _timer ? 76 8 14 ];
+        symbol [ _timer ? 77 8 14 ];
         putv self :_timer %tmp.13;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 77 8 ]
-        symbol [ _timer %tmp.18 77 8 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 78 8 ]
+        symbol [ _timer %tmp.18 78 8 14 ];
         %tmp.18 = getv ? :_timer;
-        symbol [ start %tmp.19 77 15 20 ];
+        symbol [ start %tmp.19 78 15 20 ];
         %tmp.19 = getv function %tmp.18 :start;
         %tmp.20 = self;
-        symbol [ method %tmp.21 77 21 27 ];
+        symbol [ method %tmp.21 78 21 27 ];
         %tmp.21 = getv function %tmp.20 :method;
         %tmp.23 = const :onTick;
-        symbol [ onTick %tmp.23 77 29 35 const ];
+        symbol [ onTick %tmp.23 78 29 35 const ];
         %tmp.24 = invoke %tmp.20 %tmp.21(%tmp.23);
         %tmp.25 = lgetv %ms;
-        symbol [ ms %tmp.25 77 38 40 ];
+        symbol [ ms %tmp.25 78 38 40 ];
         %tmp.26 = true;
         invoke %tmp.18 %tmp.19(%tmp.24, %tmp.25, %tmp.26);
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_72_54_78_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_73_54_79_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 80; @symbol_functiondef = [onHide,80,13,19]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 83; @symbol_functiondef = [onHide,83,13,19]; ]
     function onHide() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_80_30_80_45_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 80 32 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_83_30_89_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 84 8 ]
         %tmp.1 = self;
-        symbol [ stopTimer %tmp.2 80 32 41 ];
+        symbol [ stopTimer %tmp.2 84 8 17 ];
         %tmp.2 = getv function %tmp.1 :stopTimer;
         invoke %tmp.1 %tmp.2();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_80_30_80_45_stop:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 85 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_8_88_8_if_stmt:
+        symbol [ _sampling %tmp.4 85 12 21 ];
+        %tmp.4 = getv ? :_sampling;
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_8_88_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_8_88_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_23_88_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 86 12 ]
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_endTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_finally;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_beginTry:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_16_86_46_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 86 18 ]
+        symbol [ SleepDetector %tmp.6 86 18 31 ];
+        %tmp.6 = getv ? :SleepDetector;
+        symbol [ stopSensor %tmp.7 86 32 42 ];
+        %tmp.7 = getv function %tmp.6 :stopSensor;
+        invoke %tmp.6 %tmp.7();
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_16_86_46_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_endTry:
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_finally;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_catch:
+        %tmp.8 = exception;
+        push %tmp.8;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 86 48 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_catch" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_48_86_60_end" ]
+        %e.1 = local;
+        symbol [ e %e.1 86 55 56 ];
+        %tmp.9 = dup %tmp.8;
+        lputv %e.1 %tmp.9;
+        symbol [ e %e.1 86 55 56 ];
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_finally;
+        pop;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_48_86_60_end:
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_48_86_60_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_48_86_60_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_finally;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_finally;
+        throw %tmp.8;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_finally:
+        jsrret;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_86_12_86_60_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 87 12 ]
+        %tmp.10 = false;
+        symbol [ _sampling ? 87 12 21 ];
+        putv self :_sampling %tmp.10;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_23_88_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_8_88_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_8_88_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_83_30_89_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 85; @symbol_functiondef = [onTick,85,13,19]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 94; @symbol_functiondef = [onTick,94,13,19]; ]
     function onTick() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 86 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 95 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_stop" ]
         %now.1 = local;
-        symbol [ now %now.1 86 12 15 ];
-        symbol [ Time %tmp.1 86 18 22 ];
+        symbol [ now %now.1 95 12 15 ];
+        symbol [ Time %tmp.1 95 18 22 ];
         %tmp.1 = getm $.Toybox.Time;
-        symbol [ now %tmp.2 86 23 26 ];
+        symbol [ now %tmp.2 95 23 26 ];
         %tmp.2 = getv function %tmp.1 :now;
         %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ value %tmp.4 86 29 34 ];
+        symbol [ value %tmp.4 95 29 34 ];
         %tmp.4 = getv function %tmp.3 :value;
         %tmp.5 = invoke %tmp.3 %tmp.4();
         lputv %now.1 %tmp.5;
-        symbol [ now %now.1 86 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 87 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_8_87_82_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_12_87_45_begin:
-        symbol [ _exitArmed %tmp.7 87 12 22 ];
+        symbol [ now %now.1 95 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 96 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_8_96_82_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_12_96_45_begin:
+        symbol [ _exitArmed %tmp.7 96 12 22 ];
         %tmp.7 = getv ? :_exitArmed;
-        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_8_87_82_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_26_87_45_true:
+        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_8_96_82_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_26_96_45_true:
         %tmp.8 = lgetv %now.1;
-        symbol [ now %tmp.8 87 27 30 ];
-        symbol [ _armSecs %tmp.10 87 33 41 ];
+        symbol [ now %tmp.8 96 27 30 ];
+        symbol [ _armSecs %tmp.10 96 33 41 ];
         %tmp.10 = getv ? :_armSecs;
         %tmp.11 = sub %tmp.8 %tmp.10;
-        symbol [ EXIT_ARM_SECS %tmp.13 87 45 58 ];
+        symbol [ EXIT_ARM_SECS %tmp.13 96 45 58 ];
         %tmp.13 = getv ? :EXIT_ARM_SECS;
         %tmp.14 = gt %tmp.11 %tmp.13;
         push %tmp.14;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_26_87_45_end:
-        %tmp.15 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_12_87_45_begin] [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_26_87_45_true] [%tmp.15 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_26_87_45_end];
-        bf %tmp.15 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_8_87_82_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_8_87_82_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_60_87_82_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 87 62 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_26_96_45_end:
+        %tmp.15 = phi [%tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_12_96_45_begin] [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_26_96_45_true] [%tmp.15 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_26_96_45_end];
+        bf %tmp.15 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_8_96_82_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_8_96_82_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_60_96_82_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 96 62 ]
         %tmp.16 = false;
-        symbol [ _exitArmed ? 87 62 72 ];
+        symbol [ _exitArmed ? 96 62 72 ];
         putv self :_exitArmed %tmp.16;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_60_87_82_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_8_87_82_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_87_8_87_82_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 92 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_60_96_82_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_8_96_82_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_96_8_96_82_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 101 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_stop" ]
         %secsUntil.2 = local;
-        symbol [ secsUntil %secsUntil.2 92 12 21 ];
+        symbol [ secsUntil %secsUntil.2 101 12 21 ];
         %tmp.17 = -1;
         lputv %secsUntil.2 %tmp.17;
-        symbol [ secsUntil %secsUntil.2 92 12 21 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 93 8 ]
-        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_finally;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_beginTry:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_12_95_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 94 12 ]
-        symbol [ AlarmEngine %tmp.19 94 24 35 ];
+        symbol [ secsUntil %secsUntil.2 101 12 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 102 8 ]
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_finally;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_beginTry:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_12_104_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 103 12 ]
+        symbol [ AlarmEngine %tmp.19 103 24 35 ];
         %tmp.19 = getv ? :AlarmEngine;
-        symbol [ secsUntilNextTarget %tmp.20 94 36 55 ];
+        symbol [ secsUntilNextTarget %tmp.20 103 36 55 ];
         %tmp.20 = getv function %tmp.19 :secsUntilNextTarget;
         %tmp.21 = lgetv %now.1;
-        symbol [ now %tmp.21 94 56 59 ];
+        symbol [ now %tmp.21 103 56 59 ];
         %tmp.22 = invoke %tmp.19 %tmp.20(%tmp.21);
         lputv %secsUntil.2 %tmp.22;
-        symbol [ secsUntil %secsUntil.2 94 12 21 ];
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_12_95_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_endTry:
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_finally;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_catch:
+        symbol [ secsUntil %secsUntil.2 103 12 21 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_12_104_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_endTry:
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_finally;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_catch:
         %tmp.23 = exception;
         push %tmp.23;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 95 10 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_95_10_96_8_end" ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 104 10 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_104_10_105_8_end" ]
         %e0.3 = local;
-        symbol [ e0 %e0.3 95 17 19 ];
+        symbol [ e0 %e0.3 104 17 19 ];
         %tmp.24 = dup %tmp.23;
         lputv %e0.3 %tmp.24;
-        symbol [ e0 %e0.3 95 17 19 ];
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_finally;
+        symbol [ e0 %e0.3 104 17 19 ];
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_finally;
         pop;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_95_10_96_8_end:
-        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_95_10_96_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_95_10_96_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_finally;
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_finally;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_104_10_105_8_end:
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_104_10_105_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_104_10_105_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_finally;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_finally;
         throw %tmp.23;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_finally:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_finally:
         jsrret;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_93_8_96_8_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 98 8 ]
-        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_finally;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_beginTry:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_12_105_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 102 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_12_104_12_if_stmt:
-        symbol [ AlarmEngine %tmp.26 102 16 27 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_8_105_8_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 107 8 ]
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_finally;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_beginTry:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_12_123_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 115 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_12_122_12_if_stmt:
+        symbol [ AlarmEngine %tmp.26 115 16 27 ];
         %tmp.26 = getv ? :AlarmEngine;
-        symbol [ shouldSampleAt %tmp.27 102 28 42 ];
+        symbol [ shouldSampleAt %tmp.27 115 28 42 ];
         %tmp.27 = getv function %tmp.26 :shouldSampleAt;
         %tmp.28 = lgetv %secsUntil.2;
-        symbol [ secsUntil %tmp.28 102 43 52 ];
+        symbol [ secsUntil %tmp.28 115 43 52 ];
         %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
-        bf %tmp.29 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_12_104_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_12_104_12_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_55_104_12_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 103 16 ]
-        symbol [ SleepDetector %tmp.31 103 16 29 ];
-        %tmp.31 = getv ? :SleepDetector;
-        symbol [ sample %tmp.32 103 30 36 ];
-        %tmp.32 = getv function %tmp.31 :sample;
-        invoke %tmp.31 %tmp.32();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_55_104_12_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_12_104_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_102_12_104_12_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_12_105_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_endTry:
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_finally;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_catch:
-        %tmp.33 = exception;
-        push %tmp.33;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 105 10 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_105_10_107_8_end" ]
-        %e.4 = local;
-        symbol [ e %e.4 105 17 18 ];
-        %tmp.34 = dup %tmp.33;
-        lputv %e.4 %tmp.34;
-        symbol [ e %e.4 105 17 18 ];
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_finally;
-        pop;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_105_10_107_8_end:
-        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_105_10_107_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_105_10_107_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_finally;
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_finally;
-        throw %tmp.33;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_finally:
-        jsrret;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_98_8_107_8_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 109 8 ]
-        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_beginTry:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_12_118_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 110 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_12_110_73_if_stmt:
-        symbol [ AlarmStore %tmp.36 110 16 26 ];
-        %tmp.36 = getv ? :AlarmStore;
-        symbol [ ringingId %tmp.37 110 27 36 ];
-        %tmp.37 = getv function %tmp.36 :ringingId;
-        %tmp.38 = invoke %tmp.36 %tmp.37();
-        %tmp.39 = null;
-        %tmp.40 = ne %tmp.38 %tmp.39;
-        bf %tmp.40 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_12_110_73_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_12_110_73_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_48_110_73_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 110 50 ]
-        %tmp.41 = self;
-        symbol [ showRinging %tmp.42 110 50 61 ];
-        %tmp.42 = getv function %tmp.41 :showRinging;
-        invoke %tmp.41 %tmp.42();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 110 65 ]
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally;
-        ret ?;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_48_110_73_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_12_110_73_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_12_110_73_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 112 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_12_118_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_12_118_8_stop" ]
-        %id.5 = local;
-        symbol [ id %id.5 112 16 18 ];
-        symbol [ AlarmEngine %tmp.44 112 21 32 ];
-        %tmp.44 = getv ? :AlarmEngine;
-        symbol [ evaluate %tmp.45 112 33 41 ];
-        %tmp.45 = getv function %tmp.44 :evaluate;
-        %tmp.46 = lgetv %now.1;
-        symbol [ now %tmp.46 112 42 45 ];
-        %tmp.47 = invoke %tmp.44 %tmp.45(%tmp.46);
-        lputv %id.5 %tmp.47;
-        symbol [ id %id.5 112 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 113 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_113_12_117_12_if_stmt:
-        %tmp.48 = lgetv %id.5;
-        symbol [ id %tmp.48 113 16 18 ];
-        %tmp.49 = 0;
-        %tmp.50 = gte %tmp.48 %tmp.49;
-        bf %tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_113_12_117_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_113_12_117_12_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_113_25_117_12_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 114 16 ]
-        symbol [ AlarmStore %tmp.52 114 16 26 ];
-        %tmp.52 = getv ? :AlarmStore;
-        symbol [ beginRing %tmp.53 114 27 36 ];
-        %tmp.53 = getv function %tmp.52 :beginRing;
-        %tmp.54 = lgetv %id.5;
-        symbol [ id %tmp.54 114 37 39 ];
-        invoke %tmp.52 %tmp.53(%tmp.54);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 115 16 ]
-        %tmp.55 = self;
-        symbol [ showRinging %tmp.56 115 16 27 ];
-        %tmp.56 = getv function %tmp.55 :showRinging;
-        invoke %tmp.55 %tmp.56();
+        bf %tmp.29 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_12_122_12_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_12_122_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_55_119_12_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 116 16 ]
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally;
-        ret ?;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_113_25_117_12_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_113_12_117_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_113_12_117_12_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_12_118_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_endTry:
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_catch:
-        %tmp.57 = exception;
-        push %tmp.57;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 118 10 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_118_10_120_8_end" ]
-        %e2.6 = local;
-        symbol [ e2 %e2.6 118 17 19 ];
-        %tmp.58 = dup %tmp.57;
-        lputv %e2.6 %tmp.58;
-        symbol [ e2 %e2.6 118 17 19 ];
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally;
+        symbol [ SleepDetector %tmp.31 116 16 29 ];
+        %tmp.31 = getv ? :SleepDetector;
+        symbol [ startSensor %tmp.32 116 30 41 ];
+        %tmp.32 = getv function %tmp.31 :startSensor;
+        invoke %tmp.31 %tmp.32();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 117 16 ]
+        symbol [ SleepDetector %tmp.34 117 16 29 ];
+        %tmp.34 = getv ? :SleepDetector;
+        symbol [ sample %tmp.35 117 30 36 ];
+        %tmp.35 = getv function %tmp.34 :sample;
+        invoke %tmp.34 %tmp.35();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 118 16 ]
+        %tmp.36 = true;
+        symbol [ _sampling ? 118 16 25 ];
+        putv self :_sampling %tmp.36;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_55_119_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_12_122_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_12_122_12_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 119 19 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_119_19_122_12_if_stmt:
+        symbol [ _sampling %tmp.38 119 23 32 ];
+        %tmp.38 = getv ? :_sampling;
+        bf %tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_119_19_122_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_119_19_122_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_119_34_122_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 120 16 ]
+        symbol [ SleepDetector %tmp.40 120 16 29 ];
+        %tmp.40 = getv ? :SleepDetector;
+        symbol [ stopSensor %tmp.41 120 30 40 ];
+        %tmp.41 = getv function %tmp.40 :stopSensor;
+        invoke %tmp.40 %tmp.41();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 121 16 ]
+        %tmp.42 = false;
+        symbol [ _sampling ? 121 16 25 ];
+        putv self :_sampling %tmp.42;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_119_34_122_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_119_19_122_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_119_19_122_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_115_12_122_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_12_123_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_endTry:
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_finally;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_catch:
+        %tmp.43 = exception;
+        push %tmp.43;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 123 10 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_123_10_125_8_end" ]
+        %e.4 = local;
+        symbol [ e %e.4 123 17 18 ];
+        %tmp.44 = dup %tmp.43;
+        lputv %e.4 %tmp.44;
+        symbol [ e %e.4 123 17 18 ];
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_finally;
         pop;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_118_10_120_8_end:
-        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_118_10_120_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_118_10_120_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally;
-        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally;
-        throw %tmp.57;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_finally:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_123_10_125_8_end:
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_123_10_125_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_123_10_125_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_finally;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_finally;
+        throw %tmp.43;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_finally:
         jsrret;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_8_120_8_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 124 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_107_8_125_8_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 127 8 ]
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_beginTry:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_12_136_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 128 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_128_12_128_73_if_stmt:
+        symbol [ AlarmStore %tmp.46 128 16 26 ];
+        %tmp.46 = getv ? :AlarmStore;
+        symbol [ ringingId %tmp.47 128 27 36 ];
+        %tmp.47 = getv function %tmp.46 :ringingId;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        %tmp.49 = null;
+        %tmp.50 = ne %tmp.48 %tmp.49;
+        bf %tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_128_12_128_73_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_128_12_128_73_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_128_48_128_73_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 128 50 ]
+        %tmp.51 = self;
+        symbol [ showRinging %tmp.52 128 50 61 ];
+        %tmp.52 = getv function %tmp.51 :showRinging;
+        invoke %tmp.51 %tmp.52();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 128 65 ]
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally;
+        ret ?;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_128_48_128_73_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_128_12_128_73_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_128_12_128_73_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 130 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_12_136_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_12_136_8_stop" ]
+        %id.5 = local;
+        symbol [ id %id.5 130 16 18 ];
+        symbol [ AlarmEngine %tmp.54 130 21 32 ];
+        %tmp.54 = getv ? :AlarmEngine;
+        symbol [ evaluate %tmp.55 130 33 41 ];
+        %tmp.55 = getv function %tmp.54 :evaluate;
+        %tmp.56 = lgetv %now.1;
+        symbol [ now %tmp.56 130 42 45 ];
+        %tmp.57 = invoke %tmp.54 %tmp.55(%tmp.56);
+        lputv %id.5 %tmp.57;
+        symbol [ id %id.5 130 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 131 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_12_135_12_if_stmt:
+        %tmp.58 = lgetv %id.5;
+        symbol [ id %tmp.58 131 16 18 ];
+        %tmp.59 = 0;
+        %tmp.60 = gte %tmp.58 %tmp.59;
+        bf %tmp.60 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_12_135_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_12_135_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_25_135_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 132 16 ]
+        symbol [ AlarmStore %tmp.62 132 16 26 ];
+        %tmp.62 = getv ? :AlarmStore;
+        symbol [ beginRing %tmp.63 132 27 36 ];
+        %tmp.63 = getv function %tmp.62 :beginRing;
+        %tmp.64 = lgetv %id.5;
+        symbol [ id %tmp.64 132 37 39 ];
+        invoke %tmp.62 %tmp.63(%tmp.64);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 133 16 ]
+        %tmp.65 = self;
+        symbol [ showRinging %tmp.66 133 16 27 ];
+        %tmp.66 = getv function %tmp.65 :showRinging;
+        invoke %tmp.65 %tmp.66();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 134 16 ]
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally;
+        ret ?;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_25_135_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_12_135_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_12_135_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_12_136_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_endTry:
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_catch:
+        %tmp.67 = exception;
+        push %tmp.67;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 136 10 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_136_10_138_8_end" ]
+        %e2.6 = local;
+        symbol [ e2 %e2.6 136 17 19 ];
+        %tmp.68 = dup %tmp.67;
+        lputv %e2.6 %tmp.68;
+        symbol [ e2 %e2.6 136 17 19 ];
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally;
+        pop;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_136_10_138_8_end:
+        try @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_136_10_138_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_136_10_138_8_end @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally;
+        throw %tmp.67;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_finally:
+        jsrret;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_127_8_138_8_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 142 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_stop" ]
         %wanted.7 = local;
-        symbol [ wanted %wanted.7 124 12 18 ];
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_22_124_53_begin:
-        %tmp.59 = lgetv %secsUntil.2;
-        symbol [ secsUntil %tmp.59 124 22 31 ];
-        %tmp.60 = 0;
-        %tmp.61 = gte %tmp.59 %tmp.60;
-        bf %tmp.61 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_40_124_53_true:
-        %tmp.62 = lgetv %secsUntil.2;
-        symbol [ secsUntil %tmp.62 124 40 49 ];
-        symbol [ FAST_TICK_WITHIN_SECS %tmp.64 124 53 74 ];
-        %tmp.64 = getv ? :FAST_TICK_WITHIN_SECS;
-        %tmp.65 = lte %tmp.62 %tmp.64;
-        push %tmp.65;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_40_124_53_end:
-        %tmp.66 = phi [%tmp.61 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_22_124_53_begin] [%tmp.65 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_40_124_53_true] [%tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_40_124_53_end];
-        bf %tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_true:
-        symbol [ TICK_FAST_MS %tmp.68 125 23 35 ];
-        %tmp.68 = getv ? :TICK_FAST_MS;
-        push %tmp.68;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_else_false:
-        symbol [ TICK_SLOW_MS %tmp.70 125 38 50 ];
-        %tmp.70 = getv ? :TICK_SLOW_MS;
-        push %tmp.70;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_end:
-        %tmp.71 = phi [%tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_begin] [%tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_true] [%tmp.70 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_else_false] [%tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_124_21_125_38_end];
-        lputv %wanted.7 %tmp.71;
-        symbol [ wanted %wanted.7 124 12 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 126 8 ]
-        %tmp.72 = self;
-        symbol [ startTimer %tmp.73 126 8 18 ];
-        %tmp.73 = getv function %tmp.72 :startTimer;
-        %tmp.74 = lgetv %wanted.7;
-        symbol [ wanted %tmp.74 126 19 25 ];
-        invoke %tmp.72 %tmp.73(%tmp.74);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 130 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_stop" ]
+        symbol [ wanted %wanted.7 142 12 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_22_142_53_begin:
+        %tmp.69 = lgetv %secsUntil.2;
+        symbol [ secsUntil %tmp.69 142 22 31 ];
+        %tmp.70 = 0;
+        %tmp.71 = gte %tmp.69 %tmp.70;
+        bf %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_40_142_53_true:
+        %tmp.72 = lgetv %secsUntil.2;
+        symbol [ secsUntil %tmp.72 142 40 49 ];
+        symbol [ FAST_TICK_WITHIN_SECS %tmp.74 142 53 74 ];
+        %tmp.74 = getv ? :FAST_TICK_WITHIN_SECS;
+        %tmp.75 = lte %tmp.72 %tmp.74;
+        push %tmp.75;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_40_142_53_end:
+        %tmp.76 = phi [%tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_22_142_53_begin] [%tmp.75 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_40_142_53_true] [%tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_40_142_53_end];
+        bf %tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_true:
+        symbol [ TICK_FAST_MS %tmp.78 143 23 35 ];
+        %tmp.78 = getv ? :TICK_FAST_MS;
+        push %tmp.78;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_else_false:
+        symbol [ TICK_SLOW_MS %tmp.80 143 38 50 ];
+        %tmp.80 = getv ? :TICK_SLOW_MS;
+        push %tmp.80;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_end:
+        %tmp.81 = phi [%tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_begin] [%tmp.78 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_true] [%tmp.80 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_else_false] [%tmp.81 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_142_21_143_38_end];
+        lputv %wanted.7 %tmp.81;
+        symbol [ wanted %wanted.7 142 12 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 144 8 ]
+        %tmp.82 = self;
+        symbol [ startTimer %tmp.83 144 8 18 ];
+        %tmp.83 = getv function %tmp.82 :startTimer;
+        %tmp.84 = lgetv %wanted.7;
+        symbol [ wanted %tmp.84 144 19 25 ];
+        invoke %tmp.82 %tmp.83(%tmp.84);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 148 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_stop" ]
         %mins.8 = local;
-        symbol [ mins %mins.8 130 12 16 ];
-        %tmp.75 = lgetv %now.1;
-        symbol [ now %tmp.75 130 19 22 ];
-        %tmp.76 = 60;
-        %tmp.77 = div %tmp.75 %tmp.76;
-        lputv %mins.8 %tmp.77;
-        symbol [ mins %mins.8 130 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 131 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_8_135_8_if_stmt:
-        %tmp.78 = lgetv %mins.8;
-        symbol [ mins %tmp.78 131 12 16 ];
-        symbol [ _lastDrawMin %tmp.80 131 20 32 ];
-        %tmp.80 = getv ? :_lastDrawMin;
-        %tmp.81 = ne %tmp.78 %tmp.80;
-        bf %tmp.81 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_8_135_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_8_135_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_34_135_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 132 12 ]
-        %tmp.82 = lgetv %mins.8;
-        symbol [ mins %tmp.82 132 27 31 ];
-        symbol [ _lastDrawMin ? 132 12 24 ];
-        putv self :_lastDrawMin %tmp.82;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 133 12 ]
-        %tmp.83 = self;
-        symbol [ computeNextAlarmStr %tmp.84 133 23 42 ];
-        %tmp.84 = getv function %tmp.83 :computeNextAlarmStr;
-        %tmp.85 = invoke %tmp.83 %tmp.84();
-        symbol [ _nextStr ? 133 12 20 ];
-        putv self :_nextStr %tmp.85;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 134 12 ]
-        symbol [ WatchUi %tmp.86 134 12 19 ];
-        %tmp.86 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.87 134 20 33 ];
-        %tmp.87 = getv function %tmp.86 :requestUpdate;
-        invoke %tmp.86 %tmp.87();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_34_135_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_8_135_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_131_8_135_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_85_30_136_4_stop:
+        symbol [ mins %mins.8 148 12 16 ];
+        %tmp.85 = lgetv %now.1;
+        symbol [ now %tmp.85 148 19 22 ];
+        %tmp.86 = 60;
+        %tmp.87 = div %tmp.85 %tmp.86;
+        lputv %mins.8 %tmp.87;
+        symbol [ mins %mins.8 148 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 149 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_149_8_153_8_if_stmt:
+        %tmp.88 = lgetv %mins.8;
+        symbol [ mins %tmp.88 149 12 16 ];
+        symbol [ _lastDrawMin %tmp.90 149 20 32 ];
+        %tmp.90 = getv ? :_lastDrawMin;
+        %tmp.91 = ne %tmp.88 %tmp.90;
+        bf %tmp.91 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_149_8_153_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_149_8_153_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_149_34_153_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 150 12 ]
+        %tmp.92 = lgetv %mins.8;
+        symbol [ mins %tmp.92 150 27 31 ];
+        symbol [ _lastDrawMin ? 150 12 24 ];
+        putv self :_lastDrawMin %tmp.92;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 151 12 ]
+        %tmp.93 = self;
+        symbol [ computeNextAlarmStr %tmp.94 151 23 42 ];
+        %tmp.94 = getv function %tmp.93 :computeNextAlarmStr;
+        %tmp.95 = invoke %tmp.93 %tmp.94();
+        symbol [ _nextStr ? 151 12 20 ];
+        putv self :_nextStr %tmp.95;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 152 12 ]
+        symbol [ WatchUi %tmp.96 152 12 19 ];
+        %tmp.96 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.97 152 20 33 ];
+        %tmp.97 = getv function %tmp.96 :requestUpdate;
+        invoke %tmp.96 %tmp.97();
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_149_34_153_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_149_8_153_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_149_8_153_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_94_30_154_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 138; @symbol_functiondef = [showRinging,138,21,32]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 156; @symbol_functiondef = [showRinging,156,21,32]; ]
     private
     function showRinging() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_138_43_144_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 139 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_8_143_8_if_stmt:
-        symbol [ _ringingShown %tmp.2 139 13 26 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_156_43_162_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 157 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_8_161_8_if_stmt:
+        symbol [ _ringingShown %tmp.2 157 13 26 ];
         %tmp.2 = getv ? :_ringingShown;
         %tmp.3 = not %tmp.2;
-        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_8_143_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_8_143_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_28_143_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 140 12 ]
+        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_8_161_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_8_161_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_28_161_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 158 12 ]
         %tmp.4 = true;
-        symbol [ _ringingShown ? 140 12 25 ];
+        symbol [ _ringingShown ? 158 12 25 ];
         putv self :_ringingShown %tmp.4;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 141 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_28_143_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_28_143_8_stop" ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 159 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_28_161_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_28_161_8_stop" ]
         %rv.1 = local;
-        symbol [ rv %rv.1 141 16 18 ];
-        symbol [ RingingView %tmp.8 141 25 36 ];
+        symbol [ rv %rv.1 159 16 18 ];
+        symbol [ RingingView %tmp.8 159 25 36 ];
         %tmp.8 = getv ? :RingingView;
         %tmp.5 = newc %tmp.8 ();
         lputv %rv.1 %tmp.5;
-        symbol [ rv %rv.1 141 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 142 12 ]
-        symbol [ WatchUi %tmp.9 142 12 19 ];
+        symbol [ rv %rv.1 159 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 160 12 ]
+        symbol [ WatchUi %tmp.9 160 12 19 ];
         %tmp.9 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.10 142 20 28 ];
+        symbol [ pushView %tmp.10 160 20 28 ];
         %tmp.10 = getv function %tmp.9 :pushView;
         %tmp.11 = lgetv %rv.1;
-        symbol [ rv %tmp.11 142 29 31 ];
-        symbol [ RingingDelegate %tmp.15 142 37 52 ];
+        symbol [ rv %tmp.11 160 29 31 ];
+        symbol [ RingingDelegate %tmp.15 160 37 52 ];
         %tmp.15 = getv ? :RingingDelegate;
         %tmp.16 = lgetv %rv.1;
-        symbol [ rv %tmp.16 142 53 55 ];
+        symbol [ rv %tmp.16 160 53 55 ];
         %tmp.12 = newc %tmp.15 (%tmp.16);
-        symbol [ WatchUi %tmp.17 142 58 65 ];
+        symbol [ WatchUi %tmp.17 160 58 65 ];
         %tmp.17 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_UP %tmp.18 142 66 74 ];
+        symbol [ SLIDE_UP %tmp.18 160 66 74 ];
         %tmp.18 = getv %tmp.17 :SLIDE_UP;
         invoke %tmp.9 %tmp.10(%tmp.11, %tmp.12, %tmp.18);
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_28_143_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_8_143_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_139_8_143_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_138_43_144_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_28_161_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_8_161_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_157_8_161_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_156_43_162_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 146; @symbol_functiondef = [onUpdate,146,13,21]; @symbol_param<0> = [dc,146,22,24]; @symbol_param<0>_type<0> = [Graphics,146,28,36]; @symbol_param<0>_type<1> = [Dc,146,37,39]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 164; @symbol_functiondef = [onUpdate,164,13,21]; @symbol_param<0> = [dc,164,22,24]; @symbol_param<0>_type<0> = [Graphics,164,28,36]; @symbol_param<0>_type<1> = [Dc,164,37,39]; ]
     function onUpdate(dc as Graphics.Dc) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_146_49_175_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 147 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_164_49_221_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 165 8 ]
         %tmp.1 = lgetv %dc;
-        symbol [ dc %tmp.1 147 8 10 ];
-        symbol [ setColor %tmp.2 147 11 19 ];
+        symbol [ dc %tmp.1 165 8 10 ];
+        symbol [ setColor %tmp.2 165 11 19 ];
         %tmp.2 = getv function %tmp.1 :setColor;
-        symbol [ Graphics %tmp.3 147 20 28 ];
+        symbol [ Graphics %tmp.3 165 20 28 ];
         %tmp.3 = getm $.Toybox.Graphics;
-        symbol [ COLOR_BLACK %tmp.4 147 29 40 ];
+        symbol [ COLOR_BLACK %tmp.4 165 29 40 ];
         %tmp.4 = getv %tmp.3 :COLOR_BLACK;
-        symbol [ Graphics %tmp.5 147 42 50 ];
+        symbol [ Graphics %tmp.5 165 42 50 ];
         %tmp.5 = getm $.Toybox.Graphics;
-        symbol [ COLOR_BLACK %tmp.6 147 51 62 ];
+        symbol [ COLOR_BLACK %tmp.6 165 51 62 ];
         %tmp.6 = getv %tmp.5 :COLOR_BLACK;
         invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 148 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 166 8 ]
         %tmp.7 = lgetv %dc;
-        symbol [ dc %tmp.7 148 8 10 ];
-        symbol [ clear %tmp.8 148 11 16 ];
+        symbol [ dc %tmp.7 166 8 10 ];
+        symbol [ clear %tmp.8 166 11 16 ];
         %tmp.8 = getv function %tmp.7 :clear;
         invoke %tmp.7 %tmp.8();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 149 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_146_49_175_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_146_49_175_4_stop" ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 167 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_164_49_221_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_164_49_221_4_stop" ]
         %vc.1 = local;
-        symbol [ vc %vc.1 149 12 14 ];
-        symbol [ Graphics %tmp.9 149 17 25 ];
+        symbol [ vc %vc.1 167 12 14 ];
+        symbol [ Graphics %tmp.9 167 17 25 ];
         %tmp.9 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.10 149 26 45 ];
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.10 167 26 45 ];
         %tmp.10 = getv %tmp.9 :TEXT_JUSTIFY_CENTER;
-        symbol [ Graphics %tmp.11 149 48 56 ];
+        symbol [ Graphics %tmp.11 167 48 56 ];
         %tmp.11 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_VCENTER %tmp.12 149 57 77 ];
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.12 167 57 77 ];
         %tmp.12 = getv %tmp.11 :TEXT_JUSTIFY_VCENTER;
         %tmp.13 = bitor %tmp.10 %tmp.12;
         lputv %vc.1 %tmp.13;
-        symbol [ vc %vc.1 149 12 14 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 150 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_146_49_175_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_146_49_175_4_stop" ]
+        symbol [ vc %vc.1 167 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 168 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_164_49_221_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_164_49_221_4_stop" ]
         %now.2 = local;
-        symbol [ now %now.2 150 12 15 ];
-        symbol [ Gregorian %tmp.14 150 18 27 ];
+        symbol [ now %now.2 168 12 15 ];
+        symbol [ Gregorian %tmp.14 168 18 27 ];
         %tmp.14 = getm $.Toybox.Time.Gregorian;
-        symbol [ info %tmp.15 150 28 32 ];
+        symbol [ info %tmp.15 168 28 32 ];
         %tmp.15 = getv function %tmp.14 :info;
-        symbol [ Time %tmp.16 150 33 37 ];
+        symbol [ Time %tmp.16 168 33 37 ];
         %tmp.16 = getm $.Toybox.Time;
-        symbol [ now %tmp.17 150 38 41 ];
+        symbol [ now %tmp.17 168 38 41 ];
         %tmp.17 = getv function %tmp.16 :now;
         %tmp.18 = invoke %tmp.16 %tmp.17();
-        symbol [ Time %tmp.19 150 45 49 ];
+        symbol [ Time %tmp.19 168 45 49 ];
         %tmp.19 = getm $.Toybox.Time;
-        symbol [ FORMAT_SHORT %tmp.20 150 50 62 ];
+        symbol [ FORMAT_SHORT %tmp.20 168 50 62 ];
         %tmp.20 = getv %tmp.19 :FORMAT_SHORT;
         %tmp.21 = invoke %tmp.14 %tmp.15(%tmp.18, %tmp.20);
         lputv %now.2 %tmp.21;
-        symbol [ now %now.2 150 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 153 8 ]
-        symbol [ Ui %tmp.23 153 8 10 ];
+        symbol [ now %now.2 168 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 171 8 ]
+        symbol [ Ui %tmp.23 171 8 10 ];
         %tmp.23 = getv ? :Ui;
-        symbol [ labelSized %tmp.24 153 11 21 ];
+        symbol [ labelSized %tmp.24 171 11 21 ];
         %tmp.24 = getv function %tmp.23 :labelSized;
         %tmp.25 = lgetv %dc;
-        symbol [ dc %tmp.25 153 22 24 ];
-        symbol [ _w %tmp.27 153 26 28 ];
+        symbol [ dc %tmp.25 171 22 24 ];
+        symbol [ _w %tmp.27 171 26 28 ];
         %tmp.27 = getv ? :_w;
-        symbol [ _h %tmp.29 153 30 32 ];
+        symbol [ _h %tmp.29 171 30 32 ];
         %tmp.29 = getv ? :_h;
         %tmp.30 = 90;
         %tmp.31 = 0xAAAAAA;
         %tmp.32 = "Active Alarm Mode";
         %tmp.33 = 28;
         invoke %tmp.23 %tmp.24(%tmp.25, %tmp.27, %tmp.29, %tmp.30, %tmp.31, %tmp.32, %tmp.33);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 156 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 174 8 ]
         %tmp.34 = lgetv %dc;
-        symbol [ dc %tmp.34 156 8 10 ];
-        symbol [ setColor %tmp.35 156 11 19 ];
+        symbol [ dc %tmp.34 174 8 10 ];
+        symbol [ setColor %tmp.35 174 11 19 ];
         %tmp.35 = getv function %tmp.34 :setColor;
         %tmp.36 = 0x888888;
-        symbol [ Graphics %tmp.37 156 30 38 ];
+        symbol [ Graphics %tmp.37 174 30 38 ];
         %tmp.37 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.38 156 39 56 ];
+        symbol [ COLOR_TRANSPARENT %tmp.38 174 39 56 ];
         %tmp.38 = getv %tmp.37 :COLOR_TRANSPARENT;
         invoke %tmp.34 %tmp.35(%tmp.36, %tmp.38);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 157 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 175 8 ]
         %tmp.39 = lgetv %dc;
-        symbol [ dc %tmp.39 157 8 10 ];
-        symbol [ drawText %tmp.40 157 11 19 ];
+        symbol [ dc %tmp.39 175 8 10 ];
+        symbol [ drawText %tmp.40 175 11 19 ];
         %tmp.40 = getv function %tmp.39 :drawText;
-        symbol [ _cx %tmp.42 157 20 23 ];
+        symbol [ _cx %tmp.42 175 20 23 ];
         %tmp.42 = getv ? :_cx;
-        symbol [ _cy %tmp.44 157 25 28 ];
+        symbol [ _cy %tmp.44 175 25 28 ];
         %tmp.44 = getv ? :_cy;
         %tmp.45 = 62;
         %tmp.46 = sub %tmp.44 %tmp.45;
-        symbol [ Graphics %tmp.47 157 35 43 ];
+        symbol [ Graphics %tmp.47 175 35 43 ];
         %tmp.47 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.48 157 44 54 ];
+        symbol [ FONT_XTINY %tmp.48 175 44 54 ];
         %tmp.48 = getv %tmp.47 :FONT_XTINY;
         %tmp.49 = "Current Time";
         %tmp.50 = lgetv %vc.1;
-        symbol [ vc %tmp.50 157 72 74 ];
+        symbol [ vc %tmp.50 175 72 74 ];
         invoke %tmp.39 %tmp.40(%tmp.42, %tmp.46, %tmp.48, %tmp.49, %tmp.50);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 158 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 176 8 ]
         %tmp.51 = lgetv %dc;
-        symbol [ dc %tmp.51 158 8 10 ];
-        symbol [ setColor %tmp.52 158 11 19 ];
+        symbol [ dc %tmp.51 176 8 10 ];
+        symbol [ setColor %tmp.52 176 11 19 ];
         %tmp.52 = getv function %tmp.51 :setColor;
         %tmp.53 = 0xAAAAAA;
-        symbol [ Graphics %tmp.54 158 30 38 ];
+        symbol [ Graphics %tmp.54 176 30 38 ];
         %tmp.54 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.55 158 39 56 ];
+        symbol [ COLOR_TRANSPARENT %tmp.55 176 39 56 ];
         %tmp.55 = getv %tmp.54 :COLOR_TRANSPARENT;
         invoke %tmp.51 %tmp.52(%tmp.53, %tmp.55);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 159 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 177 8 ]
         %tmp.56 = lgetv %dc;
-        symbol [ dc %tmp.56 159 8 10 ];
-        symbol [ drawText %tmp.57 159 11 19 ];
+        symbol [ dc %tmp.56 177 8 10 ];
+        symbol [ drawText %tmp.57 177 11 19 ];
         %tmp.57 = getv function %tmp.56 :drawText;
-        symbol [ _cx %tmp.59 159 20 23 ];
+        symbol [ _cx %tmp.59 177 20 23 ];
         %tmp.59 = getv ? :_cx;
-        symbol [ _cy %tmp.61 159 25 28 ];
+        symbol [ _cy %tmp.61 177 25 28 ];
         %tmp.61 = getv ? :_cy;
         %tmp.62 = 32;
         %tmp.63 = sub %tmp.61 %tmp.62;
-        symbol [ Graphics %tmp.64 159 35 43 ];
+        symbol [ Graphics %tmp.64 177 35 43 ];
         %tmp.64 = getm $.Toybox.Graphics;
-        symbol [ FONT_MEDIUM %tmp.65 159 44 55 ];
+        symbol [ FONT_MEDIUM %tmp.65 177 44 55 ];
         %tmp.65 = getv %tmp.64 :FONT_MEDIUM;
-        symbol [ Fmt %tmp.67 159 57 60 ];
+        symbol [ Fmt %tmp.67 177 57 60 ];
         %tmp.67 = getv ? :Fmt;
-        symbol [ time12 %tmp.68 159 61 67 ];
+        symbol [ time12 %tmp.68 177 61 67 ];
         %tmp.68 = getv function %tmp.67 :time12;
         %tmp.69 = lgetv %now.2;
-        symbol [ now %tmp.69 159 68 71 ];
-        symbol [ hour %tmp.70 159 72 76 ];
+        symbol [ now %tmp.69 177 68 71 ];
+        symbol [ hour %tmp.70 177 72 76 ];
         %tmp.70 = getv %tmp.69 :hour;
         %tmp.71 = lgetv %now.2;
-        symbol [ now %tmp.71 159 78 81 ];
-        symbol [ min %tmp.72 159 82 85 ];
+        symbol [ now %tmp.71 177 78 81 ];
+        symbol [ min %tmp.72 177 82 85 ];
         %tmp.72 = getv %tmp.71 :min;
         %tmp.73 = invoke %tmp.67 %tmp.68(%tmp.70, %tmp.72);
         %tmp.74 = lgetv %vc.1;
-        symbol [ vc %tmp.74 159 88 90 ];
+        symbol [ vc %tmp.74 177 88 90 ];
         invoke %tmp.56 %tmp.57(%tmp.59, %tmp.63, %tmp.65, %tmp.73, %tmp.74);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 162 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 180 8 ]
         %tmp.75 = lgetv %dc;
-        symbol [ dc %tmp.75 162 8 10 ];
-        symbol [ setColor %tmp.76 162 11 19 ];
+        symbol [ dc %tmp.75 180 8 10 ];
+        symbol [ setColor %tmp.76 180 11 19 ];
         %tmp.76 = getv function %tmp.75 :setColor;
         %tmp.77 = 0x888888;
-        symbol [ Graphics %tmp.78 162 30 38 ];
+        symbol [ Graphics %tmp.78 180 30 38 ];
         %tmp.78 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.79 162 39 56 ];
+        symbol [ COLOR_TRANSPARENT %tmp.79 180 39 56 ];
         %tmp.79 = getv %tmp.78 :COLOR_TRANSPARENT;
         invoke %tmp.75 %tmp.76(%tmp.77, %tmp.79);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 163 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 181 8 ]
         %tmp.80 = lgetv %dc;
-        symbol [ dc %tmp.80 163 8 10 ];
-        symbol [ drawText %tmp.81 163 11 19 ];
+        symbol [ dc %tmp.80 181 8 10 ];
+        symbol [ drawText %tmp.81 181 11 19 ];
         %tmp.81 = getv function %tmp.80 :drawText;
-        symbol [ _cx %tmp.83 163 20 23 ];
+        symbol [ _cx %tmp.83 181 20 23 ];
         %tmp.83 = getv ? :_cx;
-        symbol [ _cy %tmp.85 163 25 28 ];
+        symbol [ _cy %tmp.85 181 25 28 ];
         %tmp.85 = getv ? :_cy;
         %tmp.86 = 14;
         %tmp.87 = add %tmp.85 %tmp.86;
-        symbol [ Graphics %tmp.88 163 35 43 ];
+        symbol [ Graphics %tmp.88 181 35 43 ];
         %tmp.88 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.89 163 44 54 ];
+        symbol [ FONT_XTINY %tmp.89 181 44 54 ];
         %tmp.89 = getv %tmp.88 :FONT_XTINY;
         %tmp.90 = "Next Alarm";
         %tmp.91 = lgetv %vc.1;
-        symbol [ vc %tmp.91 163 70 72 ];
+        symbol [ vc %tmp.91 181 70 72 ];
         invoke %tmp.80 %tmp.81(%tmp.83, %tmp.87, %tmp.89, %tmp.90, %tmp.91);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 164 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 182 8 ]
         %tmp.92 = lgetv %dc;
-        symbol [ dc %tmp.92 164 8 10 ];
-        symbol [ setColor %tmp.93 164 11 19 ];
+        symbol [ dc %tmp.92 182 8 10 ];
+        symbol [ setColor %tmp.93 182 11 19 ];
         %tmp.93 = getv function %tmp.92 :setColor;
-        symbol [ Graphics %tmp.94 164 20 28 ];
+        symbol [ Graphics %tmp.94 182 20 28 ];
         %tmp.94 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.95 164 29 40 ];
+        symbol [ COLOR_WHITE %tmp.95 182 29 40 ];
         %tmp.95 = getv %tmp.94 :COLOR_WHITE;
-        symbol [ Graphics %tmp.96 164 42 50 ];
+        symbol [ Graphics %tmp.96 182 42 50 ];
         %tmp.96 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.97 164 51 68 ];
+        symbol [ COLOR_TRANSPARENT %tmp.97 182 51 68 ];
         %tmp.97 = getv %tmp.96 :COLOR_TRANSPARENT;
         invoke %tmp.92 %tmp.93(%tmp.95, %tmp.97);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 165 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 183 8 ]
         %tmp.98 = lgetv %dc;
-        symbol [ dc %tmp.98 165 8 10 ];
-        symbol [ drawText %tmp.99 165 11 19 ];
+        symbol [ dc %tmp.98 183 8 10 ];
+        symbol [ drawText %tmp.99 183 11 19 ];
         %tmp.99 = getv function %tmp.98 :drawText;
-        symbol [ _cx %tmp.101 165 20 23 ];
+        symbol [ _cx %tmp.101 183 20 23 ];
         %tmp.101 = getv ? :_cx;
-        symbol [ _cy %tmp.103 165 25 28 ];
+        symbol [ _cy %tmp.103 183 25 28 ];
         %tmp.103 = getv ? :_cy;
         %tmp.104 = 48;
         %tmp.105 = add %tmp.103 %tmp.104;
-        symbol [ Graphics %tmp.106 165 35 43 ];
+        symbol [ Graphics %tmp.106 183 35 43 ];
         %tmp.106 = getm $.Toybox.Graphics;
-        symbol [ FONT_LARGE %tmp.107 165 44 54 ];
+        symbol [ FONT_LARGE %tmp.107 183 44 54 ];
         %tmp.107 = getv %tmp.106 :FONT_LARGE;
         %tmp.108 = self;
-        symbol [ nextAlarmStr %tmp.109 165 56 68 ];
+        symbol [ nextAlarmStr %tmp.109 183 56 68 ];
         %tmp.109 = getv function %tmp.108 :nextAlarmStr;
         %tmp.110 = invoke %tmp.108 %tmp.109();
         %tmp.111 = lgetv %vc.1;
-        symbol [ vc %tmp.111 165 72 74 ];
+        symbol [ vc %tmp.111 183 72 74 ];
         invoke %tmp.98 %tmp.99(%tmp.101, %tmp.105, %tmp.107, %tmp.110, %tmp.111);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 168 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_8_174_8_if_stmt:
-        %tmp.112 = self;
-        symbol [ controlsVisible %tmp.113 168 12 27 ];
-        %tmp.113 = getv function %tmp.112 :controlsVisible;
-        %tmp.114 = invoke %tmp.112 %tmp.113();
-        bf %tmp.114 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_8_174_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_8_174_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_31_174_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 169 12 ]
-        %tmp.115 = lgetv %dc;
-        symbol [ dc %tmp.115 169 12 14 ];
-        symbol [ setColor %tmp.116 169 15 23 ];
-        %tmp.116 = getv function %tmp.115 :setColor;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_begin:
-        symbol [ _exitArmed %tmp.118 169 24 34 ];
-        %tmp.118 = getv ? :_exitArmed;
-        bf %tmp.118 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_true:
-        %tmp.119 = 0x33AAFF;
-        push %tmp.119;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_else_false:
-        %tmp.120 = 0x777777;
-        push %tmp.120;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_end:
-        %tmp.121 = phi [%tmp.118 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_begin] [%tmp.119 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_true] [%tmp.120 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_else_false] [%tmp.121 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_169_24_169_48_end];
-        symbol [ Graphics %tmp.122 169 58 66 ];
-        %tmp.122 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.123 169 67 84 ];
-        %tmp.123 = getv %tmp.122 :COLOR_TRANSPARENT;
-        invoke %tmp.115 %tmp.116(%tmp.121, %tmp.123);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 170 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_31_174_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_31_174_8_stop" ]
-        %hint.3 = local;
-        symbol [ hint %hint.3 170 16 20 ];
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_begin:
-        symbol [ _exitArmed %tmp.125 170 23 33 ];
-        %tmp.125 = getv ? :_exitArmed;
-        bf %tmp.125 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_true:
-        %tmp.126 = "Press UP now to exit";
-        push %tmp.126;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_else_false:
-        %tmp.127 = "BACK then UP to exit";
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 191 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_8_211_8_if_stmt:
+        symbol [ _sampling %tmp.113 191 12 21 ];
+        %tmp.113 = getv ? :_sampling;
+        bf %tmp.113 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_8_211_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_8_211_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 192 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_stop" ]
+        %hrTxt.3 = local;
+        symbol [ hrTxt %hrTxt.3 192 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 193 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_stop" ]
+        %hrCol.4 = local;
+        symbol [ hrCol %hrCol.4 193 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 194 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_stop" ]
+        %hr.5 = local;
+        symbol [ hr %hr.5 194 16 18 ];
+        symbol [ SleepDetector %tmp.115 194 21 34 ];
+        %tmp.115 = getv ? :SleepDetector;
+        symbol [ lastHr %tmp.116 194 35 41 ];
+        %tmp.116 = getv function %tmp.115 :lastHr;
+        %tmp.117 = invoke %tmp.115 %tmp.116();
+        lputv %hr.5 %tmp.117;
+        symbol [ hr %hr.5 194 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 195 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_stop" ]
+        %cnt.6 = local;
+        symbol [ cnt %cnt.6 195 16 19 ];
+        symbol [ SleepDetector %tmp.119 195 22 35 ];
+        %tmp.119 = getv ? :SleepDetector;
+        symbol [ sampleCount %tmp.120 195 36 47 ];
+        %tmp.120 = getv function %tmp.119 :sampleCount;
+        %tmp.121 = invoke %tmp.119 %tmp.120();
+        lputv %cnt.6 %tmp.121;
+        symbol [ cnt %cnt.6 195 16 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 196 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_12_208_12_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_16_196_34_begin:
+        %tmp.122 = lgetv %cnt.6;
+        symbol [ cnt %tmp.122 196 16 19 ];
+        %tmp.123 = 0;
+        %tmp.124 = eq %tmp.122 %tmp.123;
+        bt %tmp.124 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_12_208_12_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_28_196_34_false:
+        %tmp.125 = lgetv %hr.5;
+        symbol [ hr %tmp.125 196 28 30 ];
+        %tmp.126 = 0;
+        %tmp.127 = eq %tmp.125 %tmp.126;
         push %tmp.127;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_end:
-        %tmp.128 = phi [%tmp.125 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_begin] [%tmp.126 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_true] [%tmp.127 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_else_false] [%tmp.128 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_170_23_170_61_end];
-        lputv %hint.3 %tmp.128;
-        symbol [ hint %hint.3 170 16 20 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 171 12 ]
-        %tmp.129 = lgetv %dc;
-        symbol [ dc %tmp.129 171 12 14 ];
-        symbol [ drawText %tmp.130 171 15 23 ];
-        %tmp.130 = getv function %tmp.129 :drawText;
-        symbol [ _cx %tmp.132 171 24 27 ];
-        %tmp.132 = getv ? :_cx;
-        symbol [ _h %tmp.134 171 29 31 ];
-        %tmp.134 = getv ? :_h;
-        %tmp.135 = 84;
-        %tmp.136 = mul %tmp.134 %tmp.135;
-        %tmp.137 = 100;
-        %tmp.138 = div %tmp.136 %tmp.137;
-        symbol [ Graphics %tmp.139 171 44 52 ];
-        %tmp.139 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.140 171 53 63 ];
-        %tmp.140 = getv %tmp.139 :FONT_XTINY;
-        %tmp.141 = lgetv %hint.3;
-        symbol [ hint %tmp.141 171 65 69 ];
-        %tmp.142 = lgetv %vc.1;
-        symbol [ vc %tmp.142 171 71 73 ];
-        invoke %tmp.129 %tmp.130(%tmp.132, %tmp.138, %tmp.140, %tmp.141, %tmp.142);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 172 12 ]
-        symbol [ Ui %tmp.144 172 12 14 ];
-        %tmp.144 = getv ? :Ui;
-        symbol [ back %tmp.145 172 15 19 ];
-        %tmp.145 = getv function %tmp.144 :back;
-        %tmp.146 = lgetv %dc;
-        symbol [ dc %tmp.146 172 20 22 ];
-        symbol [ _w %tmp.148 172 24 26 ];
-        %tmp.148 = getv ? :_w;
-        symbol [ _h %tmp.150 172 28 30 ];
-        %tmp.150 = getv ? :_h;
-        %tmp.151 = "BACK";
-        invoke %tmp.144 %tmp.145(%tmp.146, %tmp.148, %tmp.150, %tmp.151);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 173 12 ]
-        symbol [ Ui %tmp.153 173 12 14 ];
-        %tmp.153 = getv ? :Ui;
-        symbol [ up %tmp.154 173 15 17 ];
-        %tmp.154 = getv function %tmp.153 :up;
-        %tmp.155 = lgetv %dc;
-        symbol [ dc %tmp.155 173 18 20 ];
-        symbol [ _w %tmp.157 173 22 24 ];
-        %tmp.157 = getv ? :_w;
-        symbol [ _h %tmp.159 173 26 28 ];
-        %tmp.159 = getv ? :_h;
-        %tmp.160 = "UP";
-        invoke %tmp.153 %tmp.154(%tmp.155, %tmp.157, %tmp.159, %tmp.160);
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_31_174_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_8_174_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_168_8_174_8_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_146_49_175_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_28_196_34_end:
+        %tmp.128 = phi [%tmp.124 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_16_196_34_begin] [%tmp.127 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_28_196_34_false] [%tmp.128 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_28_196_34_end];
+        bf %tmp.128 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_12_208_12_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_12_208_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_37_201_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 199 16 ]
+        %tmp.129 = "HR --  ";
+        symbol [ SleepDetector %tmp.131 199 36 49 ];
+        %tmp.131 = getv ? :SleepDetector;
+        symbol [ source %tmp.132 199 50 56 ];
+        %tmp.132 = getv function %tmp.131 :source;
+        %tmp.133 = invoke %tmp.131 %tmp.132();
+        %tmp.134 = add %tmp.129 %tmp.133;
+        lputv %hrTxt.3 %tmp.134;
+        symbol [ hrTxt %hrTxt.3 199 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 200 16 ]
+        %tmp.135 = 0xAA5500;
+        lputv %hrCol.4 %tmp.135;
+        symbol [ hrCol %hrCol.4 200 16 21 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_37_201_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_12_208_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_12_208_12_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 201 19 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_19_208_12_if_stmt:
+        symbol [ SleepDetector %tmp.137 201 24 37 ];
+        %tmp.137 = getv ? :SleepDetector;
+        symbol [ ready %tmp.138 201 38 43 ];
+        %tmp.138 = getv function %tmp.137 :ready;
+        %tmp.139 = invoke %tmp.137 %tmp.138();
+        %tmp.140 = not %tmp.139;
+        bf %tmp.140 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_19_208_12_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_19_208_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_47_205_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 202 16 ]
+        %tmp.141 = "HR ";
+        %tmp.142 = lgetv %hr.5;
+        symbol [ hr %tmp.142 202 32 34 ];
+        symbol [ format %tmp.143 202 35 41 ];
+        %tmp.143 = getv function %tmp.142 :format;
+        %tmp.144 = "%d";
+        %tmp.145 = invoke %tmp.142 %tmp.143(%tmp.144);
+        %tmp.146 = add %tmp.141 %tmp.145;
+        %tmp.147 = "  ";
+        %tmp.148 = add %tmp.146 %tmp.147;
+        %tmp.149 = lgetv %cnt.6;
+        symbol [ cnt %tmp.149 202 57 60 ];
+        symbol [ format %tmp.150 202 61 67 ];
+        %tmp.150 = getv function %tmp.149 :format;
+        %tmp.151 = "%d";
+        %tmp.152 = invoke %tmp.149 %tmp.150(%tmp.151);
+        %tmp.153 = add %tmp.148 %tmp.152;
+        %tmp.154 = "/";
+        %tmp.155 = add %tmp.153 %tmp.154;
+        symbol [ MIN_HR_SAMPLES %tmp.157 203 32 46 ];
+        %tmp.157 = getv ? :MIN_HR_SAMPLES;
+        symbol [ format %tmp.158 203 47 53 ];
+        %tmp.158 = getv function %tmp.157 :format;
+        %tmp.159 = "%d";
+        %tmp.160 = invoke %tmp.157 %tmp.158(%tmp.159);
+        %tmp.161 = add %tmp.155 %tmp.160;
+        lputv %hrTxt.3 %tmp.161;
+        symbol [ hrTxt %hrTxt.3 202 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 204 16 ]
+        %tmp.162 = 0x555555;
+        lputv %hrCol.4 %tmp.162;
+        symbol [ hrCol %hrCol.4 204 16 21 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_47_205_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_19_208_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_19_208_12_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_205_19_208_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 206 16 ]
+        %tmp.163 = "HR ";
+        %tmp.164 = lgetv %hr.5;
+        symbol [ hr %tmp.164 206 32 34 ];
+        symbol [ format %tmp.165 206 35 41 ];
+        %tmp.165 = getv function %tmp.164 :format;
+        %tmp.166 = "%d";
+        %tmp.167 = invoke %tmp.164 %tmp.165(%tmp.166);
+        %tmp.168 = add %tmp.163 %tmp.167;
+        %tmp.169 = "  ready";
+        %tmp.170 = add %tmp.168 %tmp.169;
+        lputv %hrTxt.3 %tmp.170;
+        symbol [ hrTxt %hrTxt.3 206 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 207 16 ]
+        %tmp.171 = 0x556655;
+        lputv %hrCol.4 %tmp.171;
+        symbol [ hrCol %hrCol.4 207 16 21 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_205_19_208_12_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_19_208_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_12_208_12_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 209 12 ]
+        %tmp.172 = lgetv %dc;
+        symbol [ dc %tmp.172 209 12 14 ];
+        symbol [ setColor %tmp.173 209 15 23 ];
+        %tmp.173 = getv function %tmp.172 :setColor;
+        %tmp.174 = lgetv %hrCol.4;
+        symbol [ hrCol %tmp.174 209 24 29 ];
+        symbol [ Graphics %tmp.175 209 31 39 ];
+        %tmp.175 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.176 209 40 57 ];
+        %tmp.176 = getv %tmp.175 :COLOR_TRANSPARENT;
+        invoke %tmp.172 %tmp.173(%tmp.174, %tmp.176);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 210 12 ]
+        %tmp.177 = lgetv %dc;
+        symbol [ dc %tmp.177 210 12 14 ];
+        symbol [ drawText %tmp.178 210 15 23 ];
+        %tmp.178 = getv function %tmp.177 :drawText;
+        symbol [ _cx %tmp.180 210 24 27 ];
+        %tmp.180 = getv ? :_cx;
+        symbol [ _h %tmp.182 210 29 31 ];
+        %tmp.182 = getv ? :_h;
+        %tmp.183 = 76;
+        %tmp.184 = mul %tmp.182 %tmp.183;
+        %tmp.185 = 100;
+        %tmp.186 = div %tmp.184 %tmp.185;
+        symbol [ Graphics %tmp.187 210 44 52 ];
+        %tmp.187 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.188 210 53 63 ];
+        %tmp.188 = getv %tmp.187 :FONT_XTINY;
+        %tmp.189 = lgetv %hrTxt.3;
+        symbol [ hrTxt %tmp.189 210 65 70 ];
+        %tmp.190 = lgetv %vc.1;
+        symbol [ vc %tmp.190 210 72 74 ];
+        invoke %tmp.177 %tmp.178(%tmp.180, %tmp.186, %tmp.188, %tmp.189, %tmp.190);
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_23_211_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_8_211_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_191_8_211_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 214 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_8_220_8_if_stmt:
+        %tmp.191 = self;
+        symbol [ controlsVisible %tmp.192 214 12 27 ];
+        %tmp.192 = getv function %tmp.191 :controlsVisible;
+        %tmp.193 = invoke %tmp.191 %tmp.192();
+        bf %tmp.193 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_8_220_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_8_220_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_31_220_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 215 12 ]
+        %tmp.194 = lgetv %dc;
+        symbol [ dc %tmp.194 215 12 14 ];
+        symbol [ setColor %tmp.195 215 15 23 ];
+        %tmp.195 = getv function %tmp.194 :setColor;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_begin:
+        symbol [ _exitArmed %tmp.197 215 24 34 ];
+        %tmp.197 = getv ? :_exitArmed;
+        bf %tmp.197 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_true:
+        %tmp.198 = 0x33AAFF;
+        push %tmp.198;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_else_false:
+        %tmp.199 = 0x777777;
+        push %tmp.199;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_end:
+        %tmp.200 = phi [%tmp.197 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_begin] [%tmp.198 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_true] [%tmp.199 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_else_false] [%tmp.200 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_215_24_215_48_end];
+        symbol [ Graphics %tmp.201 215 58 66 ];
+        %tmp.201 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.202 215 67 84 ];
+        %tmp.202 = getv %tmp.201 :COLOR_TRANSPARENT;
+        invoke %tmp.194 %tmp.195(%tmp.200, %tmp.202);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 216 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_31_220_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_31_220_8_stop" ]
+        %hint.7 = local;
+        symbol [ hint %hint.7 216 16 20 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_begin:
+        symbol [ _exitArmed %tmp.204 216 23 33 ];
+        %tmp.204 = getv ? :_exitArmed;
+        bf %tmp.204 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_true:
+        %tmp.205 = "Press UP now to exit";
+        push %tmp.205;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_else_false:
+        %tmp.206 = "BACK then UP to exit";
+        push %tmp.206;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_end:
+        %tmp.207 = phi [%tmp.204 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_begin] [%tmp.205 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_true] [%tmp.206 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_else_false] [%tmp.207 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_23_216_61_end];
+        lputv %hint.7 %tmp.207;
+        symbol [ hint %hint.7 216 16 20 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 217 12 ]
+        %tmp.208 = lgetv %dc;
+        symbol [ dc %tmp.208 217 12 14 ];
+        symbol [ drawText %tmp.209 217 15 23 ];
+        %tmp.209 = getv function %tmp.208 :drawText;
+        symbol [ _cx %tmp.211 217 24 27 ];
+        %tmp.211 = getv ? :_cx;
+        symbol [ _h %tmp.213 217 29 31 ];
+        %tmp.213 = getv ? :_h;
+        %tmp.214 = 84;
+        %tmp.215 = mul %tmp.213 %tmp.214;
+        %tmp.216 = 100;
+        %tmp.217 = div %tmp.215 %tmp.216;
+        symbol [ Graphics %tmp.218 217 44 52 ];
+        %tmp.218 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.219 217 53 63 ];
+        %tmp.219 = getv %tmp.218 :FONT_XTINY;
+        %tmp.220 = lgetv %hint.7;
+        symbol [ hint %tmp.220 217 65 69 ];
+        %tmp.221 = lgetv %vc.1;
+        symbol [ vc %tmp.221 217 71 73 ];
+        invoke %tmp.208 %tmp.209(%tmp.211, %tmp.217, %tmp.219, %tmp.220, %tmp.221);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 218 12 ]
+        symbol [ Ui %tmp.223 218 12 14 ];
+        %tmp.223 = getv ? :Ui;
+        symbol [ back %tmp.224 218 15 19 ];
+        %tmp.224 = getv function %tmp.223 :back;
+        %tmp.225 = lgetv %dc;
+        symbol [ dc %tmp.225 218 20 22 ];
+        symbol [ _w %tmp.227 218 24 26 ];
+        %tmp.227 = getv ? :_w;
+        symbol [ _h %tmp.229 218 28 30 ];
+        %tmp.229 = getv ? :_h;
+        %tmp.230 = "BACK";
+        invoke %tmp.223 %tmp.224(%tmp.225, %tmp.227, %tmp.229, %tmp.230);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 219 12 ]
+        symbol [ Ui %tmp.232 219 12 14 ];
+        %tmp.232 = getv ? :Ui;
+        symbol [ up %tmp.233 219 15 17 ];
+        %tmp.233 = getv function %tmp.232 :up;
+        %tmp.234 = lgetv %dc;
+        symbol [ dc %tmp.234 219 18 20 ];
+        symbol [ _w %tmp.236 219 22 24 ];
+        %tmp.236 = getv ? :_w;
+        symbol [ _h %tmp.238 219 26 28 ];
+        %tmp.238 = getv ? :_h;
+        %tmp.239 = "UP";
+        invoke %tmp.232 %tmp.233(%tmp.234, %tmp.236, %tmp.238, %tmp.239);
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_31_220_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_8_220_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_214_8_220_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_164_49_221_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 179; @symbol_functiondef = [nextAlarmStr,179,13,25]; @symbol_return<0> = [String,179,31,37]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 225; @symbol_functiondef = [nextAlarmStr,225,13,25]; @symbol_return<0> = [String,225,31,37]; ]
     function nextAlarmStr() as String {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_179_38_182_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 180 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_180_8_180_66_if_stmt:
-        symbol [ _nextStr %tmp.2 180 12 20 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_38_228_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 226 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_226_8_226_66_if_stmt:
+        symbol [ _nextStr %tmp.2 226 12 20 ];
         %tmp.2 = getv ? :_nextStr;
         %tmp.3 = null;
         %tmp.4 = eq %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_180_8_180_66_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_180_8_180_66_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_180_30_180_66_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 180 32 ]
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_226_8_226_66_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_226_8_226_66_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_226_30_226_66_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 226 32 ]
         %tmp.5 = self;
-        symbol [ computeNextAlarmStr %tmp.6 180 43 62 ];
+        symbol [ computeNextAlarmStr %tmp.6 226 43 62 ];
         %tmp.6 = getv function %tmp.5 :computeNextAlarmStr;
         %tmp.7 = invoke %tmp.5 %tmp.6();
-        symbol [ _nextStr ? 180 32 40 ];
+        symbol [ _nextStr ? 226 32 40 ];
         putv self :_nextStr %tmp.7;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_180_30_180_66_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_180_8_180_66_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_180_8_180_66_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 181 8 ]
-        symbol [ _nextStr %tmp.9 181 15 23 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_226_30_226_66_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_226_8_226_66_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_226_8_226_66_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 227 8 ]
+        symbol [ _nextStr %tmp.9 227 15 23 ];
         %tmp.9 = getv ? :_nextStr;
         %tmp.10 = as %tmp.9 String;
-        symbol [ String %tmp.10 181 27 33 ];
+        symbol [ String %tmp.10 227 27 33 ];
         ret %tmp.10;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_179_38_182_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_38_228_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 184; @symbol_functiondef = [computeNextAlarmStr,184,21,40]; @symbol_return<0> = [String,184,46,52]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 230; @symbol_functiondef = [computeNextAlarmStr,230,21,40]; @symbol_return<0> = [String,230,46,52]; ]
     private
     function computeNextAlarmStr() as String {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_184_53_197_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 185 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_184_53_197_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_184_53_197_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_230_53_243_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 231 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_230_53_243_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_230_53_243_4_stop" ]
         %nowSecs.1 = local;
-        symbol [ nowSecs %nowSecs.1 185 12 19 ];
-        symbol [ Time %tmp.1 185 22 26 ];
+        symbol [ nowSecs %nowSecs.1 231 12 19 ];
+        symbol [ Time %tmp.1 231 22 26 ];
         %tmp.1 = getm $.Toybox.Time;
-        symbol [ now %tmp.2 185 27 30 ];
+        symbol [ now %tmp.2 231 27 30 ];
         %tmp.2 = getv function %tmp.1 :now;
         %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ value %tmp.4 185 33 38 ];
+        symbol [ value %tmp.4 231 33 38 ];
         %tmp.4 = getv function %tmp.3 :value;
         %tmp.5 = invoke %tmp.3 %tmp.4();
         lputv %nowSecs.1 %tmp.5;
-        symbol [ nowSecs %nowSecs.1 185 12 19 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 188 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_8_194_8_if_stmt:
-        symbol [ AlarmStore %tmp.7 188 12 22 ];
+        symbol [ nowSecs %nowSecs.1 231 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 234 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_8_240_8_if_stmt:
+        symbol [ AlarmStore %tmp.7 234 12 22 ];
         %tmp.7 = getv ? :AlarmStore;
-        symbol [ validSnoozeId %tmp.8 188 23 36 ];
+        symbol [ validSnoozeId %tmp.8 234 23 36 ];
         %tmp.8 = getv function %tmp.7 :validSnoozeId;
         %tmp.9 = invoke %tmp.7 %tmp.8();
         %tmp.10 = null;
         %tmp.11 = ne %tmp.9 %tmp.10;
-        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_8_194_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_8_194_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_48_194_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 189 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_48_194_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_48_194_8_stop" ]
+        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_8_240_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_8_240_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_48_240_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 235 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_48_240_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_48_240_8_stop" ]
         %snU.2 = local;
-        symbol [ snU %snU.2 189 16 19 ];
-        symbol [ AlarmStore %tmp.13 189 22 32 ];
+        symbol [ snU %snU.2 235 16 19 ];
+        symbol [ AlarmStore %tmp.13 235 22 32 ];
         %tmp.13 = getv ? :AlarmStore;
-        symbol [ snoozeUntil %tmp.14 189 33 44 ];
+        symbol [ snoozeUntil %tmp.14 235 33 44 ];
         %tmp.14 = getv function %tmp.13 :snoozeUntil;
         %tmp.15 = invoke %tmp.13 %tmp.14();
         lputv %snU.2 %tmp.15;
-        symbol [ snU %snU.2 189 16 19 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 190 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_12_193_12_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_16_190_37_begin:
+        symbol [ snU %snU.2 235 16 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 236 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_12_239_12_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_16_236_37_begin:
         %tmp.16 = lgetv %snU.2;
-        symbol [ snU %tmp.16 190 16 19 ];
+        symbol [ snU %tmp.16 236 16 19 ];
         %tmp.17 = null;
         %tmp.18 = ne %tmp.16 %tmp.17;
-        bf %tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_12_193_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_31_190_37_true:
+        bf %tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_12_239_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_31_236_37_true:
         %tmp.19 = lgetv %snU.2;
-        symbol [ snU %tmp.19 190 31 34 ];
+        symbol [ snU %tmp.19 236 31 34 ];
         %tmp.20 = as %tmp.19 { (!Null) };
         %tmp.21 = lgetv %nowSecs.1;
-        symbol [ nowSecs %tmp.21 190 37 44 ];
+        symbol [ nowSecs %tmp.21 236 37 44 ];
         %tmp.22 = gt %tmp.20 %tmp.21;
         push %tmp.22;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_31_190_37_end:
-        %tmp.23 = phi [%tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_16_190_37_begin] [%tmp.22 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_31_190_37_true] [%tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_31_190_37_end];
-        bf %tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_12_193_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_12_193_12_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_46_193_12_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 191 16 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_46_193_12_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_46_193_12_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_31_236_37_end:
+        %tmp.23 = phi [%tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_16_236_37_begin] [%tmp.22 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_31_236_37_true] [%tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_31_236_37_end];
+        bf %tmp.23 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_12_239_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_12_239_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_46_239_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 237 16 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_46_239_12_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_46_239_12_stop" ]
         %si.3 = local;
-        symbol [ si %si.3 191 20 22 ];
-        symbol [ Gregorian %tmp.24 191 25 34 ];
+        symbol [ si %si.3 237 20 22 ];
+        symbol [ Gregorian %tmp.24 237 25 34 ];
         %tmp.24 = getm $.Toybox.Time.Gregorian;
-        symbol [ info %tmp.25 191 35 39 ];
+        symbol [ info %tmp.25 237 35 39 ];
         %tmp.25 = getv function %tmp.24 :info;
-        symbol [ Time %tmp.28 191 44 48 ];
+        symbol [ Time %tmp.28 237 44 48 ];
         %tmp.28 = getm $.Toybox.Time;
-        symbol [ Moment %tmp.29 191 49 55 ];
+        symbol [ Moment %tmp.29 237 49 55 ];
         %tmp.29 = getv function ? %tmp.28 :Moment;
         %tmp.30 = lgetv %snU.2;
-        symbol [ snU %tmp.30 191 56 59 ];
+        symbol [ snU %tmp.30 237 56 59 ];
         %tmp.31 = as %tmp.30 { (!Null) };
         %tmp.26 = newc %tmp.29 (%tmp.31);
-        symbol [ Time %tmp.32 191 62 66 ];
+        symbol [ Time %tmp.32 237 62 66 ];
         %tmp.32 = getm $.Toybox.Time;
-        symbol [ FORMAT_SHORT %tmp.33 191 67 79 ];
+        symbol [ FORMAT_SHORT %tmp.33 237 67 79 ];
         %tmp.33 = getv %tmp.32 :FORMAT_SHORT;
         %tmp.34 = invoke %tmp.24 %tmp.25(%tmp.26, %tmp.33);
         lputv %si.3 %tmp.34;
-        symbol [ si %si.3 191 20 22 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 192 16 ]
-        symbol [ Fmt %tmp.36 192 23 26 ];
+        symbol [ si %si.3 237 20 22 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 238 16 ]
+        symbol [ Fmt %tmp.36 238 23 26 ];
         %tmp.36 = getv ? :Fmt;
-        symbol [ time12 %tmp.37 192 27 33 ];
+        symbol [ time12 %tmp.37 238 27 33 ];
         %tmp.37 = getv function %tmp.36 :time12;
         %tmp.38 = lgetv %si.3;
-        symbol [ si %tmp.38 192 34 36 ];
-        symbol [ hour %tmp.39 192 37 41 ];
+        symbol [ si %tmp.38 238 34 36 ];
+        symbol [ hour %tmp.39 238 37 41 ];
         %tmp.39 = getv %tmp.38 :hour;
         %tmp.40 = lgetv %si.3;
-        symbol [ si %tmp.40 192 43 45 ];
-        symbol [ min %tmp.41 192 46 49 ];
+        symbol [ si %tmp.40 238 43 45 ];
+        symbol [ min %tmp.41 238 46 49 ];
         %tmp.41 = getv %tmp.40 :min;
         %tmp.42 = invoke %tmp.36 %tmp.37(%tmp.39, %tmp.41);
         ret %tmp.42;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_46_193_12_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_12_193_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_190_12_193_12_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_48_194_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_8_194_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_188_8_194_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 195 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_184_53_197_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_184_53_197_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_46_239_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_12_239_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_236_12_239_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_48_240_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_8_240_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_234_8_240_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 241 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_230_53_243_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_230_53_243_4_stop" ]
         %next.4 = local;
-        symbol [ next %next.4 195 12 16 ];
-        symbol [ AlarmEngine %tmp.44 195 19 30 ];
+        symbol [ next %next.4 241 12 16 ];
+        symbol [ AlarmEngine %tmp.44 241 19 30 ];
         %tmp.44 = getv ? :AlarmEngine;
-        symbol [ nextAlarm %tmp.45 195 31 40 ];
+        symbol [ nextAlarm %tmp.45 241 31 40 ];
         %tmp.45 = getv function %tmp.44 :nextAlarm;
         %tmp.46 = lgetv %nowSecs.1;
-        symbol [ nowSecs %tmp.46 195 41 48 ];
+        symbol [ nowSecs %tmp.46 241 41 48 ];
         %tmp.47 = invoke %tmp.44 %tmp.45(%tmp.46);
         lputv %next.4 %tmp.47;
-        symbol [ next %next.4 195 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 196 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_begin:
+        symbol [ next %next.4 241 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 242 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_begin:
         %tmp.48 = lgetv %next.4;
-        symbol [ next %tmp.48 196 16 20 ];
+        symbol [ next %tmp.48 242 16 20 ];
         %tmp.49 = null;
         %tmp.50 = ne %tmp.48 %tmp.49;
-        bf %tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_true:
-        symbol [ Fmt %tmp.52 196 32 35 ];
+        bf %tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_true:
+        symbol [ Fmt %tmp.52 242 32 35 ];
         %tmp.52 = getv ? :Fmt;
-        symbol [ time12 %tmp.53 196 36 42 ];
+        symbol [ time12 %tmp.53 242 36 42 ];
         %tmp.53 = getv function %tmp.52 :time12;
-        symbol [ AlarmStore %tmp.55 196 43 53 ];
+        symbol [ AlarmStore %tmp.55 242 43 53 ];
         %tmp.55 = getv ? :AlarmStore;
-        symbol [ hour %tmp.56 196 54 58 ];
+        symbol [ hour %tmp.56 242 54 58 ];
         %tmp.56 = getv function %tmp.55 :hour;
         %tmp.57 = lgetv %next.4;
-        symbol [ next %tmp.57 196 59 63 ];
+        symbol [ next %tmp.57 242 59 63 ];
         %tmp.58 = as %tmp.57 { (!Null) };
         %tmp.59 = invoke %tmp.55 %tmp.56(%tmp.58);
-        symbol [ AlarmStore %tmp.61 196 66 76 ];
+        symbol [ AlarmStore %tmp.61 242 66 76 ];
         %tmp.61 = getv ? :AlarmStore;
-        symbol [ minute %tmp.62 196 77 83 ];
+        symbol [ minute %tmp.62 242 77 83 ];
         %tmp.62 = getv function %tmp.61 :minute;
         %tmp.63 = lgetv %next.4;
-        symbol [ next %tmp.63 196 84 88 ];
+        symbol [ next %tmp.63 242 84 88 ];
         %tmp.64 = as %tmp.63 { (!Null) };
         %tmp.65 = invoke %tmp.61 %tmp.62(%tmp.64);
         %tmp.66 = invoke %tmp.52 %tmp.53(%tmp.59, %tmp.65);
         push %tmp.66;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_else_false:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_else_false:
         %tmp.67 = "None";
         push %tmp.67;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_end:
-        %tmp.68 = phi [%tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_begin] [%tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_true] [%tmp.67 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_else_false] [%tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_196_15_196_93_end];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_end:
+        %tmp.68 = phi [%tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_begin] [%tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_true] [%tmp.67 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_else_false] [%tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_242_15_242_93_end];
         ret %tmp.68;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_184_53_197_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_230_53_243_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 201; @symbol_functiondef = [revealControls,201,13,27]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 247; @symbol_functiondef = [revealControls,247,13,27]; ]
     function revealControls() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_38_204_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 202 8 ]
-        symbol [ Time %tmp.1 202 24 28 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_247_38_250_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 248 8 ]
+        symbol [ Time %tmp.1 248 24 28 ];
         %tmp.1 = getm $.Toybox.Time;
-        symbol [ now %tmp.2 202 29 32 ];
+        symbol [ now %tmp.2 248 29 32 ];
         %tmp.2 = getv function %tmp.1 :now;
         %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ value %tmp.4 202 35 40 ];
+        symbol [ value %tmp.4 248 35 40 ];
         %tmp.4 = getv function %tmp.3 :value;
         %tmp.5 = invoke %tmp.3 %tmp.4();
-        symbol [ _controlsSecs ? 202 8 21 ];
+        symbol [ _controlsSecs ? 248 8 21 ];
         putv self :_controlsSecs %tmp.5;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 203 8 ]
-        symbol [ WatchUi %tmp.6 203 8 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 249 8 ]
+        symbol [ WatchUi %tmp.6 249 8 15 ];
         %tmp.6 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.7 203 16 29 ];
+        symbol [ requestUpdate %tmp.7 249 16 29 ];
         %tmp.7 = getv function %tmp.6 :requestUpdate;
         invoke %tmp.6 %tmp.7();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_201_38_204_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_247_38_250_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 205; @symbol_functiondef = [controlsVisible,205,13,28]; @symbol_return<0> = [Boolean,205,34,41]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 251; @symbol_functiondef = [controlsVisible,251,13,28]; @symbol_return<0> = [Boolean,251,34,41]; ]
     function controlsVisible() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_205_42_207_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 206 8 ]
-        symbol [ Time %tmp.1 206 16 20 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_251_42_253_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 252 8 ]
+        symbol [ Time %tmp.1 252 16 20 ];
         %tmp.1 = getm $.Toybox.Time;
-        symbol [ now %tmp.2 206 21 24 ];
+        symbol [ now %tmp.2 252 21 24 ];
         %tmp.2 = getv function %tmp.1 :now;
         %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ value %tmp.4 206 27 32 ];
+        symbol [ value %tmp.4 252 27 32 ];
         %tmp.4 = getv function %tmp.3 :value;
         %tmp.5 = invoke %tmp.3 %tmp.4();
-        symbol [ _controlsSecs %tmp.7 206 37 50 ];
+        symbol [ _controlsSecs %tmp.7 252 37 50 ];
         %tmp.7 = getv ? :_controlsSecs;
         %tmp.8 = sub %tmp.5 %tmp.7;
         %tmp.9 = 6;
         %tmp.10 = lte %tmp.8 %tmp.9;
         ret %tmp.10;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_205_42_207_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_251_42_253_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 211; @symbol_functiondef = [armExit,211,13,20]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 257; @symbol_functiondef = [armExit,257,13,20]; ]
     function armExit() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_211_31_215_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 212 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_257_31_261_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 258 8 ]
         %tmp.1 = true;
-        symbol [ _exitArmed ? 212 8 18 ];
+        symbol [ _exitArmed ? 258 8 18 ];
         putv self :_exitArmed %tmp.1;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 213 8 ]
-        symbol [ Time %tmp.2 213 19 23 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 259 8 ]
+        symbol [ Time %tmp.2 259 19 23 ];
         %tmp.2 = getm $.Toybox.Time;
-        symbol [ now %tmp.3 213 24 27 ];
+        symbol [ now %tmp.3 259 24 27 ];
         %tmp.3 = getv function %tmp.2 :now;
         %tmp.4 = invoke %tmp.2 %tmp.3();
-        symbol [ value %tmp.5 213 30 35 ];
+        symbol [ value %tmp.5 259 30 35 ];
         %tmp.5 = getv function %tmp.4 :value;
         %tmp.6 = invoke %tmp.4 %tmp.5();
-        symbol [ _armSecs ? 213 8 16 ];
+        symbol [ _armSecs ? 259 8 16 ];
         putv self :_armSecs %tmp.6;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 214 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 260 8 ]
         %tmp.7 = self;
-        symbol [ revealControls %tmp.8 214 8 22 ];
+        symbol [ revealControls %tmp.8 260 8 22 ];
         %tmp.8 = getv function %tmp.7 :revealControls;
         invoke %tmp.7 %tmp.8();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_211_31_215_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_257_31_261_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 216; @symbol_functiondef = [disarmExit,216,13,23]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 262; @symbol_functiondef = [disarmExit,262,13,23]; ]
     function disarmExit() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_34_219_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 217 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_262_34_265_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 263 8 ]
         %tmp.1 = false;
-        symbol [ _exitArmed ? 217 8 18 ];
+        symbol [ _exitArmed ? 263 8 18 ];
         putv self :_exitArmed %tmp.1;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 218 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 264 8 ]
         %tmp.2 = self;
-        symbol [ revealControls %tmp.3 218 8 22 ];
+        symbol [ revealControls %tmp.3 264 8 22 ];
         %tmp.3 = getv function %tmp.2 :revealControls;
         invoke %tmp.2 %tmp.3();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_216_34_219_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_262_34_265_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 220; @symbol_functiondef = [exitReady,220,13,22]; @symbol_return<0> = [Boolean,220,28,35]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 266; @symbol_functiondef = [exitReady,266,13,22]; @symbol_return<0> = [Boolean,266,28,35]; ]
     function exitReady() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_220_36_222_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 221 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_221_15_221_64_begin:
-        symbol [ _exitArmed %tmp.2 221 15 25 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_266_36_268_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 267 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_267_15_267_64_begin:
+        symbol [ _exitArmed %tmp.2 267 15 25 ];
         %tmp.2 = getv ? :_exitArmed;
         %tmp.3 = dup %tmp.2;
-        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_221_29_221_64_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_221_29_221_64_true:
-        symbol [ Time %tmp.4 221 30 34 ];
+        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_267_29_267_64_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_267_29_267_64_true:
+        symbol [ Time %tmp.4 267 30 34 ];
         %tmp.4 = getm $.Toybox.Time;
-        symbol [ now %tmp.5 221 35 38 ];
+        symbol [ now %tmp.5 267 35 38 ];
         %tmp.5 = getv function %tmp.4 :now;
         %tmp.6 = invoke %tmp.4 %tmp.5();
-        symbol [ value %tmp.7 221 41 46 ];
+        symbol [ value %tmp.7 267 41 46 ];
         %tmp.7 = getv function %tmp.6 :value;
         %tmp.8 = invoke %tmp.6 %tmp.7();
-        symbol [ _armSecs %tmp.10 221 51 59 ];
+        symbol [ _armSecs %tmp.10 267 51 59 ];
         %tmp.10 = getv ? :_armSecs;
         %tmp.11 = sub %tmp.8 %tmp.10;
-        symbol [ EXIT_ARM_SECS %tmp.13 221 64 77 ];
+        symbol [ EXIT_ARM_SECS %tmp.13 267 64 77 ];
         %tmp.13 = getv ? :EXIT_ARM_SECS;
         %tmp.14 = lte %tmp.11 %tmp.13;
         %tmp.15 = and %tmp.2 %tmp.14;
         push %tmp.15;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_221_29_221_64_end:
-        %tmp.16 = phi [%tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_221_15_221_64_begin] [%tmp.15 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_221_29_221_64_true] [%tmp.16 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_221_29_221_64_end];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_267_29_267_64_end:
+        %tmp.16 = phi [%tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_267_15_267_64_begin] [%tmp.15 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_267_29_267_64_true] [%tmp.16 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_267_29_267_64_end];
         ret %tmp.16;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_220_36_222_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_266_36_268_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 224; @symbol_functiondef = [stopTimer,224,13,22]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 270; @symbol_functiondef = [stopTimer,270,13,22]; ]
     function stopTimer() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_224_33_226_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 225 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_8_225_60_if_stmt:
-        symbol [ _timer %tmp.2 225 12 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_270_33_272_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 271 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_271_8_271_60_if_stmt:
+        symbol [ _timer %tmp.2 271 12 18 ];
         %tmp.2 = getv ? :_timer;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_8_225_60_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_8_225_60_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_28_225_60_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 225 30 ]
-        symbol [ _timer %tmp.6 225 30 36 ];
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_271_8_271_60_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_271_8_271_60_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_271_28_271_60_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 271 30 ]
+        symbol [ _timer %tmp.6 271 30 36 ];
         %tmp.6 = getv ? :_timer;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ stop %tmp.8 225 37 41 ];
+        symbol [ stop %tmp.8 271 37 41 ];
         %tmp.8 = getv function %tmp.7 :stop;
         invoke %tmp.7 %tmp.8();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 225 45 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 271 45 ]
         %tmp.9 = null;
-        symbol [ _timer ? 225 45 51 ];
+        symbol [ _timer ? 271 45 51 ];
         putv self :_timer %tmp.9;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_28_225_60_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_8_225_60_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_225_8_225_60_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_224_33_226_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_271_28_271_60_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_271_8_271_60_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_271_8_271_60_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_270_33_272_4_stop:
     }
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 229; @symbol_classdef = [BedsideDelegate,229,6,21]; @symbol_extends<0> = [WatchUi,229,30,37]; @symbol_extends<1> = [BehaviorDelegate,229,38,54]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 275; @symbol_classdef = [BedsideDelegate,275,6,21]; @symbol_extends<0> = [WatchUi,275,30,37]; @symbol_extends<1> = [BehaviorDelegate,275,38,54]; ]
 class BedsideDelegate extends WatchUi.BehaviorDelegate {
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 229; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 275; ]
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 229; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 275; ]
     static
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 231; @position = 16; @symbol_vardef = [_view,231,16,21]; @symbol_type<0> = [BedsideView,231,25,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 277; @position = 16; @symbol_vardef = [_view,277,16,21]; @symbol_type<0> = [BedsideView,277,25,36]; ]
     private
     var _view as BedsideView;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 233; @symbol_functiondef = [initialize,233,13,23]; @symbol_param<0> = [view,233,24,28]; @symbol_param<0>_type<0> = [BedsideView,233,32,43]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 279; @symbol_functiondef = [initialize,279,13,23]; @symbol_param<0> = [view,279,24,28]; @symbol_param<0>_type<0> = [BedsideView,279,32,43]; ]
     function initialize(view as BedsideView) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_233_45_236_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 234 8 ]
-        symbol [ BehaviorDelegate %tmp.2 234 8 24 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_279_45_282_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 280 8 ]
+        symbol [ BehaviorDelegate %tmp.2 280 8 24 ];
         %tmp.2 = getv ? :BehaviorDelegate;
-        symbol [ initialize %tmp.3 234 25 35 ];
+        symbol [ initialize %tmp.3 280 25 35 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 235 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 281 8 ]
         %tmp.4 = lgetv %view;
-        symbol [ view %tmp.4 235 16 20 ];
-        symbol [ _view ? 235 8 13 ];
+        symbol [ view %tmp.4 281 16 20 ];
+        symbol [ _view ? 281 8 13 ];
         putv self :_view %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_233_45_236_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_279_45_282_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 239; @symbol_functiondef = [onBack,239,13,19]; @symbol_return<0> = [Boolean,239,25,32]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 285; @symbol_functiondef = [onBack,285,13,19]; @symbol_return<0> = [Boolean,285,25,32]; ]
     function onBack() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_239_33_239_65_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 239 35 ]
-        symbol [ _view %tmp.2 239 35 40 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_285_33_285_65_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 285 35 ]
+        symbol [ _view %tmp.2 285 35 40 ];
         %tmp.2 = getv ? :_view;
-        symbol [ armExit %tmp.3 239 41 48 ];
+        symbol [ armExit %tmp.3 285 41 48 ];
         %tmp.3 = getv function %tmp.2 :armExit;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 239 52 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 285 52 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_239_33_239_65_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_285_33_285_65_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 243; @symbol_functiondef = [onPreviousPage,243,13,27]; @symbol_return<0> = [Boolean,243,33,40]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 289; @symbol_functiondef = [onPreviousPage,289,13,27]; @symbol_return<0> = [Boolean,289,33,40]; ]
     function onPreviousPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_243_41_250_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 244 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_8_248_8_if_stmt:
-        symbol [ _view %tmp.2 244 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_289_41_296_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 290 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_8_294_8_if_stmt:
+        symbol [ _view %tmp.2 290 12 17 ];
         %tmp.2 = getv ? :_view;
-        symbol [ exitReady %tmp.3 244 18 27 ];
+        symbol [ exitReady %tmp.3 290 18 27 ];
         %tmp.3 = getv function %tmp.2 :exitReady;
         %tmp.4 = invoke %tmp.2 %tmp.3();
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_8_248_8_if_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_8_248_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_31_246_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 245 12 ]
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_8_294_8_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_8_294_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_31_292_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 291 12 ]
         %tmp.5 = self;
-        symbol [ _leave %tmp.6 245 12 18 ];
+        symbol [ _leave %tmp.6 291 12 18 ];
         %tmp.6 = getv function %tmp.5 :_leave;
         invoke %tmp.5 %tmp.6();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_31_246_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_8_248_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_8_248_8_if_else_false:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_246_15_248_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 247 12 ]
-        symbol [ _view %tmp.8 247 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_31_292_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_8_294_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_8_294_8_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_292_15_294_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 293 12 ]
+        symbol [ _view %tmp.8 293 12 17 ];
         %tmp.8 = getv ? :_view;
-        symbol [ disarmExit %tmp.9 247 18 28 ];
+        symbol [ disarmExit %tmp.9 293 18 28 ];
         %tmp.9 = getv function %tmp.8 :disarmExit;
         invoke %tmp.8 %tmp.9();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_246_15_248_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_244_8_248_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 249 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_292_15_294_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_290_8_294_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 295 8 ]
         %tmp.10 = true;
         ret %tmp.10;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_243_41_250_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_289_41_296_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 253; @symbol_functiondef = [onSelect,253,13,21]; @symbol_return<0> = [Boolean,253,27,34]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 299; @symbol_functiondef = [onSelect,299,13,21]; @symbol_return<0> = [Boolean,299,27,34]; ]
     function onSelect() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_253_35_253_70_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 253 37 ]
-        symbol [ _view %tmp.2 253 37 42 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_299_35_299_70_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 299 37 ]
+        symbol [ _view %tmp.2 299 37 42 ];
         %tmp.2 = getv ? :_view;
-        symbol [ disarmExit %tmp.3 253 43 53 ];
+        symbol [ disarmExit %tmp.3 299 43 53 ];
         %tmp.3 = getv function %tmp.2 :disarmExit;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 253 57 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 299 57 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_253_35_253_70_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_299_35_299_70_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 254; @symbol_functiondef = [onNextPage,254,13,23]; @symbol_return<0> = [Boolean,254,29,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 300; @symbol_functiondef = [onNextPage,300,13,23]; @symbol_return<0> = [Boolean,300,29,36]; ]
     function onNextPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_254_37_254_72_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 254 39 ]
-        symbol [ _view %tmp.2 254 39 44 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_300_37_300_72_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 300 39 ]
+        symbol [ _view %tmp.2 300 39 44 ];
         %tmp.2 = getv ? :_view;
-        symbol [ disarmExit %tmp.3 254 45 55 ];
+        symbol [ disarmExit %tmp.3 300 45 55 ];
         %tmp.3 = getv function %tmp.2 :disarmExit;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 254 59 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 300 59 ]
         %tmp.4 = true;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_254_37_254_72_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_300_37_300_72_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 259; @symbol_functiondef = [onTap,259,13,18]; @symbol_param<0> = [evt,259,19,22]; @symbol_param<0>_type<0> = [WatchUi,259,26,33]; @symbol_param<0>_type<1> = [ClickEvent,259,34,44]; @symbol_return<0> = [Boolean,259,49,56]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 305; @symbol_functiondef = [onTap,305,13,18]; @symbol_param<0> = [evt,305,19,22]; @symbol_param<0>_type<0> = [WatchUi,305,26,33]; @symbol_param<0>_type<1> = [ClickEvent,305,34,44]; @symbol_return<0> = [Boolean,305,49,56]; ]
     function onTap(evt as WatchUi.ClickEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_259_57_259_72_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 259 59 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_305_57_305_72_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 305 59 ]
         %tmp.1 = true;
         ret %tmp.1;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_259_57_259_72_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_305_57_305_72_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 260; @symbol_functiondef = [onSwipe,260,13,20]; @symbol_param<0> = [evt,260,21,24]; @symbol_param<0>_type<0> = [WatchUi,260,28,35]; @symbol_param<0>_type<1> = [SwipeEvent,260,36,46]; @symbol_return<0> = [Boolean,260,51,58]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 306; @symbol_functiondef = [onSwipe,306,13,20]; @symbol_param<0> = [evt,306,21,24]; @symbol_param<0>_type<0> = [WatchUi,306,28,35]; @symbol_param<0>_type<1> = [SwipeEvent,306,36,46]; @symbol_return<0> = [Boolean,306,51,58]; ]
     function onSwipe(evt as WatchUi.SwipeEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_260_59_260_74_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 260 61 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_306_59_306_74_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 306 61 ]
         %tmp.1 = true;
         ret %tmp.1;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_260_59_260_74_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_306_59_306_74_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 261; @symbol_functiondef = [onHold,261,13,19]; @symbol_param<0> = [evt,261,20,23]; @symbol_param<0>_type<0> = [WatchUi,261,27,34]; @symbol_param<0>_type<1> = [ClickEvent,261,35,45]; @symbol_return<0> = [Boolean,261,50,57]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 307; @symbol_functiondef = [onHold,307,13,19]; @symbol_param<0> = [evt,307,20,23]; @symbol_param<0>_type<0> = [WatchUi,307,27,34]; @symbol_param<0>_type<1> = [ClickEvent,307,35,45]; @symbol_return<0> = [Boolean,307,50,57]; ]
     function onHold(evt as WatchUi.ClickEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_261_58_261_73_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 261 60 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_307_58_307_73_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 307 60 ]
         %tmp.1 = true;
         ret %tmp.1;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_261_58_261_73_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_307_58_307_73_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 262; @symbol_functiondef = [onDrag,262,13,19]; @symbol_param<0> = [evt,262,20,23]; @symbol_return<0> = [Boolean,262,28,35]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 308; @symbol_functiondef = [onDrag,308,13,19]; @symbol_param<0> = [evt,308,20,23]; @symbol_return<0> = [Boolean,308,28,35]; ]
     function onDrag(evt) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_262_36_262_51_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 262 38 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_308_36_308_51_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 308 38 ]
         %tmp.1 = true;
         ret %tmp.1;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_262_36_262_51_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_308_36_308_51_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 263; @symbol_functiondef = [onRelease,263,13,22]; @symbol_param<0> = [evt,263,23,26]; @symbol_param<0>_type<0> = [WatchUi,263,30,37]; @symbol_param<0>_type<1> = [ClickEvent,263,38,48]; @symbol_return<0> = [Boolean,263,53,60]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 309; @symbol_functiondef = [onRelease,309,13,22]; @symbol_param<0> = [evt,309,23,26]; @symbol_param<0>_type<0> = [WatchUi,309,30,37]; @symbol_param<0>_type<1> = [ClickEvent,309,38,48]; @symbol_return<0> = [Boolean,309,53,60]; ]
     function onRelease(evt as WatchUi.ClickEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_263_61_263_76_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 263 63 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_309_61_309_76_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 309 63 ]
         %tmp.1 = true;
         ret %tmp.1;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_263_61_263_76_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_309_61_309_76_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 264; @symbol_functiondef = [onFlick,264,13,20]; @symbol_param<0> = [evt,264,21,24]; @symbol_return<0> = [Boolean,264,29,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 310; @symbol_functiondef = [onFlick,310,13,20]; @symbol_param<0> = [evt,310,21,24]; @symbol_return<0> = [Boolean,310,29,36]; ]
     function onFlick(evt) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_264_37_264_52_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 264 39 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_310_37_310_52_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 310 39 ]
         %tmp.1 = true;
         ret %tmp.1;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_264_37_264_52_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_310_37_310_52_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 269; @symbol_functiondef = [_leave,269,21,27]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 315; @symbol_functiondef = [_leave,315,21,27]; ]
     private
     function _leave() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_269_38_279_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 272 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_269_38_279_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_269_38_279_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_315_38_325_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 318 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_315_38_325_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_315_38_325_4_stop" ]
         %next.1 = local;
-        symbol [ next %next.1 272 12 16 ];
-        symbol [ AlarmEngine %tmp.2 272 19 30 ];
+        symbol [ next %next.1 318 12 16 ];
+        symbol [ AlarmEngine %tmp.2 318 19 30 ];
         %tmp.2 = getv ? :AlarmEngine;
-        symbol [ governingAlarm %tmp.3 272 31 45 ];
+        symbol [ governingAlarm %tmp.3 318 31 45 ];
         %tmp.3 = getv function %tmp.2 :governingAlarm;
-        symbol [ Time %tmp.4 272 46 50 ];
+        symbol [ Time %tmp.4 318 46 50 ];
         %tmp.4 = getm $.Toybox.Time;
-        symbol [ now %tmp.5 272 51 54 ];
+        symbol [ now %tmp.5 318 51 54 ];
         %tmp.5 = getv function %tmp.4 :now;
         %tmp.6 = invoke %tmp.4 %tmp.5();
-        symbol [ value %tmp.7 272 57 62 ];
+        symbol [ value %tmp.7 318 57 62 ];
         %tmp.7 = getv function %tmp.6 :value;
         %tmp.8 = invoke %tmp.6 %tmp.7();
         %tmp.9 = invoke %tmp.2 %tmp.3(%tmp.8);
         lputv %next.1 %tmp.9;
-        symbol [ next %next.1 272 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 273 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_8_277_8_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_12_273_54_begin:
+        symbol [ next %next.1 318 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 319 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_8_323_8_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_12_319_54_begin:
         %tmp.10 = lgetv %next.1;
-        symbol [ next %tmp.10 273 12 16 ];
+        symbol [ next %tmp.10 319 12 16 ];
         %tmp.11 = null;
         %tmp.12 = ne %tmp.10 %tmp.11;
-        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_8_277_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_28_273_54_true:
-        symbol [ AlarmStore %tmp.14 273 28 38 ];
+        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_8_323_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_28_319_54_true:
+        symbol [ AlarmStore %tmp.14 319 28 38 ];
         %tmp.14 = getv ? :AlarmStore;
-        symbol [ passcodeOn %tmp.15 273 39 49 ];
+        symbol [ passcodeOn %tmp.15 319 39 49 ];
         %tmp.15 = getv function %tmp.14 :passcodeOn;
         %tmp.16 = lgetv %next.1;
-        symbol [ next %tmp.16 273 50 54 ];
+        symbol [ next %tmp.16 319 50 54 ];
         %tmp.17 = as %tmp.16 { (!Null) };
         %tmp.18 = invoke %tmp.14 %tmp.15(%tmp.17);
         push %tmp.18;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_28_273_54_end:
-        %tmp.19 = phi [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_12_273_54_begin] [%tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_28_273_54_true] [%tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_28_273_54_end];
-        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_8_277_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_8_277_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_57_277_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 274 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_57_277_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_57_277_8_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_28_319_54_end:
+        %tmp.19 = phi [%tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_12_319_54_begin] [%tmp.18 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_28_319_54_true] [%tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_28_319_54_end];
+        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_8_323_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_8_323_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_57_323_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 320 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_57_323_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_57_323_8_stop" ]
         %pv.2 = local;
-        symbol [ pv %pv.2 274 16 18 ];
-        symbol [ PasscodeView %tmp.23 274 25 37 ];
+        symbol [ pv %pv.2 320 16 18 ];
+        symbol [ PasscodeView %tmp.23 320 25 37 ];
         %tmp.23 = getv ? :PasscodeView;
-        symbol [ PC_MODE_ENTER %tmp.25 274 38 51 ];
+        symbol [ PC_MODE_ENTER %tmp.25 320 38 51 ];
         %tmp.25 = getv ? :PC_MODE_ENTER;
         %tmp.26 = self;
-        symbol [ method %tmp.27 274 53 59 ];
+        symbol [ method %tmp.27 320 53 59 ];
         %tmp.27 = getv function %tmp.26 :method;
         %tmp.29 = const :finishLeave;
-        symbol [ finishLeave %tmp.29 274 61 72 const ];
+        symbol [ finishLeave %tmp.29 320 61 72 const ];
         %tmp.30 = invoke %tmp.26 %tmp.27(%tmp.29);
         %tmp.20 = newc %tmp.23 (%tmp.25, %tmp.30);
         lputv %pv.2 %tmp.20;
-        symbol [ pv %pv.2 274 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 275 12 ]
-        symbol [ WatchUi %tmp.31 275 12 19 ];
+        symbol [ pv %pv.2 320 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 321 12 ]
+        symbol [ WatchUi %tmp.31 321 12 19 ];
         %tmp.31 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.32 275 20 28 ];
+        symbol [ pushView %tmp.32 321 20 28 ];
         %tmp.32 = getv function %tmp.31 :pushView;
         %tmp.33 = lgetv %pv.2;
-        symbol [ pv %tmp.33 275 29 31 ];
-        symbol [ PasscodeDelegate %tmp.37 275 37 53 ];
+        symbol [ pv %tmp.33 321 29 31 ];
+        symbol [ PasscodeDelegate %tmp.37 321 37 53 ];
         %tmp.37 = getv ? :PasscodeDelegate;
         %tmp.38 = lgetv %pv.2;
-        symbol [ pv %tmp.38 275 54 56 ];
+        symbol [ pv %tmp.38 321 54 56 ];
         %tmp.34 = newc %tmp.37 (%tmp.38);
-        symbol [ WatchUi %tmp.39 275 59 66 ];
+        symbol [ WatchUi %tmp.39 321 59 66 ];
         %tmp.39 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_UP %tmp.40 275 67 75 ];
+        symbol [ SLIDE_UP %tmp.40 321 67 75 ];
         %tmp.40 = getv %tmp.39 :SLIDE_UP;
         invoke %tmp.31 %tmp.32(%tmp.33, %tmp.34, %tmp.40);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 276 12 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 322 12 ]
         ret ?;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_57_277_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_8_277_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_273_8_277_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 278 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_57_323_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_8_323_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_319_8_323_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 324 8 ]
         %tmp.41 = self;
-        symbol [ finishLeave %tmp.42 278 8 19 ];
+        symbol [ finishLeave %tmp.42 324 8 19 ];
         %tmp.42 = getv function %tmp.41 :finishLeave;
         invoke %tmp.41 %tmp.42();
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_269_38_279_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_315_38_325_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 283; @symbol_functiondef = [finishLeave,283,13,24]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 329; @symbol_functiondef = [finishLeave,329,13,24]; ]
     function finishLeave() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_283_35_286_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 284 8 ]
-        symbol [ _view %tmp.2 284 8 13 ];
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_329_35_332_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 330 8 ]
+        symbol [ _view %tmp.2 330 8 13 ];
         %tmp.2 = getv ? :_view;
-        symbol [ stopTimer %tmp.3 284 14 23 ];
+        symbol [ stopTimer %tmp.3 330 14 23 ];
         %tmp.3 = getv function %tmp.2 :stopTimer;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 285 8 ]
-        symbol [ MainListMenu %tmp.5 285 8 20 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 331 8 ]
+        symbol [ MainListMenu %tmp.5 331 8 20 ];
         %tmp.5 = getv ? :MainListMenu;
-        symbol [ show %tmp.6 285 21 25 ];
+        symbol [ show %tmp.6 331 21 25 ];
         %tmp.6 = getv function %tmp.5 :show;
-        symbol [ WatchUi %tmp.7 285 26 33 ];
+        symbol [ WatchUi %tmp.7 331 26 33 ];
         %tmp.7 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_DOWN %tmp.8 285 34 44 ];
+        symbol [ SLIDE_DOWN %tmp.8 331 34 44 ];
         %tmp.8 = getv %tmp.7 :SLIDE_DOWN;
         invoke %tmp.5 %tmp.6(%tmp.8);
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_283_35_286_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_329_35_332_4_stop:
     }
 }
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc"; @line = 13; ]

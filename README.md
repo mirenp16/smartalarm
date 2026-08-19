@@ -227,19 +227,36 @@ with randomised phase, cycle length and noise, calibrated to real exported Garmi
 Wake quality is measured as sleep "lightness" at the moment of firing, where **0.45 is the
 baseline** for a fixed-time alarm and 1.0 is the theoretical optimum.
 
-| Window | Avg minutes early | Lightness at wake | Window used |
+| Window | Woke early | Avg minutes early | Lightness at wake |
 |---|---|---|---|
-| 30 min | 14 | 0.61 | 47% |
-| **45 min** | **22** | **0.63** | **49%** |
-| 60 min | 31 | 0.57 | 52% |
-| 75 min | 43 | 0.54 | 57% |
+| 30 min | 85% | 15 | 0.63 |
+| **45 min** | **100%** | **21** | **0.66** |
+| 60 min | 100% | 30 | 0.61 |
+| 75 min | 100% | 43 | 0.53 |
 
-**45 minutes is the default** — it has the best wake quality of any window, not merely the
-best trade-off. Longer windows perform *worse*, which is initially counter-intuitive: a
-longer window forces the stopping decision earlier, when the position within the sleep cycle
-is less predictable, so the peak it settles for is less reliably the true one. The 15-minute
-option was removed entirely — there isn't enough of a sleep cycle inside it to beat a fixed
-alarm.
+**45 minutes is the default.** It is the shortest window that wakes you early every night,
+and it spends less than half the time it is allowed. The 15-minute option was removed — there
+isn't enough of a sleep cycle inside it to beat a fixed alarm.
+
+### Cross-validation on a second model
+
+Tuning and validating on the same synthetic model would prove very little, so the algorithm
+was re-run against an independently written one: variable 80–105 minute cycles, per-stage
+drift, random micro-arousals, a slow whole-night decline in heart rate, and a different
+random seed stream. Nothing is shared with the first model but the detector itself.
+
+| Window | Woke early | Avg minutes early | Lightness gain over a fixed alarm |
+|---|---|---|---|
+| 30 min | 85% | 12.5 | +0.13 |
+| 45 min | 100% | 21.6 | +0.14 |
+| 60 min | 100% | 32.0 | +0.14 |
+| 75 min | 100% | 42.3 | +0.17 |
+
+Zero timing violations: it never fired late, and never before the window opened. The
+improvement over a fixed alarm holds on both models. Which window ranks *best* does not —
+the first model favours 45 minutes, the second mildly favours longer ones — so treat the
+window as a personal preference, not a solved optimum. What is robust across both is that
+every window beats a fixed-time alarm, and that 45 minutes is a sound default.
 
 > An earlier version of this algorithm never fired early once. Analysis showed its score was
 > computed against a fixed scale and **peaked at 43 against a threshold of 65** — it was
@@ -518,7 +535,7 @@ runs, since several suites generate randomised scenarios.)
 | 10 | Time-picker stepping and navigation | 1,070 |
 | 11 | Degenerate-input edge cases | 3,000 |
 | 12 | Backward compatibility with older saved data | 1,250 |
-| 13 | Smart wake: sensor sourcing, scoring, wake decision | 320 |
+| 13 | Smart wake: sensor sourcing, scoring, wake decision | 400 |
 
 Representative coverage:
 

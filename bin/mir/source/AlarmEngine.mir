@@ -18,7 +18,7 @@ class AlarmEngine {
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 18; @symbol_functiondef = [evaluate,18,20,28]; @symbol_param<0> = [nowSecs,18,29,36]; @symbol_param<0>_type<0> = [Number,18,40,46]; @symbol_return<0> = [Number,18,51,57]; ]
     static
     function evaluate(nowSecs as Number) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 19 8 ]
         symbol [ AlarmStore %tmp.2 19 8 18 ];
         %tmp.2 = getv ? :AlarmStore;
@@ -26,7 +26,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start:
         %tmp.3 = getv function %tmp.2 :resetIfNewDay;
         invoke %tmp.2 %tmp.3();
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 21 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_stop" ]
         %info.1 = local;
         symbol [ info %info.1 21 12 16 ];
         symbol [ Gregorian %tmp.4 21 19 28 ];
@@ -46,7 +46,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start:
         lputv %info.1 %tmp.11;
         symbol [ info %info.1 21 12 16 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 22 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_stop" ]
         %todayBit.2 = local;
         symbol [ todayBit %todayBit.2 22 12 20 ];
         %tmp.12 = 1;
@@ -60,7 +60,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start:
         lputv %todayBit.2 %tmp.17;
         symbol [ todayBit %todayBit.2 22 12 20 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 23 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_stop" ]
         %midnight.3 = local;
         symbol [ midnight %midnight.3 23 12 20 ];
         %tmp.18 = lgetv %nowSecs;
@@ -87,7 +87,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start:
         lputv %midnight.3 %tmp.31;
         symbol [ midnight %midnight.3 23 12 20 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 24 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_stop" ]
         %graceSecs.4 = local;
         symbol [ graceSecs %graceSecs.4 24 12 21 ];
         symbol [ FIRE_GRACE_MINS %tmp.33 24 24 39 ];
@@ -97,7 +97,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start:
         lputv %graceSecs.4 %tmp.35;
         symbol [ graceSecs %graceSecs.4 24 12 21 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 28 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_stop" ]
         %sid.5 = local;
         symbol [ sid %sid.5 28 12 15 ];
         symbol [ AlarmStore %tmp.37 28 18 28 ];
@@ -169,7 +169,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_29_25_35_8_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_29_8_35_8_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_29_8_35_8_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 37 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_stop" ]
         %list.7 = local;
         symbol [ list %list.7 37 12 16 ];
         symbol [ AlarmStore %tmp.63 37 19 29 ];
@@ -180,15 +180,15 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_29_8_35_8_if_end:
         lputv %list.7 %tmp.65;
         symbol [ list %list.7 37 12 16 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 38 8 ]
-        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_init:
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_end" ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_end" ]
         %i.8 = local;
         symbol [ i %i.8 38 17 18 ];
         %tmp.66 = 0;
         lputv %i.8 %tmp.66;
         symbol [ i %i.8 38 17 18 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_test:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_test:
         %tmp.67 = lgetv %i.8;
         symbol [ i %tmp.67 38 24 25 ];
         %tmp.68 = lgetv %list.7;
@@ -197,11 +197,11 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_tes
         %tmp.69 = getv function %tmp.68 :size;
         %tmp.70 = invoke %tmp.68 %tmp.69();
         %tmp.71 = lt %tmp.67 %tmp.70;
-        bf %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start:
+        bf %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 39 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %a.9 = local;
         symbol [ a %a.9 39 16 17 ];
         %tmp.72 = lgetv %list.7;
@@ -227,12 +227,12 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_40_12_40_49_if_st
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_40_12_40_49_if_true:
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_40_37_40_49_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 40 39 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr;
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_40_37_40_49_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_40_12_40_49_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_40_12_40_49_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 42 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %aid.10 = local;
         symbol [ aid %aid.10 42 16 19 ];
         symbol [ AlarmStore %tmp.83 42 22 32 ];
@@ -257,12 +257,12 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_12_43_54_if_st
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_12_43_54_if_true:
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_42_43_54_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 43 44 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr;
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_42_43_54_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_12_43_54_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_12_43_54_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 45 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %days.11 = local;
         symbol [ days %days.11 45 16 20 ];
         symbol [ AlarmStore %tmp.93 45 23 33 ];
@@ -275,7 +275,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_12_43_54_if_en
         lputv %days.11 %tmp.96;
         symbol [ days %days.11 45 16 20 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 46 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %oneTime.12 = local;
         symbol [ oneTime %oneTime.12 46 16 23 ];
         %tmp.97 = lgetv %days.11;
@@ -285,7 +285,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_43_12_43_54_if_en
         lputv %oneTime.12 %tmp.99;
         symbol [ oneTime %oneTime.12 46 16 23 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 48 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %targetSecs.13 = local;
         symbol [ targetSecs %targetSecs.13 48 16 26 ];
         %tmp.100 = 0;
@@ -318,7 +318,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_53_16_53_49_if_st
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_53_16_53_49_if_true:
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_53_37_53_49_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 53 39 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr;
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_53_37_53_49_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_53_16_53_49_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_53_16_53_49_if_end:
@@ -339,7 +339,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_55_16_55_56_if_st
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_55_16_55_56_if_true:
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_55_44_55_56_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 55 46 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr;
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_55_44_55_56_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_55_16_55_56_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_55_16_55_56_if_end:
@@ -400,7 +400,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_62_29_62_60_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_62_16_62_60_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_62_16_62_60_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 63 16 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr;
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_60_50_64_12_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_60_12_64_12_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_60_12_64_12_if_end:
@@ -434,12 +434,12 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_68_43_68_57_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_68_16_68_57_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_68_16_68_57_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 69 16 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr;
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_67_45_70_12_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_67_12_70_12_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_67_12_70_12_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 73 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %winSecs.14 = local;
         symbol [ winSecs %winSecs.14 73 16 23 ];
         symbol [ AlarmStore %tmp.148 73 26 36 ];
@@ -454,7 +454,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_67_12_70_12_if_en
         lputv %winSecs.14 %tmp.153;
         symbol [ winSecs %winSecs.14 73 16 23 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 74 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %windowStartSecs.15 = local;
         symbol [ windowStartSecs %windowStartSecs.15 74 16 31 ];
         %tmp.154 = lgetv %targetSecs.13;
@@ -465,7 +465,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_67_12_70_12_if_en
         lputv %windowStartSecs.15 %tmp.156;
         symbol [ windowStartSecs %windowStartSecs.15 74 16 31 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 75 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop" ]
         %awakeCheckSecs.16 = local;
         symbol [ awakeCheckSecs %awakeCheckSecs.16 75 16 30 ];
         %tmp.157 = lgetv %windowStartSecs.15;
@@ -520,20 +520,20 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_78_45_78_78_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_78_16_78_78_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_78_16_78_78_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 79 16 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr;
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_77_72_80_12_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_77_12_80_12_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_77_12_80_12_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 82 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_92_12_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_104_12_if_stmt:
         %tmp.178 = lgetv %nowSecs;
         symbol [ nowSecs %tmp.178 82 16 23 ];
         %tmp.179 = lgetv %windowStartSecs.15;
         symbol [ windowStartSecs %tmp.179 82 27 42 ];
         %tmp.180 = gte %tmp.178 %tmp.179;
-        bf %tmp.180 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_92_12_if_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_92_12_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_90_12_start:
+        bf %tmp.180 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_104_12_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_104_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_102_12_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 83 16 ]
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_83_16_83_57_if_stmt:
         %tmp.181 = lgetv %nowSecs;
@@ -551,666 +551,683 @@ _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_83_43_83_57_start
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_83_43_83_57_stop:
         goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_83_16_83_57_if_end;
 _Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_83_16_83_57_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 86 16 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_90_12_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_90_12_stop" ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 94 16 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_94_16_94_59_if_stmt:
+        symbol [ SleepDetector %tmp.186 94 20 33 ];
+        %tmp.186 = getv ? :SleepDetector;
+        symbol [ isAwake %tmp.187 94 34 41 ];
+        %tmp.187 = getv function %tmp.186 :isAwake;
+        %tmp.188 = invoke %tmp.186 %tmp.187();
+        bf %tmp.188 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_94_16_94_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_94_16_94_59_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_94_45_94_59_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 94 47 ]
+        %tmp.189 = lgetv %aid.10;
+        symbol [ aid %tmp.189 94 54 57 ];
+        ret %tmp.189;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_94_45_94_59_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_94_16_94_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_94_16_94_59_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 98 16 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_102_12_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_102_12_stop" ]
         %progress.17 = local;
-        symbol [ progress %progress.17 86 20 28 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_begin:
-        %tmp.185 = lgetv %winSecs.14;
-        symbol [ winSecs %tmp.185 86 32 39 ];
-        %tmp.186 = 0;
-        %tmp.187 = gt %tmp.185 %tmp.186;
-        bf %tmp.187 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_true:
-        %tmp.188 = lgetv %nowSecs;
-        symbol [ nowSecs %tmp.188 87 24 31 ];
-        %tmp.189 = lgetv %windowStartSecs.15;
-        symbol [ windowStartSecs %tmp.189 87 34 49 ];
-        %tmp.190 = sub %tmp.188 %tmp.189;
-        symbol [ toFloat %tmp.191 87 51 58 ];
-        %tmp.191 = getv function %tmp.190 :toFloat;
-        %tmp.192 = invoke %tmp.190 %tmp.191();
-        %tmp.193 = lgetv %winSecs.14;
-        symbol [ winSecs %tmp.193 87 63 70 ];
-        symbol [ toFloat %tmp.194 87 71 78 ];
-        %tmp.194 = getv function %tmp.193 :toFloat;
-        %tmp.195 = invoke %tmp.193 %tmp.194();
-        %tmp.196 = div %tmp.192 %tmp.195;
-        push %tmp.196;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_else_false:
-        %tmp.197 = 1.0;
-        push %tmp.197;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_end:
-        %tmp.198 = phi [%tmp.187 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_begin] [%tmp.196 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_true] [%tmp.197 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_else_false] [%tmp.198 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_86_31_88_22_end];
-        lputv %progress.17 %tmp.198;
-        symbol [ progress %progress.17 86 20 28 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 89 16 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_89_16_89_70_if_stmt:
-        symbol [ SleepDetector %tmp.200 89 20 33 ];
-        %tmp.200 = getv ? :SleepDetector;
-        symbol [ shouldWake %tmp.201 89 34 44 ];
-        %tmp.201 = getv function %tmp.200 :shouldWake;
-        %tmp.202 = lgetv %progress.17;
-        symbol [ progress %tmp.202 89 45 53 ];
-        %tmp.203 = invoke %tmp.200 %tmp.201(%tmp.202);
-        bf %tmp.203 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_89_16_89_70_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_89_16_89_70_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_89_56_89_70_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 89 58 ]
-        %tmp.204 = lgetv %aid.10;
-        symbol [ aid %tmp.204 89 65 68 ];
-        ret %tmp.204;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_89_56_89_70_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_89_16_89_70_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_89_16_89_70_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_90_12_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_92_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_92_12_if_else_false:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_90_19_92_12_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 91 16 ]
-        symbol [ SleepDetector %tmp.206 91 16 29 ];
-        %tmp.206 = getv ? :SleepDetector;
-        symbol [ resetWindow %tmp.207 91 30 41 ];
-        %tmp.207 = getv function %tmp.206 :resetWindow;
-        invoke %tmp.206 %tmp.207();
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_90_19_92_12_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_92_12_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_93_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_incr:
+        symbol [ progress %progress.17 98 20 28 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_begin:
+        %tmp.190 = lgetv %winSecs.14;
+        symbol [ winSecs %tmp.190 98 32 39 ];
+        %tmp.191 = 0;
+        %tmp.192 = gt %tmp.190 %tmp.191;
+        bf %tmp.192 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_true:
+        %tmp.193 = lgetv %nowSecs;
+        symbol [ nowSecs %tmp.193 99 24 31 ];
+        %tmp.194 = lgetv %windowStartSecs.15;
+        symbol [ windowStartSecs %tmp.194 99 34 49 ];
+        %tmp.195 = sub %tmp.193 %tmp.194;
+        symbol [ toFloat %tmp.196 99 51 58 ];
+        %tmp.196 = getv function %tmp.195 :toFloat;
+        %tmp.197 = invoke %tmp.195 %tmp.196();
+        %tmp.198 = lgetv %winSecs.14;
+        symbol [ winSecs %tmp.198 99 63 70 ];
+        symbol [ toFloat %tmp.199 99 71 78 ];
+        %tmp.199 = getv function %tmp.198 :toFloat;
+        %tmp.200 = invoke %tmp.198 %tmp.199();
+        %tmp.201 = div %tmp.197 %tmp.200;
+        push %tmp.201;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_else_false:
+        %tmp.202 = 1.0;
+        push %tmp.202;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_end:
+        %tmp.203 = phi [%tmp.192 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_begin] [%tmp.201 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_true] [%tmp.202 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_else_false] [%tmp.203 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_98_31_100_22_end];
+        lputv %progress.17 %tmp.203;
+        symbol [ progress %progress.17 98 20 28 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 101 16 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_16_101_70_if_stmt:
+        symbol [ SleepDetector %tmp.205 101 20 33 ];
+        %tmp.205 = getv ? :SleepDetector;
+        symbol [ shouldWake %tmp.206 101 34 44 ];
+        %tmp.206 = getv function %tmp.205 :shouldWake;
+        %tmp.207 = lgetv %progress.17;
+        symbol [ progress %tmp.207 101 45 53 ];
+        %tmp.208 = invoke %tmp.205 %tmp.206(%tmp.207);
+        bf %tmp.208 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_16_101_70_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_16_101_70_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_56_101_70_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 101 58 ]
+        %tmp.209 = lgetv %aid.10;
+        symbol [ aid %tmp.209 101 65 68 ];
+        ret %tmp.209;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_56_101_70_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_16_101_70_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_16_101_70_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_44_102_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_104_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_104_12_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_102_19_104_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 103 16 ]
+        symbol [ SleepDetector %tmp.211 103 16 29 ];
+        %tmp.211 = getv ? :SleepDetector;
+        symbol [ resetWindow %tmp.212 103 30 41 ];
+        %tmp.212 = getv function %tmp.211 :resetWindow;
+        invoke %tmp.211 %tmp.212();
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_102_19_104_12_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_82_12_104_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_46_105_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_incr:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 38 ]
-        %tmp.210 = lgetv %i.8;
-        symbol [ i %tmp.210 38 41 42 ];
-        %tmp.211 = add %tmp.210 1;
-        lputv %i.8 %tmp.211;
+        %tmp.215 = lgetv %i.8;
+        symbol [ i %tmp.215 38 41 42 ];
+        %tmp.216 = add %tmp.215 1;
+        lputv %i.8 %tmp.216;
         symbol [ i %i.8 38 41 42 ];
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_test;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_93_8_for_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 95 8 ]
-        %tmp.212 = -1;
-        ret %tmp.212;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_96_4_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_38_8_105_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 107 8 ]
+        %tmp.217 = -1;
+        ret %tmp.217;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_18_58_108_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 101; @symbol_functiondef = [secsUntilNextTarget,101,20,39]; @symbol_param<0> = [nowSecs,101,40,47]; @symbol_param<0>_type<0> = [Number,101,51,57]; @symbol_return<0> = [Number,101,62,68]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 113; @symbol_functiondef = [secsUntilNextTarget,113,20,39]; @symbol_param<0> = [nowSecs,113,40,47]; @symbol_param<0>_type<0> = [Number,113,51,57]; @symbol_return<0> = [Number,113,62,68]; ]
     static
     function secsUntilNextTarget(nowSecs as Number) as Number {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 102 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 114 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_stop" ]
         %soonest.1 = local;
-        symbol [ soonest %soonest.1 102 12 19 ];
+        symbol [ soonest %soonest.1 114 12 19 ];
         %tmp.1 = -1;
         lputv %soonest.1 %tmp.1;
-        symbol [ soonest %soonest.1 102 12 19 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 103 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_stop" ]
+        symbol [ soonest %soonest.1 114 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 115 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_stop" ]
         %list.2 = local;
-        symbol [ list %list.2 103 12 16 ];
-        symbol [ AlarmStore %tmp.3 103 19 29 ];
+        symbol [ list %list.2 115 12 16 ];
+        symbol [ AlarmStore %tmp.3 115 19 29 ];
         %tmp.3 = getv ? :AlarmStore;
-        symbol [ getAlarms %tmp.4 103 30 39 ];
+        symbol [ getAlarms %tmp.4 115 30 39 ];
         %tmp.4 = getv function %tmp.3 :getAlarms;
         %tmp.5 = invoke %tmp.3 %tmp.4();
         lputv %list.2 %tmp.5;
-        symbol [ list %list.2 103 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 104 8 ]
-        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_init:
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_end" ]
+        symbol [ list %list.2 115 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 116 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_end" ]
         %i.3 = local;
-        symbol [ i %i.3 104 17 18 ];
+        symbol [ i %i.3 116 17 18 ];
         %tmp.6 = 0;
         lputv %i.3 %tmp.6;
-        symbol [ i %i.3 104 17 18 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_test:
+        symbol [ i %i.3 116 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_test:
         %tmp.7 = lgetv %i.3;
-        symbol [ i %tmp.7 104 24 25 ];
+        symbol [ i %tmp.7 116 24 25 ];
         %tmp.8 = lgetv %list.2;
-        symbol [ list %tmp.8 104 28 32 ];
-        symbol [ size %tmp.9 104 33 37 ];
+        symbol [ list %tmp.8 116 28 32 ];
+        symbol [ size %tmp.9 116 33 37 ];
         %tmp.9 = getv function %tmp.8 :size;
         %tmp.10 = invoke %tmp.8 %tmp.9();
         %tmp.11 = lt %tmp.7 %tmp.10;
-        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 105 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_stop" ]
+        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 117 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_stop" ]
         %a.4 = local;
-        symbol [ a %a.4 105 16 17 ];
+        symbol [ a %a.4 117 16 17 ];
         %tmp.12 = lgetv %list.2;
-        symbol [ list %tmp.12 105 20 24 ];
+        symbol [ list %tmp.12 117 20 24 ];
         %tmp.13 = lgetv %i.3;
-        symbol [ i %tmp.13 105 25 26 ];
+        symbol [ i %tmp.13 117 25 26 ];
         %tmp.14 = agetv %tmp.12 %tmp.13;
         %tmp.15 = as %tmp.14 Dictionary;
-        symbol [ Dictionary %tmp.15 105 31 41 ];
+        symbol [ Dictionary %tmp.15 117 31 41 ];
         lputv %a.4 %tmp.15;
-        symbol [ a %a.4 105 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 106 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_106_12_106_49_if_stmt:
-        symbol [ AlarmStore %tmp.17 106 17 27 ];
+        symbol [ a %a.4 117 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 118 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_118_12_118_49_if_stmt:
+        symbol [ AlarmStore %tmp.17 118 17 27 ];
         %tmp.17 = getv ? :AlarmStore;
-        symbol [ isOn %tmp.18 106 28 32 ];
+        symbol [ isOn %tmp.18 118 28 32 ];
         %tmp.18 = getv function %tmp.17 :isOn;
         %tmp.19 = lgetv %a.4;
-        symbol [ a %tmp.19 106 33 34 ];
+        symbol [ a %tmp.19 118 33 34 ];
         %tmp.20 = invoke %tmp.17 %tmp.18(%tmp.19);
         %tmp.21 = not %tmp.20;
-        bf %tmp.21 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_106_12_106_49_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_106_12_106_49_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_106_37_106_49_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 106 39 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_incr;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_106_37_106_49_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_106_12_106_49_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_106_12_106_49_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 107 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_107_12_107_67_if_stmt:
-        symbol [ AlarmStore %tmp.23 107 16 26 ];
+        bf %tmp.21 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_118_12_118_49_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_118_12_118_49_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_118_37_118_49_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 118 39 ]
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_incr;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_118_37_118_49_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_118_12_118_49_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_118_12_118_49_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 119 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_119_12_119_67_if_stmt:
+        symbol [ AlarmStore %tmp.23 119 16 26 ];
         %tmp.23 = getv ? :AlarmStore;
-        symbol [ hasFired %tmp.24 107 27 35 ];
+        symbol [ hasFired %tmp.24 119 27 35 ];
         %tmp.24 = getv function %tmp.23 :hasFired;
-        symbol [ AlarmStore %tmp.26 107 36 46 ];
+        symbol [ AlarmStore %tmp.26 119 36 46 ];
         %tmp.26 = getv ? :AlarmStore;
-        symbol [ id %tmp.27 107 47 49 ];
+        symbol [ id %tmp.27 119 47 49 ];
         %tmp.27 = getv function %tmp.26 :id;
         %tmp.28 = lgetv %a.4;
-        symbol [ a %tmp.28 107 50 51 ];
+        symbol [ a %tmp.28 119 50 51 ];
         %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
         %tmp.30 = invoke %tmp.23 %tmp.24(%tmp.29);
-        bf %tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_107_12_107_67_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_107_12_107_67_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_107_55_107_67_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 107 57 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_incr;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_107_55_107_67_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_107_12_107_67_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_107_12_107_67_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 108 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_stop" ]
+        bf %tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_119_12_119_67_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_119_12_119_67_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_119_55_119_67_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 119 57 ]
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_incr;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_119_55_119_67_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_119_12_119_67_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_119_12_119_67_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 120 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_stop" ]
         %e.5 = local;
-        symbol [ e %e.5 108 16 17 ];
-        symbol [ AlarmStore %tmp.32 108 20 30 ];
+        symbol [ e %e.5 120 16 17 ];
+        symbol [ AlarmStore %tmp.32 120 20 30 ];
         %tmp.32 = getv ? :AlarmStore;
-        symbol [ nextFireEpoch %tmp.33 108 31 44 ];
+        symbol [ nextFireEpoch %tmp.33 120 31 44 ];
         %tmp.33 = getv function %tmp.32 :nextFireEpoch;
         %tmp.34 = lgetv %a.4;
-        symbol [ a %tmp.34 108 45 46 ];
+        symbol [ a %tmp.34 120 45 46 ];
         %tmp.35 = lgetv %nowSecs;
-        symbol [ nowSecs %tmp.35 108 48 55 ];
+        symbol [ nowSecs %tmp.35 120 48 55 ];
         %tmp.36 = invoke %tmp.32 %tmp.33(%tmp.34, %tmp.35);
         lputv %e.5 %tmp.36;
-        symbol [ e %e.5 108 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 109 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_109_12_109_35_if_stmt:
+        symbol [ e %e.5 120 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 121 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_121_12_121_35_if_stmt:
         %tmp.37 = lgetv %e.5;
-        symbol [ e %tmp.37 109 16 17 ];
+        symbol [ e %tmp.37 121 16 17 ];
         %tmp.38 = 0;
         %tmp.39 = lt %tmp.37 %tmp.38;
-        bf %tmp.39 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_109_12_109_35_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_109_12_109_35_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_109_23_109_35_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 109 25 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_incr;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_109_23_109_35_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_109_12_109_35_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_109_12_109_35_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 110 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_stop" ]
+        bf %tmp.39 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_121_12_121_35_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_121_12_121_35_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_121_23_121_35_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 121 25 ]
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_incr;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_121_23_121_35_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_121_12_121_35_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_121_12_121_35_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 122 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_stop" ]
         %d.6 = local;
-        symbol [ d %d.6 110 16 17 ];
+        symbol [ d %d.6 122 16 17 ];
         %tmp.40 = lgetv %e.5;
-        symbol [ e %tmp.40 110 20 21 ];
+        symbol [ e %tmp.40 122 20 21 ];
         %tmp.41 = lgetv %nowSecs;
-        symbol [ nowSecs %tmp.41 110 24 31 ];
+        symbol [ nowSecs %tmp.41 122 24 31 ];
         %tmp.42 = sub %tmp.40 %tmp.41;
         lputv %d.6 %tmp.42;
-        symbol [ d %d.6 110 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 111 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_12_111_59_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_16_111_35_begin:
+        symbol [ d %d.6 122 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 123 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_12_123_59_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_16_123_35_begin:
         %tmp.43 = lgetv %soonest.1;
-        symbol [ soonest %tmp.43 111 16 23 ];
+        symbol [ soonest %tmp.43 123 16 23 ];
         %tmp.44 = 0;
         %tmp.45 = lt %tmp.43 %tmp.44;
-        bt %tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_12_111_59_if_true;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_31_111_35_false:
+        bt %tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_12_123_59_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_31_123_35_false:
         %tmp.46 = lgetv %d.6;
-        symbol [ d %tmp.46 111 31 32 ];
+        symbol [ d %tmp.46 123 31 32 ];
         %tmp.47 = lgetv %soonest.1;
-        symbol [ soonest %tmp.47 111 35 42 ];
+        symbol [ soonest %tmp.47 123 35 42 ];
         %tmp.48 = lt %tmp.46 %tmp.47;
         push %tmp.48;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_31_111_35_end:
-        %tmp.49 = phi [%tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_16_111_35_begin] [%tmp.48 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_31_111_35_false] [%tmp.49 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_31_111_35_end];
-        bf %tmp.49 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_12_111_59_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_12_111_59_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_44_111_59_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 111 46 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_31_123_35_end:
+        %tmp.49 = phi [%tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_16_123_35_begin] [%tmp.48 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_31_123_35_false] [%tmp.49 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_31_123_35_end];
+        bf %tmp.49 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_12_123_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_12_123_59_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_44_123_59_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 123 46 ]
         %tmp.50 = lgetv %d.6;
-        symbol [ d %tmp.50 111 56 57 ];
+        symbol [ d %tmp.50 123 56 57 ];
         lputv %soonest.1 %tmp.50;
-        symbol [ soonest %soonest.1 111 46 53 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_44_111_59_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_12_111_59_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_111_12_111_59_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_46_112_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_incr:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 104 ]
+        symbol [ soonest %soonest.1 123 46 53 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_44_123_59_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_12_123_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_123_12_123_59_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_46_124_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 116 ]
         %tmp.53 = lgetv %i.3;
-        symbol [ i %tmp.53 104 41 42 ];
+        symbol [ i %tmp.53 116 41 42 ];
         %tmp.54 = add %tmp.53 1;
         lputv %i.3 %tmp.54;
-        symbol [ i %i.3 104 41 42 ];
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_test;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_104_8_112_8_for_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 113 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_stop" ]
+        symbol [ i %i.3 116 41 42 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_8_124_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 125 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_stop" ]
         %sn.7 = local;
-        symbol [ sn %sn.7 113 12 14 ];
-        symbol [ AlarmStore %tmp.56 113 17 27 ];
+        symbol [ sn %sn.7 125 12 14 ];
+        symbol [ AlarmStore %tmp.56 125 17 27 ];
         %tmp.56 = getv ? :AlarmStore;
-        symbol [ snoozeUntil %tmp.57 113 28 39 ];
+        symbol [ snoozeUntil %tmp.57 125 28 39 ];
         %tmp.57 = getv function %tmp.56 :snoozeUntil;
         %tmp.58 = invoke %tmp.56 %tmp.57();
         lputv %sn.7 %tmp.58;
-        symbol [ sn %sn.7 113 12 14 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 114 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_8_117_8_if_stmt:
+        symbol [ sn %sn.7 125 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 126 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_8_129_8_if_stmt:
         %tmp.59 = lgetv %sn.7;
-        symbol [ sn %tmp.59 114 12 14 ];
+        symbol [ sn %tmp.59 126 12 14 ];
         %tmp.60 = null;
         %tmp.61 = ne %tmp.59 %tmp.60;
-        bf %tmp.61 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_8_117_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_8_117_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_24_117_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 115 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_24_117_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_24_117_8_stop" ]
+        bf %tmp.61 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_8_129_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_8_129_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_24_129_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 127 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_24_129_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_24_129_8_stop" ]
         %ds.8 = local;
-        symbol [ ds %ds.8 115 16 18 ];
+        symbol [ ds %ds.8 127 16 18 ];
         %tmp.62 = lgetv %sn.7;
-        symbol [ sn %tmp.62 115 21 23 ];
+        symbol [ sn %tmp.62 127 21 23 ];
         %tmp.63 = as %tmp.62 { (!Null) };
         %tmp.64 = lgetv %nowSecs;
-        symbol [ nowSecs %tmp.64 115 26 33 ];
+        symbol [ nowSecs %tmp.64 127 26 33 ];
         %tmp.65 = sub %tmp.63 %tmp.64;
         lputv %ds.8 %tmp.65;
-        symbol [ ds %ds.8 115 16 18 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 116 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_12_116_74_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_16_116_55_begin:
+        symbol [ ds %ds.8 127 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 128 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_12_128_74_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_16_128_55_begin:
         %tmp.66 = lgetv %ds.8;
-        symbol [ ds %tmp.66 116 16 18 ];
+        symbol [ ds %tmp.66 128 16 18 ];
         %tmp.67 = 0;
         %tmp.68 = gte %tmp.66 %tmp.67;
-        bf %tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_12_116_74_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_27_116_55_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_28_116_48_begin:
+        bf %tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_12_128_74_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_27_128_55_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_28_128_48_begin:
         %tmp.69 = lgetv %soonest.1;
-        symbol [ soonest %tmp.69 116 28 35 ];
+        symbol [ soonest %tmp.69 128 28 35 ];
         %tmp.70 = 0;
         %tmp.71 = lt %tmp.69 %tmp.70;
-        bt %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_12_116_74_if_true;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_43_116_48_false:
+        bt %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_12_128_74_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_43_128_48_false:
         %tmp.72 = lgetv %ds.8;
-        symbol [ ds %tmp.72 116 43 45 ];
+        symbol [ ds %tmp.72 128 43 45 ];
         %tmp.73 = lgetv %soonest.1;
-        symbol [ soonest %tmp.73 116 48 55 ];
+        symbol [ soonest %tmp.73 128 48 55 ];
         %tmp.74 = lt %tmp.72 %tmp.73;
         push %tmp.74;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_43_116_48_end:
-        %tmp.75 = phi [%tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_28_116_48_begin] [%tmp.74 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_43_116_48_false] [%tmp.75 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_43_116_48_end];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_43_128_48_end:
+        %tmp.75 = phi [%tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_28_128_48_begin] [%tmp.74 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_43_128_48_false] [%tmp.75 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_43_128_48_end];
         push %tmp.75;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_27_116_55_end:
-        %tmp.76 = phi [%tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_16_116_55_begin] [%tmp.75 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_27_116_55_true] [%tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_27_116_55_end];
-        bf %tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_12_116_74_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_12_116_74_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_58_116_74_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 116 60 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_27_128_55_end:
+        %tmp.76 = phi [%tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_16_128_55_begin] [%tmp.75 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_27_128_55_true] [%tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_27_128_55_end];
+        bf %tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_12_128_74_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_12_128_74_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_58_128_74_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 128 60 ]
         %tmp.77 = lgetv %ds.8;
-        symbol [ ds %tmp.77 116 70 72 ];
+        symbol [ ds %tmp.77 128 70 72 ];
         lputv %soonest.1 %tmp.77;
-        symbol [ soonest %soonest.1 116 60 67 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_58_116_74_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_12_116_74_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_116_12_116_74_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_24_117_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_8_117_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_114_8_117_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 118 8 ]
+        symbol [ soonest %soonest.1 128 60 67 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_58_128_74_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_12_128_74_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_12_128_74_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_24_129_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_8_129_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_126_8_129_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 130 8 ]
         %tmp.78 = lgetv %soonest.1;
-        symbol [ soonest %tmp.78 118 15 22 ];
+        symbol [ soonest %tmp.78 130 15 22 ];
         ret %tmp.78;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_101_69_119_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_113_69_131_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 128; @symbol_functiondef = [shouldSampleAt,128,20,34]; @symbol_param<0> = [secsUntil,128,35,44]; @symbol_param<0>_type<0> = [Number,128,48,54]; @symbol_return<0> = [Boolean,128,59,66]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 140; @symbol_functiondef = [shouldSampleAt,140,20,34]; @symbol_param<0> = [secsUntil,140,35,44]; @symbol_param<0>_type<0> = [Number,140,48,54]; @symbol_return<0> = [Boolean,140,59,66]; ]
     static
     function shouldSampleAt(secsUntil as Number) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_67_131_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 129 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_129_8_129_43_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_140_67_143_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 141 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_141_43_if_stmt:
         %tmp.1 = lgetv %secsUntil;
-        symbol [ secsUntil %tmp.1 129 12 21 ];
+        symbol [ secsUntil %tmp.1 141 12 21 ];
         %tmp.2 = 0;
         %tmp.3 = lt %tmp.1 %tmp.2;
-        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_129_8_129_43_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_129_8_129_43_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_129_27_129_43_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 129 29 ]
+        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_141_43_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_141_43_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_27_141_43_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 141 29 ]
         %tmp.4 = false;
         ret %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_129_27_129_43_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_129_8_129_43_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_129_8_129_43_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 130 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_27_141_43_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_141_43_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_141_43_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 142 8 ]
         %tmp.5 = lgetv %secsUntil;
-        symbol [ secsUntil %tmp.5 130 15 24 ];
-        symbol [ MAX_WINDOW_MINS %tmp.7 130 29 44 ];
+        symbol [ secsUntil %tmp.5 142 15 24 ];
+        symbol [ MAX_WINDOW_MINS %tmp.7 142 29 44 ];
         %tmp.7 = getv ? :MAX_WINDOW_MINS;
-        symbol [ SAMPLE_LEAD_MINS %tmp.9 130 47 63 ];
+        symbol [ SAMPLE_LEAD_MINS %tmp.9 142 47 63 ];
         %tmp.9 = getv ? :SAMPLE_LEAD_MINS;
         %tmp.10 = add %tmp.7 %tmp.9;
         %tmp.11 = 60;
         %tmp.12 = mul %tmp.10 %tmp.11;
         %tmp.13 = lte %tmp.5 %tmp.12;
         ret %tmp.13;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_128_67_131_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_140_67_143_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 139; @symbol_functiondef = [governingAlarm,139,20,34]; @symbol_param<0> = [nowSecs,139,35,42]; @symbol_param<0>_type<0> = [Number,139,46,52]; @symbol_return<0> = [Dictionary,139,57,67]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 151; @symbol_functiondef = [governingAlarm,151,20,34]; @symbol_param<0> = [nowSecs,151,35,42]; @symbol_param<0>_type<0> = [Number,151,46,52]; @symbol_return<0> = [Dictionary,151,57,67]; ]
     static
     function governingAlarm(nowSecs as Number) as Dictionary or Null {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_139_69_152_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 140 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_139_69_152_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_139_69_152_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_151_69_164_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 152 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_151_69_164_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_151_69_164_4_stop" ]
         %sid.1 = local;
-        symbol [ sid %sid.1 140 12 15 ];
-        symbol [ AlarmStore %tmp.2 140 18 28 ];
+        symbol [ sid %sid.1 152 12 15 ];
+        symbol [ AlarmStore %tmp.2 152 18 28 ];
         %tmp.2 = getv ? :AlarmStore;
-        symbol [ validSnoozeId %tmp.3 140 29 42 ];
+        symbol [ validSnoozeId %tmp.3 152 29 42 ];
         %tmp.3 = getv function %tmp.2 :validSnoozeId;
         %tmp.4 = invoke %tmp.2 %tmp.3();
         lputv %sid.1 %tmp.4;
-        symbol [ sid %sid.1 140 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 141 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_144_8_if_stmt:
+        symbol [ sid %sid.1 152 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 153 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_8_156_8_if_stmt:
         %tmp.5 = lgetv %sid.1;
-        symbol [ sid %tmp.5 141 12 15 ];
+        symbol [ sid %tmp.5 153 12 15 ];
         %tmp.6 = null;
         %tmp.7 = ne %tmp.5 %tmp.6;
-        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_144_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_144_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_25_144_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 142 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_25_144_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_25_144_8_stop" ]
+        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_8_156_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_8_156_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_25_156_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 154 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_25_156_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_25_156_8_stop" ]
         %found.2 = local;
-        symbol [ found %found.2 142 16 21 ];
-        symbol [ AlarmStore %tmp.9 142 24 34 ];
+        symbol [ found %found.2 154 16 21 ];
+        symbol [ AlarmStore %tmp.9 154 24 34 ];
         %tmp.9 = getv ? :AlarmStore;
-        symbol [ findById %tmp.10 142 35 43 ];
+        symbol [ findById %tmp.10 154 35 43 ];
         %tmp.10 = getv function %tmp.9 :findById;
         %tmp.11 = lgetv %sid.1;
-        symbol [ sid %tmp.11 142 44 47 ];
+        symbol [ sid %tmp.11 154 44 47 ];
         %tmp.12 = as %tmp.11 { (!Null) };
         %tmp.13 = as %tmp.12 Number;
-        symbol [ Number %tmp.13 142 51 57 ];
+        symbol [ Number %tmp.13 154 51 57 ];
         %tmp.14 = invoke %tmp.9 %tmp.10(%tmp.13);
         lputv %found.2 %tmp.14;
-        symbol [ found %found.2 142 16 21 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 143 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_143_12_143_67_if_stmt:
+        symbol [ found %found.2 154 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 155 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_155_12_155_67_if_stmt:
         %tmp.15 = lgetv %found.2;
-        symbol [ found %tmp.15 143 16 21 ];
+        symbol [ found %tmp.15 155 16 21 ];
         %tmp.16 = 1;
         %tmp.17 = agetv %tmp.15 %tmp.16;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_143_12_143_67_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_143_12_143_67_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_143_34_143_67_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 143 36 ]
+        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_155_12_155_67_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_155_12_155_67_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_155_34_155_67_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 155 36 ]
         %tmp.20 = lgetv %found.2;
-        symbol [ found %tmp.20 143 43 48 ];
+        symbol [ found %tmp.20 155 43 48 ];
         %tmp.21 = 1;
         %tmp.22 = agetv %tmp.20 %tmp.21;
         %tmp.23 = as %tmp.22 Dictionary;
-        symbol [ Dictionary %tmp.23 143 55 65 ];
+        symbol [ Dictionary %tmp.23 155 55 65 ];
         ret %tmp.23;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_143_34_143_67_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_143_12_143_67_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_143_12_143_67_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_25_144_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_144_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_141_8_144_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 146 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_139_69_152_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_139_69_152_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_155_34_155_67_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_155_12_155_67_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_155_12_155_67_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_25_156_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_8_156_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_153_8_156_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 158 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_151_69_164_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_151_69_164_4_stop" ]
         %rid.3 = local;
-        symbol [ rid %rid.3 146 12 15 ];
-        symbol [ AlarmStore %tmp.25 146 18 28 ];
+        symbol [ rid %rid.3 158 12 15 ];
+        symbol [ AlarmStore %tmp.25 158 18 28 ];
         %tmp.25 = getv ? :AlarmStore;
-        symbol [ ringingId %tmp.26 146 29 38 ];
+        symbol [ ringingId %tmp.26 158 29 38 ];
         %tmp.26 = getv function %tmp.25 :ringingId;
         %tmp.27 = invoke %tmp.25 %tmp.26();
         lputv %rid.3 %tmp.27;
-        symbol [ rid %rid.3 146 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 147 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_8_150_8_if_stmt:
+        symbol [ rid %rid.3 158 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 159 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_8_162_8_if_stmt:
         %tmp.28 = lgetv %rid.3;
-        symbol [ rid %tmp.28 147 12 15 ];
+        symbol [ rid %tmp.28 159 12 15 ];
         %tmp.29 = null;
         %tmp.30 = ne %tmp.28 %tmp.29;
-        bf %tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_8_150_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_8_150_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_25_150_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 148 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_25_150_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_25_150_8_stop" ]
+        bf %tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_8_162_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_8_162_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_25_162_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 160 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_25_162_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_25_162_8_stop" ]
         %r.4 = local;
-        symbol [ r %r.4 148 16 17 ];
-        symbol [ AlarmStore %tmp.32 148 20 30 ];
+        symbol [ r %r.4 160 16 17 ];
+        symbol [ AlarmStore %tmp.32 160 20 30 ];
         %tmp.32 = getv ? :AlarmStore;
-        symbol [ findById %tmp.33 148 31 39 ];
+        symbol [ findById %tmp.33 160 31 39 ];
         %tmp.33 = getv function %tmp.32 :findById;
         %tmp.34 = lgetv %rid.3;
-        symbol [ rid %tmp.34 148 40 43 ];
+        symbol [ rid %tmp.34 160 40 43 ];
         %tmp.35 = as %tmp.34 { (!Null) };
         %tmp.36 = as %tmp.35 Number;
-        symbol [ Number %tmp.36 148 47 53 ];
+        symbol [ Number %tmp.36 160 47 53 ];
         %tmp.37 = invoke %tmp.32 %tmp.33(%tmp.36);
         lputv %r.4 %tmp.37;
-        symbol [ r %r.4 148 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 149 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_149_12_149_59_if_stmt:
+        symbol [ r %r.4 160 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 161 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_161_12_161_59_if_stmt:
         %tmp.38 = lgetv %r.4;
-        symbol [ r %tmp.38 149 16 17 ];
+        symbol [ r %tmp.38 161 16 17 ];
         %tmp.39 = 1;
         %tmp.40 = agetv %tmp.38 %tmp.39;
         %tmp.41 = null;
         %tmp.42 = ne %tmp.40 %tmp.41;
-        bf %tmp.42 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_149_12_149_59_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_149_12_149_59_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_149_30_149_59_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 149 32 ]
+        bf %tmp.42 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_161_12_161_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_161_12_161_59_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_161_30_161_59_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 161 32 ]
         %tmp.43 = lgetv %r.4;
-        symbol [ r %tmp.43 149 39 40 ];
+        symbol [ r %tmp.43 161 39 40 ];
         %tmp.44 = 1;
         %tmp.45 = agetv %tmp.43 %tmp.44;
         %tmp.46 = as %tmp.45 Dictionary;
-        symbol [ Dictionary %tmp.46 149 47 57 ];
+        symbol [ Dictionary %tmp.46 161 47 57 ];
         ret %tmp.46;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_149_30_149_59_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_149_12_149_59_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_149_12_149_59_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_25_150_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_8_150_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_147_8_150_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 151 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_161_30_161_59_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_161_12_161_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_161_12_161_59_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_25_162_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_8_162_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_159_8_162_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 163 8 ]
         %tmp.47 = self;
-        symbol [ nextAlarm %tmp.48 151 15 24 ];
+        symbol [ nextAlarm %tmp.48 163 15 24 ];
         %tmp.48 = getv function %tmp.47 :nextAlarm;
         %tmp.49 = lgetv %nowSecs;
-        symbol [ nowSecs %tmp.49 151 25 32 ];
+        symbol [ nowSecs %tmp.49 163 25 32 ];
         %tmp.50 = invoke %tmp.47 %tmp.48(%tmp.49);
         ret %tmp.50;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_139_69_152_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_151_69_164_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 156; @symbol_functiondef = [nextAlarm,156,20,29]; @symbol_param<0> = [nowSecs,156,30,37]; @symbol_param<0>_type<0> = [Number,156,41,47]; @symbol_return<0> = [Dictionary,156,52,62]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 168; @symbol_functiondef = [nextAlarm,168,20,29]; @symbol_param<0> = [nowSecs,168,30,37]; @symbol_param<0>_type<0> = [Number,168,41,47]; @symbol_return<0> = [Dictionary,168,52,62]; ]
     static
     function nextAlarm(nowSecs as Number) as Dictionary or Null {
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 157 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 169 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_stop" ]
         %best.1 = local;
-        symbol [ best %best.1 157 12 16 ];
+        symbol [ best %best.1 169 12 16 ];
         %tmp.1 = null;
         lputv %best.1 %tmp.1;
-        symbol [ best %best.1 157 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 158 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_stop" ]
+        symbol [ best %best.1 169 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 170 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_stop" ]
         %bestEpoch.2 = local;
-        symbol [ bestEpoch %bestEpoch.2 158 12 21 ];
+        symbol [ bestEpoch %bestEpoch.2 170 12 21 ];
         %tmp.2 = 0;
         lputv %bestEpoch.2 %tmp.2;
-        symbol [ bestEpoch %bestEpoch.2 158 12 21 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 159 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_stop" ]
+        symbol [ bestEpoch %bestEpoch.2 170 12 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 171 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_stop" ]
         %list.3 = local;
-        symbol [ list %list.3 159 12 16 ];
-        symbol [ AlarmStore %tmp.4 159 19 29 ];
+        symbol [ list %list.3 171 12 16 ];
+        symbol [ AlarmStore %tmp.4 171 19 29 ];
         %tmp.4 = getv ? :AlarmStore;
-        symbol [ getAlarms %tmp.5 159 30 39 ];
+        symbol [ getAlarms %tmp.5 171 30 39 ];
         %tmp.5 = getv function %tmp.4 :getAlarms;
         %tmp.6 = invoke %tmp.4 %tmp.5();
         lputv %list.3 %tmp.6;
-        symbol [ list %list.3 159 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 160 8 ]
-        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_init:
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_end" ]
+        symbol [ list %list.3 171 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 172 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_end" ]
         %i.4 = local;
-        symbol [ i %i.4 160 17 18 ];
+        symbol [ i %i.4 172 17 18 ];
         %tmp.7 = 0;
         lputv %i.4 %tmp.7;
-        symbol [ i %i.4 160 17 18 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_test:
+        symbol [ i %i.4 172 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_test:
         %tmp.8 = lgetv %i.4;
-        symbol [ i %tmp.8 160 24 25 ];
+        symbol [ i %tmp.8 172 24 25 ];
         %tmp.9 = lgetv %list.3;
-        symbol [ list %tmp.9 160 28 32 ];
-        symbol [ size %tmp.10 160 33 37 ];
+        symbol [ list %tmp.9 172 28 32 ];
+        symbol [ size %tmp.10 172 33 37 ];
         %tmp.10 = getv function %tmp.9 :size;
         %tmp.11 = invoke %tmp.9 %tmp.10();
         %tmp.12 = lt %tmp.8 %tmp.11;
-        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_46_166_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 161 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_46_166_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_46_166_8_stop" ]
+        bf %tmp.12 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_46_178_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 173 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_46_178_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_46_178_8_stop" ]
         %a.5 = local;
-        symbol [ a %a.5 161 16 17 ];
+        symbol [ a %a.5 173 16 17 ];
         %tmp.13 = lgetv %list.3;
-        symbol [ list %tmp.13 161 20 24 ];
+        symbol [ list %tmp.13 173 20 24 ];
         %tmp.14 = lgetv %i.4;
-        symbol [ i %tmp.14 161 25 26 ];
+        symbol [ i %tmp.14 173 25 26 ];
         %tmp.15 = agetv %tmp.13 %tmp.14;
         %tmp.16 = as %tmp.15 Dictionary;
-        symbol [ Dictionary %tmp.16 161 31 41 ];
+        symbol [ Dictionary %tmp.16 173 31 41 ];
         lputv %a.5 %tmp.16;
-        symbol [ a %a.5 161 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 162 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_162_12_162_49_if_stmt:
-        symbol [ AlarmStore %tmp.18 162 17 27 ];
+        symbol [ a %a.5 173 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 174 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_174_12_174_49_if_stmt:
+        symbol [ AlarmStore %tmp.18 174 17 27 ];
         %tmp.18 = getv ? :AlarmStore;
-        symbol [ isOn %tmp.19 162 28 32 ];
+        symbol [ isOn %tmp.19 174 28 32 ];
         %tmp.19 = getv function %tmp.18 :isOn;
         %tmp.20 = lgetv %a.5;
-        symbol [ a %tmp.20 162 33 34 ];
+        symbol [ a %tmp.20 174 33 34 ];
         %tmp.21 = invoke %tmp.18 %tmp.19(%tmp.20);
         %tmp.22 = not %tmp.21;
-        bf %tmp.22 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_162_12_162_49_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_162_12_162_49_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_162_37_162_49_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 162 39 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_incr;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_162_37_162_49_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_162_12_162_49_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_162_12_162_49_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 163 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_46_166_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_46_166_8_stop" ]
+        bf %tmp.22 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_174_12_174_49_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_174_12_174_49_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_174_37_174_49_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 174 39 ]
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_incr;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_174_37_174_49_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_174_12_174_49_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_174_12_174_49_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 175 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_46_178_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_46_178_8_stop" ]
         %e.6 = local;
-        symbol [ e %e.6 163 16 17 ];
-        symbol [ AlarmStore %tmp.24 163 20 30 ];
+        symbol [ e %e.6 175 16 17 ];
+        symbol [ AlarmStore %tmp.24 175 20 30 ];
         %tmp.24 = getv ? :AlarmStore;
-        symbol [ nextFireEpoch %tmp.25 163 31 44 ];
+        symbol [ nextFireEpoch %tmp.25 175 31 44 ];
         %tmp.25 = getv function %tmp.24 :nextFireEpoch;
         %tmp.26 = lgetv %a.5;
-        symbol [ a %tmp.26 163 45 46 ];
+        symbol [ a %tmp.26 175 45 46 ];
         %tmp.27 = lgetv %nowSecs;
-        symbol [ nowSecs %tmp.27 163 48 55 ];
+        symbol [ nowSecs %tmp.27 175 48 55 ];
         %tmp.28 = invoke %tmp.24 %tmp.25(%tmp.26, %tmp.27);
         lputv %e.6 %tmp.28;
-        symbol [ e %e.6 163 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 164 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_164_12_164_35_if_stmt:
+        symbol [ e %e.6 175 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 176 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_176_12_176_35_if_stmt:
         %tmp.29 = lgetv %e.6;
-        symbol [ e %tmp.29 164 16 17 ];
+        symbol [ e %tmp.29 176 16 17 ];
         %tmp.30 = 0;
         %tmp.31 = lt %tmp.29 %tmp.30;
-        bf %tmp.31 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_164_12_164_35_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_164_12_164_35_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_164_23_164_35_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 164 25 ]
-        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_incr;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_164_23_164_35_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_164_12_164_35_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_164_12_164_35_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 165 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_12_165_74_if_stmt:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_16_165_36_begin:
+        bf %tmp.31 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_176_12_176_35_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_176_12_176_35_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_176_23_176_35_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 176 25 ]
+        goto break @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_incr;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_176_23_176_35_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_176_12_176_35_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_176_12_176_35_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 177 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_12_177_74_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_16_177_36_begin:
         %tmp.32 = lgetv %best.1;
-        symbol [ best %tmp.32 165 16 20 ];
+        symbol [ best %tmp.32 177 16 20 ];
         %tmp.33 = null;
         %tmp.34 = eq %tmp.32 %tmp.33;
-        bt %tmp.34 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_12_165_74_if_true;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_32_165_36_false:
+        bt %tmp.34 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_12_177_74_if_true;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_32_177_36_false:
         %tmp.35 = lgetv %e.6;
-        symbol [ e %tmp.35 165 32 33 ];
+        symbol [ e %tmp.35 177 32 33 ];
         %tmp.36 = lgetv %bestEpoch.2;
-        symbol [ bestEpoch %tmp.36 165 36 45 ];
+        symbol [ bestEpoch %tmp.36 177 36 45 ];
         %tmp.37 = lt %tmp.35 %tmp.36;
         push %tmp.37;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_32_165_36_end:
-        %tmp.38 = phi [%tmp.34 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_16_165_36_begin] [%tmp.37 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_32_165_36_false] [%tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_32_165_36_end];
-        bf %tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_12_165_74_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_12_165_74_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_47_165_74_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 165 49 ]
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_32_177_36_end:
+        %tmp.38 = phi [%tmp.34 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_16_177_36_begin] [%tmp.37 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_32_177_36_false] [%tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_32_177_36_end];
+        bf %tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_12_177_74_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_12_177_74_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_47_177_74_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 177 49 ]
         %tmp.39 = lgetv %a.5;
-        symbol [ a %tmp.39 165 56 57 ];
+        symbol [ a %tmp.39 177 56 57 ];
         lputv %best.1 %tmp.39;
-        symbol [ best %best.1 165 49 53 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 165 59 ]
+        symbol [ best %best.1 177 49 53 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 177 59 ]
         %tmp.40 = lgetv %e.6;
-        symbol [ e %tmp.40 165 71 72 ];
+        symbol [ e %tmp.40 177 71 72 ];
         lputv %bestEpoch.2 %tmp.40;
-        symbol [ bestEpoch %bestEpoch.2 165 59 68 ];
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_47_165_74_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_12_165_74_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_165_12_165_74_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_46_166_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_incr:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 160 ]
+        symbol [ bestEpoch %bestEpoch.2 177 59 68 ];
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_47_177_74_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_12_177_74_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_177_12_177_74_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_46_178_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 172 ]
         %tmp.43 = lgetv %i.4;
-        symbol [ i %tmp.43 160 41 42 ];
+        symbol [ i %tmp.43 172 41 42 ];
         %tmp.44 = add %tmp.43 1;
         lputv %i.4 %tmp.44;
-        symbol [ i %i.4 160 41 42 ];
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_test;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_160_8_166_8_for_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 167 8 ]
+        symbol [ i %i.4 172 41 42 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_172_8_178_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc" 179 8 ]
         %tmp.45 = lgetv %best.1;
-        symbol [ best %tmp.45 167 15 19 ];
+        symbol [ best %tmp.45 179 15 19 ];
         ret %tmp.45;
-_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_156_64_168_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_AlarmEngine_mc_168_64_180_4_stop:
     }
 }
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/AlarmEngine.mc"; @line = 11; ]

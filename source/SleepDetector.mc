@@ -86,8 +86,39 @@ class SleepDetector {
     private static var _liveAt as Number = 0;      // epoch secs it arrived
     private static var _source as String = "-";    // which source last worked
 
+    // Tracks that a sampling session is open, INDEPENDENTLY of whether the sensor
+    // API accepted us. These must be two separate flags.
+    //
+    // With a single flag the failure mode is severe and silent: if the Sensor
+    // calls throw, _sensorOn stays false, so the next tick calls startSensor()
+    // again - and the buffer reset below runs again. The buffer would be wiped
+    // every 15 seconds, never reach MIN_HR_SAMPLES, and smart wake would never
+    // fire, on exactly the devices where the sensor API is flaky. The session
+    // flag is set unconditionally so the reset happens once per session whether
+    // or not the hardware cooperated; the polling fallbacks in currentHr() can
+    // still supply data.
+    private static var _sessionOpen as Boolean = false;
+
     static function startSensor() as Void {
-        if (_sensorOn) { return; }
+        if (_sessionOpen) { return; }
+        _sessionOpen = true;
+
+        // Each session recalibrates from scratch: last night's floor, buffer and
+        // sample counter are not evidence about tonight.
+        _nightFloor = 0.0;
+        _samples = [];
+        _seq = 0;
+        _lastCalc = -9999;
+        _lightCacheN = -1;
+        _boundsValid = false;
+        _awakeStreak = 0;
+        _awakeCacheSeq = -1;
+        _best = -1;
+        _armed = false;
+        _liveHr = 0;
+        _liveAt = 0;
+        _source = "-";
+
         try {
             if (Sensor has :setEnabledSensors && Sensor has :SENSOR_HEARTRATE) {
                 Sensor.setEnabledSensors([Sensor.SENSOR_HEARTRATE]);
@@ -101,27 +132,19 @@ class SleepDetector {
         } catch (e) {
             _sensorOn = false;   // fall back to polling the other sources
         }
-        // Each session recalibrates from scratch: last night's floor, buffer and
-        // sample counter are not evidence about tonight.
-        _nightFloor = 0.0;
-        _samples = [];
-        _seq = 0;
-        _lastCalc = -9999;
-        _lightCacheN = -1;
-        _boundsValid = false;
-        _awakeStreak = 0;
-        _best = -1;
-        _armed = false;
     }
 
     // Released as soon as the window has passed - an open sensor session is the
     // expensive part, so it must not stay on for the rest of the night.
     static function stopSensor() as Void {
-        if (!_sensorOn) { return; }
-        try {
-            if (Sensor has :disableSensorEvents) { Sensor.disableSensorEvents(); }
-            if (Sensor has :setEnabledSensors) { Sensor.setEnabledSensors([]); }
-        } catch (e) {
+        if (!_sessionOpen) { return; }
+        _sessionOpen = false;
+        if (_sensorOn) {
+            try {
+                if (Sensor has :disableSensorEvents) { Sensor.disableSensorEvents(); }
+                if (Sensor has :setEnabledSensors) { Sensor.setEnabledSensors([]); }
+            } catch (e) {
+            }
         }
         _listener = null;
         _sensorOn = false;
@@ -356,6 +379,9 @@ class SleepDetector {
         }
         _awakeStreak = 0;
         _lightCacheN = -1;
+        // Must also drop the awake memo, or a value computed before the reset
+        // could be returned afterwards within the same tick.
+        _awakeCacheSeq = -1;
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────
@@ -452,7 +478,24 @@ class SleepDetector {
     private static var _awakeStreak as Number = 0;
     private static var _nightFloor as Float = 0.0;
 
+    // Memoised per sample, and it MUST be.
+    //
+    // AlarmEngine.evaluate() calls this from inside a loop over every enabled
+    // alarm. Without the memo, two alarms approaching at once would advance
+    // _awakeStreak twice per tick, so the "held for 4 samples" requirement would
+    // be satisfied in 2 ticks instead of 4 - the false-positive protection would
+    // silently weaken in proportion to how many alarms are set.
+    private static var _awakeCache as Boolean = false;
+    private static var _awakeCacheSeq as Number = -1;
+
     static function isAwake() as Boolean {
+        if (_awakeCacheSeq == _seq) { return _awakeCache; }
+        _awakeCacheSeq = _seq;
+        _awakeCache = computeAwake();
+        return _awakeCache;
+    }
+
+    private static function computeAwake() as Boolean {
         var n = _samples.size();
         if (n < MIN_HR_SAMPLES) { _awakeStreak = 0; return false; }
         // Ensures percentiles (and therefore the floor) are current.
