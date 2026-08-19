@@ -26,8 +26,15 @@ class DaysPicker extends WatchUi.CheckboxMenu {
     function recompute() as Void {
         var mask = 0;
         for (var i = 0; i < 7; i++) {
-            var item = getItem(i) as WatchUi.CheckboxMenuItem;
-            if (item.isChecked()) { mask |= (1 << i); }
+            // getItem() is nullable. Every other caller in the app checks it;
+            // this one dereferenced straight through, so a null would throw
+            // while the user was editing days and take the app down with it.
+            var item = getItem(i);
+            if (item != null && (item instanceof WatchUi.CheckboxMenuItem)) {
+                if ((item as WatchUi.CheckboxMenuItem).isChecked()) {
+                    mask |= (1 << i);
+                }
+            }
         }
         alarm.put("days", mask);
     }

@@ -631,6 +631,13 @@ runs, since several suites generate randomised scenarios.)
 | 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
 
+Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
+dereferenced the nullable `getItem()` without a check — the only such call in the
+app — and `ChoiceView.move()` took a modulo by a list size that was never
+verified non-zero. Neither was reachable on the happy path, but both would have
+crashed the app rather than degrading, and an alarm app that crashes while you
+sleep is the worst possible failure.
+
 Representative coverage:
 
 - **Exhaustive passcode sweep** — all 10,000 four-digit codes; exactly 2 accepted

@@ -44,6 +44,7 @@ class ChoiceView extends WatchUi.View {
 
     function move(delta as Number) as Void {
         var n = _options.size();
+        if (n <= 0) { return; }   // modulo by zero would take the app down
         _idx = (_idx + n + delta) % n;
         WatchUi.requestUpdate();
     }
