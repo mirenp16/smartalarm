@@ -134,21 +134,21 @@ const HR_STALE_SECS = 180;
 const SESSION_RESUME_SECS = 300;
 
 // ── Active Alarm Mode palette ────────────────────────────────────────────────
-// Deliberately dim: this screen is lit all night beside a bed, and on an AMOLED
-// the power drawn is proportional to how bright the lit pixels are. The first
-// values were too far the other way though - unreadable in a dark room without
-// squinting - so these are one step up. Only a few hundred text pixels are lit,
-// so the battery cost of the increase is negligible.
-const UI_TITLE = 0xCCCCCC;   // "Active Alarm Mode"
-const UI_LABEL = 0xAAAAAA;   // "Current Time" / "Next Alarm" captions
-const UI_VALUE = 0xDDDDDD;   // the current time
-const UI_DIM   = 0x999999;   // heart-rate status while still checking
-// The heart-rate readout is deliberately a soft white, NOT green. Green reads as
-// an alert and pulled the eye away from the next-alarm time, which should stay
-// the brightest thing on the screen. Soft white at FONT_XTINY sits clearly below
-// the pure-white FONT_LARGE alarm time in the visual hierarchy.
-const UI_HR    = 0xCCCCCC;   // heart-rate readout, normal
-const UI_AMBER = 0xFF9933;   // heart-rate not available - this one SHOULD stand out
+// This screen is lit all night beside a bed, so it is deliberately dim: on an
+// AMOLED the power drawn scales with how bright the lit pixels are, and a bright
+// screen in a dark bedroom is unpleasant besides.
+//
+// The values went too dim once (unreadable without squinting) and then too
+// bright. These are the settled middle: the next-alarm time stays pure white and
+// is the one thing meant to draw the eye; everything else is grey, with the
+// heart-rate readout at the same weight as the captions so it informs without
+// competing.
+const UI_TITLE = 0xAAAAAA;   // "Active Alarm Mode"
+const UI_LABEL = 0x888888;   // "Current Time" / "Next Alarm" captions
+const UI_VALUE = 0xAAAAAA;   // the current time
+const UI_HR    = 0x888888;   // heart-rate readout - light grey, same as captions
+const UI_DIM   = 0x888888;   // "Checking HR..." while the bedtime check runs
+const UI_AMBER = 0xDD8833;   // no heart rate - the one state meant to stand out
 
 // ── Firing tolerance ─────────────────────────────────────────────────────────
 // How long after the set time an alarm may still fire. Past this we treat it as

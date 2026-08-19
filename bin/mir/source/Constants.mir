@@ -96,18 +96,18 @@ const PROBE_TICKS = 4;
 const HR_STALE_SECS = 180;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 134; @position = 6; @symbol_constdef = [SESSION_RESUME_SECS,134,6,25]; ]
 const SESSION_RESUME_SECS = 300;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 142; @position = 6; @symbol_constdef = [UI_TITLE,142,6,14]; ]
-const UI_TITLE = 0xCCCCCC;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 143; @position = 6; @symbol_constdef = [UI_LABEL,143,6,14]; ]
-const UI_LABEL = 0xAAAAAA;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 144; @position = 6; @symbol_constdef = [UI_VALUE,144,6,14]; ]
-const UI_VALUE = 0xDDDDDD;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 145; @position = 6; @symbol_constdef = [UI_DIM,145,6,12]; ]
-const UI_DIM = 0x999999;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 150; @position = 6; @symbol_constdef = [UI_HR,150,6,11]; ]
-const UI_HR = 0xCCCCCC;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 146; @position = 6; @symbol_constdef = [UI_TITLE,146,6,14]; ]
+const UI_TITLE = 0xAAAAAA;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 147; @position = 6; @symbol_constdef = [UI_LABEL,147,6,14]; ]
+const UI_LABEL = 0x888888;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 148; @position = 6; @symbol_constdef = [UI_VALUE,148,6,14]; ]
+const UI_VALUE = 0xAAAAAA;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 149; @position = 6; @symbol_constdef = [UI_HR,149,6,11]; ]
+const UI_HR = 0x888888;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 150; @position = 6; @symbol_constdef = [UI_DIM,150,6,12]; ]
+const UI_DIM = 0x888888;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 151; @position = 6; @symbol_constdef = [UI_AMBER,151,6,14]; ]
-const UI_AMBER = 0xFF9933;
+const UI_AMBER = 0xDD8833;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 157; @position = 6; @symbol_constdef = [FIRE_GRACE_MINS,157,6,21]; ]
 const FIRE_GRACE_MINS = 15;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 160; @position = 6; @symbol_constdef = [DEFAULT_SNOOZE_MINUTES,160,6,28]; ]

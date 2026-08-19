@@ -291,7 +291,7 @@ class BedsideView extends WatchUi.View {
 
         // Exit controls only appear briefly after a button press.
         if (controlsVisible()) {
-            dc.setColor(_exitArmed ? 0x33AAFF : UI_LABEL, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(_exitArmed ? UI_BLUE : UI_LABEL, Graphics.COLOR_TRANSPARENT);
             var hint = _exitArmed ? "Press UP now to exit" : "BACK then UP to exit";
             dc.drawText(_cx, _h * 84 / 100, Graphics.FONT_XTINY, hint, vc);
             Ui.back(dc, _w, _h, "BACK");
