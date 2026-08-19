@@ -253,6 +253,32 @@ class SleepDetector {
         return null;
     }
 
+    // ── Bedtime probe ────────────────────────────────────────────────────────
+    //
+    // A short heart-rate check when Active Alarm Mode opens, purely so the sensor
+    // can be verified AT BEDTIME.
+    //
+    // Sampling proper doesn't begin until roughly 105 minutes before the alarm,
+    // which for a 06:00 alarm is 04:15 - so the status readout, whose whole
+    // purpose is to prove the sensor works, only appeared while the user was
+    // asleep. A reading taken now costs a few seconds of sensor time and answers
+    // the only question that matters before going to bed.
+    private static var _probeHr as Number = 0;
+    private static var _probeDone as Boolean = false;
+
+    static function probe() as Void {
+        startSensor();
+        var hr = currentHr();
+        if (hr != null) { _probeHr = hr; _probeDone = true; }
+    }
+    static function endProbe() as Void {
+        _probeDone = true;
+        stopSensor();
+    }
+    static function probeHr() as Number { return _probeHr; }
+    static function probeDone() as Boolean { return _probeDone; }
+    static function resetProbe() as Void { _probeHr = 0; _probeDone = false; }
+
     // ── Diagnostics ──────────────────────────────────────────────────────────
     // Surfaced on the Active Alarm screen. The whole reason this bug survived so
     // long is that a dead sensor looked identical to a normal night.

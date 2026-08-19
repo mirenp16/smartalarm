@@ -621,7 +621,7 @@ runs, since several suites generate randomised scenarios.)
 | 14 | Differential, fuzz and boundary verification of the wake decision | 160 |
 | 15 | Integration: view lifecycle, multi-alarm, whole-night sequencing | 30 |
 | 16 | Calendar edges, day rollover, snooze state machine, watchdog budget | 35 |
-| 17 | Ring/snooze/passcode state machine and view lifecycle | 330 |
+| 17 | Ring/snooze/passcode state machine, view lifecycle, bedtime probe | 370 |
 
 Representative coverage:
 
@@ -737,21 +737,27 @@ passcode is only entered once.
 
 ---
 
-### The alarm never rings early
+### Checking that sleep tracking is working
 
-Open Active Alarm Mode and look at the dim `HR` line, which appears once a wake window is
-within about 105 minutes.
+Open Active Alarm Mode. A dim status line sits below the **Next Alarm** time, about
+three-quarters of the way down the screen. It is always present, and reads one of:
 
 | Readout | Meaning |
 |---|---|
-| `HR -- none` (amber) | No heart-rate source is responding. Check the watch is worn snugly and that wrist heart rate is enabled in the watch's own settings. |
-| `HR -- live/sensor/...` (amber) | A source was reachable but returned nothing usable. |
-| `HR 52  18/40` | Working, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
-| `HR 52  ready` | Working and armed. |
+| `checking HR...` | Taking the bedtime reading — lasts a few seconds. |
+| `HR 54  tracks from 4:15 AM` | **Sensor confirmed working.** Sleep tracking begins at the time shown; before then the app only watches the clock, which is what makes it cheap to run all night. |
+| `HR 54  sensor ok` | Sensor working, but no alarm is currently set. |
+| `HR --  none` (amber) | **No heart-rate source is responding.** Check the watch is worn snugly and that wrist heart rate is enabled in the watch's own settings. |
+| `HR 52  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
+| `HR 52  ready` | Sleep tracking running and armed. |
+
+The line originally appeared only once sampling had started, roughly 105 minutes before the
+alarm — 04:15 for a 06:00 alarm. The single indicator meant to reassure you at bedtime was
+therefore visible only while you were asleep. It now takes a reading the moment the screen
+opens, so the question "will this work tonight?" can be answered before going to bed.
 
 If it reads `ready` and the alarm still fires exactly on time, that is a legitimate outcome:
-no sufficiently light moment was found inside the window, so the deadline governed. A longer
-Sleep Cycle Window gives the detector more to work with, though 45 minutes measured best.
+no sufficiently light moment was found inside the window, so the deadline governed.
 
 ---
 

@@ -29,6 +29,7 @@ class BedsideView extends WatchUi.View {
     private var _tickMs as Number = 0;             // current timer cadence
     private var _nextStr as String? = null;        // cached "Next Alarm" text
     private var _sampling as Boolean = false;      // is the HR session open?
+    private var _probeTicks as Number = 0;         // bedtime sensor-check ticks used
     private var _w as Number = 360;
     private var _h as Number = 360;
     private var _cx as Number = 180;
@@ -60,6 +61,15 @@ class BedsideView extends WatchUi.View {
         // battery, so it was removed. The palm gesture remains unavoidable; the
         // practical defence is turning the touchscreen off overnight.
         if (AlarmStore.ringingId() == null) { _ringingShown = false; }
+        // Re-check the sensor each time Active Alarm Mode is opened, so the
+        // status line reflects tonight rather than a previous session. Probe
+        // straight away rather than waiting for the first tick, which on the slow
+        // cadence would leave "checking HR..." on screen for a whole minute.
+        if (_probeTicks == 0) {
+            SleepDetector.resetProbe();
+            try { SleepDetector.probe(); } catch (ep) { }
+            _probeTicks = 1;
+        }
         startTimer(pickInterval());
     }
 
@@ -116,9 +126,21 @@ class BedsideView extends WatchUi.View {
                 SleepDetector.startSensor();
                 SleepDetector.sample();
                 _sampling = true;
+                _probeTicks = PROBE_TICKS;      // probe is moot once really sampling
             } else if (_sampling) {
                 SleepDetector.stopSensor();
                 _sampling = false;
+            } else if (_probeTicks < PROBE_TICKS) {
+                // Bedtime check: give the sensor a few ticks to produce a reading
+                // so the status line can be trusted before going to sleep, then
+                // release it again for the rest of the night.
+                SleepDetector.probe();
+                _probeTicks++;
+                if (_probeTicks >= PROBE_TICKS || SleepDetector.probeHr() > 0) {
+                    _probeTicks = PROBE_TICKS;
+                    SleepDetector.endProbe();
+                }
+                _lastDrawMin = -1;              // show the result immediately
             }
         } catch (e) {
             // Sensor hiccup - keep going, the deadline will still fire.
@@ -182,15 +204,20 @@ class BedsideView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy + 48, Graphics.FONT_LARGE, nextAlarmStr(), vc);
 
-        // Heart-rate status, shown only while a wake window is approaching.
+        // Heart-rate status. ALWAYS shown, in one of three states.
         //
         // This exists because the smart-wake failure was INVISIBLE: with no HR
         // data the app quietly behaved like an ordinary alarm and there was no
-        // way to tell from the watch that anything was wrong. One dim line means
-        // a dead sensor is obvious at a glance instead of taking months to spot.
+        // way to tell from the watch that anything was wrong.
+        //
+        // It originally appeared only once sampling had begun - about 105 minutes
+        // before the alarm. For a 06:00 alarm that is 04:15, so the one indicator
+        // meant to reassure you at bedtime was only visible while you were
+        // asleep. Hence the bedtime probe: a reading is taken as soon as this
+        // screen opens, and the line reports something useful at every hour.
+        var hrTxt;
+        var hrCol;
         if (_sampling) {
-            var hrTxt;
-            var hrCol;
             var hr = SleepDetector.lastHr();
             var cnt = SleepDetector.sampleCount();
             if (cnt == 0 || hr == 0) {
@@ -206,9 +233,22 @@ class BedsideView extends WatchUi.View {
                 hrTxt = "HR " + hr.format("%d") + "  ready";
                 hrCol = 0x556655;                       // armed and detecting
             }
-            dc.setColor(hrCol, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(_cx, _h * 76 / 100, Graphics.FONT_XTINY, hrTxt, vc);
+        } else if (!SleepDetector.probeDone()) {
+            hrTxt = "checking HR...";
+            hrCol = 0x555555;
+        } else if (SleepDetector.probeHr() > 0) {
+            // Sensor confirmed working. Say when sleep tracking will actually
+            // begin, so its absence until then isn't mistaken for a fault.
+            var from = trackFromStr();
+            hrTxt = "HR " + SleepDetector.probeHr().format("%d")
+                    + (from.equals("--") ? "  sensor ok" : ("  tracks from " + from));
+            hrCol = 0x556655;
+        } else {
+            hrTxt = "HR --  " + SleepDetector.source();
+            hrCol = 0xAA5500;
         }
+        dc.setColor(hrCol, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _h * 76 / 100, Graphics.FONT_XTINY, hrTxt, vc);
 
         // Exit controls only appear briefly after a button press.
         if (controlsVisible()) {
@@ -218,6 +258,19 @@ class BedsideView extends WatchUi.View {
             Ui.back(dc, _w, _h, "BACK");
             Ui.up(dc, _w, _h, "UP");
         }
+    }
+
+    // When sleep tracking will begin: SAMPLE_LEAD_MINS + the widest window before
+    // the next alarm. Shown so the gap before then reads as "not yet" rather than
+    // "broken".
+    private function trackFromStr() as String {
+        var nowSecs = Time.now().value();
+        var d = AlarmEngine.secsUntilNextTarget(nowSecs);
+        if (d < 0) { return "--"; }
+        var startSecs = nowSecs + d - FAST_TICK_WITHIN_SECS;
+        if (startSecs < nowSecs) { startSecs = nowSecs; }
+        var i = Gregorian.info(new Time.Moment(startSecs), Time.FORMAT_SHORT);
+        return Fmt.time12(i.hour, i.min);
     }
 
     // Cached string, refreshed on tick. Drawing must stay cheap: computing this

@@ -120,6 +120,10 @@ const AWAKE_HR_RATIO = 1.40;
 const AWAKE_CONFIRM_TICKS = 4;
 // How many minutes before the window opens we do the "are you already awake?" check.
 const AWAKE_CHECK_LEAD = 15;
+// Ticks spent on the bedtime heart-rate check when Active Alarm Mode opens.
+// Enough for the optical sensor to spin up and return a value; it stops early as
+// soon as a reading arrives, then releases the sensor until real sampling starts.
+const PROBE_TICKS = 4;
 // How old a live sensor callback may be before we stop trusting it and re-poll.
 const HR_STALE_SECS = 180;
 // If a sampling session reopens within this many seconds of closing, the heart-
