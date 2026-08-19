@@ -78,7 +78,14 @@ class BedsideView extends WatchUi.View {
                     _probeTicks = PROBE_TICKS;
                 } else {
                     SleepDetector.probe();
-                    _probeTicks = 1;
+                    // Got a reading straight away? Release the sensor now rather
+                    // than holding it open for another tick.
+                    if (SleepDetector.probeHr() > 0) {
+                        _probeTicks = PROBE_TICKS;
+                        SleepDetector.endProbe();
+                    } else {
+                        _probeTicks = 1;
+                    }
                 }
             } catch (ep) {
                 _probeTicks = 1;
@@ -104,12 +111,17 @@ class BedsideView extends WatchUi.View {
 
     // Leaving the view releases the sensor. Without this an open HR session
     // would keep draining the battery after Active Alarm Mode had gone away.
+    //
+    // Released UNCONDITIONALLY, not just when _sampling is set. The bedtime probe
+    // also opens a session, and when it finds no heart rate (watch off the wrist)
+    // it stays open waiting for one while _sampling is still false. Guarding on
+    // _sampling therefore leaked the sensor for as long as the app stayed
+    // running. stopSensor() is a no-op when no session is open, so calling it
+    // every time is both safe and correct.
     function onHide() as Void {
         stopTimer();
-        if (_sampling) {
-            try { SleepDetector.stopSensor(); } catch (e) { }
-            _sampling = false;
-        }
+        try { SleepDetector.stopSensor(); } catch (e) { }
+        _sampling = false;
     }
 
     // The whole body is guarded. This runs unattended for hours, and a single
@@ -246,19 +258,19 @@ class BedsideView extends WatchUi.View {
                 hrTxt = "No HR signal";
                 hrCol = UI_AMBER;
             } else if (!SleepDetector.ready()) {
-                hrTxt = "HR " + hr.format("%d") + "  " + cnt.format("%d")
+                hrTxt = "HR: " + hr.format("%d") + " BPM  " + cnt.format("%d")
                         + "/" + MIN_HR_SAMPLES.format("%d");
-                hrCol = UI_DIM;
+                hrCol = UI_HR;
             } else {
-                hrTxt = "HR " + hr.format("%d") + "  ready";
-                hrCol = UI_OK;
+                hrTxt = "HR: " + hr.format("%d") + " BPM  ready";
+                hrCol = UI_HR;
             }
         } else if (!SleepDetector.probeDone()) {
             hrTxt = "Checking HR...";
             hrCol = UI_DIM;
         } else if (SleepDetector.probeHr() > 0) {
-            hrTxt = "HR " + SleepDetector.probeHr().format("%d") + "  OK";
-            hrCol = UI_OK;
+            hrTxt = "HR: " + SleepDetector.probeHr().format("%d") + " BPM";
+            hrCol = UI_HR;
         } else {
             hrTxt = "No HR signal";
             hrCol = UI_AMBER;

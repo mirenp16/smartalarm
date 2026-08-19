@@ -142,9 +142,13 @@ const SESSION_RESUME_SECS = 300;
 const UI_TITLE = 0xCCCCCC;   // "Active Alarm Mode"
 const UI_LABEL = 0xAAAAAA;   // "Current Time" / "Next Alarm" captions
 const UI_VALUE = 0xDDDDDD;   // the current time
-const UI_DIM   = 0x999999;   // heart-rate status, neutral
-const UI_OK    = 0x66CC66;   // heart-rate confirmed working
-const UI_AMBER = 0xFF9933;   // heart-rate not available
+const UI_DIM   = 0x999999;   // heart-rate status while still checking
+// The heart-rate readout is deliberately a soft white, NOT green. Green reads as
+// an alert and pulled the eye away from the next-alarm time, which should stay
+// the brightest thing on the screen. Soft white at FONT_XTINY sits clearly below
+// the pure-white FONT_LARGE alarm time in the visual hierarchy.
+const UI_HR    = 0xCCCCCC;   // heart-rate readout, normal
+const UI_AMBER = 0xFF9933;   // heart-rate not available - this one SHOULD stand out
 
 // ── Firing tolerance ─────────────────────────────────────────────────────────
 // How long after the set time an alarm may still fire. Past this we treat it as

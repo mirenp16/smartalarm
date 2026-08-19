@@ -412,6 +412,12 @@ far-off one wiped the peak on every tick, so "the score has fallen below its pea
 become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
 The reset is now deferred until the whole list has been examined.
 
+**7. A failed bedtime probe leaked the sensor.** `onHide()` released the heart-rate session
+only when `_sampling` was set — but the bedtime probe also opens a session, and when it finds
+no heart rate (watch off the wrist) it stays open waiting for one while `_sampling` is still
+false. Leaving Active Alarm Mode then left the optical sensor running indefinitely. The
+release is now unconditional; `stopSensor()` is a no-op when nothing is open.
+
 **6. Dismissing one alarm disarmed the next.** `finishAwake()` guarded the exit on
 `validSnoozeId() == null` — but the line immediately above it cleared the snooze, so the
 guard was always true and Active Alarm Mode closed unconditionally. Since alarms only ring
@@ -622,6 +628,7 @@ runs, since several suites generate randomised scenarios.)
 | 15 | Integration: view lifecycle, multi-alarm, whole-night sequencing | 30 |
 | 16 | Calendar edges, day rollover, snooze state machine, watchdog budget | 35 |
 | 17 | Ring/snooze/passcode state machine, view lifecycle, bedtime probe | 370 |
+| 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
 
 Representative coverage:
 
@@ -745,10 +752,10 @@ three-quarters of the way down the screen. It is always present, and reads one o
 | Readout | Meaning |
 |---|---|
 | `Checking HR...` | Taking the bedtime reading. Resolves within about a minute. |
-| `HR 63  OK` (green) | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
+| `HR: 63 BPM` | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
 | `No HR signal` (amber) | **No heart-rate reading available.** Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. |
-| `HR 52  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
-| `HR 52  ready` (green) | Sleep tracking running and armed. |
+| `HR: 52 BPM  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
+| `HR: 52 BPM  ready` | Sleep tracking running and armed. |
 
 The line originally appeared only once sampling had started, roughly 105 minutes before the
 alarm — 04:15 for a 06:00 alarm. The single indicator meant to reassure you at bedtime was
@@ -757,7 +764,11 @@ opens, so the question "will this work tonight?" can be answered before going to
 
 An earlier wording, `HR 63 tracks from 4:15 AM`, was replaced: at ~324 px it overran the
 307 px usable width of a round screen at that height, and it made readers ask what "tracks
-from" meant. Every state now fits inside half the width and asserts one fact.
+from" meant. Every state now fits well inside the usable width and asserts one fact.
+
+The readout is a soft white rather than green. Green reads as an alert and drew the eye away
+from the next-alarm time, which should stay the brightest element on the screen — only the
+amber fault state is meant to stand out.
 
 If it reads `ready` and the alarm still fires exactly on time, that is a legitimate outcome:
 no sufficiently light moment was found inside the window, so the deadline governed.
