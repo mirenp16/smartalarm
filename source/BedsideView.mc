@@ -67,8 +67,22 @@ class BedsideView extends WatchUi.View {
         // cadence would leave "checking HR..." on screen for a whole minute.
         if (_probeTicks == 0) {
             SleepDetector.resetProbe();
-            try { SleepDetector.probe(); } catch (ep) { }
-            _probeTicks = 1;
+            try {
+                // Already inside the sampling window? Then start real sampling
+                // straight away, so the first frame shows the live readout rather
+                // than a probe result that is about to be replaced.
+                if (AlarmEngine.shouldSampleAt(AlarmEngine.secsUntilNextTarget(Time.now().value()))) {
+                    SleepDetector.startSensor();
+                    SleepDetector.sample();
+                    _sampling = true;
+                    _probeTicks = PROBE_TICKS;
+                } else {
+                    SleepDetector.probe();
+                    _probeTicks = 1;
+                }
+            } catch (ep) {
+                _probeTicks = 1;
+            }
         }
         startTimer(pickInterval());
     }
@@ -161,7 +175,10 @@ class BedsideView extends WatchUi.View {
 
         // Speed up as the alarm approaches, slow down again afterwards. Reuses
         // the distance computed above rather than scanning the alarms again.
-        var wanted = (secsUntil >= 0 && secsUntil <= FAST_TICK_WITHIN_SECS)
+        // While the bedtime check is still running, tick fast so it resolves in
+        // about a minute rather than sitting on "Checking HR..." for four.
+        var wanted = ((secsUntil >= 0 && secsUntil <= FAST_TICK_WITHIN_SECS)
+                      || _probeTicks < PROBE_TICKS)
                      ? TICK_FAST_MS : TICK_SLOW_MS;
         startTimer(wanted);
 
@@ -190,16 +207,16 @@ class BedsideView extends WatchUi.View {
         var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 
         // Title, curved along the top of the bezel (falls back to straight text).
-        Ui.labelSized(dc, _w, _h, 90, 0xAAAAAA, "Active Alarm Mode", 28);
+        Ui.labelSized(dc, _w, _h, 90, UI_TITLE, "Active Alarm Mode", 28);
 
         // Current time
-        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy - 62, Graphics.FONT_XTINY, "Current Time", vc);
-        dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(UI_VALUE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy - 32, Graphics.FONT_MEDIUM, Fmt.time12(now.hour, now.min), vc);
 
         // Next alarm (shows the snooze time if an alarm is snoozed)
-        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy + 14, Graphics.FONT_XTINY, "Next Alarm", vc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy + 48, Graphics.FONT_LARGE, nextAlarmStr(), vc);
@@ -215,44 +232,43 @@ class BedsideView extends WatchUi.View {
         // meant to reassure you at bedtime was only visible while you were
         // asleep. Hence the bedtime probe: a reading is taken as soon as this
         // screen opens, and the line reports something useful at every hour.
+        // Kept SHORT. An earlier version read "HR 63  tracks from 12:44 AM",
+        // which overran the usable width of a round screen at this height (the
+        // chord is only ~307 px at 76% down, not the full 360) and still left the
+        // reader wondering what it meant. Every state now fits in about half the
+        // width and says one thing.
         var hrTxt;
         var hrCol;
         if (_sampling) {
             var hr = SleepDetector.lastHr();
             var cnt = SleepDetector.sampleCount();
             if (cnt == 0 || hr == 0) {
-                // Naming the failing source turns "it didn't work" into something
-                // diagnosable without a debugger.
-                hrTxt = "HR --  " + SleepDetector.source();
-                hrCol = 0xAA5500;                       // amber: something is wrong
+                hrTxt = "No HR signal";
+                hrCol = UI_AMBER;
             } else if (!SleepDetector.ready()) {
                 hrTxt = "HR " + hr.format("%d") + "  " + cnt.format("%d")
                         + "/" + MIN_HR_SAMPLES.format("%d");
-                hrCol = 0x555555;                       // warming up
+                hrCol = UI_DIM;
             } else {
                 hrTxt = "HR " + hr.format("%d") + "  ready";
-                hrCol = 0x556655;                       // armed and detecting
+                hrCol = UI_OK;
             }
         } else if (!SleepDetector.probeDone()) {
-            hrTxt = "checking HR...";
-            hrCol = 0x555555;
+            hrTxt = "Checking HR...";
+            hrCol = UI_DIM;
         } else if (SleepDetector.probeHr() > 0) {
-            // Sensor confirmed working. Say when sleep tracking will actually
-            // begin, so its absence until then isn't mistaken for a fault.
-            var from = trackFromStr();
-            hrTxt = "HR " + SleepDetector.probeHr().format("%d")
-                    + (from.equals("--") ? "  sensor ok" : ("  tracks from " + from));
-            hrCol = 0x556655;
+            hrTxt = "HR " + SleepDetector.probeHr().format("%d") + "  OK";
+            hrCol = UI_OK;
         } else {
-            hrTxt = "HR --  " + SleepDetector.source();
-            hrCol = 0xAA5500;
+            hrTxt = "No HR signal";
+            hrCol = UI_AMBER;
         }
         dc.setColor(hrCol, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _h * 76 / 100, Graphics.FONT_XTINY, hrTxt, vc);
 
         // Exit controls only appear briefly after a button press.
         if (controlsVisible()) {
-            dc.setColor(_exitArmed ? 0x33AAFF : 0x777777, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(_exitArmed ? 0x33AAFF : UI_LABEL, Graphics.COLOR_TRANSPARENT);
             var hint = _exitArmed ? "Press UP now to exit" : "BACK then UP to exit";
             dc.drawText(_cx, _h * 84 / 100, Graphics.FONT_XTINY, hint, vc);
             Ui.back(dc, _w, _h, "BACK");
@@ -260,18 +276,6 @@ class BedsideView extends WatchUi.View {
         }
     }
 
-    // When sleep tracking will begin: SAMPLE_LEAD_MINS + the widest window before
-    // the next alarm. Shown so the gap before then reads as "not yet" rather than
-    // "broken".
-    private function trackFromStr() as String {
-        var nowSecs = Time.now().value();
-        var d = AlarmEngine.secsUntilNextTarget(nowSecs);
-        if (d < 0) { return "--"; }
-        var startSecs = nowSecs + d - FAST_TICK_WITHIN_SECS;
-        if (startSecs < nowSecs) { startSecs = nowSecs; }
-        var i = Gregorian.info(new Time.Moment(startSecs), Time.FORMAT_SHORT);
-        return Fmt.time12(i.hour, i.min);
-    }
 
     // Cached string, refreshed on tick. Drawing must stay cheap: computing this
     // inside onUpdate() meant a full alarm scan on every redraw.

@@ -744,17 +744,20 @@ three-quarters of the way down the screen. It is always present, and reads one o
 
 | Readout | Meaning |
 |---|---|
-| `checking HR...` | Taking the bedtime reading — lasts a few seconds. |
-| `HR 54  tracks from 4:15 AM` | **Sensor confirmed working.** Sleep tracking begins at the time shown; before then the app only watches the clock, which is what makes it cheap to run all night. |
-| `HR 54  sensor ok` | Sensor working, but no alarm is currently set. |
-| `HR --  none` (amber) | **No heart-rate source is responding.** Check the watch is worn snugly and that wrist heart rate is enabled in the watch's own settings. |
+| `Checking HR...` | Taking the bedtime reading. Resolves within about a minute. |
+| `HR 63  OK` (green) | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
+| `No HR signal` (amber) | **No heart-rate reading available.** Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. |
 | `HR 52  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
-| `HR 52  ready` | Sleep tracking running and armed. |
+| `HR 52  ready` (green) | Sleep tracking running and armed. |
 
 The line originally appeared only once sampling had started, roughly 105 minutes before the
 alarm — 04:15 for a 06:00 alarm. The single indicator meant to reassure you at bedtime was
 therefore visible only while you were asleep. It now takes a reading the moment the screen
 opens, so the question "will this work tonight?" can be answered before going to bed.
+
+An earlier wording, `HR 63 tracks from 4:15 AM`, was replaced: at ~324 px it overran the
+307 px usable width of a round screen at that height, and it made readers ask what "tracks
+from" meant. Every state now fits inside half the width and asserts one fact.
 
 If it reads `ready` and the alarm still fires exactly on time, that is a legitimate outcome:
 no sufficiently light moment was found inside the window, so the deadline governed.

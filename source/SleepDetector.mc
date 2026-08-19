@@ -84,7 +84,6 @@ class SleepDetector {
     private static var _listener as HrListener? = null;
     private static var _liveHr as Number = 0;      // most recent callback value
     private static var _liveAt as Number = 0;      // epoch secs it arrived
-    private static var _source as String = "-";    // which source last worked
 
     // Tracks that a sampling session is open, INDEPENDENTLY of whether the sensor
     // API accepted us. These must be two separate flags.
@@ -131,7 +130,6 @@ class SleepDetector {
             _armed = false;
             _liveHr = 0;
             _liveAt = 0;
-            _source = "-";
         }
 
         try {
@@ -214,7 +212,6 @@ class SleepDetector {
     static function currentHr() as Number? {
         // 1. Live sensor callback (most accurate, only while the session is open).
         if (_liveHr > 0 && (Time.now().value() - _liveAt) <= HR_STALE_SECS) {
-            _source = "live";
             return _liveHr;
         }
         // 2. Direct sensor poll.
@@ -222,7 +219,7 @@ class SleepDetector {
             var si = Sensor.getInfo();
             if (si != null && si has :heartRate && si.heartRate != null) {
                 var h = si.heartRate as Number;
-                if (h > HR_MIN && h < 200) { _source = "sensor"; return h; }
+                if (h > HR_MIN && h < 200) { return h; }
             }
         } catch (e1) {
         }
@@ -231,7 +228,7 @@ class SleepDetector {
             var info = Activity.getActivityInfo();
             if (info != null && info.currentHeartRate != null) {
                 var hr = info.currentHeartRate as Number;
-                if (hr > HR_MIN && hr < 200) { _source = "activity"; return hr; }
+                if (hr > HR_MIN && hr < 200) { return hr; }
             }
         } catch (e2) {
         }
@@ -243,13 +240,12 @@ class SleepDetector {
                     var s = iter.next();
                     if (s != null && s.data != null) {
                         var hv = s.data as Number;
-                        if (hv > HR_MIN && hv < 200) { _source = "history"; return hv; }
+                        if (hv > HR_MIN && hv < 200) { return hv; }
                     }
                 }
             }
         } catch (e3) {
         }
-        _source = "none";
         return null;
     }
 
@@ -283,7 +279,6 @@ class SleepDetector {
     // Surfaced on the Active Alarm screen. The whole reason this bug survived so
     // long is that a dead sensor looked identical to a normal night.
     static function sampleCount() as Number { return _samples.size(); }
-    static function source() as String { return _source; }
     static function lastHr() as Number {
         var n = _samples.size();
         return (n > 0) ? _samples[n - 1] : 0;

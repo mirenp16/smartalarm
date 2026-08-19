@@ -133,6 +133,19 @@ const HR_STALE_SECS = 180;
 // data is always still relevant.
 const SESSION_RESUME_SECS = 300;
 
+// ── Active Alarm Mode palette ────────────────────────────────────────────────
+// Deliberately dim: this screen is lit all night beside a bed, and on an AMOLED
+// the power drawn is proportional to how bright the lit pixels are. The first
+// values were too far the other way though - unreadable in a dark room without
+// squinting - so these are one step up. Only a few hundred text pixels are lit,
+// so the battery cost of the increase is negligible.
+const UI_TITLE = 0xCCCCCC;   // "Active Alarm Mode"
+const UI_LABEL = 0xAAAAAA;   // "Current Time" / "Next Alarm" captions
+const UI_VALUE = 0xDDDDDD;   // the current time
+const UI_DIM   = 0x999999;   // heart-rate status, neutral
+const UI_OK    = 0x66CC66;   // heart-rate confirmed working
+const UI_AMBER = 0xFF9933;   // heart-rate not available
+
 // ── Firing tolerance ─────────────────────────────────────────────────────────
 // How long after the set time an alarm may still fire. Past this we treat it as
 // "missed" (so enabling a 7:00 alarm at 11pm doesn't ring instantly). Wider than
