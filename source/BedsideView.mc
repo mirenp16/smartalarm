@@ -156,6 +156,17 @@ class BedsideView extends WatchUi.View {
             } else if (_sampling) {
                 SleepDetector.stopSensor();
                 _sampling = false;
+                // Re-arm the bedtime check on the way back to idle.
+                //
+                // Entering Active Alarm Mode already inside the sampling window
+                // skips the probe entirely (_probeTicks is set to PROBE_TICKS but
+                // probeDone is never set). If sampling then stopped - a backup
+                // alarm just over the sampling horizon, say - the status line had
+                // no completed probe to report and no way left to run one, so it
+                // sat on "Checking HR..." indefinitely. Re-arming both restores a
+                // meaningful readout and re-confirms the sensor.
+                _probeTicks = 0;
+                SleepDetector.resetProbe();
             } else if (_probeTicks < PROBE_TICKS) {
                 // Bedtime check: give the sensor a few ticks to produce a reading
                 // so the status line can be trusted before going to sleep, then

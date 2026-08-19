@@ -629,6 +629,7 @@ runs, since several suites generate randomised scenarios.)
 | 16 | Calendar edges, day rollover, snooze state machine, watchdog budget | 35 |
 | 17 | Ring/snooze/passcode state machine, view lifecycle, bedtime probe | 370 |
 | 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
+| 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
 
 Representative coverage:
 
