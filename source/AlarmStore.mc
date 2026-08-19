@@ -280,9 +280,30 @@ class AlarmStore {
             Application.Storage.setValue(KEY_STATE_DAY, today);
             Application.Storage.setValue(KEY_DAY_STATE, {});
             _dayStateCache = {};
-            // A fresh day also clears any stale ringing/snooze state.
-            Application.Storage.setValue(KEY_RING_ID, null);
-            Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
+
+            // Clear ringing/snooze state ONLY when it is genuinely stale.
+            //
+            // These two used to be wiped unconditionally, which quietly deleted
+            // work in progress: snoozing at 23:58 for five minutes meant that at
+            // 00:00 the pending snooze was erased and the alarm never rang again.
+            // An oversleep is the single worst thing this app can do, and it
+            // needed nothing more unusual than a late night to trigger.
+            //
+            // "Fired today" is genuinely day-scoped and is right to reset. A
+            // pending snooze and an alarm that is ringing right now are absolute
+            // moments in time, and they legitimately span midnight.
+            var now = Time.now().value();
+            var graceSecs = FIRE_GRACE_MINS * 60;
+
+            var sn = Application.Storage.getValue(KEY_SNOOZE_UNTIL);
+            if (sn == null || (sn as Number) + graceSecs < now) {
+                Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
+            }
+
+            var rs = Application.Storage.getValue(KEY_RING_START);
+            if (rs == null || (now - (rs as Number)) > graceSecs) {
+                Application.Storage.setValue(KEY_RING_ID, null);
+            }
         }
     }
 

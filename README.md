@@ -550,6 +550,25 @@ others cannot:
 | **Cross-validation** on an independently written physiology model | An algorithm that only works on the model it was tuned against |
 | **Fuzzing** with adversarial streams — dead sensor, flat line, maximum oscillation, sparse nulls, monotonic ramps | Violations of the hard guarantees under inputs no real night would produce |
 | **Integration simulation** of whole nights through the real call sequence, with 1–20 alarms and screens covering the view | Bugs in the seams between components, where shared singleton state is mutated from a loop or a lifecycle callback fires more often than assumed |
+| **Calendar simulation** — every alarm minute of the day, all repeat masks over a full week, day rollovers, ±1 h clock shifts | Scheduling errors that only appear at midnight, on a particular weekday, or across a DST change |
+
+### Why the bugs arrived one layer at a time
+
+Each round of review found defects the previous round could not have, because
+each round modelled a layer the previous one did not:
+
+| Layer | Found by | Example defect |
+|---|---|---|
+| Detector maths | Simulation and algebra | An awake threshold above the score's ceiling |
+| Monkey C / API validity | The compiler | `Sensor.disableSensorEvents()` does not exist, so a `has` guard was false forever |
+| Component seams | Integration simulation | One alarm's `resetWindow()` erasing another's peak state |
+| Calendar | Date-arithmetic simulation | A snooze spanning midnight being deleted |
+| **Real hardware** | **Only a real night** | — |
+
+The layers above are now all covered. The last one is the genuine remaining gap:
+no simulation can confirm that the optical sensor actually delivers data on a
+specific watch, which is exactly why the heart-rate readout was added to the
+Active Alarm screen.
 
 Two results are worth stating plainly:
 
@@ -593,6 +612,7 @@ runs, since several suites generate randomised scenarios.)
 | 13 | Smart wake: sensor sourcing, scoring, wake decision | 400 |
 | 14 | Differential, fuzz and boundary verification of the wake decision | 160 |
 | 15 | Integration: view lifecycle, multi-alarm, whole-night sequencing | 30 |
+| 16 | Calendar edges, day rollover, snooze state machine, watchdog budget | 35 |
 
 Representative coverage:
 
@@ -727,6 +747,16 @@ Sleep Cycle Window gives the detector more to work with, though 45 minutes measu
 ---
 
 ## Known limitations
+
+**Wake windows are truncated at midnight.** The scheduler derives an alarm's target
+from the current day's midnight, so the portion of a wake window falling *before*
+midnight is not evaluated. An alarm at 00:30 with a 45-minute window gets 30 usable
+minutes; one at exactly 00:00 gets none and simply rings on time. Alarms at 01:00
+or later are unaffected, and the deadline guarantee holds at every time of day
+(verified across all 1,440 possible alarm minutes). This is a deliberate trade:
+fixing it means having the scheduler consider two candidate days at once, and the
+added complexity in the one component that must never misfire is not worth it for
+a case that only affects alarms set between midnight and 00:59.
 
 - Alarms only fire while Active Alarm Mode is running
 - The palm-cover gesture exits the app and cannot be intercepted
