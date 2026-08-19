@@ -56,9 +56,17 @@ const DEFAULT_WINDOW = 45;
 // Scores are RELATIVE to your own night (see SleepDetector.mc), so these are
 // stable across people. Values chosen by simulating 100 nights.
 //
-// Peak detection: once the score has reached PEAK_BAR and then falls by
+// Peak detection: once the score has reached the bar and then falls by
 // PEAK_DROP, we've just passed the lightest moment -> wake now.
-const PEAK_BAR  = 70;
+//
+// The bar DECLINES across the window, from PEAK_BAR_EARLY down to PEAK_BAR at
+// the set time, and peak detection is off entirely for the first
+// PEAK_MIN_PROGRESS of the window. Hold out for an excellent moment early;
+// accept a merely good one later. A fixed bar fired on the first peak, which
+// meant a 45-minute window rang ~42 minutes early every single night.
+const PEAK_BAR          = 70;    // floor, reached at the set time
+const PEAK_BAR_EARLY    = 94;    // bar at the earliest allowed moment
+const PEAK_MIN_PROGRESS = 0.30;  // no smart fire in the first 30% of the window
 const PEAK_DROP = 8;
 // In the last stretch of the window, accept any reasonably light moment.
 const LATE_FRACTION = 0.90;
@@ -90,11 +98,23 @@ const TICK_SLOW_MS = 60000;
 // Switch to the fast tick when the next alarm is within this many seconds.
 const FAST_TICK_WITHIN_SECS = (MAX_WINDOW_MINS + SAMPLE_LEAD_MINS) * 60;
 
-// If lightness is at/above this BEFORE the window even opens, we treat the user
-// as already awake and just fire at the set time.
-const AWAKE_THRESHOLD = 88;
+// "Are you awake?" is decided by heart rate relative to the night's FLOOR (the
+// lowest deep-sleep baseline seen tonight), not by the lightness score - see the
+// long comment on SleepDetector.isAwake for why the score cannot do this job.
+//
+// Measured medians across 40 simulated nights:
+//     deep 1.02   light 1.20   REM 1.30   awake 1.50
+// 1.40 sits in the gap above REM. At this ratio, sustained for
+// AWAKE_CONFIRM_TICKS samples, 85% of awake time was caught with ZERO false
+// positives on either REM or light sleep.
+const AWAKE_HR_RATIO = 1.40;
+// Consecutive samples (~15 s each) the awake reading must hold before we act on
+// it, so a brief arousal doesn't trigger a false early alarm. 4 = about a minute.
+const AWAKE_CONFIRM_TICKS = 4;
 // How many minutes before the window opens we do the "are you already awake?" check.
 const AWAKE_CHECK_LEAD = 15;
+// How old a live sensor callback may be before we stop trusting it and re-poll.
+const HR_STALE_SECS = 180;
 
 // ── Firing tolerance ─────────────────────────────────────────────────────────
 // How long after the set time an alarm may still fire. Past this we treat it as

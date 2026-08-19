@@ -28,6 +28,7 @@ class BedsideView extends WatchUi.View {
     private var _lastDrawMin as Number = -1;       // throttles redraws to once a minute
     private var _tickMs as Number = 0;             // current timer cadence
     private var _nextStr as String? = null;        // cached "Next Alarm" text
+    private var _sampling as Boolean = false;      // is the HR session open?
     private var _w as Number = 360;
     private var _h as Number = 360;
     private var _cx as Number = 180;
@@ -77,7 +78,15 @@ class BedsideView extends WatchUi.View {
         _timer.start(method(:onTick), ms, true);
     }
 
-    function onHide() as Void { stopTimer(); }
+    // Leaving the view releases the sensor. Without this an open HR session
+    // would keep draining the battery after Active Alarm Mode had gone away.
+    function onHide() as Void {
+        stopTimer();
+        if (_sampling) {
+            try { SleepDetector.stopSensor(); } catch (e) { }
+            _sampling = false;
+        }
+    }
 
     // The whole body is guarded. This runs unattended for hours, and a single
     // uncaught exception used to kill the app (the "IQ!" screen) and take the
@@ -99,8 +108,17 @@ class BedsideView extends WatchUi.View {
             // Only read the heart-rate sensor when a wake window is approaching.
             // For most of the night there is nothing to detect, so staying idle
             // here saves a large amount of battery.
+            //
+            // The sensor SESSION is opened and closed alongside the sampling
+            // window. Previously no session was ever opened at all, which is why
+            // no heart-rate data ever reached the detector.
             if (AlarmEngine.shouldSampleAt(secsUntil)) {
+                SleepDetector.startSensor();
                 SleepDetector.sample();
+                _sampling = true;
+            } else if (_sampling) {
+                SleepDetector.stopSensor();
+                _sampling = false;
             }
         } catch (e) {
             // Sensor hiccup - keep going, the deadline will still fire.
@@ -163,6 +181,34 @@ class BedsideView extends WatchUi.View {
         dc.drawText(_cx, _cy + 14, Graphics.FONT_XTINY, "Next Alarm", vc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy + 48, Graphics.FONT_LARGE, nextAlarmStr(), vc);
+
+        // Heart-rate status, shown only while a wake window is approaching.
+        //
+        // This exists because the smart-wake failure was INVISIBLE: with no HR
+        // data the app quietly behaved like an ordinary alarm and there was no
+        // way to tell from the watch that anything was wrong. One dim line means
+        // a dead sensor is obvious at a glance instead of taking months to spot.
+        if (_sampling) {
+            var hrTxt;
+            var hrCol;
+            var hr = SleepDetector.lastHr();
+            var cnt = SleepDetector.sampleCount();
+            if (cnt == 0 || hr == 0) {
+                // Naming the failing source turns "it didn't work" into something
+                // diagnosable without a debugger.
+                hrTxt = "HR --  " + SleepDetector.source();
+                hrCol = 0xAA5500;                       // amber: something is wrong
+            } else if (!SleepDetector.ready()) {
+                hrTxt = "HR " + hr.format("%d") + "  " + cnt.format("%d")
+                        + "/" + MIN_HR_SAMPLES.format("%d");
+                hrCol = 0x555555;                       // warming up
+            } else {
+                hrTxt = "HR " + hr.format("%d") + "  ready";
+                hrCol = 0x556655;                       // armed and detecting
+            }
+            dc.setColor(hrCol, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(_cx, _h * 76 / 100, Graphics.FONT_XTINY, hrTxt, vc);
+        }
 
         // Exit controls only appear briefly after a button press.
         if (controlsVisible()) {

@@ -45,8 +45,13 @@ within them:
 - **Wake timing by peak detection, not a cut-off.** The alarm fires just *after* the
   lightness score crests, which detects that the lightest moment has passed rather than
   guessing when it will arrive.
-- **Tuned by simulation, not intuition.** 200 synthetic nights per configuration, calibrated
-  to real exported sleep data, produced the 45-minute default via marginal-return analysis.
+- **Framed wake timing as optimal stopping.** A fixed quality bar fired on the first peak, so
+  a 45-minute window rang 42 minutes early every night. A bar that declines toward the
+  deadline recovers half the window at no cost to wake quality.
+- **Tuned by simulation, not intuition.** 80 synthetic nights per configuration with
+  randomised sleep-cycle phase, calibrated to real exported sleep data.
+- **Found a silent data-starvation bug by algebra.** Proving a threshold was unreachable given
+  the scoring formula's ceiling turned "the feature feels unreliable" into a specific defect.
 - **Diagnosed a fatal memory leak** from allocation counting: 1,920 font allocations per
   night reduced to 1.
 - **Cut overnight workload 60–72%** with adaptive sensor sampling and a variable tick rate,
@@ -61,6 +66,7 @@ within them:
 - [Why Active Alarm Mode exists](#why-active-alarm-mode-exists)
 - [Sleep-cycle detection](#sleep-cycle-detection)
 - [Algorithm validation](#algorithm-validation)
+- [Post-mortem: why smart wake never fired](#post-mortem-why-smart-wake-never-fired)
 - [Passcode system](#passcode-system)
 - [Snooze model](#snooze-model)
 - [Battery engineering](#battery-engineering)
@@ -84,7 +90,7 @@ before your set time and fires at the lightest moment it can find inside it.
 |---|---|
 | Smart wake | Fires during light sleep within a 30/45/60/75-minute window |
 | Deadline guarantee | Always fires by your set time if no light moment is found |
-| Already-awake detection | Skips smart wake and fires exactly on time if you're already up |
+| Already-awake detection | Rings immediately if you wake up on your own inside the window |
 | Repeat presets | Once, Daily, 4x10 (Mon–Thu), Weekdays, Weekend, Custom |
 | Per-alarm config | Label, window, alert mode, ringtone, snooze length, max snoozes, passcode |
 | Passcode gate | 4-digit code required to dismiss, with master-code recovery |
@@ -150,30 +156,65 @@ rises and becomes more variable. `elevation` captures the rise, `variability` ca
 irregularity, weighted 60/40 toward the more reliable signal.
 
 Garmin's stress metric (HRV-derived) is blended in at 15% weight when the device exposes it,
-with a clean fallback to HR-only.
+but **only where it raises the score**, never lowers it. As a plain weighted average it was
+actively harmful: stress is low while you sleep — that is what sleeping is — so the average
+dragged every score down and imposed a hard ceiling of `85 + 0.15 × stress`. At a typical
+sleeping stress of 15 the highest attainable score was 87, which made the awake threshold of
+88 *mathematically unreachable*.
 
-In simulation this separates sleep states cleanly:
+In simulation this separates deep from light sleep cleanly, but **not light sleep from
+being awake** — a limitation that matters, and is handled separately below:
 
 | True state | Mean score |
 |---|---|
 | Deep | 16 |
-| Medium-deep | 38 |
-| Medium-light | 58 |
-| Light | 78 |
+| Light | 84 |
+| Awake | 90 |
 
 ### Wake decision
 
-Rather than a fixed cut-off, the detector uses **peak detection** — it fires just *after*
-the score crests, meaning you've passed the lightest point:
+The detector uses **peak detection against a declining bar** — it fires just *after* the
+score crests, meaning you've passed the lightest point. The bar falls as the deadline
+approaches, so early in the window only an excellent moment qualifies:
 
 ```
-if best_score >= PEAK_BAR (70) and current <= best - PEAK_DROP (8):  fire
-if progress >= 90% of window and current >= LATE_BAR (50):           fire
-if now >= set time:                                                  fire (hard deadline)
+bar(progress) = 70 + 24 * (1 - progress)        # 94 at the start, 70 at the set time
+
+if awake for 4 consecutive samples:                             fire
+if progress >= 30% and best >= bar and current <= best - 8:     fire
+if progress >= 90% of window and current >= 50:                 fire
+if now >= set time:                                             fire (hard deadline)
 ```
+
+The declining bar is the difference between a smart alarm and a merely early one. With a
+fixed bar the very first peak almost always qualified, so a 45-minute window rang ~42
+minutes early *every night* — technically light sleep, but it threw away most of the window.
+Framing it as an optimal-stopping problem (hold out early, grow less fussy later) recovers
+about half the window at no cost to wake quality.
 
 A 10-minute warm-up (`MIN_HR_SAMPLES = 40`) is required before the score is trusted; until
 then the detector reports "insufficient data" and the deadline governs.
+
+### Detecting "awake" needs a different signal
+
+The lightness score is normalised against a rolling 60-minute buffer, so during a long light
+stretch the recent mean sits at the top of its own distribution and scores ~84 — statistically
+indistinguishable from genuinely awake (~90). No threshold on that score separates them.
+
+Awake detection therefore compares recent heart rate against the **night floor**: the lowest
+deep-sleep baseline seen since sampling began, a long-horizon reference. That separates the
+states cleanly (measured medians):
+
+| State | HR / night floor |
+|---|---|
+| Deep | 1.02 |
+| Light | 1.20 |
+| REM | 1.30 |
+| **Awake** | **1.50** |
+
+A ratio of **1.40 held for 4 consecutive samples (~1 min)** caught 85% of awake time with
+**zero** false positives on REM or light sleep. The persistence requirement is what rejects
+brief arousals, which are a normal part of sleep and must not trigger the alarm.
 
 ---
 
@@ -183,21 +224,22 @@ The detector was validated against **synthetic nights** modelling 80–105 minut
 with randomised phase, cycle length and noise, calibrated to real exported Garmin sleep data
 (6.65 h mean duration, ~4.4 cycles/night).
 
-Wake quality is measured as sleep "lightness" at the moment of firing, where **0.47 is the
+Wake quality is measured as sleep "lightness" at the moment of firing, where **0.45 is the
 baseline** for a fixed-time alarm and 1.0 is the theoretical optimum.
 
-| Window | Woke early | Avg minutes early | Lightness at wake |
+| Window | Avg minutes early | Lightness at wake | Window used |
 |---|---|---|---|
-| 15 min | 129/200 | 7 | 0.53 |
-| 30 min | 163/200 | 16 | 0.60 |
-| **45 min** | **192/200** | **27** | **0.66** |
-| 60 min | 200/200 | 39 | 0.68 |
-| 75 min | 200/200 | 57 | 0.71 |
+| 30 min | 14 | 0.61 | 47% |
+| **45 min** | **22** | **0.63** | **49%** |
+| 60 min | 31 | 0.57 | 52% |
+| 75 min | 43 | 0.54 | 57% |
 
-**45 minutes is the default**, chosen as the knee of the curve. Marginal analysis shows each
-additional 15 minutes buys +0.07, then +0.06, then the 45→60 step collapses to **+0.02 for
-12 more minutes of lost sleep**. The 15-minute option was removed entirely — at 0.53 it
-barely beats a fixed alarm, because there isn't enough of a sleep cycle inside it.
+**45 minutes is the default** — it has the best wake quality of any window, not merely the
+best trade-off. Longer windows perform *worse*, which is initially counter-intuitive: a
+longer window forces the stopping decision earlier, when the position within the sleep cycle
+is less predictable, so the peak it settles for is less reliably the true one. The 15-minute
+option was removed entirely — there isn't enough of a sleep cycle inside it to beat a fixed
+alarm.
 
 > An earlier version of this algorithm never fired early once. Analysis showed its score was
 > computed against a fixed scale and **peaked at 43 against a threshold of 65** — it was
@@ -315,6 +357,37 @@ identical wake moment on 267, and mean wake quality unchanged (0.715 → 0.722).
 
 ---
 
+## Post-mortem: why smart wake never fired
+
+For a long stretch the app behaved exactly like an ordinary alarm — it always rang at the set
+time, never earlier. There was no crash and no error. **Three independent bugs** were each
+sufficient on their own to cause it, and all three failed silently.
+
+**1. No heart-rate data at all.** The only source was
+`Activity.getActivityInfo().currentHeartRate`, which is populated by an *activity session* and
+returns null outside one. Every sample returned null, the buffer stayed empty, the score
+returned "insufficient data" forever, and every alarm fell through to the deadline. It had
+appeared to work briefly while an `ActivityRecording` session was open — that session was what
+powered the field, and removing the recording for battery reasons silently removed the data
+source with it. The fix opens a real `Sensor` session and reads from four sources in order:
+live sensor callback, direct sensor poll, activity info, then sensor history.
+
+**2. A frozen baseline.** The staleness checks were written as `samples.size() - lastCalc >=
+RECALC_EVERY`. The buffer is a ring capped at 240 samples, so `size()` stops changing once it
+fills — roughly 60 minutes into sampling, which is exactly when the wake window opens. From
+that moment the percentile baseline and the lightness score never updated again. Everything
+that asks "has new data arrived?" now keys off a monotonic counter instead.
+
+**3. An unreachable threshold.** The stress blend capped the score at 87 while the awake
+threshold was 88 (see [Scoring](#scoring)).
+
+The lasting fix is not any of the three patches but the **HR readout on the Active Alarm
+screen**. All three bugs were invisible from the watch: a dead sensor and a healthy one
+produced identical behaviour. One dim line showing live BPM, sample count and the active
+source makes the difference obvious at a glance.
+
+---
+
 ## Architecture
 
 21 Monkey C source files, separated into data, logic, and presentation layers.
@@ -417,6 +490,8 @@ Documenting these because each cost real debugging time and shaped the design:
 | The palm-cover gesture is handled by the OS before apps see input | Cannot be intercepted; disable touch overnight |
 | `ActivityRecording` pins an app in the foreground | Rejected: logged the night as an activity and cost ~24% battery |
 | `Attention` is not fully supported on all devices | `has` checks required before every call |
+| `Activity.getActivityInfo().currentHeartRate` is null outside an activity session | Open a `Sensor` session; never rely on one HR source |
+| Sensor permissions in the manifest do not start the sensor | `Sensor.setEnabledSensors` / `enableSensorEvents` must be called explicitly |
 | `onKeyPressed`/`onKeyReleased` fire in the simulator but often not on hardware | Hold-to-repeat input is unreliable; removed |
 | A long press of UP is claimed by the system as a menu gesture | Apps cannot implement their own UP-hold shortcut |
 
@@ -443,6 +518,7 @@ runs, since several suites generate randomised scenarios.)
 | 10 | Time-picker stepping and navigation | 1,070 |
 | 11 | Degenerate-input edge cases | 3,000 |
 | 12 | Backward compatibility with older saved data | 1,250 |
+| 13 | Smart wake: sensor sourcing, scoring, wake decision | 320 |
 
 Representative coverage:
 
@@ -555,6 +631,24 @@ passcode is only entered once.
 | Woke at the set time, not earlier | No light-sleep moment was found in the window | Use a longer Sleep Cycle Window — 45 min or more |
 | Asked for the passcode twice | Older behaviour; dismissing now closes Active Alarm Mode unless a snooze is pending | Update to the current build |
 | Forgot the passcode | — | Enter the master code **1234**, or get it wrong 5 times and it fills itself in |
+
+---
+
+### The alarm never rings early
+
+Open Active Alarm Mode and look at the dim `HR` line, which appears once a wake window is
+within about 105 minutes.
+
+| Readout | Meaning |
+|---|---|
+| `HR -- none` (amber) | No heart-rate source is responding. Check the watch is worn snugly and that wrist heart rate is enabled in the watch's own settings. |
+| `HR -- live/sensor/...` (amber) | A source was reachable but returned nothing usable. |
+| `HR 52  18/40` | Working, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
+| `HR 52  ready` | Working and armed. |
+
+If it reads `ready` and the alarm still fires exactly on time, that is a legitimate outcome:
+no sufficiently light moment was found inside the window, so the deadline governed. A longer
+Sleep Cycle Window gives the detector more to work with, though 45 minutes measured best.
 
 ---
 

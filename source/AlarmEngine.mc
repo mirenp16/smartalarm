@@ -81,6 +81,18 @@ class AlarmEngine {
 
             if (nowSecs >= windowStartSecs) {
                 if (nowSecs >= targetSecs) { return aid; }   // hard deadline
+
+                // Already awake INSIDE the window -> ring now.
+                //
+                // This check used to run only in the 15 minutes BEFORE the window
+                // opened. If you woke up naturally once the window was already
+                // open - say 6:42, with a 6:15-7:00 window - nothing could fire
+                // until the score happened to peak or the window reached 90%, so
+                // you lay there awake waiting for an alarm that stayed silent.
+                // Being awake is the strongest possible signal that now is a good
+                // time to wake up, so it takes priority over peak detection.
+                if (SleepDetector.isAwake()) { return aid; }
+
                 // Peak detection: wake just after the lightest moment.
                 // winSecs is guarded so corrupt storage can't divide by zero.
                 var progress = (winSecs > 0)
