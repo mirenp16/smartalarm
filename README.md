@@ -67,6 +67,7 @@ within them:
 - [Sleep-cycle detection](#sleep-cycle-detection)
 - [Algorithm validation](#algorithm-validation)
 - [Post-mortem: why smart wake never fired](#post-mortem-why-smart-wake-never-fired)
+- [How the algorithm is verified](#how-the-algorithm-is-verified)
 - [Passcode system](#passcode-system)
 - [Snooze model](#snooze-model)
 - [Battery engineering](#battery-engineering)
@@ -77,6 +78,8 @@ within them:
 - [Build and install](#build-and-install)
 - [Usage](#usage)
 - [Troubleshooting](#troubleshooting)
+- [Known limitations](#known-limitations)
+- [License](#license)
 
 ---
 
@@ -509,8 +512,40 @@ Documenting these because each cost real debugging time and shaped the design:
 | `Attention` is not fully supported on all devices | `has` checks required before every call |
 | `Activity.getActivityInfo().currentHeartRate` is null outside an activity session | Open a `Sensor` session; never rely on one HR source |
 | Sensor permissions in the manifest do not start the sensor | `Sensor.setEnabledSensors` / `enableSensorEvents` must be called explicitly |
+| `Toybox.Sensor` has no `disableSensorEvents()` | Stop delivery with `enableSensorEvents(null)` |
+| `if (X has :madeUpName)` compiles, and is silently false forever | Guarded blocks can never run; heed the compiler's invalid-symbol warning |
 | `onKeyPressed`/`onKeyReleased` fire in the simulator but often not on hardware | Hold-to-repeat input is unreliable; removed |
 | A long press of UP is claimed by the system as a menu gesture | Apps cannot implement their own UP-hold shortcut |
+
+---
+
+## How the algorithm is verified
+
+Testing an algorithm against the same reasoning that produced it proves very
+little. Four independent checks are used instead, each able to catch failures the
+others cannot:
+
+| Check | What it would catch |
+|---|---|
+| **Constants parsed from `Constants.mc` at test time** | A test port that has silently drifted from the shipped source |
+| **13 invariants derived from those constants** | Configurations that cannot work — e.g. a warm-up that doesn't fit before the window opens |
+| **Differential testing** against a second, naive implementation (percentiles by literal sorting, no caching) | Any error in the optimised code — 21,600 tick-by-tick comparisons must match *exactly* |
+| **Cross-validation** on an independently written physiology model | An algorithm that only works on the model it was tuned against |
+| **Fuzzing** with adversarial streams — dead sensor, flat line, maximum oscillation, sparse nulls, monotonic ramps | Violations of the hard guarantees under inputs no real night would produce |
+
+Two results are worth stating plainly:
+
+- The optimised detector matches the naive reference **exactly** (0 mismatches in
+  21,600 comparisons), so the incremental caching introduces no error of its own.
+- The `RECALC_EVERY` optimisation — recomputing percentiles every 4th sample
+  rather than every tick, to save battery — shifts the score by a mean of **0.14
+  points** and leaves the wake time **identical on 85% of nights**, differing by
+  at most **6 minutes** otherwise. That is a deliberate trade, now measured
+  rather than assumed.
+
+Fuzzing confirms the two guarantees that must never break, across 216 adversarial
+nights: **the alarm never fires late, and never before the window opens** — including
+when the heart-rate sensor returns nothing at all.
 
 ---
 
@@ -536,6 +571,7 @@ runs, since several suites generate randomised scenarios.)
 | 11 | Degenerate-input edge cases | 3,000 |
 | 12 | Backward compatibility with older saved data | 1,250 |
 | 13 | Smart wake: sensor sourcing, scoring, wake decision | 400 |
+| 14 | Differential, fuzz and boundary verification of the wake decision | 160 |
 
 Representative coverage:
 

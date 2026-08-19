@@ -124,9 +124,11 @@ class SleepDetector {
                 Sensor.setEnabledSensors([Sensor.SENSOR_HEARTRATE]);
             }
             if (Sensor has :enableSensorEvents) {
-                var l = new HrListener();
-                _listener = l;
-                Sensor.enableSensorEvents(l.method(:onSensor));
+                // The field, not a local: Sensor holds only the Method, and the
+                // strong reference here is what keeps the listener object from
+                // being collected while callbacks are still expected.
+                _listener = new HrListener();
+                Sensor.enableSensorEvents((_listener as HrListener).method(:onSensor));
             }
             _sensorOn = true;
         } catch (e) {
@@ -141,7 +143,16 @@ class SleepDetector {
         _sessionOpen = false;
         if (_sensorOn) {
             try {
-                if (Sensor has :disableSensorEvents) { Sensor.disableSensorEvents(); }
+                // Toybox.Sensor has NO disableSensorEvents(). Passing null to
+                // enableSensorEvents is the documented way to stop delivery.
+                // The earlier `has :disableSensorEvents` guard silently evaluated
+                // false forever, so the sensor was never released and kept
+                // draining the battery for the rest of the night - a warning the
+                // compiler did report, and worth heeding.
+                if (_listener != null) {
+                    Sensor.enableSensorEvents(null);
+                    _listener = null;
+                }
                 if (Sensor has :setEnabledSensors) { Sensor.setEnabledSensors([]); }
             } catch (e) {
             }
