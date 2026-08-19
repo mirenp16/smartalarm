@@ -98,26 +98,41 @@ class SleepDetector {
     // or not the hardware cooperated; the polling fallbacks in currentHr() can
     // still supply data.
     private static var _sessionOpen as Boolean = false;
+    private static var _closedAt as Number = 0;    // when the session last closed
 
     static function startSensor() as Void {
         if (_sessionOpen) { return; }
         _sessionOpen = true;
 
-        // Each session recalibrates from scratch: last night's floor, buffer and
-        // sample counter are not evidence about tonight.
-        _nightFloor = 0.0;
-        _samples = [];
-        _seq = 0;
-        _lastCalc = -9999;
-        _lightCacheN = -1;
-        _boundsValid = false;
-        _awakeStreak = 0;
-        _awakeCacheSeq = -1;
-        _best = -1;
-        _armed = false;
-        _liveHr = 0;
-        _liveAt = 0;
-        _source = "-";
+        // Recalibrate ONLY after a real break, not after a brief interruption.
+        //
+        // BedsideView.onHide() releases the sensor, but onHide fires whenever the
+        // view is merely covered - by the ringing screen, and by the passcode
+        // screen when you press BACK-then-UP. Wiping unconditionally meant that
+        // opening the passcode screen at 06:30, inside a 06:15-07:00 window, and
+        // then cancelling it, threw away every sample and needed a further ten
+        // minutes of warm-up to score anything - losing smart wake for the night.
+        //
+        // The buffer is a 60-minute rolling window, so heart rate from three
+        // minutes ago is still perfectly good evidence. Only a gap longer than
+        // SESSION_RESUME_SECS means a genuinely new night.
+        var now = Time.now().value();
+        var resuming = (_closedAt > 0) && ((now - _closedAt) <= SESSION_RESUME_SECS);
+        if (!resuming) {
+            _nightFloor = 0.0;
+            _samples = [];
+            _seq = 0;
+            _lastCalc = -9999;
+            _lightCacheN = -1;
+            _boundsValid = false;
+            _awakeStreak = 0;
+            _awakeCacheSeq = -1;
+            _best = -1;
+            _armed = false;
+            _liveHr = 0;
+            _liveAt = 0;
+            _source = "-";
+        }
 
         try {
             if (Sensor has :setEnabledSensors && Sensor has :SENSOR_HEARTRATE) {
@@ -141,6 +156,7 @@ class SleepDetector {
     static function stopSensor() as Void {
         if (!_sessionOpen) { return; }
         _sessionOpen = false;
+        _closedAt = Time.now().value();
         if (_sensorOn) {
             try {
                 // Toybox.Sensor has NO disableSensorEvents(). Passing null to

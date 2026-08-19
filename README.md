@@ -401,6 +401,23 @@ that asks "has new data arrived?" now keys off a monotonic counter instead.
 **3. An unreachable threshold.** The stress blend capped the score at 87 while the awake
 threshold was 88 (see [Scoring](#scoring)).
 
+Two further defects of the same kind were found later, both living in the *seams* between
+components rather than inside any one of them — which is why unit tests on the detector alone
+could never have caught them:
+
+**4. One alarm erased another's state.** The detector is a singleton holding one window's peak
+state, but the scheduling loop visits every enabled alarm, and each alarm not currently in a
+window called `resetWindow()`. With a weekday and a weekend alarm both switched on, the
+far-off one wiped the peak on every tick, so "the score has fallen below its peak" could never
+become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
+The reset is now deferred until the whole list has been examined.
+
+**5. Covering the screen threw away the night's data.** `onHide()` releases the sensor — but it
+fires whenever the view is merely *covered*, including by the passcode screen. Opening the
+passcode at 06:30 inside a 06:15–07:00 window and then cancelling discarded every sample and
+needed another ten minutes of warm-up. The buffer is now retained across gaps shorter than
+`SESSION_RESUME_SECS`, since heart rate from three minutes ago is still good evidence.
+
 The lasting fix is not any of the three patches but the **HR readout on the Active Alarm
 screen**. All three bugs were invisible from the watch: a dead sensor and a healthy one
 produced identical behaviour. One dim line showing live BPM, sample count and the active
@@ -532,6 +549,7 @@ others cannot:
 | **Differential testing** against a second, naive implementation (percentiles by literal sorting, no caching) | Any error in the optimised code — 21,600 tick-by-tick comparisons must match *exactly* |
 | **Cross-validation** on an independently written physiology model | An algorithm that only works on the model it was tuned against |
 | **Fuzzing** with adversarial streams — dead sensor, flat line, maximum oscillation, sparse nulls, monotonic ramps | Violations of the hard guarantees under inputs no real night would produce |
+| **Integration simulation** of whole nights through the real call sequence, with 1–20 alarms and screens covering the view | Bugs in the seams between components, where shared singleton state is mutated from a loop or a lifecycle callback fires more often than assumed |
 
 Two results are worth stating plainly:
 
@@ -545,7 +563,9 @@ Two results are worth stating plainly:
 
 Fuzzing confirms the two guarantees that must never break, across 216 adversarial
 nights: **the alarm never fires late, and never before the window opens** — including
-when the heart-rate sensor returns nothing at all.
+when the heart-rate sensor returns nothing at all. The integration suite re-confirms
+both across a further 480 whole-night simulations, and that wake quality is now
+**identical with 20 alarms enabled as with one**.
 
 ---
 
@@ -572,6 +592,7 @@ runs, since several suites generate randomised scenarios.)
 | 12 | Backward compatibility with older saved data | 1,250 |
 | 13 | Smart wake: sensor sourcing, scoring, wake decision | 400 |
 | 14 | Differential, fuzz and boundary verification of the wake decision | 160 |
+| 15 | Integration: view lifecycle, multi-alarm, whole-night sequencing | 30 |
 
 Representative coverage:
 

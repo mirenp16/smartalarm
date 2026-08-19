@@ -115,6 +115,12 @@ const AWAKE_CONFIRM_TICKS = 4;
 const AWAKE_CHECK_LEAD = 15;
 // How old a live sensor callback may be before we stop trusting it and re-poll.
 const HR_STALE_SECS = 180;
+// If a sampling session reopens within this many seconds of closing, the heart-
+// rate buffer is KEPT rather than wiped. Covers the ringing and passcode screens
+// briefly covering Active Alarm Mode, which would otherwise discard the whole
+// night's samples mid-window. Well under the 60-minute buffer span, so retained
+// data is always still relevant.
+const SESSION_RESUME_SECS = 300;
 
 // ── Firing tolerance ─────────────────────────────────────────────────────────
 // How long after the set time an alarm may still fire. Past this we treat it as

@@ -90,35 +90,37 @@ const AWAKE_CONFIRM_TICKS = 4;
 const AWAKE_CHECK_LEAD = 15;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 117; @position = 6; @symbol_constdef = [HR_STALE_SECS,117,6,19]; ]
 const HR_STALE_SECS = 180;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 123; @position = 6; @symbol_constdef = [FIRE_GRACE_MINS,123,6,21]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 123; @position = 6; @symbol_constdef = [SESSION_RESUME_SECS,123,6,25]; ]
+const SESSION_RESUME_SECS = 300;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 129; @position = 6; @symbol_constdef = [FIRE_GRACE_MINS,129,6,21]; ]
 const FIRE_GRACE_MINS = 15;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 126; @position = 6; @symbol_constdef = [DEFAULT_SNOOZE_MINUTES,126,6,28]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 132; @position = 6; @symbol_constdef = [DEFAULT_SNOOZE_MINUTES,132,6,28]; ]
 const DEFAULT_SNOOZE_MINUTES = 5;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 127; @position = 6; @symbol_constdef = [DEFAULT_MAX_SNOOZE,127,6,24]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 133; @position = 6; @symbol_constdef = [DEFAULT_MAX_SNOOZE,133,6,24]; ]
 const DEFAULT_MAX_SNOOZE = 3;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 128; @position = 6; @symbol_constdef = [SNOOZE_LEN_OPTIONS,128,6,24]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 134; @position = 6; @symbol_constdef = [SNOOZE_LEN_OPTIONS,134,6,24]; ]
 const SNOOZE_LEN_OPTIONS;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 130; @position = 6; @symbol_constdef = [SNOOZE_MAX_OPTIONS,130,6,24]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 136; @position = 6; @symbol_constdef = [SNOOZE_MAX_OPTIONS,136,6,24]; ]
 const SNOOZE_MAX_OPTIONS;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 133; @position = 6; @symbol_constdef = [MAX_ALARMS,133,6,16]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 139; @position = 6; @symbol_constdef = [MAX_ALARMS,139,6,16]; ]
 const MAX_ALARMS = 20;
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 137; @position = 6; @symbol_constdef = [KEY_ALARMS,137,6,16]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 143; @position = 6; @symbol_constdef = [KEY_ALARMS,143,6,16]; ]
 const KEY_ALARMS = "alarms";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 138; @position = 6; @symbol_constdef = [KEY_NEXT_ID,138,6,17]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 144; @position = 6; @symbol_constdef = [KEY_NEXT_ID,144,6,17]; ]
 const KEY_NEXT_ID = "nextId";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 139; @position = 6; @symbol_constdef = [KEY_STATE_DAY,139,6,19]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 145; @position = 6; @symbol_constdef = [KEY_STATE_DAY,145,6,19]; ]
 const KEY_STATE_DAY = "stateDay";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 140; @position = 6; @symbol_constdef = [KEY_DAY_STATE,140,6,19]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 146; @position = 6; @symbol_constdef = [KEY_DAY_STATE,146,6,19]; ]
 const KEY_DAY_STATE = "dayState";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 141; @position = 6; @symbol_constdef = [KEY_RING_ID,141,6,17]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 147; @position = 6; @symbol_constdef = [KEY_RING_ID,147,6,17]; ]
 const KEY_RING_ID = "ringId";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 142; @position = 6; @symbol_constdef = [KEY_RING_START,142,6,20]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 148; @position = 6; @symbol_constdef = [KEY_RING_START,148,6,20]; ]
 const KEY_RING_START = "ringStart";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 143; @position = 6; @symbol_constdef = [KEY_SNOOZE_UNTIL,143,6,22]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 149; @position = 6; @symbol_constdef = [KEY_SNOOZE_UNTIL,149,6,22]; ]
 const KEY_SNOOZE_UNTIL = "snoozeUntil";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 144; @position = 6; @symbol_constdef = [KEY_SNOOZE_ID,144,6,19]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 150; @position = 6; @symbol_constdef = [KEY_SNOOZE_ID,150,6,19]; ]
 const KEY_SNOOZE_ID = "snoozeAlarmId";
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 145; @position = 6; @symbol_constdef = [KEY_PASSCODE,145,6,18]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 151; @position = 6; @symbol_constdef = [KEY_PASSCODE,151,6,18]; ]
 const KEY_PASSCODE = "passcode";
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 8; ]
 <init> {
@@ -186,7 +188,7 @@ const KEY_PASSCODE = "passcode";
     %tmp.51 = 60;
     %tmp.52 = mul %tmp.50 %tmp.51;
     putv self :FAST_TICK_WITHIN_SECS %tmp.52;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 128 6 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 134 6 ]
     %tmp.53 = newa 5;
     %tmp.54 = 1;
     %tmp.55 = dup %tmp.53;
@@ -204,7 +206,7 @@ const KEY_PASSCODE = "passcode";
     %tmp.67 = dup %tmp.65;
     %tmp.68 = aputv %tmp.67 4 %tmp.66;
     putv self :SNOOZE_LEN_OPTIONS %tmp.68;
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 130 6 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc" 136 6 ]
     %tmp.69 = newa 7;
     %tmp.70 = 0;
     %tmp.71 = dup %tmp.69;
