@@ -84,94 +84,164 @@ _Users_miren_Documents_GitHub_smartalarm_source_Format_mc_13_8_13_30_if_end:
         ret %tmp.28;
 _Users_miren_Documents_GitHub_smartalarm_source_Format_mc_10_71_15_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc"; @line = 20; @symbol_functiondef = [days,20,20,24]; @symbol_param<0> = [mask,20,25,29]; @symbol_param<0>_type<0> = [Number,20,33,39]; @symbol_return<0> = [String,20,44,50]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc"; @line = 24; @symbol_functiondef = [duration,24,20,28]; @symbol_param<0> = [secs,24,29,33]; @symbol_param<0>_type<0> = [Number,24,37,43]; @symbol_return<0> = [String,24,48,54]; ]
+    static
+    function duration(secs as Number) as String {
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 25 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_40_if_stmt:
+        %tmp.1 = lgetv %secs;
+        symbol [ secs %tmp.1 25 12 16 ];
+        %tmp.2 = 0;
+        %tmp.3 = lt %tmp.1 %tmp.2;
+        bf %tmp.3 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_40_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_40_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_22_25_40_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 25 24 ]
+        %tmp.4 = "--:--";
+        ret %tmp.4;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_22_25_40_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_40_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_40_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 26 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_stop" ]
+        %mins.1 = local;
+        symbol [ mins %mins.1 26 12 16 ];
+        %tmp.5 = lgetv %secs;
+        symbol [ secs %tmp.5 26 20 24 ];
+        %tmp.6 = 59;
+        %tmp.7 = add %tmp.5 %tmp.6;
+        %tmp.8 = 60;
+        %tmp.9 = div %tmp.7 %tmp.8;
+        lputv %mins.1 %tmp.9;
+        symbol [ mins %mins.1 26 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 27 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_stop" ]
+        %h.2 = local;
+        symbol [ h %h.2 27 12 13 ];
+        %tmp.10 = lgetv %mins.1;
+        symbol [ mins %tmp.10 27 16 20 ];
+        %tmp.11 = 60;
+        %tmp.12 = div %tmp.10 %tmp.11;
+        lputv %h.2 %tmp.12;
+        symbol [ h %h.2 27 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 28 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_stop" ]
+        %m.3 = local;
+        symbol [ m %m.3 28 12 13 ];
+        %tmp.13 = lgetv %mins.1;
+        symbol [ mins %tmp.13 28 16 20 ];
+        %tmp.14 = 60;
+        %tmp.15 = mod %tmp.13 %tmp.14;
+        lputv %m.3 %tmp.15;
+        symbol [ m %m.3 28 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 29 8 ]
+        %tmp.16 = lgetv %h.2;
+        symbol [ h %tmp.16 29 15 16 ];
+        symbol [ format %tmp.17 29 17 23 ];
+        %tmp.17 = getv function %tmp.16 :format;
+        %tmp.18 = "%02d";
+        %tmp.19 = invoke %tmp.16 %tmp.17(%tmp.18);
+        %tmp.20 = ":";
+        %tmp.21 = add %tmp.19 %tmp.20;
+        %tmp.22 = lgetv %m.3;
+        symbol [ m %tmp.22 29 40 41 ];
+        symbol [ format %tmp.23 29 42 48 ];
+        %tmp.23 = getv function %tmp.22 :format;
+        %tmp.24 = "%02d";
+        %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
+        %tmp.26 = add %tmp.21 %tmp.25;
+        ret %tmp.26;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_55_30_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc"; @line = 34; @symbol_functiondef = [days,34,20,24]; @symbol_param<0> = [mask,34,25,29]; @symbol_param<0>_type<0> = [Number,34,33,39]; @symbol_return<0> = [String,34,44,50]; ]
     static
     function days(mask as Number) as String {
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 21 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_21_8_21_52_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 35 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_35_8_35_52_if_stmt:
         %tmp.1 = lgetv %mask;
-        symbol [ mask %tmp.1 21 12 16 ];
-        symbol [ DAYS_ONCE %tmp.3 21 20 29 ];
+        symbol [ mask %tmp.1 35 12 16 ];
+        symbol [ DAYS_ONCE %tmp.3 35 20 29 ];
         %tmp.3 = getv ? :DAYS_ONCE;
         %tmp.4 = eq %tmp.1 %tmp.3;
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_21_8_21_52_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_21_8_21_52_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_21_35_21_52_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 21 37 ]
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_35_8_35_52_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_35_8_35_52_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_35_35_35_52_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 35 37 ]
         %tmp.5 = "Once";
         ret %tmp.5;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_21_35_21_52_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_21_8_21_52_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_21_8_21_52_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 22 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_22_8_22_53_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_35_35_35_52_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_35_8_35_52_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_35_8_35_52_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 36 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_36_8_36_53_if_stmt:
         %tmp.6 = lgetv %mask;
-        symbol [ mask %tmp.6 22 12 16 ];
-        symbol [ DAYS_ALL %tmp.8 22 20 28 ];
+        symbol [ mask %tmp.6 36 12 16 ];
+        symbol [ DAYS_ALL %tmp.8 36 20 28 ];
         %tmp.8 = getv ? :DAYS_ALL;
         %tmp.9 = eq %tmp.6 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_22_8_22_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_22_8_22_53_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_22_35_22_53_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 22 37 ]
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_36_8_36_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_36_8_36_53_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_36_35_36_53_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 36 37 ]
         %tmp.10 = "Daily";
         ret %tmp.10;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_22_35_22_53_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_22_8_22_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_22_8_22_53_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 23 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_8_23_52_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_36_35_36_53_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_36_8_36_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_36_8_36_53_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 37 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_37_8_37_52_if_stmt:
         %tmp.11 = lgetv %mask;
-        symbol [ mask %tmp.11 23 12 16 ];
-        symbol [ DAYS_4X10 %tmp.13 23 20 29 ];
+        symbol [ mask %tmp.11 37 12 16 ];
+        symbol [ DAYS_4X10 %tmp.13 37 20 29 ];
         %tmp.13 = getv ? :DAYS_4X10;
         %tmp.14 = eq %tmp.11 %tmp.13;
-        bf %tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_8_23_52_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_8_23_52_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_35_23_52_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 23 37 ]
+        bf %tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_37_8_37_52_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_37_8_37_52_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_37_35_37_52_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 37 37 ]
         %tmp.15 = "4x10";
         ret %tmp.15;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_35_23_52_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_8_23_52_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_23_8_23_52_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 24 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_8_24_56_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_37_35_37_52_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_37_8_37_52_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_37_8_37_52_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 38 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_38_8_38_56_if_stmt:
         %tmp.16 = lgetv %mask;
-        symbol [ mask %tmp.16 24 12 16 ];
-        symbol [ DAYS_WEEKDAYS %tmp.18 24 20 33 ];
+        symbol [ mask %tmp.16 38 12 16 ];
+        symbol [ DAYS_WEEKDAYS %tmp.18 38 20 33 ];
         %tmp.18 = getv ? :DAYS_WEEKDAYS;
         %tmp.19 = eq %tmp.16 %tmp.18;
-        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_8_24_56_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_8_24_56_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_35_24_56_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 24 37 ]
+        bf %tmp.19 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_38_8_38_56_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_38_8_38_56_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_38_35_38_56_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 38 37 ]
         %tmp.20 = "Weekdays";
         ret %tmp.20;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_35_24_56_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_8_24_56_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_24_8_24_56_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 25 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_55_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_38_35_38_56_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_38_8_38_56_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_38_8_38_56_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 39 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_39_8_39_55_if_stmt:
         %tmp.21 = lgetv %mask;
-        symbol [ mask %tmp.21 25 12 16 ];
-        symbol [ DAYS_WEEKEND %tmp.23 25 20 32 ];
+        symbol [ mask %tmp.21 39 12 16 ];
+        symbol [ DAYS_WEEKEND %tmp.23 39 20 32 ];
         %tmp.23 = getv ? :DAYS_WEEKEND;
         %tmp.24 = eq %tmp.21 %tmp.23;
-        bf %tmp.24 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_55_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_55_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_35_25_55_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 25 37 ]
+        bf %tmp.24 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_39_8_39_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_39_8_39_55_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_39_35_39_55_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 39 37 ]
         %tmp.25 = "Weekend";
         ret %tmp.25;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_35_25_55_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_55_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_55_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 27 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_39_35_39_55_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_39_8_39_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_39_8_39_55_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 41 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_stop" ]
         %names.1 = local;
-        symbol [ names %names.1 27 12 17 ];
+        symbol [ names %names.1 41 12 17 ];
         %tmp.26 = newa 7;
         %tmp.27 = "Sun";
         %tmp.28 = dup %tmp.26;
@@ -195,168 +265,168 @@ _Users_miren_Documents_GitHub_smartalarm_source_Format_mc_25_8_25_55_if_end:
         %tmp.46 = dup %tmp.44;
         %tmp.47 = aputv %tmp.46 6 %tmp.45;
         lputv %names.1 %tmp.47;
-        symbol [ names %names.1 27 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 28 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_stop" ]
+        symbol [ names %names.1 41 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 42 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_stop" ]
         %out.2 = local;
-        symbol [ out %out.2 28 12 15 ];
+        symbol [ out %out.2 42 12 15 ];
         %tmp.48 = "";
         lputv %out.2 %tmp.48;
-        symbol [ out %out.2 28 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 29 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_stop" ]
+        symbol [ out %out.2 42 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 43 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_stop" ]
         %shown.3 = local;
-        symbol [ shown %shown.3 29 12 17 ];
+        symbol [ shown %shown.3 43 12 17 ];
         %tmp.49 = 0;
         lputv %shown.3 %tmp.49;
-        symbol [ shown %shown.3 29 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 30 8 ]
-        for @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_init:
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_end" ]
+        symbol [ shown %shown.3 43 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 44 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_end" ]
         %i.4 = local;
-        symbol [ i %i.4 30 17 18 ];
+        symbol [ i %i.4 44 17 18 ];
         %tmp.50 = 0;
         lputv %i.4 %tmp.50;
-        symbol [ i %i.4 30 17 18 ];
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_test:
+        symbol [ i %i.4 44 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_test:
         %tmp.51 = lgetv %i.4;
-        symbol [ i %tmp.51 30 24 25 ];
+        symbol [ i %tmp.51 44 24 25 ];
         %tmp.52 = 7;
         %tmp.53 = lt %tmp.51 %tmp.52;
-        bf %tmp.53 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_36_37_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 31 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_31_12_36_12_if_stmt:
+        bf %tmp.53 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_36_51_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 45 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_45_12_50_12_if_stmt:
         %tmp.54 = lgetv %mask;
-        symbol [ mask %tmp.54 31 17 21 ];
+        symbol [ mask %tmp.54 45 17 21 ];
         %tmp.55 = 1;
         %tmp.56 = lgetv %i.4;
-        symbol [ i %tmp.56 31 30 31 ];
+        symbol [ i %tmp.56 45 30 31 ];
         %tmp.57 = shl %tmp.55 %tmp.56;
         %tmp.58 = bitand %tmp.54 %tmp.57;
         %tmp.59 = 0;
         %tmp.60 = ne %tmp.58 %tmp.59;
-        bf %tmp.60 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_31_12_36_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_31_12_36_12_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_31_40_36_12_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 32 16 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_32_16_32_54_if_stmt:
+        bf %tmp.60 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_45_12_50_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_45_12_50_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_45_40_50_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 46 16 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_46_16_46_54_if_stmt:
         %tmp.61 = lgetv %shown.3;
-        symbol [ shown %tmp.61 32 20 25 ];
+        symbol [ shown %tmp.61 46 20 25 ];
         %tmp.62 = 3;
         %tmp.63 = eq %tmp.61 %tmp.62;
-        bf %tmp.63 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_32_16_32_54_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_32_16_32_54_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_32_32_32_54_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 32 34 ]
+        bf %tmp.63 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_46_16_46_54_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_46_16_46_54_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_46_32_46_54_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 46 34 ]
         %tmp.64 = lgetv %out.2;
-        symbol [ out %tmp.64 32 41 44 ];
+        symbol [ out %tmp.64 46 41 44 ];
         %tmp.65 = "...";
         %tmp.66 = add %tmp.64 %tmp.65;
         ret %tmp.66;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_32_32_32_54_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_32_16_32_54_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_32_16_32_54_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 33 16 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_33_16_33_53_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_46_32_46_54_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_46_16_46_54_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_46_16_46_54_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 47 16 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_47_16_47_53_if_stmt:
         %tmp.67 = lgetv %out.2;
-        symbol [ out %tmp.67 33 20 23 ];
-        symbol [ length %tmp.68 33 24 30 ];
+        symbol [ out %tmp.67 47 20 23 ];
+        symbol [ length %tmp.68 47 24 30 ];
         %tmp.68 = getv function %tmp.67 :length;
         %tmp.69 = invoke %tmp.67 %tmp.68();
         %tmp.70 = 0;
         %tmp.71 = gt %tmp.69 %tmp.70;
-        bf %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_33_16_33_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_33_16_33_53_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_33_38_33_53_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 33 40 ]
+        bf %tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_47_16_47_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_47_16_47_53_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_47_38_47_53_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 47 40 ]
         %tmp.72 = lgetv %out.2;
-        symbol [ out %tmp.72 33 40 43 ];
+        symbol [ out %tmp.72 47 40 43 ];
         %tmp.73 = ", ";
         %tmp.74 = add %tmp.72 %tmp.73;
         lputv %out.2 %tmp.74;
-        symbol [ out %out.2 33 40 43 ];
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_33_38_33_53_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_33_16_33_53_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_33_16_33_53_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 34 16 ]
+        symbol [ out %out.2 47 40 43 ];
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_47_38_47_53_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_47_16_47_53_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_47_16_47_53_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 48 16 ]
         %tmp.75 = lgetv %out.2;
-        symbol [ out %tmp.75 34 16 19 ];
+        symbol [ out %tmp.75 48 16 19 ];
         %tmp.76 = lgetv %names.1;
-        symbol [ names %tmp.76 34 23 28 ];
+        symbol [ names %tmp.76 48 23 28 ];
         %tmp.77 = lgetv %i.4;
-        symbol [ i %tmp.77 34 29 30 ];
+        symbol [ i %tmp.77 48 29 30 ];
         %tmp.78 = agetv %tmp.76 %tmp.77;
         %tmp.79 = add %tmp.75 %tmp.78;
         lputv %out.2 %tmp.79;
-        symbol [ out %out.2 34 16 19 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 35 16 ]
+        symbol [ out %out.2 48 16 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 49 16 ]
         %tmp.82 = lgetv %shown.3;
-        symbol [ shown %tmp.82 35 16 21 ];
+        symbol [ shown %tmp.82 49 16 21 ];
         %tmp.83 = add %tmp.82 1;
         lputv %shown.3 %tmp.83;
-        symbol [ shown %shown.3 35 16 21 ];
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_31_40_36_12_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_31_12_36_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_31_12_36_12_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_36_37_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_incr:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 30 ]
+        symbol [ shown %shown.3 49 16 21 ];
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_45_40_50_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_45_12_50_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_45_12_50_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_36_51_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 44 ]
         %tmp.86 = lgetv %i.4;
-        symbol [ i %tmp.86 30 31 32 ];
+        symbol [ i %tmp.86 44 31 32 ];
         %tmp.87 = add %tmp.86 1;
         lputv %i.4 %tmp.87;
-        symbol [ i %i.4 30 31 32 ];
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_test;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_30_8_37_8_for_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 38 8 ]
+        symbol [ i %i.4 44 31 32 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_51_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 52 8 ]
         %tmp.88 = lgetv %out.2;
-        symbol [ out %tmp.88 38 15 18 ];
+        symbol [ out %tmp.88 52 15 18 ];
         ret %tmp.88;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_20_51_39_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_34_51_53_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc"; @line = 42; @symbol_functiondef = [modeName,42,20,28]; @symbol_param<0> = [mode,42,29,33]; @symbol_param<0>_type<0> = [Number,42,37,43]; @symbol_return<0> = [String,42,48,54]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc"; @line = 56; @symbol_functiondef = [modeName,56,20,28]; @symbol_param<0> = [mode,56,29,33]; @symbol_param<0>_type<0> = [Number,56,37,43]; @symbol_return<0> = [String,56,48,54]; ]
     static
     function modeName(mode as Number) as String {
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_42_55_46_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 43 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_43_8_43_55_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_56_55_60_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 57 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_57_8_57_55_if_stmt:
         %tmp.1 = lgetv %mode;
-        symbol [ mode %tmp.1 43 12 16 ];
-        symbol [ MODE_SOUND %tmp.3 43 20 30 ];
+        symbol [ mode %tmp.1 57 12 16 ];
+        symbol [ MODE_SOUND %tmp.3 57 20 30 ];
         %tmp.3 = getv ? :MODE_SOUND;
         %tmp.4 = eq %tmp.1 %tmp.3;
-        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_43_8_43_55_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_43_8_43_55_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_43_32_43_55_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 43 34 ]
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_57_8_57_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_57_8_57_55_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_57_32_57_55_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 57 34 ]
         %tmp.5 = "Sound Only";
         ret %tmp.5;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_43_32_43_55_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_43_8_43_55_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_43_8_43_55_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 44 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_44_57_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_57_32_57_55_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_57_8_57_55_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_57_8_57_55_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 58 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_58_8_58_57_if_stmt:
         %tmp.6 = lgetv %mode;
-        symbol [ mode %tmp.6 44 12 16 ];
-        symbol [ MODE_VIBE %tmp.8 44 20 29 ];
+        symbol [ mode %tmp.6 58 12 16 ];
+        symbol [ MODE_VIBE %tmp.8 58 20 29 ];
         %tmp.8 = getv ? :MODE_VIBE;
         %tmp.9 = eq %tmp.6 %tmp.8;
-        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_44_57_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_44_57_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_32_44_57_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 44 34 ]
+        bf %tmp.9 @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_58_8_58_57_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_58_8_58_57_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_58_32_58_57_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 58 34 ]
         %tmp.10 = "Vibrate Only";
         ret %tmp.10;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_32_44_57_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_44_57_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_44_8_44_57_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 45 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_58_32_58_57_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_58_8_58_57_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_58_8_58_57_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc" 59 8 ]
         %tmp.11 = "Sound + Vibrate";
         ret %tmp.11;
-_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_42_55_46_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_Format_mc_56_55_60_4_stop:
     }
 }
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Format.mc"; @line = 5; ]

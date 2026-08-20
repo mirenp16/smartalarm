@@ -92,13 +92,23 @@ class BedsideView extends WatchUi.View {
                 _probeTicks = 1;
             }
         }
-        startTimer(pickInterval());
+        startTimer(intervalFor(AlarmEngine.secsUntilNextTarget(Time.now().value())));
     }
 
-    // 15 s near an alarm, 60 s the rest of the night (4x fewer CPU wakeups).
-    private function pickInterval() as Number {
-        var d = AlarmEngine.secsUntilNextTarget(Time.now().value());
-        if (d >= 0 && d <= FAST_TICK_WITHIN_SECS) { return TICK_FAST_MS; }
+    // 15 s near an alarm or while the bedtime check is running, 60 s the rest of
+    // the night (4x fewer CPU wakeups).
+    //
+    // ONE function decides this, and both callers use it. There used to be two
+    // copies of the rule - onShow() had its own, which knew nothing about the
+    // heart-rate probe. Opening Active Alarm Mode hours before an alarm therefore
+    // armed a 60-second timer, so when the first probe found nothing the retry sat
+    // a full minute away and "Checking HR..." stayed on screen the whole time.
+    //
+    // Takes the distance as an argument so the caller that already computed it
+    // doesn't pay for a second alarm scan.
+    private function intervalFor(secsUntil as Number) as Number {
+        if (_probeTicks < PROBE_TICKS) { return TICK_FAST_MS; }
+        if (secsUntil >= 0 && secsUntil <= FAST_TICK_WITHIN_SECS) { return TICK_FAST_MS; }
         return TICK_SLOW_MS;
     }
 
@@ -199,16 +209,17 @@ class BedsideView extends WatchUi.View {
 
         // Speed up as the alarm approaches, slow down again afterwards. Reuses
         // the distance computed above rather than scanning the alarms again.
-        // While the bedtime check is still running, tick fast so it resolves in
-        // about a minute rather than sitting on "Checking HR..." for four.
-        var wanted = ((secsUntil >= 0 && secsUntil <= FAST_TICK_WITHIN_SECS)
-                      || _probeTicks < PROBE_TICKS)
-                     ? TICK_FAST_MS : TICK_SLOW_MS;
-        startTimer(wanted);
+        startTimer(intervalFor(secsUntil));
 
-        // Only redraw when the displayed minute actually changes - redrawing
-        // every 15 s all night was wasted work and extra allocation.
+        // Redraw when the displayed minute changes - redrawing every 15 s all
+        // night is wasted work, since nothing on screen moves.
+        //
+        // EXCEPT while sampling, when the heart-rate figure changes every tick and
+        // a once-a-minute refresh makes the readout look frozen. That only applies
+        // inside the ~105-minute sampling window, and the CPU is already awake for
+        // the tick, so the extra cost is a few hundred text draws across a night.
         var mins = now / 60;
+        if (_sampling) { _lastDrawMin = -1; }
         if (mins != _lastDrawMin) {
             _lastDrawMin = mins;
             _nextStr = computeNextAlarmStr();   // done here, not while drawing
@@ -241,9 +252,12 @@ class BedsideView extends WatchUi.View {
         // every string fits the CHORD width at its own height - a round screen is
         // only 307 px wide at 76% down, not 360.
         dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 78, Graphics.FONT_XTINY, "Current Time", vc);
+        dc.drawText(_cx, _cy - 80, Graphics.FONT_XTINY, "Current Time", vc);
         dc.setColor(UI_VALUE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 50, Graphics.FONT_MEDIUM, Fmt.time12(now.hour, now.min), vc);
+        // 34 px between caption and value, matching the "Next Alarm" pair below.
+        // At 28 px the FONT_MEDIUM ascenders came close enough to the caption to
+        // read as touching.
+        dc.drawText(_cx, _cy - 46, Graphics.FONT_MEDIUM, Fmt.time12(now.hour, now.min), vc);
 
         // Next alarm (shows the snooze time if an alarm is snoozed)
         dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
@@ -358,6 +372,14 @@ class BedsideView extends WatchUi.View {
 
     function revealControls() as Void {
         _controlsSecs = Time.now().value();
+        // A button press also asks for a FRESH heart-rate reading. Keeping the
+        // sensor on continuously is what costs real battery (an always-on session
+        // measured ~24% a night); a probe on demand costs at most PROBE_TICKS
+        // ticks of sensor time and only when you actually look at the watch.
+        if (!_sampling) {
+            _probeTicks = 0;
+            SleepDetector.resetProbe();
+        }
         WatchUi.requestUpdate();
     }
     function controlsVisible() as Boolean {

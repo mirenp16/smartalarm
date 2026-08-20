@@ -35,7 +35,7 @@ const DEFAULT_ALERT_MODE;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 30; @position = 6; @symbol_constdef = [DEFAULT_RINGTONE,30,6,22]; ]
 const DEFAULT_RINGTONE = 0;
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 34; @position = 6; @symbol_constdef = [DEFAULT_PASSCODE,34,6,22]; ]
-const DEFAULT_PASSCODE = "9999";
+const DEFAULT_PASSCODE = "0000";
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 37; @position = 6; @symbol_constdef = [MASTER_PASSCODE,37,6,21]; ]
 const MASTER_PASSCODE = "1234";
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/Constants.mc"; @line = 40; @position = 6; @symbol_constdef = [PASSCODE_MAX_TRIES,40,6,24]; ]
