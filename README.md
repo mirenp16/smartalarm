@@ -412,6 +412,13 @@ far-off one wiped the peak on every tick, so "the score has fallen below its pea
 become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
 The reset is now deferred until the whole list has been examined.
 
+**8. A snooze outlived its session.** Snoozing a 12:00 alarm and then dropping out of
+Active Alarm Mode — the palm gesture does exactly that — left the pending snooze alive in
+storage. Re-entering at 12:04 showed "Next Alarm: None", and the alarm then went off anyway
+at 12:05 announcing "2 snoozes left". A snooze is a promise made *within* a sleep session, so
+it is now cleared whenever Active Alarm Mode is entered afresh. The base schedule is
+untouched: an alarm set for 2 pm is still there when you come back at 1:47.
+
 **7. A failed bedtime probe leaked the sensor.** `onHide()` released the heart-rate session
 only when `_sampling` was set — but the bedtime probe also opens a session, and when it finds
 no heart rate (watch off the wrist) it stays open waiting for one while `_sampling` is still
@@ -630,6 +637,7 @@ runs, since several suites generate randomised scenarios.)
 | 17 | Ring/snooze/passcode state machine, view lifecycle, bedtime probe | 370 |
 | 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
+| 20 | Countdown formatting, session-state clearing, layout bounds | 270 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
@@ -761,7 +769,7 @@ three-quarters of the way down the screen. It is always present, and reads one o
 |---|---|
 | `Checking HR...` | Taking the bedtime reading. Resolves within about a minute. |
 | `HR: 63 BPM` | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
-| `No HR signal` (amber) | **No heart-rate reading available.** Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. |
+| `No HR Signal` (amber) | **No heart-rate reading available.** Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. |
 | `HR: 52 BPM  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
 | `HR: 52 BPM  ready` | Sleep tracking running and armed. |
 

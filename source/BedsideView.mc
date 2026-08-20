@@ -28,6 +28,7 @@ class BedsideView extends WatchUi.View {
     private var _lastDrawMin as Number = -1;       // throttles redraws to once a minute
     private var _tickMs as Number = 0;             // current timer cadence
     private var _nextStr as String? = null;        // cached "Next Alarm" text
+    private var _durStr as String? = null;         // cached "Duration:" text
     private var _sampling as Boolean = false;      // is the HR session open?
     private var _probeTicks as Number = 0;         // bedtime sensor-check ticks used
     private var _w as Number = 360;
@@ -211,6 +212,7 @@ class BedsideView extends WatchUi.View {
         if (mins != _lastDrawMin) {
             _lastDrawMin = mins;
             _nextStr = computeNextAlarmStr();   // done here, not while drawing
+            _durStr  = computeDurationStr();
             WatchUi.requestUpdate();
         }
     }
@@ -233,16 +235,21 @@ class BedsideView extends WatchUi.View {
         Ui.labelSized(dc, _w, _h, 90, UI_TITLE, "Active Alarm Mode", 28);
 
         // Current time
+        // LAYOUT. Everything sits higher than it used to, closing the gap under
+        // the title, to free a row beneath the heart-rate line for the countdown.
+        // The y positions are chosen so no two elements' half-heights overlap and
+        // every string fits the CHORD width at its own height - a round screen is
+        // only 307 px wide at 76% down, not 360.
         dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 62, Graphics.FONT_XTINY, "Current Time", vc);
+        dc.drawText(_cx, _cy - 78, Graphics.FONT_XTINY, "Current Time", vc);
         dc.setColor(UI_VALUE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy - 32, Graphics.FONT_MEDIUM, Fmt.time12(now.hour, now.min), vc);
+        dc.drawText(_cx, _cy - 50, Graphics.FONT_MEDIUM, Fmt.time12(now.hour, now.min), vc);
 
         // Next alarm (shows the snooze time if an alarm is snoozed)
         dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 14, Graphics.FONT_XTINY, "Next Alarm", vc);
+        dc.drawText(_cx, _cy - 8, Graphics.FONT_XTINY, "Next Alarm", vc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _cy + 48, Graphics.FONT_LARGE, nextAlarmStr(), vc);
+        dc.drawText(_cx, _cy + 26, Graphics.FONT_LARGE, nextAlarmStr(), vc);
 
         // Heart-rate status. ALWAYS shown, in one of three states.
         //
@@ -266,7 +273,7 @@ class BedsideView extends WatchUi.View {
             var hr = SleepDetector.lastHr();
             var cnt = SleepDetector.sampleCount();
             if (cnt == 0 || hr == 0) {
-                hrTxt = "No HR signal";
+                hrTxt = "No HR Signal";
                 hrCol = UI_AMBER;
             } else if (!SleepDetector.ready()) {
                 hrTxt = "HR: " + hr.format("%d") + " BPM  " + cnt.format("%d")
@@ -283,11 +290,17 @@ class BedsideView extends WatchUi.View {
             hrTxt = "HR: " + SleepDetector.probeHr().format("%d") + " BPM";
             hrCol = UI_HR;
         } else {
-            hrTxt = "No HR signal";
+            hrTxt = "No HR Signal";
             hrCol = UI_AMBER;
         }
         dc.setColor(hrCol, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, _h * 76 / 100, Graphics.FONT_XTINY, hrTxt, vc);
+        dc.drawText(_cx, _cy + 66, Graphics.FONT_XTINY, hrTxt, vc);
+
+        // How long until the alarm actually goes off. Uses the same source as the
+        // scheduler, so a snooze shortens it automatically and "None" reads
+        // "--:--" rather than a misleading zero.
+        dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_cx, _cy + 94, Graphics.FONT_XTINY, durationStr(), vc);
 
         // Exit controls only appear briefly after a button press.
         if (controlsVisible()) {
@@ -299,6 +312,25 @@ class BedsideView extends WatchUi.View {
         }
     }
 
+
+    // "Duration: HH:MM" until the next alarm actually rings.
+    //
+    // secsUntilNextTarget() already folds in a pending snooze and skips alarms
+    // that have fired, so this needs no separate snooze handling: snoozing simply
+    // makes the number smaller.
+    function durationStr() as String {
+        if (_durStr == null) { _durStr = computeDurationStr(); }
+        return _durStr as String;
+    }
+
+    private function computeDurationStr() as String {
+        var d = -1;
+        try {
+            d = AlarmEngine.secsUntilNextTarget(Time.now().value());
+        } catch (e) {
+        }
+        return "Duration: " + Fmt.duration(d);
+    }
 
     // Cached string, refreshed on tick. Drawing must stay cheap: computing this
     // inside onUpdate() meant a full alarm scan on every redraw.

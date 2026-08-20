@@ -169,6 +169,9 @@ class MainListDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId();
 
         if (id == :active) {
+            // Entering from the main list means a NEW sleep session, so any
+            // snooze or ringing flag left over from a previous one is dropped.
+            AlarmStore.clearSessionState();
             var bv = new BedsideView();
             WatchUi.switchToView(bv, new BedsideDelegate(bv), WatchUi.SLIDE_UP);
 

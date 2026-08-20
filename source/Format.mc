@@ -15,6 +15,20 @@ class Fmt {
     }
 
 
+    // "HH:MM" remaining, from a number of seconds. "--:--" when there is
+    // nothing to count down to.
+    //
+    // Rounds UP to the next whole minute so the figure agrees with the clock
+    // shown beside it: at 1:05:30 with an alarm at 4:07, truncating gives 03:01
+    // while the two displayed times plainly read three hours and two minutes.
+    static function duration(secs as Number) as String {
+        if (secs < 0) { return "--:--"; }
+        var mins = (secs + 59) / 60;
+        var h = mins / 60;
+        var m = mins % 60;
+        return h.format("%02d") + ":" + m.format("%02d");
+    }
+
     // Human-readable repeat summary from a bitmask. Named presets first, then a
     // day list for anything custom.
     static function days(mask as Number) as String {

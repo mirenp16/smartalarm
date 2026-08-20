@@ -462,6 +462,24 @@ class AlarmStore {
     }
 
     // Schedule a snoozed alarm to re-fire at a future epoch time.
+    // Drops everything that only means something INSIDE one Active Alarm Mode
+    // session: a pending snooze, and any ringing flag left behind.
+    //
+    // A snooze is a promise made within a sleep session ("wake me again in five
+    // minutes"). Leaving Active Alarm Mode ends that session, so the promise
+    // should end with it. Without this, snoozing a 12:00 alarm and then dropping
+    // out of Active Alarm Mode - the palm gesture does exactly that - left the
+    // snooze alive in storage. Re-entering at 12:04 showed "Next Alarm: None",
+    // and then the alarm went off anyway at 12:05 announcing "2 snoozes left".
+    //
+    // The base schedule is untouched: an alarm set for 2 pm is still there when
+    // you come back at 1:47, because that is a scheduled alarm, not a snooze.
+    static function clearSessionState() as Void {
+        Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
+        Application.Storage.setValue(KEY_SNOOZE_ID, null);
+        setRinging(null);
+    }
+
     static function scheduleSnooze(alarmId as Number, epochSecs as Number) as Void {
         Application.Storage.setValue(KEY_SNOOZE_ID, alarmId);
         Application.Storage.setValue(KEY_SNOOZE_UNTIL, epochSecs);

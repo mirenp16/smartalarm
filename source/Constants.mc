@@ -31,9 +31,9 @@ const DEFAULT_RINGTONE   = 0;   // index into Ringtone.names() (first available 
 
 // ── Passcode ─────────────────────────────────────────────────────────────────
 // Plain text on purpose: this is friction to make you wake up, not security.
-const DEFAULT_PASSCODE = "9999";   // used until the user sets their own
-// Always works, in case you forget yours. Deliberately NOT 0000, because 0000 is
-// what the entry screen already shows - that would be too easy to type by reflex.
+const DEFAULT_PASSCODE = "0000";   // used until the user sets their own
+// Always works, in case you forget yours. Deliberately different from the
+// default so that changing one doesn't lock out the other.
 const MASTER_PASSCODE  = "1234";
 // After this many wrong tries the entry screen pre-fills the master code so you
 // can simply confirm and get out.
