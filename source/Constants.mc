@@ -120,10 +120,21 @@ const AWAKE_HR_RATIO = 1.40;
 const AWAKE_CONFIRM_TICKS = 4;
 // How many minutes before the window opens we do the "are you already awake?" check.
 const AWAKE_CHECK_LEAD = 15;
-// Ticks spent on the bedtime heart-rate check when Active Alarm Mode opens.
-// Enough for the optical sensor to spin up and return a value; it stops early as
-// soon as a reading arrives, then releases the sensor until real sampling starts.
-const PROBE_TICKS = 4;
+// The bedtime heart-rate check runs on its OWN cadence, much faster than the
+// alarm tick.
+//
+// Polling at the alarm rate (15 s) was the wrong tool: the optical sensor needs a
+// few seconds to spin up after being enabled, so the first poll almost always
+// came back empty and the second was a full 15 s later. "Checking HR..." could
+// therefore sit on screen for up to a minute. At 5 s the reading appears as soon
+// as the hardware has one, usually within 5-10 s.
+//
+// PROBE_TICKS x PROBE_TICK_MS is also the point at which the check gives up and
+// reports "No HR Signal", so the two together bound both the responsiveness and
+// the sensor time spent: 8 x 5 s = 40 s maximum, and it stops the instant a
+// reading arrives.
+const PROBE_TICK_MS = 5000;
+const PROBE_TICKS   = 8;
 // How old a live sensor callback may be before we stop trusting it and re-poll.
 const HR_STALE_SECS = 180;
 // If a sampling session reopens within this many seconds of closing, the heart-

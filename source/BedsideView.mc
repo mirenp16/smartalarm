@@ -95,8 +95,8 @@ class BedsideView extends WatchUi.View {
         startTimer(intervalFor(AlarmEngine.secsUntilNextTarget(Time.now().value())));
     }
 
-    // 15 s near an alarm or while the bedtime check is running, 60 s the rest of
-    // the night (4x fewer CPU wakeups).
+    // 5 s while the bedtime heart-rate check is running, 15 s near an alarm,
+    // 60 s the rest of the night (4x fewer CPU wakeups).
     //
     // ONE function decides this, and both callers use it. There used to be two
     // copies of the rule - onShow() had its own, which knew nothing about the
@@ -107,7 +107,7 @@ class BedsideView extends WatchUi.View {
     // Takes the distance as an argument so the caller that already computed it
     // doesn't pay for a second alarm scan.
     private function intervalFor(secsUntil as Number) as Number {
-        if (_probeTicks < PROBE_TICKS) { return TICK_FAST_MS; }
+        if (_probeTicks < PROBE_TICKS) { return PROBE_TICK_MS; }
         if (secsUntil >= 0 && secsUntil <= FAST_TICK_WITHIN_SECS) { return TICK_FAST_MS; }
         return TICK_SLOW_MS;
     }
@@ -311,7 +311,7 @@ class BedsideView extends WatchUi.View {
         dc.drawText(_cx, _cy + 66, Graphics.FONT_XTINY, hrTxt, vc);
 
         // How long until the alarm actually goes off. Uses the same source as the
-        // scheduler, so a snooze shortens it automatically and "None" reads
+        // scheduler, so a snooze shortens it automatically and "NONE" reads
         // "--:--" rather than a misleading zero.
         dc.setColor(UI_LABEL, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_cx, _cy + 94, Graphics.FONT_XTINY, durationStr(), vc);
@@ -365,7 +365,7 @@ class BedsideView extends WatchUi.View {
             }
         }
         var next = AlarmEngine.nextAlarm(nowSecs);
-        return (next != null) ? Fmt.time12(AlarmStore.hour(next), AlarmStore.minute(next)) : "None";
+        return (next != null) ? Fmt.time12(AlarmStore.hour(next), AlarmStore.minute(next)) : "NONE";
     }
 
     // ── Controls / exit ──────────────────────────────────────────────────────

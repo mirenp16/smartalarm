@@ -637,7 +637,7 @@ runs, since several suites generate randomised scenarios.)
 | 17 | Ring/snooze/passcode state machine, view lifecycle, bedtime probe | 370 |
 | 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
-| 20 | Countdown formatting, session-state clearing, layout bounds | 270 |
+| 20 | Countdown formatting, session-state clearing, layout bounds, tick cadence | 450 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
@@ -767,11 +767,16 @@ three-quarters of the way down the screen. It is always present, and reads one o
 
 | Readout | Meaning |
 |---|---|
-| `Checking HR...` | Taking the bedtime reading. Resolves within about a minute. |
+| `Checking HR...` | Taking the bedtime reading. The sensor is polled every 5 seconds; a figure normally appears within 5–10 s, and the check gives up after 40 s. |
 | `HR: 63 BPM` | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
-| `No HR Signal` (amber) | **No heart-rate reading available.** Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. |
+| `No HR Signal` (amber) | **No heart-rate reading available** after 40 seconds of trying. Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. **Press any button to try again.** |
 | `HR: 52 BPM  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
 | `HR: 52 BPM  ready` | Sleep tracking running and armed. |
+
+**Pressing any button re-runs the check**, so a fresh figure is always one press away without
+the sensor having to stay on. That matters: an always-on heart-rate session was measured at
+roughly 24% of battery per night, whereas an on-demand check costs at most 40 seconds of
+sensor time and only when you are actually looking at the watch.
 
 The line originally appeared only once sampling had started, roughly 105 minutes before the
 alarm — 04:15 for a 06:00 alarm. The single indicator meant to reassure you at bedtime was

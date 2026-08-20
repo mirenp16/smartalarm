@@ -338,22 +338,22 @@ _Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_51_30_96_4_stop:
     function intervalFor(secsUntil as Number) as Number {
 _Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_109_64_113_4_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 110 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_62_if_stmt:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_63_if_stmt:
         symbol [ _probeTicks %tmp.2 110 12 23 ];
         %tmp.2 = getv ? :_probeTicks;
         symbol [ PROBE_TICKS %tmp.4 110 26 37 ];
         %tmp.4 = getv ? :PROBE_TICKS;
         %tmp.5 = lt %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_62_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_62_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_39_110_62_start:
+        bf %tmp.5 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_63_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_63_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_39_110_63_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 110 41 ]
-        symbol [ TICK_FAST_MS %tmp.7 110 48 60 ];
-        %tmp.7 = getv ? :TICK_FAST_MS;
+        symbol [ PROBE_TICK_MS %tmp.7 110 48 61 ];
+        %tmp.7 = getv ? :PROBE_TICK_MS;
         ret %tmp.7;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_39_110_62_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_62_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_62_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_39_110_63_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_63_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_110_8_110_63_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/BedsideView.mc" 111 8 ]
 _Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_111_8_111_89_if_stmt:
 _Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_111_12_111_43_begin:
@@ -1846,7 +1846,7 @@ _Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_tru
         push %tmp.66;
         goto @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_end;
 _Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_else_false:
-        %tmp.67 = "None";
+        %tmp.67 = "NONE";
         push %tmp.67;
 _Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_end:
         %tmp.68 = phi [%tmp.50 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_begin] [%tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_true] [%tmp.67 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_else_false] [%tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_BedsideView_mc_368_15_368_93_end];
