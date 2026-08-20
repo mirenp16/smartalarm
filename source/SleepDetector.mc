@@ -116,7 +116,13 @@ class SleepDetector {
         // minutes ago is still perfectly good evidence. Only a gap longer than
         // SESSION_RESUME_SECS means a genuinely new night.
         var now = Time.now().value();
-        var resuming = (_closedAt > 0) && ((now - _closedAt) <= SESSION_RESUME_SECS);
+        // A NEGATIVE gap means the clock moved backwards since we stamped it, so
+        // the stamp belongs to a different epoch and tells us nothing. Treat it as
+        // a real break and recalibrate rather than trusting a buffer we cannot
+        // date. Every "now minus a stored timestamp" test in the app follows this
+        // rule: negative is never "recent".
+        var gap = now - _closedAt;
+        var resuming = (_closedAt > 0) && (gap >= 0) && (gap <= SESSION_RESUME_SECS);
         if (!resuming) {
             _nightFloor = 0.0;
             _samples = [];
@@ -220,7 +226,8 @@ class SleepDetector {
         var nowSecs = Time.now().value();
 
         // 1. Live sensor callback (most accurate, only while the session is open).
-        if (_liveHr > 0 && (nowSecs - _liveAt) <= HR_STALE_SECS) {
+        var liveAge = nowSecs - _liveAt;
+        if (_liveHr > 0 && liveAge >= 0 && liveAge <= HR_STALE_SECS) {
             return _liveHr;
         }
         // 2. Direct sensor poll.
@@ -304,7 +311,9 @@ class SleepDetector {
     // "no reading" is just as much a snapshot of a moment as a number is.
     static function probeExpired(nowSecs as Number) as Boolean {
         if (!_probeDone) { return false; }
-        return (nowSecs - _probeAt) > PROBE_RESULT_TTL_SECS;
+        var age = nowSecs - _probeAt;
+        if (age < 0) { return true; }   // clock moved back - re-check rather than trust it
+        return age > PROBE_RESULT_TTL_SECS;
     }
     static function endProbe() as Void {
         _probeDone = true;

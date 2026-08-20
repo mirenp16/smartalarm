@@ -153,7 +153,10 @@ class BedsideView extends WatchUi.View {
     // alarm with it. Sleep sampling is best-effort; the alarm itself must survive.
     function onTick() as Void {
         var now = Time.now().value();
-        if (_exitArmed && (now - _armSecs) > EXIT_ARM_SECS) { _exitArmed = false; }
+        // Negative age = the clock moved back; the arm stamp is meaningless, so
+        // lapse it rather than leave the exit gesture armed indefinitely.
+        var armAge = now - _armSecs;
+        if (_exitArmed && (armAge < 0 || armAge > EXIT_ARM_SECS)) { _exitArmed = false; }
 
         // Work out the distance to the next alarm ONCE and reuse it. This scan
         // walks every alarm, so doing it repeatedly per tick was a large part of
@@ -409,7 +412,8 @@ class BedsideView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
     function controlsVisible() as Boolean {
-        return (Time.now().value() - _controlsSecs) <= 6;
+        var age = Time.now().value() - _controlsSecs;
+        return age >= 0 && age <= 6;
     }
 
     // BACK arms the exit. It must be followed IMMEDIATELY by UP - any other
@@ -424,7 +428,9 @@ class BedsideView extends WatchUi.View {
         revealControls();
     }
     function exitReady() as Boolean {
-        return _exitArmed && (Time.now().value() - _armSecs) <= EXIT_ARM_SECS;
+        if (!_exitArmed) { return false; }
+        var age = Time.now().value() - _armSecs;
+        return age >= 0 && age <= EXIT_ARM_SECS;
     }
 
     function stopTimer() as Void {

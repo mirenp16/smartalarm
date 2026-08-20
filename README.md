@@ -346,6 +346,17 @@ changed somewhere else, and was never recomputed.**
 | Timer interval | probe counter, sampling flag | Set the flag, forgot to restart the timer |
 | `Next Alarm` text | pending snooze | Snooze moved the fire time while the view was hidden |
 | `Duration` text | pending snooze | Same — both cached, both only refreshed on a minute boundary |
+| Heart-rate figure | sensor sources | History log read with no age check; then the snapshot itself never expired |
+| Every elapsed-time test | the system clock | A backward clock change made the difference negative, and negative read as "recent" |
+
+The last row is the general form. Nine places compared `now` against a stored
+timestamp, and a backward clock change — DST, a manual set, a GPS sync — makes
+every one of those differences negative. Each read that as *recent*: the
+BACK-then-UP exit gesture would stay armed instead of lapsing, a stale heart rate
+would be accepted, and an undatable sample buffer would be reused rather than
+recalibrated. The rule now applied everywhere is that **a negative age means the
+stamp came from a different clock epoch and is worthless — never treat it as
+fresh.**
 
 Snoozing at 12:00 and returning within the same minute left the screen showing the
 *pre-snooze* time until 12:01, because the redraw is throttled to once a minute and
@@ -727,6 +738,7 @@ runs, since several suites generate randomised scenarios.)
 | 20 | Countdown formatting, session-state clearing, layout bounds, cadence and cache invariants | 470 |
 | 21 | State-machine fuzz: 16,000 random view events against six invariants | 35 |
 | 22 | Heart-rate freshness: source age checks, snapshot expiry both ways, duty-cycle bounds | 65 |
+| 23 | Clock jumps: every stored-timestamp comparison under DST and manual time changes | 60 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the

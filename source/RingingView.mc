@@ -59,7 +59,8 @@ class RingingView extends WatchUi.View {
     function onHide() as Void { }
 
     function onTick() as Void {
-        if (_awakeArmed && (Time.now().value() - _armSecs) > EXIT_ARM_SECS) {
+        var armAge = Time.now().value() - _armSecs;
+        if (_awakeArmed && (armAge < 0 || armAge > EXIT_ARM_SECS)) {
             _awakeArmed = false;
         }
         alert();
@@ -143,7 +144,8 @@ class RingingView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
     function controlsVisible() as Boolean {
-        return (Time.now().value() - _controlsSecs) <= 8;
+        var age = Time.now().value() - _controlsSecs;
+        return age >= 0 && age <= 8;
     }
 
     // BACK arms "I'm Awake". It must be followed IMMEDIATELY by UP - pressing
@@ -158,7 +160,9 @@ class RingingView extends WatchUi.View {
         revealControls();
     }
     function awakeReady() as Boolean {
-        return _awakeArmed && (Time.now().value() - _armSecs) <= EXIT_ARM_SECS;
+        if (!_awakeArmed) { return false; }
+        var age = Time.now().value() - _armSecs;
+        return age >= 0 && age <= EXIT_ARM_SECS;
     }
 
     function stopTimer() as Void {
