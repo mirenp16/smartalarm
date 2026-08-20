@@ -477,6 +477,14 @@ far-off one wiped the peak on every tick, so "the score has fallen below its pea
 become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
 The reset is now deferred until the whole list has been examined.
 
+**9. A removed watch still reported a heart rate.** The fallback chain ends in
+`SensorHistory` — the watch's all-day heart-rate log. That log survives taking the watch off,
+and the code read it without ever checking `when`, so it answered "what is my heart rate"
+with a sample from hours ago, indefinitely. Taking the watch off showed `Checking HR...`
+briefly and then a perfectly plausible `HR: 63 BPM` for an empty wrist. Both the history
+sample and the cached live callback are now age-checked; the general rule is that **a
+heart-rate value with no age attached is not evidence the watch is being worn.**
+
 **8. A snooze outlived its session.** Snoozing a 12:00 alarm and then dropping out of
 Active Alarm Mode — the palm gesture does exactly that — left the pending snooze alive in
 storage. Re-entering at 12:04 showed "Next Alarm: None", and the alarm then went off anyway
@@ -704,6 +712,7 @@ runs, since several suites generate randomised scenarios.)
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
 | 20 | Countdown formatting, session-state clearing, layout bounds, cadence and cache invariants | 470 |
 | 21 | State-machine fuzz: 16,000 random view events against six invariants | 35 |
+| 22 | Heart-rate freshness: every source age-checked, watch-removed scenario | 45 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
@@ -835,7 +844,7 @@ three-quarters of the way down the screen. It is always present, and reads one o
 |---|---|
 | `Checking HR...` | Taking the bedtime reading. The sensor is polled every 5 seconds; a figure normally appears within 5–10 s, and the check gives up after 40 s. |
 | `HR: 63 BPM` | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
-| `No HR Signal` (amber) | **No heart-rate reading available** after 40 seconds of trying. Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. **Press any button to try again.** |
+| `No HR Signal` (amber) | **No fresh heart-rate reading available** after 40 seconds of trying. Readings are only accepted if recent — a live sensor callback within 45 s, or an all-day history sample within 2 minutes — so taking the watch off shows this within about two minutes rather than a stale figure. Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. **Press any button to try again.** |
 | `HR: 52 BPM  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
 | `HR: 52 BPM  ready` | Sleep tracking running and armed. |
 

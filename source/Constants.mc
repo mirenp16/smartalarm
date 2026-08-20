@@ -135,8 +135,21 @@ const AWAKE_CHECK_LEAD = 15;
 // reading arrives.
 const PROBE_TICK_MS = 5000;
 const PROBE_TICKS   = 8;
-// How old a live sensor callback may be before we stop trusting it and re-poll.
-const HR_STALE_SECS = 180;
+// FRESHNESS LIMITS. Both exist because a heart-rate reading with no age attached
+// is not evidence that the watch is being worn.
+//
+// How old a live sensor callback may be before we stop trusting it. Callbacks
+// arrive every second or so while the sensor session is open, so 45 s is three
+// missed sampling ticks - generous for a hiccup, tight enough that taking the
+// watch off shows "No HR Signal" promptly rather than a stale figure. It was 180,
+// which meant three minutes of reporting a heart rate for an empty wrist.
+const HR_STALE_SECS = 45;
+// How old an all-day history sample may be. This log survives the watch being
+// taken off, so without a limit it answers "what is my heart rate" with a reading
+// from hours ago. Garmin records roughly every 1-2 minutes, so 120 s accepts a
+// genuinely current sample and rejects anything that only proves the watch was
+// worn earlier.
+const HR_HISTORY_MAX_AGE_SECS = 120;
 // If a sampling session reopens within this many seconds of closing, the heart-
 // rate buffer is KEPT rather than wiped. Covers the ringing and passcode screens
 // briefly covering Active Alarm Mode, which would otherwise discard the whole

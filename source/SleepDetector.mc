@@ -209,9 +209,18 @@ class SleepDetector {
 
     // Four sources, best first. Any one of them working is enough, so a device
     // or firmware that withholds one still gets a usable signal.
+    //
+    // EVERY source must be checked for FRESHNESS, not just for a value.
+    // "What is my heart rate" and "what was the last heart rate this watch ever
+    // recorded" are different questions, and the second one has an answer even
+    // when the watch is sitting on a desk. Source 4 in particular reads the
+    // all-day history, which survives taking the watch off, so without an age
+    // check it reports a plausible number indefinitely.
     static function currentHr() as Number? {
+        var nowSecs = Time.now().value();
+
         // 1. Live sensor callback (most accurate, only while the session is open).
-        if (_liveHr > 0 && (Time.now().value() - _liveAt) <= HR_STALE_SECS) {
+        if (_liveHr > 0 && (nowSecs - _liveAt) <= HR_STALE_SECS) {
             return _liveHr;
         }
         // 2. Direct sensor poll.
@@ -232,15 +241,23 @@ class SleepDetector {
             }
         } catch (e2) {
         }
-        // 4. Sensor history - coarse, but proves the watch has a recent reading.
+        // 4. Sensor history - the last resort, and the one that needs the age
+        // check most. These samples are the watch's all-day heart-rate log; they
+        // persist after the watch is taken off, so an unchecked read here reports
+        // a stale-but-believable figure forever. Only accept a sample recent
+        // enough to be evidence the watch is on a wrist right now.
         try {
             if (SensorHistory has :getHeartRateHistory) {
                 var iter = SensorHistory.getHeartRateHistory({:period => 1});
                 if (iter != null) {
                     var s = iter.next();
-                    if (s != null && s.data != null) {
+                    if (s != null && s.data != null && s has :when && s.when != null) {
+                        var age = nowSecs - (s.when as Time.Moment).value();
                         var hv = s.data as Number;
-                        if (hv > HR_MIN && hv < 200) { return hv; }
+                        if (age >= 0 && age <= HR_HISTORY_MAX_AGE_SECS
+                                && hv > HR_MIN && hv < 200) {
+                            return hv;
+                        }
                     }
                 }
             }
