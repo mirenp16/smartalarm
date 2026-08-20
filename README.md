@@ -70,6 +70,7 @@ within them:
 - [How the algorithm is verified](#how-the-algorithm-is-verified)
 - [Passcode system](#passcode-system)
 - [Snooze model](#snooze-model)
+- [Three clocks, not one](#three-clocks-not-one)
 - [Battery engineering](#battery-engineering)
 - [Architecture](#architecture)
 - [Data model](#data-model)
@@ -310,6 +311,32 @@ non-BACK/UP press sequences produced zero accidental dismissals.
 
 Alarm controls stay **hidden until a button is pressed**, so the alarm simply rings rather
 than presenting a dismissable UI to a half-asleep user.
+
+---
+
+## Three clocks, not one
+
+Active Alarm Mode runs a single repeating timer, but the rate it should run at
+depends on what the app is currently doing. Getting this wrong is subtle, because
+nothing breaks — the app simply feels sluggish, and only in one particular state.
+
+| Situation | Rate | Why |
+|---|---|---|
+| Bedtime heart-rate check running | **5 s** | The optical sensor needs a few seconds to spin up; polling any slower means staring at "Checking HR..." |
+| A wake window within ~105 minutes | **15 s** | Wake timing needs this resolution, and the heart-rate figure changes every sample |
+| Anything else | **60 s** | Most of the night there is nothing to do but watch the clock; 4× fewer CPU wakeups |
+
+Two rules follow, and both were learned by getting them wrong:
+
+1. **One function decides the rate.** There were briefly two copies, and the one in
+   `onShow()` knew nothing about the heart-rate check — so opening the screen hours
+   before an alarm armed a 60-second timer and the first retry sat a full minute away.
+2. **Anything that changes the situation must re-arm the timer.** Setting the state
+   without restarting the timer leaves the old rate running until the next tick
+   happens to fire. A button press asking for a fresh reading did exactly this, and
+   took up to a minute to answer on the idle cadence. A structural test now walks
+   `BedsideView.mc` and asserts that every function mutating the probe counter or the
+   sampling flag also touches the timer.
 
 ---
 
@@ -637,7 +664,7 @@ runs, since several suites generate randomised scenarios.)
 | 17 | Ring/snooze/passcode state machine, view lifecycle, bedtime probe | 370 |
 | 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
-| 20 | Countdown formatting, session-state clearing, layout bounds, tick cadence | 450 |
+| 20 | Countdown formatting, session-state clearing, layout bounds, tick cadence | 460 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
@@ -773,8 +800,8 @@ three-quarters of the way down the screen. It is always present, and reads one o
 | `HR: 52 BPM  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
 | `HR: 52 BPM  ready` | Sleep tracking running and armed. |
 
-**Pressing any button re-runs the check**, so a fresh figure is always one press away without
-the sensor having to stay on. That matters: an always-on heart-rate session was measured at
+**Pressing any button re-runs the check**, and a figure appears within about five seconds, so
+a fresh reading is always one press away without the sensor having to stay on. That matters: an always-on heart-rate session was measured at
 roughly 24% of battery per night, whereas an on-demand check costs at most 40 seconds of
 sensor time and only when you are actually looking at the watch.
 

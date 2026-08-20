@@ -379,6 +379,13 @@ class BedsideView extends WatchUi.View {
         if (!_sampling) {
             _probeTicks = 0;
             SleepDetector.resetProbe();
+            // The TIMER has to be re-armed too, not just the probe counter.
+            // onShow() and onTick() both call startTimer() after touching
+            // _probeTicks; this path did not, so the fresh reading waited for the
+            // next scheduled tick - up to a full minute on the idle cadence, which
+            // defeats the point of asking for it. _probeTicks is 0 here, so
+            // intervalFor() returns the probe cadence whatever the alarm distance.
+            startTimer(intervalFor(-1));
         }
         WatchUi.requestUpdate();
     }
