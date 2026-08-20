@@ -62,6 +62,19 @@ class BedsideView extends WatchUi.View {
         // battery, so it was removed. The palm gesture remains unavoidable; the
         // practical defence is turning the touchscreen off overnight.
         if (AlarmStore.ringingId() == null) { _ringingShown = false; }
+
+        // Drop every cached display string on the way back in.
+        //
+        // Alarm state can change while this view is hidden - snoozing is the
+        // obvious case, and it moves the next fire time. The cached "Next Alarm"
+        // and "Duration" strings were computed before that happened, and the tick
+        // only recomputes them when the displayed MINUTE changes. Snooze at 12:00
+        // and return within the same minute, and the screen kept showing the
+        // pre-snooze values until 12:01. Clearing here forces the next draw to
+        // recompute, which costs one alarm scan on a screen transition.
+        _nextStr = null;
+        _durStr = null;
+        _lastDrawMin = -1;
         // Re-check the sensor each time Active Alarm Mode is opened, so the
         // status line reflects tonight rather than a previous session. Probe
         // straight away rather than waiting for the first tick, which on the slow

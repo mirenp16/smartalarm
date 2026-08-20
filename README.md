@@ -334,9 +334,32 @@ Two rules follow, and both were learned by getting them wrong:
 2. **Anything that changes the situation must re-arm the timer.** Setting the state
    without restarting the timer leaves the old rate running until the next tick
    happens to fire. A button press asking for a fresh reading did exactly this, and
-   took up to a minute to answer on the idle cadence. A structural test now walks
-   `BedsideView.mc` and asserts that every function mutating the probe counter or the
-   sampling flag also touches the timer.
+   took up to a minute to answer on the idle cadence.
+
+### The same mistake, generalised
+
+Three separate bugs turned out to be one shape: **a value derived from state that
+changed somewhere else, and was never recomputed.**
+
+| Derived value | Depends on | How it went stale |
+|---|---|---|
+| Timer interval | probe counter, sampling flag | Set the flag, forgot to restart the timer |
+| `Next Alarm` text | pending snooze | Snooze moved the fire time while the view was hidden |
+| `Duration` text | pending snooze | Same — both cached, both only refreshed on a minute boundary |
+
+Snoozing at 12:00 and returning within the same minute left the screen showing the
+*pre-snooze* time until 12:01, because the redraw is throttled to once a minute and
+nothing invalidated the cache on the way back in.
+
+Patching each instance is not enough when the class keeps recurring, so two
+**structural tests** now parse `BedsideView.mc` directly and assert:
+
+- every function that mutates the probe counter or the sampling flag also touches
+  the timer;
+- every cached display string is cleared in `onShow()`.
+
+Those tests fail on the source text, not on behaviour, so a future edit that
+reintroduces the pattern breaks the build rather than the alarm.
 
 ---
 
@@ -664,7 +687,7 @@ runs, since several suites generate randomised scenarios.)
 | 17 | Ring/snooze/passcode state machine, view lifecycle, bedtime probe | 370 |
 | 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
-| 20 | Countdown formatting, session-state clearing, layout bounds, tick cadence | 460 |
+| 20 | Countdown formatting, session-state clearing, layout bounds, cadence and cache invariants | 470 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
