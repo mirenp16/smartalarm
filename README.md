@@ -361,6 +361,21 @@ Patching each instance is not enough when the class keeps recurring, so two
 Those tests fail on the source text, not on behaviour, so a future edit that
 reintroduces the pattern breaks the build rather than the alarm.
 
+Behaviour is checked separately by **fuzzing the view's state machine**: 400 random
+sequences of the events it can actually receive — shown, hidden, tick, button press,
+snooze — 16,000 events in total, with six invariants asserted after *every* one:
+
+- the sensor is never open while the view is hidden;
+- a visible view always has a running timer, and a hidden one never does;
+- the timer interval is always one of the three legal values;
+- while the heart-rate check is running, the interval is the probe cadence;
+- sampling never happens without an open sensor session;
+- the probe counter stays in range.
+
+That combination — structural tests for the shape, fuzzing for the behaviour — is
+what finally closed a class of bug that three consecutive rounds of patching had
+only moved around.
+
 ---
 
 ## Battery engineering
@@ -688,6 +703,7 @@ runs, since several suites generate randomised scenarios.)
 | 18 | Probe/session/resume regression matrix (sensor-leak invariants) | 160 |
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
 | 20 | Countdown formatting, session-state clearing, layout bounds, cadence and cache invariants | 470 |
+| 21 | State-machine fuzz: 16,000 random view events against six invariants | 35 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
