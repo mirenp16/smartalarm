@@ -278,11 +278,27 @@ class SleepDetector {
     // the only question that matters before going to bed.
     private static var _probeHr as Number = 0;
     private static var _probeDone as Boolean = false;
+    private static var _probeAt as Number = 0;    // when the reading was taken
 
     static function probe() as Void {
         startSensor();
         var hr = currentHr();
-        if (hr != null) { _probeHr = hr; _probeDone = true; }
+        if (hr != null) {
+            _probeHr = hr;
+            _probeDone = true;
+            _probeAt = Time.now().value();
+        }
+    }
+
+    // Has the bedtime reading gone out of date?
+    //
+    // currentHr() rejects stale SOURCES, but the probe result is a snapshot taken
+    // when the reading was still fresh, and a snapshot with no expiry is the same
+    // mistake one level up: take the watch off and the screen kept showing the
+    // last good figure indefinitely, because nothing ever asked again.
+    static function probeExpired(nowSecs as Number) as Boolean {
+        if (!_probeDone || _probeHr <= 0) { return false; }
+        return (nowSecs - _probeAt) > PROBE_RESULT_TTL_SECS;
     }
     static function endProbe() as Void {
         _probeDone = true;

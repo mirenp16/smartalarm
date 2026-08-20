@@ -150,6 +150,15 @@ const HR_STALE_SECS = 45;
 // genuinely current sample and rejects anything that only proves the watch was
 // worn earlier.
 const HR_HISTORY_MAX_AGE_SECS = 120;
+// How long the bedtime reading stays on screen before it is re-taken.
+//
+// The reading is a snapshot. Without an expiry the screen shows the last good
+// figure for as long as the app is open, so removing the watch left a heart rate
+// on display for an empty wrist. On expiry the check simply runs again, and it
+// stops the moment it gets an answer - about 5-10 s when the watch is on, so the
+// idle cost is roughly 3% duty. Pressing any button refreshes it immediately, so
+// this only governs the unattended case.
+const PROBE_RESULT_TTL_SECS = 300;
 // If a sampling session reopens within this many seconds of closing, the heart-
 // rate buffer is KEPT rather than wiped. Covers the ringing and passcode screens
 // briefly covering Active Alarm Mode, which would otherwise discard the whole

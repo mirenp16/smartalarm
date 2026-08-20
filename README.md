@@ -485,6 +485,13 @@ briefly and then a perfectly plausible `HR: 63 BPM` for an empty wrist. Both the
 sample and the cached live callback are now age-checked; the general rule is that **a
 heart-rate value with no age attached is not evidence the watch is being worn.**
 
+Fixing the *sources* was only half of it. The figure on screen is a **snapshot** taken when
+the reading was still fresh, and a snapshot with no expiry is the same mistake one level up:
+remove the watch without touching a button and the last good figure stayed there for as long
+as the app was open. The reading now expires after five minutes and the check simply runs
+again, costing about 3% sensor duty while idle. Pressing any button refreshes it instantly,
+so the timer only governs the unattended case.
+
 **8. A snooze outlived its session.** Snoozing a 12:00 alarm and then dropping out of
 Active Alarm Mode — the palm gesture does exactly that — left the pending snooze alive in
 storage. Re-entering at 12:04 showed "Next Alarm: None", and the alarm then went off anyway
@@ -712,7 +719,7 @@ runs, since several suites generate randomised scenarios.)
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
 | 20 | Countdown formatting, session-state clearing, layout bounds, cadence and cache invariants | 470 |
 | 21 | State-machine fuzz: 16,000 random view events against six invariants | 35 |
-| 22 | Heart-rate freshness: every source age-checked, watch-removed scenario | 45 |
+| 22 | Heart-rate freshness: every source age-checked, snapshot expiry, watch-removed scenario | 55 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
@@ -834,6 +841,18 @@ passcode is only entered once.
 | Forgot the passcode | — | Enter the master code **1234**, or get it wrong 5 times and it fills itself in |
 
 ---
+
+### What the heart-rate line can say
+
+Exactly four things, and none of them ever quotes an earlier value:
+
+```
+Checking HR...        taking a reading, 5-10 s
+HR: 63 BPM            sensor confirmed working
+HR: 63 BPM  18/40     sleep tracking running, warming up
+HR: 63 BPM  ready     sleep tracking running and armed
+No HR Signal          no fresh reading — watch off, or worn too loosely
+```
 
 ### Checking that sleep tracking is working
 

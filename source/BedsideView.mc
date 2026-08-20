@@ -191,6 +191,12 @@ class BedsideView extends WatchUi.View {
                 // meaningful readout and re-confirms the sensor.
                 _probeTicks = 0;
                 SleepDetector.resetProbe();
+            } else if (SleepDetector.probeExpired(now)) {
+                // The displayed reading has gone out of date - take it again
+                // rather than leave a stale figure on screen.
+                _probeTicks = 0;
+                SleepDetector.resetProbe();
+                _lastDrawMin = -1;
             } else if (_probeTicks < PROBE_TICKS) {
                 // Bedtime check: give the sensor a few ticks to produce a reading
                 // so the status line can be trusted before going to sleep, then
