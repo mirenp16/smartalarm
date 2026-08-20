@@ -336,6 +336,11 @@ Two rules follow, and both were learned by getting them wrong:
    happens to fire. A button press asking for a fresh reading did exactly this, and
    took up to a minute to answer on the idle cadence.
 
+### One root cause, five faces
+
+Every functional bug found in the final rounds of review reduced to a single
+mistake: **using a value without checking whether it is still meaningful.**
+
 ### The same mistake, generalised
 
 Three separate bugs turned out to be one shape: **a value derived from state that
