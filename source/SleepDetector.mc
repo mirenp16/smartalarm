@@ -290,18 +290,28 @@ class SleepDetector {
         }
     }
 
-    // Has the bedtime reading gone out of date?
+    // Has the last check gone out of date?
     //
     // currentHr() rejects stale SOURCES, but the probe result is a snapshot taken
     // when the reading was still fresh, and a snapshot with no expiry is the same
     // mistake one level up: take the watch off and the screen kept showing the
     // last good figure indefinitely, because nothing ever asked again.
+    //
+    // This applies to BOTH outcomes. Expiring only successes made the behaviour
+    // asymmetric: "HR: 63 BPM" would correct itself when the watch came off, but
+    // "No HR Signal" was permanent, so putting the watch back on left the screen
+    // insisting there was no signal until a button was pressed. A conclusion of
+    // "no reading" is just as much a snapshot of a moment as a number is.
     static function probeExpired(nowSecs as Number) as Boolean {
-        if (!_probeDone || _probeHr <= 0) { return false; }
+        if (!_probeDone) { return false; }
         return (nowSecs - _probeAt) > PROBE_RESULT_TTL_SECS;
     }
     static function endProbe() as Void {
         _probeDone = true;
+        // Stamp the CONCLUSION, whatever it was. Without this a failed check has
+        // _probeAt == 0, which reads as infinitely old and would re-probe on every
+        // single tick.
+        _probeAt = Time.now().value();
         stopSensor();
     }
     static function probeHr() as Number { return _probeHr; }

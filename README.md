@@ -489,8 +489,15 @@ Fixing the *sources* was only half of it. The figure on screen is a **snapshot**
 the reading was still fresh, and a snapshot with no expiry is the same mistake one level up:
 remove the watch without touching a button and the last good figure stayed there for as long
 as the app was open. The reading now expires after five minutes and the check simply runs
-again, costing about 3% sensor duty while idle. Pressing any button refreshes it instantly,
+again, costing about 2% sensor duty while worn. Pressing any button refreshes it instantly,
 so the timer only governs the unattended case.
+
+Both outcomes expire, not just successes. Expiring only the good ones made the behaviour
+asymmetric: `HR: 63 BPM` corrected itself when the watch came off, but `No HR Signal` was
+permanent, so putting the watch back on left the screen insisting there was no signal until a
+button was pressed. **A conclusion of "no reading" is just as much a snapshot of a moment as a
+number is.** The worst case — watch off the wrist with the app left open — costs about 12%
+sensor duty, which is the one situation where battery is least likely to matter.
 
 **8. A snooze outlived its session.** Snoozing a 12:00 alarm and then dropping out of
 Active Alarm Mode — the palm gesture does exactly that — left the pending snooze alive in
@@ -719,7 +726,7 @@ runs, since several suites generate randomised scenarios.)
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
 | 20 | Countdown formatting, session-state clearing, layout bounds, cadence and cache invariants | 470 |
 | 21 | State-machine fuzz: 16,000 random view events against six invariants | 35 |
-| 22 | Heart-rate freshness: every source age-checked, snapshot expiry, watch-removed scenario | 55 |
+| 22 | Heart-rate freshness: source age checks, snapshot expiry both ways, duty-cycle bounds | 65 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
 dereferenced the nullable `getItem()` without a check — the only such call in the
