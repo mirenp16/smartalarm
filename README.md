@@ -493,6 +493,19 @@ far-off one wiped the peak on every tick, so "the score has fallen below its pea
 become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
 The reset is now deferred until the whole list has been examined.
 
+**10. An unconfirmed reading was reported as fact.** Taking the watch off does not switch the
+optical sensor off — it keeps trying and *loses lock gradually*, emitting values that are
+genuine outputs of the algorithm but meaningless. The check reported the first non-null number
+it saw, so pressing a button during that window produced a confident figure for a bare wrist,
+and one that disagreed with the last real reading. It now waits until **three readings agree
+within 12 bpm** before showing anything. Against a real pulse that is trivial — a resting
+heart rate barely moves in fifteen seconds — and against a sensor losing lock it essentially
+never happens.
+
+This cannot catch a sensor that confidently reports a *stable* wrong value; nothing in
+software can, because the app has no independent way to know the number is wrong. What it
+guarantees is narrower and honest: **no unconfirmed reading is ever displayed.**
+
 **9. A removed watch still reported a heart rate.** The fallback chain ends in
 `SensorHistory` — the watch's all-day heart-rate log. That log survives taking the watch off,
 and the code read it without ever checking `when`, so it answered "what is my heart rate"
@@ -742,7 +755,7 @@ runs, since several suites generate randomised scenarios.)
 | 19 | Whole-night end-to-end: bedtime to wake, tick by tick | 90 |
 | 20 | Countdown formatting, session-state clearing, layout bounds, cadence and cache invariants | 470 |
 | 21 | State-machine fuzz: 16,000 random view events against six invariants | 35 |
-| 22 | Heart-rate freshness: source age checks, snapshot expiry both ways, duty-cycle bounds | 65 |
+| 22 | Heart-rate freshness: source age checks, snapshot expiry both ways, corroboration, duty-cycle bounds | 90 |
 | 23 | Clock jumps: every stored-timestamp comparison under DST and manual time changes | 60 |
 
 Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
@@ -885,7 +898,7 @@ three-quarters of the way down the screen. It is always present, and reads one o
 
 | Readout | Meaning |
 |---|---|
-| `Checking HR...` | Taking the bedtime reading. The sensor is polled every 5 seconds; a figure normally appears within 5–10 s, and the check gives up after 40 s. |
+| `Checking HR...` | Taking the bedtime reading. The sensor is polled every 5 seconds and a figure appears only once three readings **agree**, so this normally clears in 10–15 s and gives up after 40 s. |
 | `HR: 63 BPM` | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
 | `No HR Signal` (amber) | **No fresh heart-rate reading available** after 40 seconds of trying. Readings are only accepted if recent — a live sensor callback within 45 s, or an all-day history sample within 2 minutes — so taking the watch off shows this within about two minutes rather than a stale figure. Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. **Press any button to try again.** |
 | `HR: 52 BPM  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |

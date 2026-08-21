@@ -286,15 +286,46 @@ class SleepDetector {
     private static var _probeHr as Number = 0;
     private static var _probeDone as Boolean = false;
     private static var _probeAt as Number = 0;    // when the reading was taken
+    private static var _probeSamples as Array<Number> = [];   // awaiting agreement
 
+    // Take one reading, and report a figure ONLY once several agree.
+    //
+    // A number existing is not the same as a number being right. The optical
+    // sensor keeps producing output for a few seconds after the watch leaves your
+    // wrist, while its algorithm loses lock, and those values look perfectly
+    // ordinary. Requiring PROBE_MIN_AGREE readings within PROBE_AGREE_BAND beats
+    // of each other is trivial to satisfy against a real pulse and awkward to
+    // satisfy against noise, so the screen keeps saying "Checking HR..." instead
+    // of announcing a figure it cannot stand behind.
     static function probe() as Void {
         startSensor();
         var hr = currentHr();
-        if (hr != null) {
-            _probeHr = hr;
-            _probeDone = true;
-            _probeAt = Time.now().value();
+        if (hr == null) {
+            _probeSamples = [];      // a gap breaks the run; start again
+            return;
         }
+        _probeSamples.add(hr);
+        var n = _probeSamples.size();
+        if (n > PROBE_MIN_AGREE) {
+            _probeSamples = _probeSamples.slice(n - PROBE_MIN_AGREE, null);
+            n = PROBE_MIN_AGREE;
+        }
+        if (n < PROBE_MIN_AGREE) { return; }        // not corroborated yet
+
+        var lo = _probeSamples[0];
+        var hi = _probeSamples[0];
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            var v = _probeSamples[i];
+            if (v < lo) { lo = v; }
+            if (v > hi) { hi = v; }
+            sum += v;
+        }
+        if ((hi - lo) > PROBE_AGREE_BAND) { return; }   // they disagree - keep looking
+
+        _probeHr = sum / n;                              // agreed: report the mean
+        _probeDone = true;
+        _probeAt = Time.now().value();
     }
 
     // Has the last check gone out of date?

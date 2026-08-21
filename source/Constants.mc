@@ -131,8 +131,8 @@ const AWAKE_CHECK_LEAD = 15;
 //
 // PROBE_TICKS x PROBE_TICK_MS is also the point at which the check gives up and
 // reports "No HR Signal", so the two together bound both the responsiveness and
-// the sensor time spent: 8 x 5 s = 40 s maximum, and it stops the instant a
-// reading arrives.
+// the sensor time spent: 8 x 5 s = 40 s maximum. It stops as soon as enough
+// readings AGREE (see PROBE_MIN_AGREE), not on the first number that appears.
 const PROBE_TICK_MS = 5000;
 const PROBE_TICKS   = 8;
 // FRESHNESS LIMITS. Both exist because a heart-rate reading with no age attached
@@ -159,6 +159,22 @@ const HR_HISTORY_MAX_AGE_SECS = 120;
 // idle cost is roughly 3% duty. Pressing any button refreshes it immediately, so
 // this only governs the unattended case.
 const PROBE_RESULT_TTL_SECS = 300;
+// CORROBORATION. The bedtime check reports a figure only once this many
+// consecutive readings agree to within PROBE_AGREE_BAND beats.
+//
+// Taking the watch off does not switch the optical sensor off - it keeps trying
+// and LOSES LOCK gradually, emitting readings that are genuine outputs of the
+// algorithm but meaningless: drifting, jumping, or holding a last value. The
+// check used to report the first non-null number it saw, so pressing a button
+// during that window produced a confident figure for a bare wrist.
+//
+// Three readings 5 s apart that agree within 12 bpm is easy to satisfy on a
+// wrist - resting heart rate barely moves over fifteen seconds - and hard to
+// satisfy while the sensor is losing lock. It cannot catch a sensor that
+// confidently reports a STABLE wrong value; nothing in software can. What it
+// does guarantee is that no UNCONFIRMED reading is ever shown.
+const PROBE_MIN_AGREE  = 3;
+const PROBE_AGREE_BAND = 12;
 // If a sampling session reopens within this many seconds of closing, the heart-
 // rate buffer is KEPT rather than wiped. Covers the ringing and passcode screens
 // briefly covering Active Alarm Mode, which would otherwise discard the whole
