@@ -136,6 +136,8 @@ class SleepDetector {
             _armed = false;
             _liveHr = 0;
             _liveAt = 0;
+            _probeSamples = [];
+            _probeSampleAt = 0;
         }
 
         try {
@@ -287,6 +289,7 @@ class SleepDetector {
     private static var _probeDone as Boolean = false;
     private static var _probeAt as Number = 0;    // when the reading was taken
     private static var _probeSamples as Array<Number> = [];   // awaiting agreement
+    private static var _probeSampleAt as Number = 0;          // when the last one arrived
 
     // Take one reading, and report a figure ONLY once several agree.
     //
@@ -300,10 +303,20 @@ class SleepDetector {
     static function probe() as Void {
         startSensor();
         var hr = currentHr();
+        var now = Time.now().value();
         if (hr == null) {
             _probeSamples = [];      // a gap breaks the run; start again
             return;
         }
+        // A run only corroborates if its readings were taken close together. The
+        // array being consecutive is not enough - leaving the screen and coming
+        // back much later would otherwise let a twenty-minute-old reading vouch
+        // for a fresh one. A negative gap (clock moved back) is equally unusable.
+        var sinceLast = now - _probeSampleAt;
+        if (_probeSampleAt > 0 && (sinceLast < 0 || sinceLast > PROBE_RUN_GAP_SECS)) {
+            _probeSamples = [];
+        }
+        _probeSampleAt = now;
         _probeSamples.add(hr);
         var n = _probeSamples.size();
         if (n > PROBE_MIN_AGREE) {
@@ -325,7 +338,7 @@ class SleepDetector {
 
         _probeHr = sum / n;                              // agreed: report the mean
         _probeDone = true;
-        _probeAt = Time.now().value();
+        _probeAt = now;
     }
 
     // Has the last check gone out of date?

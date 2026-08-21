@@ -497,8 +497,10 @@ The reset is now deferred until the whole list has been examined.
 optical sensor off — it keeps trying and *loses lock gradually*, emitting values that are
 genuine outputs of the algorithm but meaningless. The check reported the first non-null number
 it saw, so pressing a button during that window produced a confident figure for a bare wrist,
-and one that disagreed with the last real reading. It now waits until **three readings agree
-within 12 bpm** before showing anything. Against a real pulse that is trivial — a resting
+and one that disagreed with the last real reading. It now waits until **three readings taken within
+fifteen seconds of each other agree to within 12 bpm** before showing anything. Both halves
+matter: three values that agree mean nothing if one was measured twenty minutes ago, so a gap
+in the run discards it and starts over. Against a real pulse that is trivial — a resting
 heart rate barely moves in fifteen seconds — and against a sensor losing lock it essentially
 never happens.
 

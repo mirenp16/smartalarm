@@ -175,6 +175,12 @@ const PROBE_RESULT_TTL_SECS = 300;
 // does guarantee is that no UNCONFIRMED reading is ever shown.
 const PROBE_MIN_AGREE  = 3;
 const PROBE_AGREE_BAND = 12;
+// Readings only corroborate each other if they were taken CLOSE TOGETHER. Three
+// values that agree mean nothing if one was measured twenty minutes ago, so a gap
+// longer than this discards the run and starts over. 15 s allows one missed poll
+// at the 5 s cadence without being generous enough to stitch together readings
+// from separate occasions.
+const PROBE_RUN_GAP_SECS = 15;
 // If a sampling session reopens within this many seconds of closing, the heart-
 // rate buffer is KEPT rather than wiped. Covers the ringing and passcode screens
 // briefly covering Active Alarm Mode, which would otherwise discard the whole
