@@ -131,10 +131,15 @@ const AWAKE_CHECK_LEAD = 15;
 //
 // PROBE_TICKS x PROBE_TICK_MS is also the point at which the check gives up and
 // reports "No HR Signal", so the two together bound both the responsiveness and
-// the sensor time spent: 8 x 5 s = 40 s maximum. It stops as soon as enough
+// the sensor time spent: 12 x 5 s = 60 s maximum. It stops as soon as enough
 // readings AGREE (see PROBE_MIN_AGREE), not on the first number that appears.
+//
+// The window is 60 s rather than 40 s so that three readings can still be
+// gathered on a device whose sensor only refreshes every 20-25 s. A worn watch
+// reporting "No HR Signal" because the check ran out of time would be a worse
+// failure than the stale reading all of this was built to prevent.
 const PROBE_TICK_MS = 5000;
-const PROBE_TICKS   = 8;
+const PROBE_TICKS   = 12;
 // FRESHNESS LIMITS. Both exist because a heart-rate reading with no age attached
 // is not evidence that the watch is being worn.
 //
@@ -177,10 +182,18 @@ const PROBE_MIN_AGREE  = 3;
 const PROBE_AGREE_BAND = 12;
 // Readings only corroborate each other if they were taken CLOSE TOGETHER. Three
 // values that agree mean nothing if one was measured twenty minutes ago, so a gap
-// longer than this discards the run and starts over. 15 s allows one missed poll
-// at the 5 s cadence without being generous enough to stitch together readings
-// from separate occasions.
-const PROBE_RUN_GAP_SECS = 15;
+// longer than this discards the run and starts over.
+//
+// Set to the whole probe window (PROBE_TICKS x PROBE_TICK_MS), deliberately. A
+// tighter limit is worse than useless: readings within ONE check are inherently
+// close together - the check only lasts a minute - so the only thing a tight
+// limit can do is break a legitimate run when the sensor happens to report
+// slowly. At 15 s a watch whose sensor refreshed every 20 s would have read
+// "No HR Signal" while being worn, which is a worse failure than the stale
+// reading this was guarding against. The case that actually needed guarding is a
+// run surviving ACROSS checks - leaving the screen and returning much later - and
+// any gap of that kind is far larger than the window.
+const PROBE_RUN_GAP_SECS = 60;
 // If a sampling session reopens within this many seconds of closing, the heart-
 // rate buffer is KEPT rather than wiped. Covers the ringing and passcode screens
 // briefly covering Active Alarm Mode, which would otherwise discard the whole

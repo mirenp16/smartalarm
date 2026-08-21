@@ -497,10 +497,17 @@ The reset is now deferred until the whole list has been examined.
 optical sensor off — it keeps trying and *loses lock gradually*, emitting values that are
 genuine outputs of the algorithm but meaningless. The check reported the first non-null number
 it saw, so pressing a button during that window produced a confident figure for a bare wrist,
-and one that disagreed with the last real reading. It now waits until **three readings taken within
-fifteen seconds of each other agree to within 12 bpm** before showing anything. Both halves
+and one that disagreed with the last real reading. It now waits until **three readings taken close
+together agree to within 12 bpm** before showing anything. Both halves
 matter: three values that agree mean nothing if one was measured twenty minutes ago, so a gap
-in the run discards it and starts over. Against a real pulse that is trivial — a resting
+in the run discards it and starts over.
+
+Tuning that gap taught its own lesson. Set tight — fifteen seconds — it would have broken a
+legitimate run on any device whose sensor refreshes more slowly than that, so a **worn** watch
+would have read `No HR Signal`: a worse failure than the stale reading the check was built to
+prevent. The gap is therefore set to the whole 60-second check window. Readings within one
+check are inherently close together, so the limit does the only job it usefully can — discard
+a run that survived from a *previous* check, minutes or hours earlier. Against a real pulse that is trivial — a resting
 heart rate barely moves in fifteen seconds — and against a sensor losing lock it essentially
 never happens.
 
@@ -900,7 +907,7 @@ three-quarters of the way down the screen. It is always present, and reads one o
 
 | Readout | Meaning |
 |---|---|
-| `Checking HR...` | Taking the bedtime reading. The sensor is polled every 5 seconds and a figure appears only once three readings **agree**, so this normally clears in 10–15 s and gives up after 40 s. |
+| `Checking HR...` | Taking the bedtime reading. The sensor is polled every 5 seconds and a figure appears only once three readings **agree**, so this normally clears in 10–15 s and gives up after 60 s. |
 | `HR: 63 BPM` | **Sensor confirmed working.** Sleep tracking itself starts later — roughly 105 minutes before the alarm — so there is nothing more to see until then. |
 | `No HR Signal` (amber) | **No fresh heart-rate reading available** after 40 seconds of trying. Readings are only accepted if recent — a live sensor callback within 45 s, or an all-day history sample within 2 minutes — so taking the watch off shows this within about two minutes rather than a stale figure. Usually the watch is not being worn, or is too loose; also check wrist heart rate is enabled in the watch's own settings. **Press any button to try again.** |
 | `HR: 52 BPM  18/40` | Sleep tracking running, still warming up — 40 samples (~10 min) are needed before the score is trusted. |
