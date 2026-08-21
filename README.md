@@ -71,6 +71,7 @@ within them:
 - [Passcode system](#passcode-system)
 - [Snooze model](#snooze-model)
 - [Three clocks, not one](#three-clocks-not-one)
+- [Instruction budget](#instruction-budget)
 - [Battery engineering](#battery-engineering)
 - [Architecture](#architecture)
 - [Data model](#data-model)
@@ -391,6 +392,28 @@ snooze — 16,000 events in total, with six invariants asserted after *every* on
 That combination — structural tests for the shape, fuzzing for the behaviour — is
 what finally closed a class of bug that three consecutive rounds of patching had
 only moved around.
+
+---
+
+## Instruction budget
+
+Connect IQ counts VM instructions and kills an app whose callback runs too long.
+This app has been killed that way twice, so the per-tick cost of the overnight
+sampling loop is measured rather than assumed:
+
+| Operation (buffer full — the steady state) | Element ops |
+|---|---|
+| `sample()` — ring-buffer slice | 240 |
+| `recomputeBounds()`, amortised over 4 ticks | 148 |
+| `lightness()` — recent mean | 12 |
+| `lightness()` — mean absolute difference, recent | 12 |
+| `lightness()` — mean absolute difference, all | 240 |
+| `isAwake()` — recent mean (memoised) | 12 |
+| **Total** | **664** |
+
+For scale, the O(n²) insertion sort this replaced cost **28,800** comparisons per
+recalculation. The current loop is **2.3%** of that. Peak memory is 1.9 KB while
+the ring buffer is being re-sliced, plus 0.7 KB for the counting-sort array.
 
 ---
 

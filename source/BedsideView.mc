@@ -91,15 +91,16 @@ class BedsideView extends WatchUi.View {
                     _sampling = true;
                     _probeTicks = PROBE_TICKS;
                 } else {
+                    // Start the check now rather than waiting for the first tick.
+                    //
+                    // It cannot CONCLUDE here: a figure is only reported once
+                    // PROBE_MIN_AGREE readings agree, and this is the first, so
+                    // the run always continues on the tick loop. The early-release
+                    // branch that used to live here became unreachable the moment
+                    // corroboration was introduced, and was removed rather than
+                    // left to misdescribe the code.
                     SleepDetector.probe();
-                    // Got a reading straight away? Release the sensor now rather
-                    // than holding it open for another tick.
-                    if (SleepDetector.probeHr() > 0) {
-                        _probeTicks = PROBE_TICKS;
-                        SleepDetector.endProbe();
-                    } else {
-                        _probeTicks = 1;
-                    }
+                    _probeTicks = 1;
                 }
             } catch (ep) {
                 _probeTicks = 1;
