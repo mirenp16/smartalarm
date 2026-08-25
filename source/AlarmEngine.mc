@@ -135,7 +135,16 @@ class AlarmEngine {
         for (var i = 0; i < list.size(); i++) {
             var a = list[i] as Dictionary;
             if (!AlarmStore.isOn(a)) { continue; }
-            if (AlarmStore.hasFired(AlarmStore.id(a))) { continue; }
+            // NO hasFired() check here, deliberately.
+            //
+            // It was redundant and actively wrong. nextFireEpoch() only ever
+            // returns a FUTURE occurrence, so an alarm that has already gone off
+            // today resolves to tomorrow by itself. Skipping it here instead made
+            // this function disagree with nextAlarm(), which has no such check -
+            // so creating a 4x10 alarm for 06:00 in the evening (which marks it
+            // fired for today, since today's slot has passed) showed
+            // "Next Alarm 6:00 AM" beside "Duration --:--". Two functions
+            // answering the same question differently is the bug; they agree now.
             var e = AlarmStore.nextFireEpoch(a, nowSecs);
             if (e < 0) { continue; }
             var d = e - nowSecs;

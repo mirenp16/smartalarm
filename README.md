@@ -69,6 +69,7 @@ within them:
 - [Post-mortem: why smart wake never fired](#post-mortem-why-smart-wake-never-fired)
 - [How the algorithm is verified](#how-the-algorithm-is-verified)
 - [Passcode system](#passcode-system)
+- [Repeat presets](#repeat-presets)
 - [Snooze model](#snooze-model)
 - [Three clocks, not one](#three-clocks-not-one)
 - [Instruction budget](#instruction-budget)
@@ -96,7 +97,7 @@ before your set time and fires at the lightest moment it can find inside it.
 | Smart wake | Fires during light sleep within a 30/45/60/75-minute window |
 | Deadline guarantee | Always fires by your set time if no light moment is found |
 | Already-awake detection | Rings immediately if you wake up on your own inside the window |
-| Repeat presets | Once, Daily, 4x10 (Mon–Thu), Weekdays, Weekend, Custom |
+| Repeat presets | Once, Daily, 4x10, Weekdays, Weekend, Custom — see below |
 | Per-alarm config | Label, window, alert mode, ringtone, snooze length, max snoozes, passcode |
 | Passcode gate | 4-digit code required to dismiss, with master-code recovery |
 | Alarm capacity | Up to 20 saved alarms |
@@ -297,6 +298,21 @@ governing alarm is resolved in priority order:
 
 Resolving snoozed alarms first closes a real bypass: snoozing a one-time alarm disables it,
 which previously made the "next alarm" lookup return nothing and allowed a code-free exit.
+
+---
+
+## Repeat presets
+
+| Preset | Days | Notes |
+|---|---|---|
+| **Once** | — | Fires at the next occurrence of the set time, then switches itself off |
+| **Daily** | Sun–Sat | Every day |
+| **4x10** | **Mon, Tue, Wed, Thu** | A four-day, ten-hour work week — Friday is off |
+| **Weekdays** | Mon–Fri | |
+| **Weekend** | Sat, Sun | |
+| **Custom** | any | Opens a checkbox list of the seven days |
+
+Leaving every day unchecked in Custom is the same as **Once**.
 
 ---
 
