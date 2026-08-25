@@ -982,10 +982,17 @@ from the current day's midnight, so the portion of a wake window falling *before
 midnight is not evaluated. An alarm at 00:30 with a 45-minute window gets 30 usable
 minutes; one at exactly 00:00 gets none and simply rings on time. Alarms at 01:00
 or later are unaffected, and the deadline guarantee holds at every time of day
-(verified across all 1,440 possible alarm minutes). This is a deliberate trade:
-fixing it means having the scheduler consider two candidate days at once, and the
-added complexity in the one component that must never misfire is not worth it for
-a case that only affects alarms set between midnight and 00:59.
+(verified across all 1,440 possible alarm minutes).
+
+The detector is no longer starting cold, though. Heart-rate *sampling* is driven by
+distance to the next occurrence, which does cross midnight correctly, so by 00:00 the
+buffer already holds a full baseline — 75 minutes of data for a 00:30 alarm, 45 for a
+01:00 one. Only the window *evaluation* is clipped, not the data behind it.
+
+This remains a deliberate trade: fixing the evaluation means having the scheduler
+consider two candidate days at once, and the added complexity in the one component
+that must never misfire is not worth it for a case affecting only alarms set between
+midnight and 00:59.
 
 - Alarms only fire while Active Alarm Mode is running
 - The palm-cover gesture exits the app and cannot be intercepted
