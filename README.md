@@ -532,6 +532,18 @@ far-off one wiped the peak on every tick, so "the score has fallen below its pea
 become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
 The reset is now deferred until the whole list has been examined.
 
+**11. "Already fired today" was answered in two places, wrongly in both.** Whether an alarm
+has already gone off is part of *when it next rings* — but callers applied their own filter on
+top of `nextFireEpoch()`, and getting that wrong broke things in opposite directions. With the
+filter, an alarm created in the evening (marked fired because today's slot had passed) reported
+no next occurrence at all, so **Duration read `--:--`**. Without it, dismissing an alarm that
+smart wake had fired **early** — 05:38 for an 06:00 alarm — still saw today's 06:00 as
+upcoming, so the app **stayed in Active Alarm Mode instead of returning to the main screen**.
+
+Fixing the first by deleting the filter caused the second. Both are the same question, so it is
+now answered once, inside `nextFireEpoch()`: today's slot is spent once the alarm has fired,
+*even if the clock has not reached the set time* — because ringing early is the whole point.
+
 **10. An unconfirmed reading was reported as fact.** Taking the watch off does not switch the
 optical sensor off — it keeps trying and *loses lock gradually*, emitting values that are
 genuine outputs of the algorithm but meaningless. The check reported the first non-null number

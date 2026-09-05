@@ -125,12 +125,26 @@ class AlarmStore {
 
     static function isFull() as Boolean { return getAlarms().size() >= MAX_ALARMS; }
 
-    // Epoch seconds of the next time this alarm will fire (repeating: scans up to
-    // 7 days ahead for a scheduled day; one-time: its fireAt). -1 if none.
+    // Epoch seconds of the next time this alarm will actually ring - repeating
+    // alarms scan up to 7 days ahead for a scheduled day, one-time alarms use
+    // their fireAt. Returns -1 when there is no next occurrence.
+    //
+    // "Already fired today" is part of that answer, not a separate concern.
+    // Callers used to apply their own hasFired() filter on top, and getting that
+    // wrong broke things in both directions: with the filter, an alarm created in
+    // the evening (marked fired because today's slot had passed) reported no next
+    // occurrence at all, so "Duration" read "--:--"; without it, dismissing an
+    // alarm that smart wake had fired EARLY - at 05:38 for an 06:00 alarm - still
+    // saw today's 06:00 as upcoming, so the app stayed in Active Alarm Mode
+    // instead of returning to the main screen.
+    //
+    // Both are the same question, so it is answered once, here.
     static function nextFireEpoch(a as Dictionary, nowSecs as Number) as Number {
         var d = days(a);
+        var firedToday = hasFired(id(a));
         if (d == 0) {
-            var fa = ensureFireAt(a);   // repairs a legacy alarm with no fireAt
+            if (firedToday) { return -1; }   // one-time alarm has done its job
+            var fa = ensureFireAt(a);        // repairs a legacy alarm with no fireAt
             return (fa > nowSecs) ? fa : -1;
         }
         // Uses the cached day context - this used to call Gregorian.info() once
@@ -140,6 +154,9 @@ class AlarmStore {
         var dow = ctx[1];
         var secOfDay = totalMinutes(a) * 60;
         for (var off = 0; off < 8; off++) {
+            // Today's slot is spent once the alarm has fired, even if the clock
+            // has not reached the set time - smart wake rings EARLY by design.
+            if (off == 0 && firedToday) { continue; }
             var epoch = midnight + off * 86400 + secOfDay;
             if (epoch <= nowSecs) { continue; }
             var bit = (dow + off) % 7;
