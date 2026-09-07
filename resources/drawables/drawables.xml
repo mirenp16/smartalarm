@@ -3,13 +3,16 @@
     <bitmap id="LauncherIcon" filename="launcher_icon.png"/>
     <bitmap id="AlarmLogo" filename="alarm_logo.png"/>
 
-    <!-- Alert status glyphs: _s for list rows, _l for the Alert picker -->
+    <!-- Alert status glyphs: _s for list rows, _l for the Alert picker.
+
+         Only the PLAIN sound/vibe glyphs are declared. The "off" states are the
+         same glyph with a slash drawn over it at runtime (see Icons.slash) - the
+         artwork's own thin strike was almost invisible at row size. Four
+         struck-through bitmaps used to be declared here as well and were never
+         loaded by any code path, so they were compiled into every build for
+         nothing. -->
     <bitmap id="IconSoundS"   filename="icon_sound_s.png"/>
-    <bitmap id="IconNoSoundS" filename="icon_nosound_s.png"/>
     <bitmap id="IconVibeS"    filename="icon_vibe_s.png"/>
-    <bitmap id="IconNoVibeS"  filename="icon_novibe_s.png"/>
     <bitmap id="IconSoundL"   filename="icon_sound_l.png"/>
-    <bitmap id="IconNoSoundL" filename="icon_nosound_l.png"/>
     <bitmap id="IconVibeL"    filename="icon_vibe_l.png"/>
-    <bitmap id="IconNoVibeL"  filename="icon_novibe_l.png"/>
 </drawables>

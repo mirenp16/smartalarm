@@ -651,9 +651,32 @@ Order of operations, not arithmetic: nothing may read a "fired today" flag befor
 belongs to has been settled. The check is memoised on the day it last confirmed, so calling it
 first is free and the second call costs a comparison.
 
-### The pattern across all fourteen
+**15. Dismissing an alarm across midnight disarmed the next one.** An alarm set for 23:55 can
+still be sounding at 00:02, and every decision on the way out was made in *yesterday's* terms.
+A second alarm due at 00:30 still carried yesterday's "fired" flag, so it resolved to
+**tomorrow's** 00:30; the exit test saw nothing due for a day and a half and closed Active
+Alarm Mode. Alarms only ring while that screen is open, so the 00:30 alarm was **silently
+disarmed** — a missed alarm, the worst outcome this app has.
 
-Nine of the fourteen were **silent**: the app carried on looking healthy and did the wrong
+Rolling the day over first fixes that and immediately creates the opposite fault: the alarm
+that just rang would then be stamped spent for the *new* day, suppressing tonight's genuine
+23:55. Both are the same confusion — *which occurrence was this ring serving?* — and the first
+attempt at an answer got it half right. Asking "did the ring begin on an earlier calendar
+day?" handles the dismissal case but not a **snooze** across midnight, where the re-ring
+starts on the new day while still serving yesterday's occurrence. The question that works for
+both compares where the ring started against *today's scheduled time*, which is the thing
+actually being decided:
+
+```
+markFired  iff  ringStart  ∈  [ todayTarget − maxWindow , todayTarget + grace ]
+```
+
+That is one predicate covering the ordinary night, an early smart wake, a dismissal after
+midnight, and a snooze chain across it.
+
+### The pattern across all fifteen
+
+Ten of the fifteen were **silent**: the app carried on looking healthy and did the wrong
 thing quietly. That is the defining hazard of an alarm clock, because the only person who
 could notice is asleep at the time.
 
@@ -663,11 +686,17 @@ healthy one produced identical behaviour. One dim line showing live BPM, the sam
 the active source makes the difference obvious at a glance, before you go to sleep rather than
 after you have overslept.
 
-Three of the fourteen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
-reset path added alongside 10, 13 by the same reasoning error as 11 in a second place). The
-common failure was patching a *symptom at the call site* rather than the *question at its
-source*. Each is now answered once, in one function, and a scan of every call site confirms
-none re-derives it locally.
+Three of the fifteen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
+reset path added alongside 10, 13 by the same reasoning error as 11 in a second place), and 15
+took two attempts because the first answer was too coarse. The common failure was patching a
+*symptom at the call site* rather than the *question at its source*. Each is now answered once,
+in one function, and a scan of every call site confirms none re-derives it locally.
+
+The recurring subject is worth naming, because four separate bugs share it: **"has this alarm
+already gone off today?" is a genuinely hard question in an app whose whole purpose is to ring
+at a time other than the one you set.** The clock reaching the set time is not what spends an
+occurrence — firing is — and an occurrence can be served before its time, after midnight, or
+across a snooze chain that spans both.
 
 ---
 
@@ -841,7 +870,7 @@ The scheduling, passcode, snooze, and detection logic are validated by executabl
 mirror the Monkey C implementation, covering paths that are impractical to exercise on-device
 (a full night takes 8 hours; the suite runs in seconds).
 
-**Over 169,000 assertions across 25 suites, 0 failures**, confirmed over three consecutive
+**Over 187,000 assertions across 26 suites, 0 failures**, confirmed over three consecutive
 full runs. (Exact counts vary slightly between runs, since several suites generate randomised
 scenarios.) The runner treats a suite that produces *no* result line as a failure in its own
 right — an earlier version reported "0 failures" for a suite that had crashed before
@@ -872,11 +901,16 @@ asserting anything, which is the most flattering possible way to be wrong.
 | 23 | Clock jumps: every stored-timestamp comparison under DST and manual time changes | 60 |
 | 24 | Probe corroboration across checks, editor re-arming, rollover ordering, guard-symbol audit | 750 |
 | 25 | Adversarial whole-session sequences: fire → dismiss → edit → re-enter → midnight | 84,900 |
+| 26 | Rings that span midnight: exhaustive dismissal and snooze timings, resource audit | 18,100 |
 
 Suite 25 is the one that would have caught bugs 11, 13 and 14. It asserts on the state at the
 **end of a whole session** rather than on any single call, because every one of those three was
 composed of individually correct steps — which is precisely why the earlier suites, each
 testing one step, all passed.
+
+Suite 26 earned its place immediately: written to confirm the fix for bug 15, it failed on
+first run and showed that the fix handled a dismissal across midnight but not a **snooze**
+across it. The predicate was replaced with the occurrence-based one before the fix shipped.
 
 Four defensive defects were also closed in the editor UI, none reachable on the happy path but
 all of which would have **crashed** the app rather than degrading:
@@ -1072,6 +1106,17 @@ This remains a deliberate trade: fixing the evaluation means having the schedule
 consider two candidate days at once, and the added complexity in the one component
 that must never misfire is not worth it for a case affecting only alarms set between
 midnight and 00:59.
+
+**An abandoned passcode prompt pauses the clock.** Starting the BACK→UP exit opens the
+passcode screen, which covers Active Alarm Mode; the tick stops with it, and alarms are
+evaluated on that tick. Walking away mid-entry therefore leaves no alarm armed until the code
+is finished. The screen stays lit saying `Enter Passcode`, so this needs you to begin leaving
+and then stop, but it is worth knowing. Nothing similar applies while an alarm is *ringing* —
+that screen deliberately keeps its own timer running underneath the passcode prompt.
+
+**Only one alarm can ring at a time.** If a second alarm's time passes while the first is
+still sounding, the second is retired rather than queued. With a 15-minute grace window this
+needs two alarms set very close together and the first left unanswered.
 
 - Alarms only fire while Active Alarm Mode is running
 - The palm-cover gesture exits the app and cannot be intercepted

@@ -174,13 +174,31 @@ class RingingView extends WatchUi.View {
     function doSnooze() as Void {
         var id = AlarmStore.ringingId();
         if (id == null) { close(); return; }
+
+        // Same day question as finishAwake, and answered the same way so the two
+        // paths cannot drift apart. Snoozing a 23:55 alarm at 00:02 must not
+        // stamp it spent for the new day, or tonight's 23:55 never rings.
+        //
+        // Settled BEFORE the snooze-limit check, not after, so that every read
+        // in this function sees one consistent day. Split across the rollover,
+        // the limit would be tested against yesterday's count and then written
+        // into today's - two days' worth of bookkeeping in one decision.
+        var servesToday = (_alarm != null)
+            ? AlarmStore.ringServesTodaysOccurrence(_alarm as Dictionary) : true;
+        AlarmStore.resetIfNewDay();
+
         if (snoozeExhausted()) { return; }        // must use I'm Awake instead
         AlarmStore.incSnooze(id);
         // Mark today's slot as done. Without this a REPEATING alarm is still
         // "due" (we're inside its 15-minute grace window), so the base schedule
         // re-fires it a second later and the snooze is ignored entirely.
         // The snooze entry below is what brings it back.
-        AlarmStore.markFired(id);
+        //
+        // Across a day boundary the mark is unnecessary as well as wrong: the
+        // target is recomputed from today's midnight, so the grace window it
+        // guards against belongs to a day that has ended. The snooze itself is
+        // absolute in time and is unaffected either way.
+        if (servesToday) { AlarmStore.markFired(id); }
         var until = Time.now().value() + snLen() * 60;
         AlarmStore.scheduleSnooze(id, until);
         AlarmStore.setRinging(null);
@@ -199,8 +217,31 @@ class RingingView extends WatchUi.View {
 
     function finishAwake() as Void {
         var id = AlarmStore.ringingId();
+
+        // Settle which DAY it is before deciding anything, and capture whether
+        // this ring started on the previous one before the rollover erases the
+        // evidence.
+        //
+        // Both matter, and they pull in opposite directions. Dismissing a 23:55
+        // alarm at 00:02 used to reason entirely in yesterday's terms: a 00:30
+        // alarm due 28 minutes later still carried yesterday's "fired" flag, so
+        // it resolved to TOMORROW's 00:30, the exit test saw nothing due for a
+        // day and a half, and Active Alarm Mode closed. Alarms only ring while
+        // that screen is open, so the 00:30 alarm was silently disarmed - a
+        // missed alarm, which is the worst thing this app can do.
+        //
+        // Rolling over first fixes that, but on its own it introduces the
+        // opposite fault: markFired() would then stamp the alarm as spent for
+        // TODAY, suppressing tonight's genuine 23:55. The occurrence that just
+        // rang was yesterday's, so on that path it is not marked at all - and it
+        // cannot re-fire either way, because the target is recomputed against
+        // today's midnight and is fifteen hours away.
+        var servesToday = (_alarm != null)
+            ? AlarmStore.ringServesTodaysOccurrence(_alarm as Dictionary) : true;
+        AlarmStore.resetIfNewDay();
+
         if (id != null) {
-            AlarmStore.markFired(id);
+            if (servesToday) { AlarmStore.markFired(id); }
             // A one-time ("Once") alarm has done its job - switch it off so the
             // list shows OFF afterwards.
             var found = AlarmStore.findById(id);

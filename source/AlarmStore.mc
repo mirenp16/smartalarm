@@ -327,6 +327,14 @@ class AlarmStore {
             var sn = Application.Storage.getValue(KEY_SNOOZE_UNTIL);
             if (sn == null || (sn as Number) + graceSecs < now) {
                 Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
+                // The id goes with it. A snooze is ONE fact stored in two keys,
+                // and this was the only place that cleared half of it. Nothing
+                // reads the id without first checking the time, so the leftover
+                // was inert - but it is exactly the kind of half-state that a
+                // later reader, reasonably assuming the two agree, would trip
+                // over. Cheaper to keep them honest than to rely on every future
+                // caller checking in the right order.
+                Application.Storage.setValue(KEY_SNOOZE_ID, null);
             }
 
             var rs = Application.Storage.getValue(KEY_RING_START);
@@ -481,6 +489,39 @@ class AlarmStore {
 
     static function ringStart() as Number or Null {
         return Application.Storage.getValue(KEY_RING_START);
+    }
+
+    // Is the ring that is now finishing serving TODAY's occurrence of this alarm?
+    //
+    // Stamping an alarm "fired today" is only correct when the occurrence just
+    // dealt with belongs to today. Usually it does, so this usually returns true
+    // - but an alarm near midnight breaks the assumption in two different ways,
+    // and getting it wrong silently skips a whole day's alarm:
+    //
+    //   - A 23:55 alarm still sounding at 00:02. The occurrence was YESTERDAY's;
+    //     marking it onto the new day suppresses tonight's genuine 23:55.
+    //   - The same alarm SNOOZED past midnight. Here the re-ring starts on the
+    //     new day, so "which day did this ring begin?" answers the wrong
+    //     question - the episode is still serving yesterday's occurrence.
+    //
+    // Asking about the calendar day handles the first and misses the second.
+    // Asking where the ring started relative to TODAY's scheduled time handles
+    // both, because that is the thing actually being decided.
+    //
+    // The window used is the widest one offered rather than this alarm's own, so
+    // that changing the setting mid-episode errs towards marking the slot spent
+    // - a duplicate ring is a worse outcome than a redundant flag.
+    static function ringServesTodaysOccurrence(a as Dictionary) as Boolean {
+        if (days(a) == 0) { return true; }   // one-time alarms switch off anyway
+        var rs = ringStart();
+        if (rs == null) { return true; }     // no evidence - behave as before
+        var now = Time.now().value();
+        if ((rs as Number) > now) { return true; }   // clock moved back; unusable
+        var ctx = dayContext(now);
+        var target   = ctx[0] + totalMinutes(a) * 60;
+        var earliest = target - MAX_WINDOW_MINS * 60;
+        var latest   = target + FIRE_GRACE_MINS * 60;
+        return (rs as Number) >= earliest && (rs as Number) <= latest;
     }
 
     // Start ringing an alarm. One-time alarms are switched off immediately since
