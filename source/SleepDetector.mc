@@ -369,7 +369,32 @@ class SleepDetector {
     }
     static function probeHr() as Number { return _probeHr; }
     static function probeDone() as Boolean { return _probeDone; }
-    static function resetProbe() as Void { _probeHr = 0; _probeDone = false; }
+
+    // Start a completely fresh check.
+    //
+    // The RUN OF SAMPLES has to go too, not just the reported figure. Every
+    // caller of this means "forget what you knew and measure again", and a
+    // corroborating sample taken before that moment is exactly what we have
+    // decided to stop trusting.
+    //
+    // Keeping the run reopened the bug it was built to close. Readings agree if
+    // they arrived within PROBE_RUN_GAP_SECS of each other (60 s), so: wear the
+    // watch, get "HR: 64 BPM", take the watch off, press a button 30 seconds
+    // later. The reset cleared the 64 from the screen but left [64, 64, 64] in
+    // the run, so ONE off-wrist reading of 68 was enough to fill the quorum -
+    // and two on-wrist samples from before the watch came off voted it through.
+    // The screen then showed a confident figure for a bare wrist, which is the
+    // exact complaint corroboration exists to prevent.
+    //
+    // A new check now starts from zero and needs PROBE_MIN_AGREE readings taken
+    // AFTER the reset, so nothing measured on a wrist can vouch for a reading
+    // taken off one.
+    static function resetProbe() as Void {
+        _probeHr = 0;
+        _probeDone = false;
+        _probeSamples = [];
+        _probeSampleAt = 0;
+    }
 
     // ── Diagnostics ──────────────────────────────────────────────────────────
     // Surfaced on the Active Alarm screen. The whole reason this bug survived so

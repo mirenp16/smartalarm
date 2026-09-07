@@ -159,6 +159,26 @@ class BedsideView extends WatchUi.View {
         var armAge = now - _armSecs;
         if (_exitArmed && (armAge < 0 || armAge > EXIT_ARM_SECS)) { _exitArmed = false; }
 
+        // Roll the daily state over BEFORE anything reads a fired flag.
+        //
+        // evaluate() does this too, but it runs later in the tick - and
+        // secsUntilNextTarget() below asks whether each alarm has already fired
+        // TODAY. Just after midnight, with the rollover still pending, "today"
+        // still meant yesterday, so every alarm that rang yesterday looked spent
+        // and resolved to its NEXT day instead of this one. A 00:30 daily alarm
+        // reported 24.5 hours away rather than 30 minutes, which showed a wrong
+        // Duration on screen and, worse, told shouldSampleAt() there was nothing
+        // to warm up for - costing a tick of heart-rate lead at the one moment it
+        // is being collected. It corrected itself on the following tick, up to a
+        // minute later on the idle cadence.
+        //
+        // Ordering it first is free: the check memoises the day it last
+        // confirmed, so evaluate()'s own call is now a compare.
+        try {
+            AlarmStore.resetIfNewDay();
+        } catch (eD) {
+        }
+
         // Work out the distance to the next alarm ONCE and reuse it. This scan
         // walks every alarm, so doing it repeatedly per tick was a large part of
         // the load that tripped the watchdog.

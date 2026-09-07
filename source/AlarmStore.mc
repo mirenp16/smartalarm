@@ -41,6 +41,7 @@ class AlarmStore {
     static function invalidate() as Void {
         _alarmCache = null;
         _dayStateCache = null;
+        _confirmedDay = -1;   // force the day check to consult storage again
     }
 
     // Midnight (epoch secs) and day-of-week for "now", computed at most once a
@@ -287,11 +288,22 @@ class AlarmStore {
     //   "s" => snooze count today
     //   "best" => best lightness seen so far in the window (for debugging)
 
+    // The day we last confirmed the state belongs to, remembered in memory.
+    //
+    // Without it, every call read KEY_STATE_DAY back out of storage, and the
+    // answer is the same for a whole day. That cost mattered because the check
+    // has to run BEFORE anything reads a fired flag, which means more than one
+    // call site - see the note in BedsideView.onTick. Memoised, the repeat calls
+    // are a division and a compare, and storage is touched about once a day
+    // instead of once a tick. -1 on start-up, so a fresh app always checks.
+    private static var _confirmedDay as Number = -1;
+
     // Cheap day check: derives the day number from the cached midnight rather
     // than making a fresh Gregorian.info() call on every tick.
     static function resetIfNewDay() as Void {
         var ctx = dayContext(Time.now().value());
         var today = ctx[0] / 86400;                  // day index from midnight
+        if (_confirmedDay == today) { return; }      // already checked this day
         var stored = Application.Storage.getValue(KEY_STATE_DAY);
         if (stored == null || stored != today) {
             Application.Storage.setValue(KEY_STATE_DAY, today);
@@ -322,6 +334,9 @@ class AlarmStore {
                 Application.Storage.setValue(KEY_RING_ID, null);
             }
         }
+        // Stamped only once the reset has actually completed, so a storage error
+        // part-way through cannot leave the day marked as handled.
+        _confirmedDay = today;
     }
 
     // Cached: hasFired() is called once per alarm per scan, and each call used to
@@ -354,20 +369,45 @@ class AlarmStore {
         setStateFor(alarmId, s);
     }
 
-    // Arms a saved alarm for its NEXT genuine occurrence.
+    // Arms a saved alarm for its NEXT genuine occurrence, after the editor has
+    // written it.
     //
     // Re-enabling a repeating alarm whose time already passed today used to make
     // it ring the instant you saved (the fired flag was cleared and the engine
     // saw it as due inside the grace window). So: clear the flags, but if today's
     // slot is already gone, mark it fired for today so it waits for tomorrow.
-    static function armForNextOccurrence(a as Dictionary) as Void {
+    //
+    // rescheduled = the user changed WHEN this alarm rings (its time or its
+    // repeat days). Only then does today's slot genuinely reopen.
+    //
+    // Without that distinction, an alarm woken EARLY by smart wake came back from
+    // the dead. Dismiss at 05:38 for an 06:00 alarm, then merely open that alarm
+    // and press BACK - the editor commits on the way out, by design - and the
+    // fired flag was cleared unconditionally. The "has today's slot passed?"
+    // test then compared the clock (05:50) against the set time (06:00), decided
+    // it had not, and left the alarm armed. It rang a second time at 06:00, for
+    // someone who was already up.
+    //
+    // Ringing EARLY is the point of this app, so the clock reaching the set time
+    // is not what spends a slot - firing is. nextFireEpoch() reasons the same way
+    // for exactly the same reason; both now answer "is today done?" by asking
+    // whether the alarm fired, not what time it is.
+    static function armForNextOccurrence(a as Dictionary, rescheduled as Boolean) as Void {
         var aid = id(a);
+        var firedToday = hasFired(aid);
         clearFired(aid);
         clearStateFor(aid);
         if (!isOn(a)) { return; }
 
         var d = days(a);
         if (d == 0) { return; }   // one-time alarms use fireAt, already correct
+
+        // Fired today and still set to the same time? Then today is spent and
+        // nothing the editor did reopens it.
+        if (firedToday && !rescheduled) {
+            markFired(aid);
+            return;
+        }
 
         var now = Time.now();
         var info = Gregorian.info(now, Time.FORMAT_SHORT);
@@ -379,6 +419,18 @@ class AlarmStore {
         if (now.value() >= target) {
             markFired(aid);   // today's slot has passed - wait for the next day
         }
+    }
+
+    // Did the editor change WHEN this alarm rings? Compares only the scheduling
+    // fields: renaming an alarm or changing its ringtone must not re-arm a slot
+    // that has already been used today.
+    static function rescheduled(before as Dictionary?, after as Dictionary) as Boolean {
+        if (before == null) { return true; }   // brand-new alarm
+        var b = before as Dictionary;
+        return hour(b) != hour(after)
+            || minute(b) != minute(after)
+            || days(b) != days(after)
+            || isOn(b) != isOn(after);   // switching it back on re-arms it
     }
 
     // Re-arm an alarm: clear today's fired/plain flags so it can fire again (used

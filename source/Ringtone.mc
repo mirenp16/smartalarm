@@ -56,7 +56,15 @@ class Ringtone {
         if (Attention has :TONE_START)          { out.add(["Start",      Attention.TONE_START]); }
 
         // Absolute fallback so the list is never empty.
-        if (out.size() == 0) { out.add(["Alarm", Attention.TONE_ALARM]); }
+        //
+        // It cannot name a tone CONSTANT. This branch is reached only when every
+        // `has` above was false, TONE_ALARM included, so the old line here read
+        // Attention.TONE_ALARM on a device that had just told us it has no such
+        // symbol - an uncaught throw inside menu construction, on precisely the
+        // hardware the fallback exists to accommodate. null is a fine entry: it
+        // gives the menu a row to show, and playReport() catches the rejection
+        // and reports it instead of dying.
+        if (out.size() == 0) { out.add(["Default", null]); }
 
         _list = out;
         return out;
@@ -98,16 +106,24 @@ class Ringtone {
         var l = build();
         var i = index;
         if (i < 0 || i >= l.size()) { i = 0; }
+        // A null entry means build() found no tone constants at all on this
+        // device (see the fallback there). Nothing to play, and saying so is
+        // better than throwing.
+        var entry = l[i] as Array;
+        if (entry[1] == null) { return "This watch exposes no alarm tones"; }
         try {
             // No cast here: these are Attention.Tone values, not Numbers.
-            var entry = l[i] as Array;
             Attention.playTone(entry[1]);
             return "OK";
         } catch (e) {
-            // Fall back to the plain alarm tone before giving up.
+            // Fall back to the plain alarm tone before giving up. Guarded as well
+            // as caught: `has` is the cheap check and the catch is the backstop.
             try {
-                Attention.playTone(Attention.TONE_ALARM);
-                return "Fallback tone used";
+                if (Attention has :TONE_ALARM) {
+                    Attention.playTone(Attention.TONE_ALARM);
+                    return "Fallback tone used";
+                }
+                return "Tone rejected by watch";
             } catch (e2) {
                 return "Tone rejected by watch";
             }

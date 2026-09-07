@@ -358,10 +358,8 @@ Two rules follow, and both were learned by getting them wrong:
 Every functional bug found in the final rounds of review reduced to a single
 mistake: **using a value without checking whether it is still meaningful.**
 
-### The same mistake, generalised
-
-Three separate bugs turned out to be one shape: **a value derived from state that
-changed somewhere else, and was never recomputed.**
+The five below are the same shape — **a value derived from state that changed
+somewhere else, and was never recomputed** — seen from five directions.
 
 | Derived value | Depends on | How it went stale |
 |---|---|---|
@@ -521,9 +519,10 @@ that asks "has new data arrived?" now keys off a monotonic counter instead.
 **3. An unreachable threshold.** The stress blend capped the score at 87 while the awake
 threshold was 88 (see [Scoring](#scoring)).
 
-Two further defects of the same kind were found later, both living in the *seams* between
-components rather than inside any one of them — which is why unit tests on the detector alone
-could never have caught them:
+**Eight more defects of the same kind surfaced afterwards.** Almost all of them lived in the
+*seams* between components rather than inside any one of them, which is why unit tests on the
+detector alone could never have caught them — and why the list below is ordered by when each
+was found, not by how deep it was.
 
 **4. One alarm erased another's state.** The detector is a singleton holding one window's peak
 state, but the scheduling loop visits every enabled alarm, and each alarm not currently in a
@@ -532,39 +531,31 @@ far-off one wiped the peak on every tick, so "the score has fallen below its pea
 become true. Average wake lead collapsed from **21.4 minutes with one alarm to 4.4 with two**.
 The reset is now deferred until the whole list has been examined.
 
-**11. "Already fired today" was answered in two places, wrongly in both.** Whether an alarm
-has already gone off is part of *when it next rings* — but callers applied their own filter on
-top of `nextFireEpoch()`, and getting that wrong broke things in opposite directions. With the
-filter, an alarm created in the evening (marked fired because today's slot had passed) reported
-no next occurrence at all, so **Duration read `--:--`**. Without it, dismissing an alarm that
-smart wake had fired **early** — 05:38 for an 06:00 alarm — still saw today's 06:00 as
-upcoming, so the app **stayed in Active Alarm Mode instead of returning to the main screen**.
+**5. Covering the screen threw away the night's data.** `onHide()` releases the sensor — but it
+fires whenever the view is merely *covered*, including by the passcode screen. Opening the
+passcode at 06:30 inside a 06:15–07:00 window and then cancelling discarded every sample and
+needed another ten minutes of warm-up. The buffer is now retained across gaps shorter than
+`SESSION_RESUME_SECS`, since heart rate from three minutes ago is still good evidence.
 
-Fixing the first by deleting the filter caused the second. Both are the same question, so it is
-now answered once, inside `nextFireEpoch()`: today's slot is spent once the alarm has fired,
-*even if the clock has not reached the set time* — because ringing early is the whole point.
+**6. Dismissing one alarm disarmed the next.** `finishAwake()` guarded the exit on
+`validSnoozeId() == null` — but the line immediately above it cleared the snooze, so the
+guard was always true and Active Alarm Mode closed unconditionally. Since alarms only ring
+while that screen is open, dismissing a 06:00 alarm silently disarmed a 06:30 backup: exactly
+the failure a backup alarm exists to prevent. The app now stays open when another alarm is
+due within `KEEP_ACTIVE_WITHIN_SECS`.
 
-**10. An unconfirmed reading was reported as fact.** Taking the watch off does not switch the
-optical sensor off — it keeps trying and *loses lock gradually*, emitting values that are
-genuine outputs of the algorithm but meaningless. The check reported the first non-null number
-it saw, so pressing a button during that window produced a confident figure for a bare wrist,
-and one that disagreed with the last real reading. It now waits until **three readings taken close
-together agree to within 12 bpm** before showing anything. Both halves
-matter: three values that agree mean nothing if one was measured twenty minutes ago, so a gap
-in the run discards it and starts over.
+**7. A failed bedtime probe leaked the sensor.** `onHide()` released the heart-rate session
+only when `_sampling` was set — but the bedtime probe also opens a session, and when it finds
+no heart rate (watch off the wrist) it stays open waiting for one while `_sampling` is still
+false. Leaving Active Alarm Mode then left the optical sensor running indefinitely. The
+release is now unconditional; `stopSensor()` is a no-op when nothing is open.
 
-Tuning that gap taught its own lesson. Set tight — fifteen seconds — it would have broken a
-legitimate run on any device whose sensor refreshes more slowly than that, so a **worn** watch
-would have read `No HR Signal`: a worse failure than the stale reading the check was built to
-prevent. The gap is therefore set to the whole 60-second check window. Readings within one
-check are inherently close together, so the limit does the only job it usefully can — discard
-a run that survived from a *previous* check, minutes or hours earlier. Against a real pulse that is trivial — a resting
-heart rate barely moves in fifteen seconds — and against a sensor losing lock it essentially
-never happens.
-
-This cannot catch a sensor that confidently reports a *stable* wrong value; nothing in
-software can, because the app has no independent way to know the number is wrong. What it
-guarantees is narrower and honest: **no unconfirmed reading is ever displayed.**
+**8. A snooze outlived its session.** Snoozing a 12:00 alarm and then dropping out of
+Active Alarm Mode — the palm gesture does exactly that — left the pending snooze alive in
+storage. Re-entering at 12:04 showed "Next Alarm: None", and the alarm then went off anyway
+at 12:05 announcing "2 snoozes left". A snooze is a promise made *within* a sleep session, so
+it is now cleared whenever Active Alarm Mode is entered afresh. The base schedule is
+untouched: an alarm set for 2 pm is still there when you come back at 1:47.
 
 **9. A removed watch still reported a heart rate.** The fallback chain ends in
 `SensorHistory` — the watch's all-day heart-rate log. That log survives taking the watch off,
@@ -588,36 +579,95 @@ button was pressed. **A conclusion of "no reading" is just as much a snapshot of
 number is.** The worst case — watch off the wrist with the app left open — costs about 12%
 sensor duty, which is the one situation where battery is least likely to matter.
 
-**8. A snooze outlived its session.** Snoozing a 12:00 alarm and then dropping out of
-Active Alarm Mode — the palm gesture does exactly that — left the pending snooze alive in
-storage. Re-entering at 12:04 showed "Next Alarm: None", and the alarm then went off anyway
-at 12:05 announcing "2 snoozes left". A snooze is a promise made *within* a sleep session, so
-it is now cleared whenever Active Alarm Mode is entered afresh. The base schedule is
-untouched: an alarm set for 2 pm is still there when you come back at 1:47.
+**10. An unconfirmed reading was reported as fact.** Taking the watch off does not switch the
+optical sensor off — it keeps trying and *loses lock gradually*, emitting values that are
+genuine outputs of the algorithm but meaningless. The check reported the first non-null number
+it saw, so pressing a button during that window produced a confident figure for a bare wrist,
+and one that disagreed with the last real reading. It now waits until **three readings taken close
+together agree to within 12 bpm** before showing anything. Both halves
+matter: three values that agree mean nothing if one was measured twenty minutes ago, so a gap
+in the run discards it and starts over.
 
-**7. A failed bedtime probe leaked the sensor.** `onHide()` released the heart-rate session
-only when `_sampling` was set — but the bedtime probe also opens a session, and when it finds
-no heart rate (watch off the wrist) it stays open waiting for one while `_sampling` is still
-false. Leaving Active Alarm Mode then left the optical sensor running indefinitely. The
-release is now unconditional; `stopSensor()` is a no-op when nothing is open.
+Tuning that gap taught its own lesson. Set tight — fifteen seconds — it would have broken a
+legitimate run on any device whose sensor refreshes more slowly than that, so a **worn** watch
+would have read `No HR Signal`: a worse failure than the stale reading the check was built to
+prevent. The gap is therefore set to the whole 60-second check window. Readings within one
+check are inherently close together, so the limit does the only job it usefully can — discard
+a run that survived from a *previous* check, minutes or hours earlier. Against a real pulse that is trivial — a resting
+heart rate barely moves in fifteen seconds — and against a sensor losing lock it essentially
+never happens.
 
-**6. Dismissing one alarm disarmed the next.** `finishAwake()` guarded the exit on
-`validSnoozeId() == null` — but the line immediately above it cleared the snooze, so the
-guard was always true and Active Alarm Mode closed unconditionally. Since alarms only ring
-while that screen is open, dismissing a 06:00 alarm silently disarmed a 06:30 backup: exactly
-the failure a backup alarm exists to prevent. The app now stays open when another alarm is
-due within `KEEP_ACTIVE_WITHIN_SECS`.
+This cannot catch a sensor that confidently reports a *stable* wrong value; nothing in
+software can, because the app has no independent way to know the number is wrong. What it
+guarantees is narrower and honest: **no unconfirmed reading is ever displayed.**
 
-**5. Covering the screen threw away the night's data.** `onHide()` releases the sensor — but it
-fires whenever the view is merely *covered*, including by the passcode screen. Opening the
-passcode at 06:30 inside a 06:15–07:00 window and then cancelling discarded every sample and
-needed another ten minutes of warm-up. The buffer is now retained across gaps shorter than
-`SESSION_RESUME_SECS`, since heart rate from three minutes ago is still good evidence.
+**11. "Already fired today" was answered in two places, wrongly in both.** Whether an alarm
+has already gone off is part of *when it next rings* — but callers applied their own filter on
+top of `nextFireEpoch()`, and getting that wrong broke things in opposite directions. With the
+filter, an alarm created in the evening (marked fired because today's slot had passed) reported
+no next occurrence at all, so **Duration read `--:--`**. Without it, dismissing an alarm that
+smart wake had fired **early** — 05:38 for an 06:00 alarm — still saw today's 06:00 as
+upcoming, so the app **stayed in Active Alarm Mode instead of returning to the main screen**.
 
-The lasting fix is not any of the three patches but the **HR readout on the Active Alarm
-screen**. All three bugs were invisible from the watch: a dead sensor and a healthy one
-produced identical behaviour. One dim line showing live BPM, sample count and the active
-source makes the difference obvious at a glance.
+Fixing the first by deleting the filter caused the second. Both are the same question, so it is
+now answered once, inside `nextFireEpoch()`: today's slot is spent once the alarm has fired,
+*even if the clock has not reached the set time* — because ringing early is the whole point.
+
+**12. A reading taken on a wrist vouched for one taken off it.** Bug 10 above added
+corroboration: no figure is shown until three readings taken close together agree. Pressing a
+button starts a fresh check — except that "fresh" only cleared the *displayed figure*, not the
+run of readings behind it. So: wear the watch, see `HR: 64 BPM`, take it off, press a button
+thirty seconds later. One off-wrist reading of 68 arrived within the 60-second run window, and
+the three on-wrist samples still sitting in the buffer voted it through. The screen showed a
+confident number for a bare wrist — **the exact failure corroboration exists to prevent**,
+reintroduced by the reset path rather than by the check itself.
+
+A quorum is only meaningful if every vote in it is one you still trust. `resetProbe()` now
+discards the run as well as the result, so a new check needs three readings taken *after* the
+reset.
+
+**13. Editing an alarm brought a spent one back to life.** Dismiss a smart wake at 05:38 for
+an 06:00 alarm, then merely *open* that alarm and press BACK — the editor commits on the way
+out, by design, so that flipping Status and backing out just works. The commit cleared the
+"fired today" flag unconditionally and then asked whether today's slot had passed by comparing
+the clock (05:50) against the set time (06:00). It had not, so the alarm was left armed and
+**rang a second time at 06:00, for someone already up.**
+
+This is bug 11 wearing a different hat. Ringing early is the point of this app, so the clock
+reaching the set time is not what spends a slot — *firing* is. The editor now distinguishes
+changing **when** an alarm rings (time, repeat days, or switching it back on) from changing
+anything else; only the former reopens today.
+
+**14. The daily rollover ran too late in the tick.** Each tick measured the distance to the
+next alarm and *then* called `evaluate()`, which is where the day rollover lives. Just after
+midnight, with the rollover still pending, "today" still meant yesterday — so every alarm that
+had rung the previous morning looked spent and resolved to its *next* day instead of this one.
+A 00:30 daily alarm read as 24.5 hours away rather than 30 minutes. That showed a wrong
+**Duration**, and worse, told the sampler there was nothing to warm up for, costing a tick of
+heart-rate lead at the one moment it was being collected. It corrected itself on the following
+tick, up to a minute later.
+
+Order of operations, not arithmetic: nothing may read a "fired today" flag before the day it
+belongs to has been settled. The check is memoised on the day it last confirmed, so calling it
+first is free and the second call costs a comparison.
+
+### The pattern across all fourteen
+
+Nine of the fourteen were **silent**: the app carried on looking healthy and did the wrong
+thing quietly. That is the defining hazard of an alarm clock, because the only person who
+could notice is asleep at the time.
+
+So the lasting fix for bugs 1–3 is not any of the three patches but the **heart-rate line on
+the Active Alarm screen**. All three were invisible from the watch — a dead sensor and a
+healthy one produced identical behaviour. One dim line showing live BPM, the sample count and
+the active source makes the difference obvious at a glance, before you go to sleep rather than
+after you have overslept.
+
+Three of the fourteen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
+reset path added alongside 10, 13 by the same reasoning error as 11 in a second place). The
+common failure was patching a *symptom at the call site* rather than the *question at its
+source*. Each is now answered once, in one function, and a scan of every call site confirms
+none re-derives it locally.
 
 ---
 
@@ -791,8 +841,11 @@ The scheduling, passcode, snooze, and detection logic are validated by executabl
 mirror the Monkey C implementation, covering paths that are impractical to exercise on-device
 (a full night takes 8 hours; the suite runs in seconds).
 
-**Over 73,000 assertions across 8 suites, 0 failures.** (Exact counts vary slightly between
-runs, since several suites generate randomised scenarios.)
+**Over 169,000 assertions across 25 suites, 0 failures**, confirmed over three consecutive
+full runs. (Exact counts vary slightly between runs, since several suites generate randomised
+scenarios.) The runner treats a suite that produces *no* result line as a failure in its own
+right — an earlier version reported "0 failures" for a suite that had crashed before
+asserting anything, which is the most flattering possible way to be wrong.
 
 | Suite | Coverage | Approx. cases |
 |---|---|---|
@@ -817,13 +870,27 @@ runs, since several suites generate randomised scenarios.)
 | 21 | State-machine fuzz: 16,000 random view events against six invariants | 35 |
 | 22 | Heart-rate freshness: source age checks, snapshot expiry both ways, corroboration, duty-cycle bounds | 90 |
 | 23 | Clock jumps: every stored-timestamp comparison under DST and manual time changes | 60 |
+| 24 | Probe corroboration across checks, editor re-arming, rollover ordering, guard-symbol audit | 750 |
+| 25 | Adversarial whole-session sequences: fire → dismiss → edit → re-enter → midnight | 84,900 |
 
-Two defensive defects were also closed in the editor UI: `DaysPicker.recompute()`
-dereferenced the nullable `getItem()` without a check — the only such call in the
-app — and `ChoiceView.move()` took a modulo by a list size that was never
-verified non-zero. Neither was reachable on the happy path, but both would have
-crashed the app rather than degrading, and an alarm app that crashes while you
-sleep is the worst possible failure.
+Suite 25 is the one that would have caught bugs 11, 13 and 14. It asserts on the state at the
+**end of a whole session** rather than on any single call, because every one of those three was
+composed of individually correct steps — which is precisely why the earlier suites, each
+testing one step, all passed.
+
+Four defensive defects were also closed in the editor UI, none reachable on the happy path but
+all of which would have **crashed** the app rather than degrading:
+
+- `DaysPicker.recompute()` dereferenced the nullable `getItem()` without a check — the only
+  such call in the app.
+- `ChoiceView.move()` took a modulo by a list size never verified non-zero.
+- `ChoiceView.onUpdate()` indexed that same list without the guard `move()` had.
+- `Ringtone.build()`'s empty-list fallback named `Attention.TONE_ALARM` — inside the branch
+  reached only when the device has just reported it does not *have* that symbol. A guard whose
+  fallback contradicts its own premise.
+
+An alarm app that crashes while you sleep is the worst failure available to it, so these are
+worth closing even when no user can reach them today.
 
 Representative coverage:
 

@@ -51,11 +51,23 @@ class ChoiceView extends WatchUi.View {
 
     // Commit the highlighted option into the working alarm.
     function apply() as Void {
+        if (_options.size() == 0) { return; }
         var opt = _options[_idx] as Array;
         _alarm.put(_key, opt[0]);
     }
 
     function onUpdate(dc as Graphics.Dc) as Void {
+        // move() already refuses to divide by an empty list; drawing has to
+        // refuse to INDEX one for the same reason. Every caller builds its
+        // options from a non-empty constant today, so this is a guard against a
+        // future one, not a live fault - but an out-of-range read here would
+        // take the whole app down rather than show a blank screen.
+        if (_options.size() == 0) {
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+            dc.clear();
+            return;
+        }
+        if (_idx < 0 || _idx >= _options.size()) { _idx = 0; }
         var opt = _options[_idx] as Array;
         var name = opt[1] as String;
         var desc = opt[2] as String;

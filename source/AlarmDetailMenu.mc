@@ -179,6 +179,19 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
 
     private function _commit() as Void {
         var a = _menu.alarm;
+
+        // Read the STORED version before overwriting it, so we can tell whether
+        // the user actually changed when this alarm rings. BACK commits even when
+        // nothing was edited (that is what makes flipping Status and backing out
+        // work), so "the editor ran" must not by itself re-arm a slot that smart
+        // wake has already used today - see AlarmStore.armForNextOccurrence.
+        var before = null;
+        if (!_menu.isNew) {
+            var found = AlarmStore.findById(AlarmStore.id(a));
+            before = found[1];
+        }
+        var moved = AlarmStore.rescheduled(before, a);
+
         if (AlarmStore.days(a) == 0) {
             a.put("fireAt", AlarmStore.nextOccurrence(AlarmStore.hour(a), AlarmStore.minute(a)));
         }
@@ -187,7 +200,7 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         } else {
             AlarmStore.updateAlarm(_menu.index, a);
         }
-        AlarmStore.armForNextOccurrence(a);
+        AlarmStore.armForNextOccurrence(a, moved);
         MainListMenu.show(WatchUi.SLIDE_RIGHT);
     }
 
