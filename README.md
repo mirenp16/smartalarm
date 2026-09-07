@@ -674,9 +674,23 @@ markFired  iff  ringStart  ∈  [ todayTarget − maxWindow , todayTarget + grac
 That is one predicate covering the ordinary night, an early smart wake, a dismissal after
 midnight, and a snooze chain across it.
 
-### The pattern across all fifteen
+**16. Half a fact left in storage.** A ring is two keys — which alarm, and when it started —
+and a snooze is another two. Clearing a ring wrote null to the id and left the timestamp
+behind; clearing a snooze wrote null to the time and left the id. Nothing misbehaved, because
+every reader happens to check the right key first. But `ringServesTodaysOccurrence()` (bug 15)
+reads the ring *timestamp* to decide whether an alarm has been dealt with for the day, and a
+decision that consequential should not rest on every present and future caller remembering an
+undocumented ordering.
 
-Ten of the fifteen were **silent**: the app carried on looking healthy and did the wrong
+The fix is structural rather than corrective. Writes to those four keys now happen only inside
+`setRinging()`, `clearSnooze()` and `scheduleSnooze()`, each of which writes both halves; a
+test asserts that no other function — in any file — touches them. `setSnoozeUntil()` was
+deleted outright, because every caller passed `null` to mean "the snooze is over", which is
+exactly the half-write. The bad state is now **unreachable rather than merely unused**.
+
+### The pattern across all sixteen
+
+Eleven of the sixteen were **silent**: the app carried on looking healthy and did the wrong
 thing quietly. That is the defining hazard of an alarm clock, because the only person who
 could notice is asleep at the time.
 
@@ -686,7 +700,7 @@ healthy one produced identical behaviour. One dim line showing live BPM, the sam
 the active source makes the difference obvious at a glance, before you go to sleep rather than
 after you have overslept.
 
-Three of the fifteen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
+Three of the sixteen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
 reset path added alongside 10, 13 by the same reasoning error as 11 in a second place), and 15
 took two attempts because the first answer was too coarse. The common failure was patching a
 *symptom at the call site* rather than the *question at its source*. Each is now answered once,
@@ -826,6 +840,7 @@ others cannot:
 | **Fuzzing** with adversarial streams — dead sensor, flat line, maximum oscillation, sparse nulls, monotonic ramps | Violations of the hard guarantees under inputs no real night would produce |
 | **Integration simulation** of whole nights through the real call sequence, with 1–20 alarms and screens covering the view | Bugs in the seams between components, where shared singleton state is mutated from a loop or a lifecycle callback fires more often than assumed |
 | **Calendar simulation** — every alarm minute of the day, all repeat masks over a full week, day rollovers, ±1 h clock shifts | Scheduling errors that only appear at midnight, on a particular weekday, or across a DST change |
+| **Structural audits** parsed from the source itself — paired storage keys, entry-point ordering, unreferenced symbols, orphan resources | Invariants that hold today only because every caller remembers them, and code or assets that quietly stopped being used |
 
 ### Why the bugs arrived one layer at a time
 
@@ -870,7 +885,7 @@ The scheduling, passcode, snooze, and detection logic are validated by executabl
 mirror the Monkey C implementation, covering paths that are impractical to exercise on-device
 (a full night takes 8 hours; the suite runs in seconds).
 
-**Over 187,000 assertions across 26 suites, 0 failures**, confirmed over three consecutive
+**Over 208,000 assertions across 27 suites, 0 failures**, confirmed over three consecutive
 full runs. (Exact counts vary slightly between runs, since several suites generate randomised
 scenarios.) The runner treats a suite that produces *no* result line as a failure in its own
 right — an earlier version reported "0 failures" for a suite that had crashed before
@@ -902,6 +917,7 @@ asserting anything, which is the most flattering possible way to be wrong.
 | 24 | Probe corroboration across checks, editor re-arming, rollover ordering, guard-symbol audit | 750 |
 | 25 | Adversarial whole-session sequences: fire → dismiss → edit → re-enter → midnight | 84,900 |
 | 26 | Rings that span midnight: exhaustive dismissal and snooze timings, resource audit | 18,100 |
+| 27 | Paired-key invariants, entry-point ordering, dead-code and orphan-file audit | 20,600 |
 
 Suite 25 is the one that would have caught bugs 11, 13 and 14. It asserts on the state at the
 **end of a whole session** rather than on any single call, because every one of those three was

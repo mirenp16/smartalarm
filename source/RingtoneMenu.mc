@@ -57,7 +57,27 @@ class RingtoneMenuDelegate extends WatchUi.Menu2InputDelegate {
         var idx = item.getId() as Number;
         _menu.alarm.put("tone", idx);
         _menu.refresh();
-        Ringtone.play(idx);        // stays on screen so the tone is audible
+
+        // Preview the tone AND report it if the watch refuses.
+        //
+        // playReport() was written to end silent failures - it distinguishes a
+        // device with no tone support from one that rejected this particular
+        // tone - but its only caller discarded the string, so the reason was
+        // still being thrown away, just one level higher up. A diagnostic nobody
+        // can read is not a diagnostic. This is the screen where a user presses
+        // a tone and expects to hear it, so it is the right place to say why
+        // nothing happened.
+        //
+        // "OK" covers the normal case, including muted tones: playTone() does
+        // not throw when the watch is simply silent, and that case already has
+        // its own "Alert Tones: OFF" warning on the Alert screen. So this only
+        // speaks up for a genuine API failure.
+        var result = Ringtone.playReport(idx);   // stays on screen so it is audible
+        if (!result.equals("OK")) {
+            WatchUi.pushView(new MessageView(result), new MessageDelegate(),
+                             WatchUi.SLIDE_UP);
+            return;
+        }
         WatchUi.requestUpdate();
     }
 

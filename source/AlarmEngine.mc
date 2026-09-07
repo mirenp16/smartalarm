@@ -29,7 +29,8 @@ class AlarmEngine {
         if (sid != null) {
             var until = AlarmStore.snoozeUntil();
             if (until != null && nowSecs >= until) {
-                AlarmStore.setSnoozeUntil(null);
+                // The snooze has been served - drop the whole thing, id included.
+                AlarmStore.clearSnooze();
                 return sid as Number;
             }
         }

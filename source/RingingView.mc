@@ -130,6 +130,16 @@ class RingingView extends WatchUi.View {
         var id = AlarmStore.ringingId();
         return (id != null) ? AlarmStore.snoozeCount(id) : 0;
     }
+    // Same question, asked about a KNOWN alarm rather than whichever one happens
+    // to be ringing at this instant. doSnooze() needs this: the rollover it runs
+    // can legitimately clear the ringing flag, after which the id-free version
+    // above reports zero snoozes for want of an alarm to ask about. It currently
+    // gives the right answer anyway - a rollover also resets the day's snooze
+    // count to zero - but only by coincidence, and this app has been bitten
+    // enough times by code that is accidentally correct.
+    function snoozeExhaustedFor(id as Number) as Boolean {
+        return AlarmStore.snoozeCount(id) >= maxSn();
+    }
     function maxSn() as Number {
         return (_alarm != null) ? AlarmStore.maxSnoozeOf(_alarm) : DEFAULT_MAX_SNOOZE;
     }
@@ -187,7 +197,7 @@ class RingingView extends WatchUi.View {
             ? AlarmStore.ringServesTodaysOccurrence(_alarm as Dictionary) : true;
         AlarmStore.resetIfNewDay();
 
-        if (snoozeExhausted()) { return; }        // must use I'm Awake instead
+        if (snoozeExhaustedFor(id)) { return; }   // must use I'm Awake instead
         AlarmStore.incSnooze(id);
         // Mark today's slot as done. Without this a REPEATING alarm is still
         // "due" (we're inside its 15-minute grace window), so the base schedule
@@ -250,7 +260,7 @@ class RingingView extends WatchUi.View {
             }
         }
         AlarmStore.setRinging(null);
-        AlarmStore.setSnoozeUntil(null);   // "I'm Awake" cancels any pending snooze
+        AlarmStore.clearSnooze();          // "I'm Awake" cancels any pending snooze
 
         // Leave Active Alarm Mode only when nothing else is waiting to ring.
         //

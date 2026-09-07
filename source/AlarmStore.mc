@@ -232,11 +232,10 @@ class AlarmStore {
     // Drops snooze + ringing state for an alarm that no longer exists (or is off).
     static function clearStateFor(alarmId as Number) as Void {
         if (snoozedAlarmId() == alarmId) {
-            Application.Storage.setValue(KEY_SNOOZE_ID, null);
-            Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
+            clearSnooze();
         }
         if (ringingId() == alarmId) {
-            Application.Storage.setValue(KEY_RING_ID, null);
+            setRinging(null);
         }
     }
 
@@ -326,20 +325,12 @@ class AlarmStore {
 
             var sn = Application.Storage.getValue(KEY_SNOOZE_UNTIL);
             if (sn == null || (sn as Number) + graceSecs < now) {
-                Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
-                // The id goes with it. A snooze is ONE fact stored in two keys,
-                // and this was the only place that cleared half of it. Nothing
-                // reads the id without first checking the time, so the leftover
-                // was inert - but it is exactly the kind of half-state that a
-                // later reader, reasonably assuming the two agree, would trip
-                // over. Cheaper to keep them honest than to rely on every future
-                // caller checking in the right order.
-                Application.Storage.setValue(KEY_SNOOZE_ID, null);
+                clearSnooze();
             }
 
             var rs = Application.Storage.getValue(KEY_RING_START);
             if (rs == null || (now - (rs as Number)) > graceSecs) {
-                Application.Storage.setValue(KEY_RING_ID, null);
+                setRinging(null);
             }
         }
         // Stamped only once the reset has actually completed, so a storage error
@@ -480,11 +471,25 @@ class AlarmStore {
         return Application.Storage.getValue(KEY_RING_ID);
     }
 
+    // A ring is ONE fact stored in two keys: which alarm, and when it started.
+    // They are written together and cleared together, so no reader can ever see
+    // an id without a matching timestamp or a timestamp without an id.
+    //
+    // Clearing only the id used to leave the old start time behind. Every reader
+    // happens to check the id first, so nothing misbehaved - but
+    // ringServesTodaysOccurrence() reads the timestamp to decide whether an
+    // alarm has been dealt with for today, and a decision that important should
+    // not rest on every caller remembering to check a different key first.
     static function setRinging(alarmId as Number or Null) as Void {
         Application.Storage.setValue(KEY_RING_ID, alarmId);
-        if (alarmId != null) {
-            Application.Storage.setValue(KEY_RING_START, Time.now().value());
-        }
+        Application.Storage.setValue(KEY_RING_START,
+            (alarmId != null) ? Time.now().value() : null);
+    }
+
+    // The snooze pair, for the same reason: an id with no time is not a snooze.
+    static function clearSnooze() as Void {
+        Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
+        Application.Storage.setValue(KEY_SNOOZE_ID, null);
     }
 
     static function ringStart() as Number or Null {
@@ -563,9 +568,11 @@ class AlarmStore {
         return Application.Storage.getValue(KEY_SNOOZE_UNTIL);
     }
 
-    static function setSnoozeUntil(epochSecs as Number or Null) as Void {
-        Application.Storage.setValue(KEY_SNOOZE_UNTIL, epochSecs);
-    }
+    // NOTE: there is deliberately no setSnoozeUntil(). It existed, and every
+    // caller passed null to mean "the snooze is over" - which set half the pair
+    // and left the id behind. Removing it leaves exactly two ways to change a
+    // snooze, scheduleSnooze() and clearSnooze(), both of which write both keys.
+    // The half-state is now unreachable rather than merely unused.
 
     static function snoozedAlarmId() as Number or Null {
         return Application.Storage.getValue(KEY_SNOOZE_ID);
@@ -585,8 +592,7 @@ class AlarmStore {
     // The base schedule is untouched: an alarm set for 2 pm is still there when
     // you come back at 1:47, because that is a scheduled alarm, not a snooze.
     static function clearSessionState() as Void {
-        Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
-        Application.Storage.setValue(KEY_SNOOZE_ID, null);
+        clearSnooze();
         setRinging(null);
     }
 

@@ -89,8 +89,13 @@ class Ringtone {
         return (l[i] as Array)[0] as String;
     }
 
-    // Plays ringtone `index` once. The ringing screen calls this on a repeating
-    // timer, which is what makes it loop until you snooze or wake.
+    // Plays ringtone `index` once, ignoring the outcome. The ringing screen calls
+    // this on a repeating timer, which is what makes it loop until you snooze or
+    // wake - and it is the one caller that genuinely cannot act on a failure
+    // report, because interrupting a sounding alarm with an error message would
+    // be worse than the silence it is describing.
+    //
+    // The ringtone PICKER calls playReport() directly and shows what it says.
     static function play(index as Number) as Void {
         playReport(index);
     }
