@@ -97,6 +97,7 @@ before your set time and fires at the lightest moment it can find inside it.
 | Smart wake | Fires during light sleep within a 30/45/60/75-minute window |
 | Deadline guarantee | Always fires by your set time if no light moment is found |
 | Already-awake detection | Rings immediately if you wake up on your own inside the window |
+| Already-up downgrade | If you are up *before* the window opens, it rings at the set time instead of early |
 | Repeat presets | Once, Daily, 4x10, Weekdays, Weekend, Custom — see below |
 | Per-alarm config | Label, window, alert mode, ringtone, snooze length, max snoozes, passcode |
 | Passcode gate | 4-digit code required to dismiss, with master-code recovery |
@@ -688,9 +689,38 @@ test asserts that no other function — in any file — touches them. `setSnooze
 deleted outright, because every caller passed `null` to mean "the snooze is over", which is
 exactly the half-write. The bad state is now **unreachable rather than merely unused**.
 
-### The pattern across all sixteen
+**17. A whole feature that could never run.** If you are already up shortly before the wake
+window opens, the alarm is meant to be *downgraded* to a plain one and ring at its set time —
+waking you gently is pointless when you are not asleep. That check ran fifteen minutes before
+the window, and it needed `AWAKE_CONFIRM_TICKS` consecutive awake readings to agree.
 
-Eleven of the sixteen were **silent**: the app carried on looking healthy and did the wrong
+It never once fired, on any night, for the life of the app.
+
+The detector's awake streak lives in state that `resetWindow()` clears, and `resetWindow()`
+runs at the end of every tick unless some alarm still needs the detector. The flag guarding
+that was called `inAnyWindow`, and it was set only *inside* the window — so throughout the
+pre-window check the streak was zeroed on every tick and could never reach 4. Measured over 200
+simulated nights per window: **the downgrade fired 0% of the time before, 45% after.**
+
+The cost was not just a missing feature. Without the downgrade, someone who gets up at 05:10
+for an 06:00 alarm with a 45-minute window has the in-window awake check ring it at **05:16** —
+three quarters of an hour early. Across the four window lengths the fix roughly halves how
+early such a night wakes you:
+
+| window | up 12 min before the window | with the fix |
+|---|---|---|
+| 30 min | 20.7 min early | 9.5 min early |
+| 45 min | 31.2 min early | 14.2 min early |
+| 60 min | 41.7 min early | 18.9 min early |
+| 75 min | 52.3 min early | 23.7 min early |
+
+The flag is now called `detectorNeeded` and is set on both paths. **Naming it after the window
+rather than after the thing it protects is what let this hide in plain sight** — the reset it
+guards has nothing to do with windows and everything to do with accumulated state.
+
+### The pattern across all seventeen
+
+Twelve of the seventeen were **silent**: the app carried on looking healthy and did the wrong
 thing quietly. That is the defining hazard of an alarm clock, because the only person who
 could notice is asleep at the time.
 
@@ -700,7 +730,7 @@ healthy one produced identical behaviour. One dim line showing live BPM, the sam
 the active source makes the difference obvious at a glance, before you go to sleep rather than
 after you have overslept.
 
-Three of the sixteen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
+Three of the seventeen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
 reset path added alongside 10, 13 by the same reasoning error as 11 in a second place), and 15
 took two attempts because the first answer was too coarse. The common failure was patching a
 *symptom at the call site* rather than the *question at its source*. Each is now answered once,
@@ -841,6 +871,7 @@ others cannot:
 | **Integration simulation** of whole nights through the real call sequence, with 1–20 alarms and screens covering the view | Bugs in the seams between components, where shared singleton state is mutated from a loop or a lifecycle callback fires more often than assumed |
 | **Calendar simulation** — every alarm minute of the day, all repeat masks over a full week, day rollovers, ±1 h clock shifts | Scheduling errors that only appear at midnight, on a particular weekday, or across a DST change |
 | **Structural audits** parsed from the source itself — paired storage keys, entry-point ordering, unreferenced symbols, orphan resources | Invariants that hold today only because every caller remembers them, and code or assets that quietly stopped being used |
+| **Branch reachability** — a counter on every branch of the engine and detector, driven through every window length and alarm configuration | A branch that is never executed, whose behavioural tests therefore all pass vacuously |
 
 ### Why the bugs arrived one layer at a time
 
@@ -885,7 +916,7 @@ The scheduling, passcode, snooze, and detection logic are validated by executabl
 mirror the Monkey C implementation, covering paths that are impractical to exercise on-device
 (a full night takes 8 hours; the suite runs in seconds).
 
-**Over 208,000 assertions across 27 suites, 0 failures**, confirmed over three consecutive
+**Over 209,000 assertions across 28 suites, 0 failures**, confirmed over three consecutive
 full runs. (Exact counts vary slightly between runs, since several suites generate randomised
 scenarios.) The runner treats a suite that produces *no* result line as a failure in its own
 right — an earlier version reported "0 failures" for a suite that had crashed before
@@ -918,6 +949,7 @@ asserting anything, which is the most flattering possible way to be wrong.
 | 25 | Adversarial whole-session sequences: fire → dismiss → edit → re-enter → midnight | 84,900 |
 | 26 | Rings that span midnight: exhaustive dismissal and snooze timings, resource audit | 18,100 |
 | 27 | Paired-key invariants, entry-point ordering, dead-code and orphan-file audit | 20,600 |
+| 28 | **Branch reachability**: every branch of the engine and detector must execute | 510 |
 
 Suite 25 is the one that would have caught bugs 11, 13 and 14. It asserts on the state at the
 **end of a whole session** rather than on any single call, because every one of those three was
@@ -927,6 +959,15 @@ testing one step, all passed.
 Suite 26 earned its place immediately: written to confirm the fix for bug 15, it failed on
 first run and showed that the fix handled a dismissal across midnight but not a **snooze**
 across it. The predicate was replaced with the occurrence-based one before the fix shipped.
+
+Suite 28 asks the question the other twenty-seven never did: not *"does this code do the right
+thing?"* but *"does this code run at all?"* Every branch of the engine and detector carries a
+counter, thousands of nights are driven through every window length and alarm configuration,
+and **any branch with zero hits fails the suite**. That is exactly the shape of bug 17, whose
+behavioural assertions all passed because nothing ever reached the branch they described. One
+guard is excluded by name and with a reason — `currentHr()` cannot admit a value that would
+leave the night floor unset, so demanding coverage of that check would be demanding the
+impossible.
 
 Four defensive defects were also closed in the editor UI, none reachable on the happy path but
 all of which would have **crashed** the app rather than degrading:
@@ -1139,6 +1180,8 @@ needs two alarms set very close together and the first left unanswered.
 - Ringtones are limited to the device's built-in tones
 - Sleep detection is derived from heart rate, not Garmin's own sleep staging
 - Overnight battery use is significantly higher than a normal night
+- Monkey C's `Number` is 32-bit, so epoch arithmetic breaks in January 2038 — the largest value
+  the app computes currently sits at 84% of that range
 
 ## License
 
