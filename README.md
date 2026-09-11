@@ -934,7 +934,7 @@ The scheduling, passcode, snooze, and detection logic are validated by executabl
 mirror the Monkey C implementation, covering paths that are impractical to exercise on-device
 (a full night takes 8 hours; the suite runs in seconds).
 
-**Over 255,000 assertions across 29 suites, 0 failures**, confirmed over three consecutive
+**Over 256,000 assertions across 31 suites, 0 failures**, confirmed over three consecutive
 full runs. (Exact counts vary slightly between runs, since several suites generate randomised
 scenarios.) The runner treats a suite that produces *no* result line as a failure in its own
 right — an earlier version reported "0 failures" for a suite that had crashed before
@@ -969,6 +969,8 @@ asserting anything, which is the most flattering possible way to be wrong.
 | 27 | Paired-key invariants, entry-point ordering, dead-code and orphan-file audit | 20,600 |
 | 28 | **Branch reachability**: every branch of the engine and detector must execute | 510 |
 | 29 | Branch reachability of the **view layer**: tick, probe lifecycle, status line, button combos | 46,500 |
+| 30 | Branch reachability of everything else: data layer, editor, formatters, drawing | 160 |
+| 31 | **Source snapshot**: all 323 comparisons and 76 constants pinned as literals | 600 |
 
 Suite 25 is the one that would have caught bugs 11, 13 and 14. It asserts on the state at the
 **end of a whole session** rather than on any single call, because every one of those three was
@@ -978,6 +980,48 @@ testing one step, all passed.
 Suite 26 earned its place immediately: written to confirm the fix for bug 15, it failed on
 first run and showed that the fix handled a dismissal across midnight but not a **snooze**
 across it. The predicate was replaced with the occurrence-based one before the fix shipped.
+
+### Why bugs kept surfacing one per review, and what closed it
+
+Eighteen defects were found across many rounds of review, and for a long stretch every round
+found roughly one more. That pattern had a cause worth naming, because it was a property of
+the *tests*, not of the code.
+
+Every behavioural suite mirrors the Monkey C in Python. That is what makes it possible to
+simulate five hundred nights in a second — but it means a suite can only ever test the model.
+Change `>=` to `>` in a `.mc` file and the model is unaffected; every assertion still passes.
+Bugs therefore lived in the **gap between the source and its mirror**, and the only thing that
+ever found them was reading the source again with a lens nobody had used yet. Each new lens
+found one more, which is exactly what you would expect and is no way to reach zero.
+
+Measuring it made the size of the hole concrete. An automated sweep flipped **every comparison
+operator in the five logic files** — 134 mutations — and ran the suites against each:
+
+| | before | after |
+|---|---|---|
+| Comparison flips caught | **2 / 134** | **133 / 133** (1 was a bad mutation) |
+| Constant changes caught | 32 / 39 | **39 / 39** |
+| Branches with reachability coverage | 66 of 344 | **344 of 344** |
+
+Two things closed it:
+
+**Reachability coverage of every file.** Suites 28, 29 and 30 put a counter on every branch of
+the engine, detector, views, data layer, editor, formatters and drawing helpers, and fail if
+any branch has zero hits. Bugs 17 and 18 were both branches that could never execute, whose
+behavioural assertions all passed vacuously. Four branches are excluded by name, each with a
+written reason and, where possible, an exhaustive proof that nothing can reach them.
+
+**A snapshot of the source itself.** Suite 31 pins all 323 comparisons in the logic files and
+all 76 constants as literals. It is a change-detector and cannot tell a good edit from a bad
+one — it can only guarantee that no edit passes unnoticed. That is the missing half: the
+behavioural suites check that the *model* is right, and this checks that the *source still says
+what the model assumes*.
+
+The constant snapshot fixes a subtler version of the same problem. Suites parse their tuning
+values out of `Constants.mc` so a test port cannot drift from the shipped numbers — but that
+also means the tests move *with* a change. Alter `DEFAULT_WINDOW` and the model tests the new
+value and passes. Parsing keeps the suites honest about what the app uses; pinning keeps the app
+honest about what it was tuned to.
 
 ### Mutation testing: do the suites have teeth?
 
@@ -1007,6 +1051,11 @@ and eight that **reintroduce a previously fixed bug verbatim**:
 **15 of 15 caught.** One was initially caught only because the suite *crashed* rather than
 asserting, which is a much weaker signal — a dead run reports nothing, so the failure has to be
 inferred from absent output rather than named. That assertion was rewritten to fail cleanly.
+
+Those fifteen were hand-picked, which flatters the result. The sweep was later automated to
+generate **every** mutation mechanically — each of the 76 constants set to a wrong value, and
+every comparison in the logic files flipped — for 172 real mutations in total. That is the
+measurement in the table above, and it is the one worth trusting.
 
 What this does **not** prove: the behavioural suites model the Monkey C in Python, so editing a
 `.mc` file cannot change what they simulate. Mutation testing here exercises the layer that
