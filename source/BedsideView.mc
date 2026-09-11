@@ -143,9 +143,38 @@ class BedsideView extends WatchUi.View {
     // _sampling therefore leaked the sensor for as long as the app stayed
     // running. stopSensor() is a no-op when no session is open, so calling it
     // every time is both safe and correct.
+    // Leaving or being covered also RE-ARMS the bedtime check.
+    //
+    // onTick has a branch that does this when sampling stops - it exists because
+    // a session that ends without a completed probe leaves the status line with
+    // nothing to report. But that branch is `else if (_sampling)`, and this
+    // method sets _sampling to false directly, so for any session ended HERE it
+    // never runs.
+    //
+    // That is not a hypothetical path: it is the ordinary one. The ringing screen
+    // covers this view every time an alarm goes off. Dismiss a 06:00 alarm with a
+    // backup set just beyond the 105-minute sampling horizon and sampling does
+    // not resume; there was no completed probe to fall back on and no way left to
+    // start one, so the screen read "Checking HR..." for up to fourteen minutes -
+    // exactly the stuck state the onTick branch was written to prevent, reached
+    // by the one route it could not see.
+    //
+    // Clearing the counter here means onShow's `_probeTicks == 0` guard does the
+    // work instead: it either resumes real sampling or starts a fresh check.
+    //
+    // Only for a SAMPLING session, though. A session that was merely running the
+    // bedtime probe already has - or is about to have - a result, governed by its
+    // own five-minute expiry, and a notification covering the screen for a second
+    // is no reason to throw that away and spend another minute of sensor time
+    // rebuilding it. Re-arming unconditionally also made onShow's guard always
+    // true, which is its own small piece of dead code.
     function onHide() as Void {
         stopTimer();
         try { SleepDetector.stopSensor(); } catch (e) { }
+        if (_sampling) {
+            _probeTicks = 0;
+            try { SleepDetector.resetProbe(); } catch (e2) { }
+        }
         _sampling = false;
     }
 

@@ -718,9 +718,26 @@ The flag is now called `detectorNeeded` and is set on both paths. **Naming it af
 rather than after the thing it protects is what let this hide in plain sight** — the reset it
 guards has nothing to do with windows and everything to do with accumulated state.
 
-### The pattern across all seventeen
+**18. The re-arm that could not see the path it was written for.** `onTick` has a branch that
+restarts the bedtime heart-rate check when live sampling stops — it exists precisely because a
+session ending without a completed probe leaves the status line with nothing to report. But it
+is `else if (_sampling)`, and `onHide()` clears `_sampling` directly.
 
-Twelve of the seventeen were **silent**: the app carried on looking healthy and did the wrong
+Every alarm that rings covers this view with the ringing screen, so `onHide` is the *ordinary*
+way a sampling session ends — and the branch guarding against exactly that could never run for
+it. Dismiss an alarm with a backup set just beyond the 105-minute sampling horizon and the
+screen read **"Checking HR..." for up to fourteen minutes**, with no completed probe to fall
+back on and no way left to start one.
+
+The re-arm now happens in `onHide` as well, but only for a session that was genuinely
+*sampling*. The first version of the fix re-armed unconditionally, which threw away a perfectly
+good probe result every time a notification covered the screen for a second — and made
+`onShow`'s `_probeTicks == 0` guard always true, quietly creating a new piece of dead code
+while removing another. **Suite 29 caught that too**, by reporting the now-unreachable branch.
+
+### The pattern across all eighteen
+
+Thirteen of the eighteen were **silent**: the app carried on looking healthy and did the wrong
 thing quietly. That is the defining hazard of an alarm clock, because the only person who
 could notice is asleep at the time.
 
@@ -730,7 +747,7 @@ healthy one produced identical behaviour. One dim line showing live BPM, the sam
 the active source makes the difference obvious at a glance, before you go to sleep rather than
 after you have overslept.
 
-Three of the seventeen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
+Three of the eighteen were caused by an earlier fix (11 by the fix for `Duration`, 12 by the
 reset path added alongside 10, 13 by the same reasoning error as 11 in a second place), and 15
 took two attempts because the first answer was too coarse. The common failure was patching a
 *symptom at the call site* rather than the *question at its source*. Each is now answered once,
@@ -871,7 +888,8 @@ others cannot:
 | **Integration simulation** of whole nights through the real call sequence, with 1–20 alarms and screens covering the view | Bugs in the seams between components, where shared singleton state is mutated from a loop or a lifecycle callback fires more often than assumed |
 | **Calendar simulation** — every alarm minute of the day, all repeat masks over a full week, day rollovers, ±1 h clock shifts | Scheduling errors that only appear at midnight, on a particular weekday, or across a DST change |
 | **Structural audits** parsed from the source itself — paired storage keys, entry-point ordering, unreferenced symbols, orphan resources | Invariants that hold today only because every caller remembers them, and code or assets that quietly stopped being used |
-| **Branch reachability** — a counter on every branch of the engine and detector, driven through every window length and alarm configuration | A branch that is never executed, whose behavioural tests therefore all pass vacuously |
+| **Branch reachability** — a counter on every branch of the engine, detector and view layer, driven through every window length and alarm configuration | A branch that is never executed, whose behavioural tests therefore all pass vacuously |
+| **Mutation testing** — the source is deliberately broken, including by reintroducing each past bug verbatim, to confirm a suite notices | A test that passes for the wrong reason, and a regression that nothing would catch |
 
 ### Why the bugs arrived one layer at a time
 
@@ -916,7 +934,7 @@ The scheduling, passcode, snooze, and detection logic are validated by executabl
 mirror the Monkey C implementation, covering paths that are impractical to exercise on-device
 (a full night takes 8 hours; the suite runs in seconds).
 
-**Over 209,000 assertions across 28 suites, 0 failures**, confirmed over three consecutive
+**Over 255,000 assertions across 29 suites, 0 failures**, confirmed over three consecutive
 full runs. (Exact counts vary slightly between runs, since several suites generate randomised
 scenarios.) The runner treats a suite that produces *no* result line as a failure in its own
 right — an earlier version reported "0 failures" for a suite that had crashed before
@@ -950,6 +968,7 @@ asserting anything, which is the most flattering possible way to be wrong.
 | 26 | Rings that span midnight: exhaustive dismissal and snooze timings, resource audit | 18,100 |
 | 27 | Paired-key invariants, entry-point ordering, dead-code and orphan-file audit | 20,600 |
 | 28 | **Branch reachability**: every branch of the engine and detector must execute | 510 |
+| 29 | Branch reachability of the **view layer**: tick, probe lifecycle, status line, button combos | 46,500 |
 
 Suite 25 is the one that would have caught bugs 11, 13 and 14. It asserts on the state at the
 **end of a whole session** rather than on any single call, because every one of those three was
@@ -959,6 +978,44 @@ testing one step, all passed.
 Suite 26 earned its place immediately: written to confirm the fix for bug 15, it failed on
 first run and showed that the fix handled a dismissal across midnight but not a **snooze**
 across it. The predicate was replaced with the occurrence-based one before the fix shipped.
+
+### Mutation testing: do the suites have teeth?
+
+A suite that passes proves nothing unless it would have failed. So the source is deliberately
+broken, one change at a time, and the suites are re-run to see whether anything notices. Fifteen
+mutations were tried — seven tuning constants pushed to values that disable a feature outright,
+and eight that **reintroduce a previously fixed bug verbatim**:
+
+| mutation | caught by |
+|---|---|
+| `AWAKE_HR_RATIO` 1.40 → 9.99 (awake never detected) | 28 |
+| `PEAK_DROP` 8 → 99 (peak fire impossible) | 28 |
+| `FIRE_GRACE_MINS` 15 → 0 (alarms retire instantly) | 20 |
+| `SAMPLE_LEAD_MINS` 30 → 1 (no warm-up before the awake check) | 28 |
+| `MIN_HR_SAMPLES` 40 → 5000 (score never valid) | 28 |
+| `PROBE_MIN_AGREE` 3 → 1 (unconfirmed readings shown) | 20 |
+| `DEFAULT_PASSCODE` changed | 20 |
+| bug 11 reintroduced — `nextFireEpoch` forgets `firedToday` | 20 |
+| bug 12 reintroduced — `resetProbe` keeps the stale sample run | 24 |
+| bug 13 reintroduced — the editor ignores `rescheduled` | 27 |
+| bug 14 reintroduced — `onTick` drops the day rollover | 27 |
+| bug 15 reintroduced — `ringServesTodaysOccurrence` always true | 20 |
+| bug 16 reintroduced — `setRinging` leaves the start stamp | 27 |
+| bug 17 reintroduced — the pre-window flag dropped | 28 |
+| bug 18 reintroduced — `onHide` stops re-arming the probe | 29 |
+
+**15 of 15 caught.** One was initially caught only because the suite *crashed* rather than
+asserting, which is a much weaker signal — a dead run reports nothing, so the failure has to be
+inferred from absent output rather than named. That assertion was rewritten to fail cleanly.
+
+What this does **not** prove: the behavioural suites model the Monkey C in Python, so editing a
+`.mc` file cannot change what they simulate. Mutation testing here exercises the layer that
+genuinely reads the source — parsed constants and structural invariants — and that is why so
+many of the catches above come from the structural suites. The defence against a model drifting
+from the code it mirrors is that every tuning value is parsed from `Constants.mc` at test time,
+and that the shapes those models depend on are pinned by assertions against the real file.
+
+### Reachability
 
 Suite 28 asks the question the other twenty-seven never did: not *"does this code do the right
 thing?"* but *"does this code run at all?"* Every branch of the engine and detector carries a
