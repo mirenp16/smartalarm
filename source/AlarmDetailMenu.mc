@@ -3,9 +3,9 @@
 // "Done"/"Save" writes to storage. Sub-values are picked on their own screens and
 // the sublabels refresh when we return (onShow).
 //
-// Edit order: Status, Time, Scheduled Days, Label, Sleep Cycle Window, Alert,
+// Edit order: Status, Time, Repeat, Label, Sleep Cycle Window, Alert,
 //             Snooze Length, Max Snoozes, Done, Delete Alarm.
-// Add order : Save, Time, Scheduled Days, Label, Sleep Cycle Window, Alert,
+// Add order : Save, Time, Repeat, Label, Sleep Cycle Window, Alert,
 //             Snooze Length, Max Snoozes.
 
 import Toybox.Lang;
@@ -33,12 +33,15 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
                 AlarmStore.isOn(working), null));
         }
         addItem(new WatchUi.MenuItem("Time", timeSub(), :time, null));
-        addItem(new WatchUi.MenuItem("Scheduled Days", daysSub(), :days, null));
+        addItem(new WatchUi.MenuItem("Repeat", daysSub(), :days, null));
         addItem(new WatchUi.MenuItem("Label", labelSub(), :label, null));
         addItem(new WatchUi.MenuItem("Sleep Cycle Window", winSub(), :win, null));
         addItem(new WatchUi.MenuItem("Alert", modeSub(), :mode, null));
+        addItem(new WatchUi.MenuItem("Ringtone", toneSub(), :tone, null));
         addItem(new WatchUi.MenuItem("Snooze Length", snLenSub(), :snlen, null));
         addItem(new WatchUi.MenuItem("Max Snoozes", snMaxSub(), :snmax, null));
+        addItem(new WatchUi.ToggleMenuItem("Passcode", null, :pc,
+            AlarmStore.passcodeOn(working), null));
         if (!isNew) {
             addItem(new WatchUi.MenuItem("Done", null, :done, null));
             addItem(new WatchUi.MenuItem("Delete Alarm", null, :delete, null));
@@ -58,8 +61,15 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
         _set(:label, labelSub());
         _set(:win, winSub());
         _set(:mode, modeSub());
+        _set(:tone, toneSub());
         _set(:snlen, snLenSub());
         _set(:snmax, snMaxSub());
+    }
+
+    // True when the alarm actually makes sound, so Ringtone is meaningful.
+    function soundEnabled() as Boolean {
+        var m = AlarmStore.mode(alarm);
+        return (m == MODE_BOTH || m == MODE_SOUND);
     }
 
     // findItemById returns the item's INDEX (-1 if absent), not the item itself.
@@ -75,7 +85,14 @@ class AlarmDetailMenu extends WatchUi.Menu2 {
     function daysSub()  as String { return Fmt.days(AlarmStore.days(alarm)); }
     function labelSub() as String { return AlarmStore.label(alarm); }
     function winSub()   as String { return AlarmStore.window(alarm).format("%d") + " Minutes"; }
+    // The "watch tones are muted" warning lives on the Alert screen itself
+    // (see ChoiceView), where there's room to show it clearly.
     function modeSub()  as String { return Fmt.modeName(AlarmStore.mode(alarm)); }
+    // Ringtone only means something when the alarm actually makes sound.
+    function toneSub()  as String {
+        if (!soundEnabled()) { return "Not Applicable"; }
+        return Ringtone.nameAt(AlarmStore.ringtone(alarm));
+    }
     function snLenSub() as String { return AlarmStore.snoozeLen(alarm).format("%d") + " Minutes"; }
     function snMaxSub() as String { return AlarmStore.maxSnoozeOf(alarm).format("%d"); }
 }
@@ -96,13 +113,27 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         if (id == :status) {
             a.put("on", (item as WatchUi.ToggleMenuItem).isEnabled());
 
+        } else if (id == :pc) {
+            a.put("pc", (item as WatchUi.ToggleMenuItem).isEnabled());
+
+        } else if (id == :tone) {
+            // Only reachable when the alarm actually makes sound.
+            if (!_menu.soundEnabled()) {
+                // "|" marks explicit line breaks so this reads cleanly.
+                var msg = "Set \"Alert\" to|'Sound Only' or|'Sound + Vibrate'|first!";
+                WatchUi.pushView(new MessageView(msg), new MessageDelegate(), WatchUi.SLIDE_UP);
+            } else {
+                var tp = new RingtoneMenu(a);
+                WatchUi.pushView(tp, new RingtoneMenuDelegate(tp), WatchUi.SLIDE_LEFT);
+            }
+
         } else if (id == :time) {
             var tp = new TimePickerView(a);
             WatchUi.pushView(tp, new TimePickerDelegate(tp, false, a), WatchUi.SLIDE_LEFT);
 
         } else if (id == :days) {
-            var dp = new DaysPicker(a);
-            WatchUi.pushView(dp, new DaysPickerDelegate(dp), WatchUi.SLIDE_LEFT);
+            var rp = new RepeatMenu(a);
+            WatchUi.pushView(rp, new RepeatMenuDelegate(rp), WatchUi.SLIDE_LEFT);
 
         } else if (id == :label) {
             var lp = new OptionMenu("Label", "label", _labelOptions(), a);
@@ -148,6 +179,19 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
 
     private function _commit() as Void {
         var a = _menu.alarm;
+
+        // Read the STORED version before overwriting it, so we can tell whether
+        // the user actually changed when this alarm rings. BACK commits even when
+        // nothing was edited (that is what makes flipping Status and backing out
+        // work), so "the editor ran" must not by itself re-arm a slot that smart
+        // wake has already used today - see AlarmStore.armForNextOccurrence.
+        var before = null;
+        if (!_menu.isNew) {
+            var found = AlarmStore.findById(AlarmStore.id(a));
+            before = found[1];
+        }
+        var moved = AlarmStore.rescheduled(before, a);
+
         if (AlarmStore.days(a) == 0) {
             a.put("fireAt", AlarmStore.nextOccurrence(AlarmStore.hour(a), AlarmStore.minute(a)));
         }
@@ -156,7 +200,7 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         } else {
             AlarmStore.updateAlarm(_menu.index, a);
         }
-        AlarmStore.clearFired(AlarmStore.id(a));
+        AlarmStore.armForNextOccurrence(a, moved);
         MainListMenu.show(WatchUi.SLIDE_RIGHT);
     }
 

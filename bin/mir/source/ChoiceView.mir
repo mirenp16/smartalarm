@@ -30,16 +30,16 @@ class ChoiceView extends WatchUi.View {
     var _idx as Number = 0;
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 21; @position = 16; @symbol_vardef = [_w,21,16,18]; @symbol_type<0> = [Number,21,22,28]; ]
     private
-    var _w as Number = 260;
+    var _w as Number = 360;
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 22; @position = 16; @symbol_vardef = [_h,22,16,18]; @symbol_type<0> = [Number,22,22,28]; ]
     private
-    var _h as Number = 260;
+    var _h as Number = 360;
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 23; @position = 16; @symbol_vardef = [_cx,23,16,19]; @symbol_type<0> = [Number,23,23,29]; ]
     private
-    var _cx as Number = 130;
+    var _cx as Number = 180;
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 24; @position = 16; @symbol_vardef = [_cy,24,16,19]; @symbol_type<0> = [Number,24,23,29]; ]
     private
-    var _cy as Number = 130;
+    var _cy as Number = 180;
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 26; @symbol_functiondef = [initialize,26,13,23]; @symbol_param<0> = [title,26,24,29]; @symbol_param<0>_type<0> = [String,26,33,39]; @symbol_param<1> = [key,26,41,44]; @symbol_param<1>_type<0> = [String,26,48,54]; @symbol_param<2> = [options,26,56,63]; @symbol_param<2>_type<0> = [Array,26,67,72]; @symbol_param<3> = [currentValue,27,24,36]; @symbol_param<4> = [alarm,27,38,43]; @symbol_param<4>_type<0> = [Dictionary,27,47,57]; ]
     function initialize(title as String, key as String, options as Array, currentValue, alarm as Dictionary) as Void {
 _Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_27_59_38_4_start:
@@ -180,9 +180,9 @@ _Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_40_49_43_4_stop:
     }
     [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 45; @symbol_functiondef = [move,45,13,17]; @symbol_param<0> = [delta,45,18,23]; @symbol_param<0>_type<0> = [Number,45,27,33]; ]
     function move(delta as Number) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_49_4_start:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_50_4_start:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 46 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_49_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_49_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_50_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_50_4_stop" ]
         %n.1 = local;
         symbol [ n %n.1 46 12 13 ];
         symbol [ _options %tmp.2 46 16 24 ];
@@ -193,884 +193,1087 @@ _Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_49_4_start:
         lputv %n.1 %tmp.4;
         symbol [ n %n.1 46 12 13 ];
 [ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 47 8 ]
-        symbol [ _idx %tmp.6 47 16 20 ];
-        %tmp.6 = getv ? :_idx;
-        %tmp.7 = lgetv %n.1;
-        symbol [ n %tmp.7 47 23 24 ];
-        %tmp.8 = add %tmp.6 %tmp.7;
-        %tmp.9 = lgetv %delta;
-        symbol [ delta %tmp.9 47 27 32 ];
-        %tmp.10 = add %tmp.8 %tmp.9;
-        %tmp.11 = lgetv %n.1;
-        symbol [ n %tmp.11 47 36 37 ];
-        %tmp.12 = mod %tmp.10 %tmp.11;
-        symbol [ _idx ? 47 8 12 ];
-        putv self :_idx %tmp.12;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_47_8_47_30_if_stmt:
+        %tmp.5 = lgetv %n.1;
+        symbol [ n %tmp.5 47 12 13 ];
+        %tmp.6 = 0;
+        %tmp.7 = lte %tmp.5 %tmp.6;
+        bf %tmp.7 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_47_8_47_30_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_47_8_47_30_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_47_20_47_30_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 47 22 ]
+        ret ?;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_47_20_47_30_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_47_8_47_30_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_47_8_47_30_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 48 8 ]
-        symbol [ WatchUi %tmp.13 48 8 15 ];
-        %tmp.13 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.14 48 16 29 ];
-        %tmp.14 = getv function %tmp.13 :requestUpdate;
-        invoke %tmp.13 %tmp.14();
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_49_4_stop:
+        symbol [ _idx %tmp.9 48 16 20 ];
+        %tmp.9 = getv ? :_idx;
+        %tmp.10 = lgetv %n.1;
+        symbol [ n %tmp.10 48 23 24 ];
+        %tmp.11 = add %tmp.9 %tmp.10;
+        %tmp.12 = lgetv %delta;
+        symbol [ delta %tmp.12 48 27 32 ];
+        %tmp.13 = add %tmp.11 %tmp.12;
+        %tmp.14 = lgetv %n.1;
+        symbol [ n %tmp.14 48 36 37 ];
+        %tmp.15 = mod %tmp.13 %tmp.14;
+        symbol [ _idx ? 48 8 12 ];
+        putv self :_idx %tmp.15;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 49 8 ]
+        symbol [ WatchUi %tmp.16 49 8 15 ];
+        %tmp.16 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.17 49 16 29 ];
+        %tmp.17 = getv function %tmp.16 :requestUpdate;
+        invoke %tmp.16 %tmp.17();
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_45_43_50_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 52; @symbol_functiondef = [apply,52,13,18]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 53; @symbol_functiondef = [apply,53,13,18]; ]
     function apply() as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_52_29_55_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 53 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_52_29_55_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_52_29_55_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_53_29_56_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 54 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_53_29_56_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_53_29_56_4_stop" ]
         %opt.1 = local;
-        symbol [ opt %opt.1 53 12 15 ];
-        symbol [ _options %tmp.2 53 18 26 ];
+        symbol [ opt %opt.1 54 12 15 ];
+        symbol [ _options %tmp.2 54 18 26 ];
         %tmp.2 = getv ? :_options;
-        symbol [ _idx %tmp.4 53 27 31 ];
+        symbol [ _idx %tmp.4 54 27 31 ];
         %tmp.4 = getv ? :_idx;
         %tmp.5 = agetv %tmp.2 %tmp.4;
         %tmp.6 = as %tmp.5 Array;
-        symbol [ Array %tmp.6 53 36 41 ];
+        symbol [ Array %tmp.6 54 36 41 ];
         lputv %opt.1 %tmp.6;
-        symbol [ opt %opt.1 53 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 54 8 ]
-        symbol [ _alarm %tmp.8 54 8 14 ];
+        symbol [ opt %opt.1 54 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 55 8 ]
+        symbol [ _alarm %tmp.8 55 8 14 ];
         %tmp.8 = getv ? :_alarm;
-        symbol [ put %tmp.9 54 15 18 ];
+        symbol [ put %tmp.9 55 15 18 ];
         %tmp.9 = getv function %tmp.8 :put;
-        symbol [ _key %tmp.11 54 19 23 ];
+        symbol [ _key %tmp.11 55 19 23 ];
         %tmp.11 = getv ? :_key;
         %tmp.12 = lgetv %opt.1;
-        symbol [ opt %tmp.12 54 25 28 ];
+        symbol [ opt %tmp.12 55 25 28 ];
         %tmp.13 = 0;
         %tmp.14 = agetv %tmp.12 %tmp.13;
         invoke %tmp.8 %tmp.9(%tmp.11, %tmp.14);
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_52_29_55_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_53_29_56_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 57; @symbol_functiondef = [onUpdate,57,13,21]; @symbol_param<0> = [dc,57,22,24]; @symbol_param<0>_type<0> = [Graphics,57,28,36]; @symbol_param<0>_type<1> = [Dc,57,37,39]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 58; @symbol_functiondef = [onUpdate,58,13,21]; @symbol_param<0> = [dc,58,22,24]; @symbol_param<0>_type<0> = [Graphics,58,28,36]; @symbol_param<0>_type<1> = [Dc,58,37,39]; ]
     function onUpdate(dc as Graphics.Dc) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 58 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 59 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
         %opt.1 = local;
-        symbol [ opt %opt.1 58 12 15 ];
-        symbol [ _options %tmp.2 58 18 26 ];
+        symbol [ opt %opt.1 59 12 15 ];
+        symbol [ _options %tmp.2 59 18 26 ];
         %tmp.2 = getv ? :_options;
-        symbol [ _idx %tmp.4 58 27 31 ];
+        symbol [ _idx %tmp.4 59 27 31 ];
         %tmp.4 = getv ? :_idx;
         %tmp.5 = agetv %tmp.2 %tmp.4;
         %tmp.6 = as %tmp.5 Array;
-        symbol [ Array %tmp.6 58 36 41 ];
+        symbol [ Array %tmp.6 59 36 41 ];
         lputv %opt.1 %tmp.6;
-        symbol [ opt %opt.1 58 12 15 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 59 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop" ]
+        symbol [ opt %opt.1 59 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 60 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
         %name.2 = local;
-        symbol [ name %name.2 59 12 16 ];
+        symbol [ name %name.2 60 12 16 ];
         %tmp.7 = lgetv %opt.1;
-        symbol [ opt %tmp.7 59 19 22 ];
+        symbol [ opt %tmp.7 60 19 22 ];
         %tmp.8 = 1;
         %tmp.9 = agetv %tmp.7 %tmp.8;
         %tmp.10 = as %tmp.9 String;
-        symbol [ String %tmp.10 59 29 35 ];
+        symbol [ String %tmp.10 60 29 35 ];
         lputv %name.2 %tmp.10;
-        symbol [ name %name.2 59 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 60 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop" ]
+        symbol [ name %name.2 60 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 61 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
         %desc.3 = local;
-        symbol [ desc %desc.3 60 12 16 ];
+        symbol [ desc %desc.3 61 12 16 ];
         %tmp.11 = lgetv %opt.1;
-        symbol [ opt %tmp.11 60 19 22 ];
+        symbol [ opt %tmp.11 61 19 22 ];
         %tmp.12 = 2;
         %tmp.13 = agetv %tmp.11 %tmp.12;
         %tmp.14 = as %tmp.13 String;
-        symbol [ String %tmp.14 60 29 35 ];
+        symbol [ String %tmp.14 61 29 35 ];
         lputv %desc.3 %tmp.14;
-        symbol [ desc %desc.3 60 12 16 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 62 8 ]
+        symbol [ desc %desc.3 61 12 16 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 63 8 ]
         %tmp.15 = lgetv %dc;
-        symbol [ dc %tmp.15 62 8 10 ];
-        symbol [ setColor %tmp.16 62 11 19 ];
+        symbol [ dc %tmp.15 63 8 10 ];
+        symbol [ setColor %tmp.16 63 11 19 ];
         %tmp.16 = getv function %tmp.15 :setColor;
-        symbol [ Graphics %tmp.17 62 20 28 ];
+        symbol [ Graphics %tmp.17 63 20 28 ];
         %tmp.17 = getm $.Toybox.Graphics;
-        symbol [ COLOR_BLACK %tmp.18 62 29 40 ];
+        symbol [ COLOR_BLACK %tmp.18 63 29 40 ];
         %tmp.18 = getv %tmp.17 :COLOR_BLACK;
-        symbol [ Graphics %tmp.19 62 42 50 ];
+        symbol [ Graphics %tmp.19 63 42 50 ];
         %tmp.19 = getm $.Toybox.Graphics;
-        symbol [ COLOR_BLACK %tmp.20 62 51 62 ];
+        symbol [ COLOR_BLACK %tmp.20 63 51 62 ];
         %tmp.20 = getv %tmp.19 :COLOR_BLACK;
         invoke %tmp.15 %tmp.16(%tmp.18, %tmp.20);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 63 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 64 8 ]
         %tmp.21 = lgetv %dc;
-        symbol [ dc %tmp.21 63 8 10 ];
-        symbol [ clear %tmp.22 63 11 16 ];
+        symbol [ dc %tmp.21 64 8 10 ];
+        symbol [ clear %tmp.22 64 11 16 ];
         %tmp.22 = getv function %tmp.21 :clear;
         invoke %tmp.21 %tmp.22();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 66 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop" ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 67 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
         %vc.4 = local;
-        symbol [ vc %vc.4 66 12 14 ];
-        symbol [ Graphics %tmp.23 66 17 25 ];
+        symbol [ vc %vc.4 67 12 14 ];
+        symbol [ Graphics %tmp.23 67 17 25 ];
         %tmp.23 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.24 66 26 45 ];
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.24 67 26 45 ];
         %tmp.24 = getv %tmp.23 :TEXT_JUSTIFY_CENTER;
-        symbol [ Graphics %tmp.25 66 48 56 ];
+        symbol [ Graphics %tmp.25 67 48 56 ];
         %tmp.25 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_VCENTER %tmp.26 66 57 77 ];
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.26 67 57 77 ];
         %tmp.26 = getv %tmp.25 :TEXT_JUSTIFY_VCENTER;
         %tmp.27 = bitor %tmp.24 %tmp.26;
         lputv %vc.4 %tmp.27;
-        symbol [ vc %vc.4 66 12 14 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 67 8 ]
+        symbol [ vc %vc.4 67 12 14 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 68 8 ]
         %tmp.28 = lgetv %dc;
-        symbol [ dc %tmp.28 67 8 10 ];
-        symbol [ setColor %tmp.29 67 11 19 ];
+        symbol [ dc %tmp.28 68 8 10 ];
+        symbol [ setColor %tmp.29 68 11 19 ];
         %tmp.29 = getv function %tmp.28 :setColor;
         %tmp.30 = 0xAAAAAA;
-        symbol [ Graphics %tmp.31 67 30 38 ];
+        symbol [ Graphics %tmp.31 68 30 38 ];
         %tmp.31 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.32 67 39 56 ];
+        symbol [ COLOR_TRANSPARENT %tmp.32 68 39 56 ];
         %tmp.32 = getv %tmp.31 :COLOR_TRANSPARENT;
         invoke %tmp.28 %tmp.29(%tmp.30, %tmp.32);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 68 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 69 8 ]
         %tmp.33 = lgetv %dc;
-        symbol [ dc %tmp.33 68 8 10 ];
-        symbol [ drawText %tmp.34 68 11 19 ];
+        symbol [ dc %tmp.33 69 8 10 ];
+        symbol [ drawText %tmp.34 69 11 19 ];
         %tmp.34 = getv function %tmp.33 :drawText;
-        symbol [ _cx %tmp.36 68 20 23 ];
+        symbol [ _cx %tmp.36 69 20 23 ];
         %tmp.36 = getv ? :_cx;
-        symbol [ _h %tmp.38 68 25 27 ];
+        symbol [ _h %tmp.38 69 25 27 ];
         %tmp.38 = getv ? :_h;
         %tmp.39 = 12;
         %tmp.40 = mul %tmp.38 %tmp.39;
         %tmp.41 = 100;
         %tmp.42 = div %tmp.40 %tmp.41;
-        symbol [ Graphics %tmp.43 68 40 48 ];
+        symbol [ Graphics %tmp.43 69 40 48 ];
         %tmp.43 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.44 68 49 59 ];
+        symbol [ FONT_XTINY %tmp.44 69 49 59 ];
         %tmp.44 = getv %tmp.43 :FONT_XTINY;
-        symbol [ _title %tmp.46 68 61 67 ];
+        symbol [ _title %tmp.46 69 61 67 ];
         %tmp.46 = getv ? :_title;
         %tmp.47 = lgetv %vc.4;
-        symbol [ vc %tmp.47 68 69 71 ];
+        symbol [ vc %tmp.47 69 69 71 ];
         invoke %tmp.33 %tmp.34(%tmp.36, %tmp.42, %tmp.44, %tmp.46, %tmp.47);
 [ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 71 8 ]
-        %tmp.48 = lgetv %dc;
-        symbol [ dc %tmp.48 71 8 10 ];
-        symbol [ setColor %tmp.49 71 11 19 ];
-        %tmp.49 = getv function %tmp.48 :setColor;
-        symbol [ Graphics %tmp.50 71 20 28 ];
-        %tmp.50 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.51 71 29 40 ];
-        %tmp.51 = getv %tmp.50 :COLOR_WHITE;
-        symbol [ Graphics %tmp.52 71 42 50 ];
-        %tmp.52 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.53 71 51 68 ];
-        %tmp.53 = getv %tmp.52 :COLOR_TRANSPARENT;
-        invoke %tmp.48 %tmp.49(%tmp.51, %tmp.53);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 72 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop" ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
         %hasDesc.5 = local;
-        symbol [ hasDesc %hasDesc.5 72 12 19 ];
-        %tmp.54 = lgetv %desc.3;
-        symbol [ desc %tmp.54 72 23 27 ];
-        symbol [ length %tmp.55 72 28 34 ];
-        %tmp.55 = getv function %tmp.54 :length;
-        %tmp.56 = invoke %tmp.54 %tmp.55();
-        %tmp.57 = 0;
-        %tmp.58 = gt %tmp.56 %tmp.57;
-        lputv %hasDesc.5 %tmp.58;
-        symbol [ hasDesc %hasDesc.5 72 12 19 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 73 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop" ]
+        symbol [ hasDesc %hasDesc.5 71 12 19 ];
+        %tmp.48 = lgetv %desc.3;
+        symbol [ desc %tmp.48 71 23 27 ];
+        symbol [ length %tmp.49 71 28 34 ];
+        %tmp.49 = getv function %tmp.48 :length;
+        %tmp.50 = invoke %tmp.48 %tmp.49();
+        %tmp.51 = 0;
+        %tmp.52 = gt %tmp.50 %tmp.51;
+        lputv %hasDesc.5 %tmp.52;
+        symbol [ hasDesc %hasDesc.5 71 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 72 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
         %isAlert.6 = local;
-        symbol [ isAlert %isAlert.6 73 12 19 ];
-        symbol [ _key %tmp.60 73 22 26 ];
-        %tmp.60 = getv ? :_key;
-        symbol [ equals %tmp.61 73 27 33 ];
-        %tmp.61 = getv function %tmp.60 :equals;
-        %tmp.62 = "mode";
-        %tmp.63 = invoke %tmp.60 %tmp.61(%tmp.62);
-        lputv %isAlert.6 %tmp.63;
-        symbol [ isAlert %isAlert.6 73 12 19 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 74 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop" ]
-        %nameY.7 = local;
-        symbol [ nameY %nameY.7 74 12 17 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_begin:
-        %tmp.64 = lgetv %hasDesc.5;
-        symbol [ hasDesc %tmp.64 74 20 27 ];
-        bf %tmp.64 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_true:
-        symbol [ _cy %tmp.66 74 31 34 ];
-        %tmp.66 = getv ? :_cy;
-        %tmp.67 = 44;
-        %tmp.68 = sub %tmp.66 %tmp.67;
-        push %tmp.68;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_else_false:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_begin:
-        %tmp.69 = lgetv %isAlert.6;
-        symbol [ isAlert %tmp.69 74 44 51 ];
-        bf %tmp.69 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_true:
-        symbol [ _cy %tmp.71 74 55 58 ];
-        %tmp.71 = getv ? :_cy;
-        %tmp.72 = 18;
-        %tmp.73 = sub %tmp.71 %tmp.72;
-        push %tmp.73;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_else_false:
-        symbol [ _cy %tmp.75 74 67 70 ];
-        %tmp.75 = getv ? :_cy;
-        push %tmp.75;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_end:
-        %tmp.76 = phi [%tmp.69 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_begin] [%tmp.73 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_true] [%tmp.75 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_else_false] [%tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_44_74_67_end];
-        push %tmp.76;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_end:
-        %tmp.77 = phi [%tmp.64 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_begin] [%tmp.68 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_true] [%tmp.76 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_else_false] [%tmp.77 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_74_20_74_70_end];
-        lputv %nameY.7 %tmp.77;
-        symbol [ nameY %nameY.7 74 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 75 8 ]
-        %tmp.78 = lgetv %dc;
-        symbol [ dc %tmp.78 75 8 10 ];
-        symbol [ drawText %tmp.79 75 11 19 ];
-        %tmp.79 = getv function %tmp.78 :drawText;
-        symbol [ _cx %tmp.81 75 20 23 ];
-        %tmp.81 = getv ? :_cx;
-        %tmp.82 = lgetv %nameY.7;
-        symbol [ nameY %tmp.82 75 25 30 ];
-        symbol [ Graphics %tmp.83 75 32 40 ];
-        %tmp.83 = getm $.Toybox.Graphics;
-        symbol [ FONT_MEDIUM %tmp.84 75 41 52 ];
-        %tmp.84 = getv %tmp.83 :FONT_MEDIUM;
-        %tmp.85 = lgetv %name.2;
-        symbol [ name %tmp.85 75 54 58 ];
-        %tmp.86 = lgetv %vc.4;
-        symbol [ vc %tmp.86 75 60 62 ];
-        invoke %tmp.78 %tmp.79(%tmp.81, %tmp.82, %tmp.84, %tmp.85, %tmp.86);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 78 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_8_80_8_if_stmt:
-        %tmp.87 = lgetv %isAlert.6;
-        symbol [ isAlert %tmp.87 78 12 19 ];
-        bf %tmp.87 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_8_80_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_8_80_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_21_80_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 79 12 ]
-        symbol [ Icons %tmp.89 79 12 17 ];
-        %tmp.89 = getv ? :Icons;
-        symbol [ alertPair %tmp.90 79 18 27 ];
-        %tmp.90 = getv function %tmp.89 :alertPair;
-        %tmp.91 = lgetv %dc;
-        symbol [ dc %tmp.91 79 28 30 ];
-        symbol [ _cx %tmp.93 79 32 35 ];
-        %tmp.93 = getv ? :_cx;
-        symbol [ _cy %tmp.95 79 37 40 ];
-        %tmp.95 = getv ? :_cy;
-        %tmp.96 = 26;
-        %tmp.97 = add %tmp.95 %tmp.96;
-        %tmp.98 = 18;
-        %tmp.99 = lgetv %opt.1;
-        symbol [ opt %tmp.99 79 52 55 ];
-        %tmp.100 = 0;
-        %tmp.101 = agetv %tmp.99 %tmp.100;
-        %tmp.102 = as %tmp.101 Number;
-        symbol [ Number %tmp.102 79 62 68 ];
-        invoke %tmp.89 %tmp.90(%tmp.91, %tmp.93, %tmp.97, %tmp.98, %tmp.102);
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_21_80_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_8_80_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_8_80_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 83 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_8_91_8_if_stmt:
-        %tmp.103 = lgetv %hasDesc.5;
-        symbol [ hasDesc %tmp.103 83 12 19 ];
-        bf %tmp.103 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_8_91_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_8_91_8_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_21_91_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 84 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_21_91_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_21_91_8_stop" ]
-        %lines.8 = local;
-        symbol [ lines %lines.8 84 16 21 ];
-        symbol [ ChoiceView %tmp.105 84 24 34 ];
-        %tmp.105 = getv ? :ChoiceView;
-        symbol [ wrap %tmp.106 84 35 39 ];
-        %tmp.106 = getv function %tmp.105 :wrap;
-        %tmp.107 = lgetv %dc;
-        symbol [ dc %tmp.107 84 40 42 ];
-        %tmp.108 = lgetv %desc.3;
-        symbol [ desc %tmp.108 84 44 48 ];
-        symbol [ Graphics %tmp.109 84 50 58 ];
-        %tmp.109 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.110 84 59 69 ];
-        %tmp.110 = getv %tmp.109 :FONT_XTINY;
-        symbol [ _w %tmp.112 84 71 73 ];
-        %tmp.112 = getv ? :_w;
-        %tmp.113 = 76;
-        %tmp.114 = mul %tmp.112 %tmp.113;
-        %tmp.115 = 100;
-        %tmp.116 = div %tmp.114 %tmp.115;
-        %tmp.117 = invoke %tmp.105 %tmp.106(%tmp.107, %tmp.108, %tmp.110, %tmp.116);
-        lputv %lines.8 %tmp.117;
-        symbol [ lines %lines.8 84 16 21 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 85 12 ]
-        %tmp.118 = lgetv %dc;
-        symbol [ dc %tmp.118 85 12 14 ];
-        symbol [ setColor %tmp.119 85 15 23 ];
-        %tmp.119 = getv function %tmp.118 :setColor;
-        %tmp.120 = 0xBBBBBB;
-        symbol [ Graphics %tmp.121 85 34 42 ];
-        %tmp.121 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.122 85 43 60 ];
-        %tmp.122 = getv %tmp.121 :COLOR_TRANSPARENT;
-        invoke %tmp.118 %tmp.119(%tmp.120, %tmp.122);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 86 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_21_91_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_21_91_8_stop" ]
-        %y.9 = local;
-        symbol [ y %y.9 86 16 17 ];
-        symbol [ _cy %tmp.124 86 20 23 ];
-        %tmp.124 = getv ? :_cy;
-        %tmp.125 = 8;
-        %tmp.126 = sub %tmp.124 %tmp.125;
-        lputv %y.9 %tmp.126;
-        symbol [ y %y.9 86 16 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 87 12 ]
-        for @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_test @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_init:
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_end" ]
-        %i.10 = local;
-        symbol [ i %i.10 87 21 22 ];
-        %tmp.127 = 0;
-        lputv %i.10 %tmp.127;
-        symbol [ i %i.10 87 21 22 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_test:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_28_87_52_begin:
-        %tmp.128 = lgetv %i.10;
-        symbol [ i %tmp.128 87 28 29 ];
-        %tmp.129 = lgetv %lines.8;
-        symbol [ lines %tmp.129 87 32 37 ];
-        symbol [ size %tmp.130 87 38 42 ];
-        %tmp.130 = getv function %tmp.129 :size;
-        %tmp.131 = invoke %tmp.129 %tmp.130();
-        %tmp.132 = lt %tmp.128 %tmp.131;
-        %tmp.133 = dup %tmp.132;
-        bf %tmp.133 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_48_87_52_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_48_87_52_true:
-        %tmp.134 = lgetv %i.10;
-        symbol [ i %tmp.134 87 48 49 ];
-        %tmp.135 = 4;
-        %tmp.136 = lt %tmp.134 %tmp.135;
-        %tmp.137 = and %tmp.132 %tmp.136;
-        push %tmp.137;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_48_87_52_end:
-        %tmp.138 = phi [%tmp.133 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_28_87_52_begin] [%tmp.137 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_48_87_52_true] [%tmp.138 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_48_87_52_end];
-        bf %tmp.138 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_60_90_12_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 88 16 ]
-        %tmp.139 = lgetv %dc;
-        symbol [ dc %tmp.139 88 16 18 ];
-        symbol [ drawText %tmp.140 88 19 27 ];
-        %tmp.140 = getv function %tmp.139 :drawText;
-        symbol [ _cx %tmp.142 88 28 31 ];
-        %tmp.142 = getv ? :_cx;
-        %tmp.143 = lgetv %y.9;
-        symbol [ y %tmp.143 88 33 34 ];
-        symbol [ Graphics %tmp.144 88 36 44 ];
-        %tmp.144 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.145 88 45 55 ];
-        %tmp.145 = getv %tmp.144 :FONT_XTINY;
-        %tmp.146 = lgetv %lines.8;
-        symbol [ lines %tmp.146 88 57 62 ];
-        %tmp.147 = lgetv %i.10;
-        symbol [ i %tmp.147 88 63 64 ];
-        %tmp.148 = agetv %tmp.146 %tmp.147;
-        %tmp.149 = lgetv %vc.4;
-        symbol [ vc %tmp.149 88 67 69 ];
-        invoke %tmp.139 %tmp.140(%tmp.142, %tmp.143, %tmp.145, %tmp.148, %tmp.149);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 89 16 ]
-        %tmp.150 = lgetv %y.9;
-        symbol [ y %tmp.150 89 16 17 ];
-        %tmp.151 = 22;
-        %tmp.152 = add %tmp.150 %tmp.151;
-        lputv %y.9 %tmp.152;
-        symbol [ y %y.9 89 16 17 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_60_90_12_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_incr:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 87 ]
-        %tmp.155 = lgetv %i.10;
-        symbol [ i %tmp.155 87 55 56 ];
-        %tmp.156 = add %tmp.155 1;
-        lputv %i.10 %tmp.156;
-        symbol [ i %i.10 87 55 56 ];
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_test;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_87_12_90_12_for_end:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_21_91_8_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_8_91_8_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_83_8_91_8_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 94 8 ]
-        %tmp.157 = lgetv %dc;
-        symbol [ dc %tmp.157 94 8 10 ];
-        symbol [ setColor %tmp.158 94 11 19 ];
-        %tmp.158 = getv function %tmp.157 :setColor;
-        %tmp.159 = 0x777777;
-        symbol [ Graphics %tmp.160 94 30 38 ];
-        %tmp.160 = getm $.Toybox.Graphics;
-        symbol [ COLOR_TRANSPARENT %tmp.161 94 39 56 ];
-        %tmp.161 = getv %tmp.160 :COLOR_TRANSPARENT;
-        invoke %tmp.157 %tmp.158(%tmp.159, %tmp.161);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 95 8 ]
-        %tmp.162 = lgetv %dc;
-        symbol [ dc %tmp.162 95 8 10 ];
-        symbol [ drawText %tmp.163 95 11 19 ];
-        %tmp.163 = getv function %tmp.162 :drawText;
-        symbol [ _cx %tmp.165 95 20 23 ];
-        %tmp.165 = getv ? :_cx;
-        symbol [ _h %tmp.167 95 25 27 ];
-        %tmp.167 = getv ? :_h;
-        %tmp.168 = 72;
-        %tmp.169 = mul %tmp.167 %tmp.168;
-        %tmp.170 = 100;
-        %tmp.171 = div %tmp.169 %tmp.170;
-        symbol [ Graphics %tmp.172 95 40 48 ];
-        %tmp.172 = getm $.Toybox.Graphics;
-        symbol [ FONT_XTINY %tmp.173 95 49 59 ];
-        %tmp.173 = getv %tmp.172 :FONT_XTINY;
-        symbol [ _idx %tmp.175 96 21 25 ];
-        %tmp.175 = getv ? :_idx;
-        %tmp.176 = 1;
-        %tmp.177 = add %tmp.175 %tmp.176;
-        symbol [ format %tmp.178 96 31 37 ];
-        %tmp.178 = getv function %tmp.177 :format;
-        %tmp.179 = "%d";
-        %tmp.180 = invoke %tmp.177 %tmp.178(%tmp.179);
-        %tmp.181 = " / ";
-        %tmp.182 = add %tmp.180 %tmp.181;
-        symbol [ _options %tmp.184 96 54 62 ];
-        %tmp.184 = getv ? :_options;
-        symbol [ size %tmp.185 96 63 67 ];
-        %tmp.185 = getv function %tmp.184 :size;
-        %tmp.186 = invoke %tmp.184 %tmp.185();
-        symbol [ format %tmp.187 96 70 76 ];
-        %tmp.187 = getv function %tmp.186 :format;
-        %tmp.188 = "%d";
-        %tmp.189 = invoke %tmp.186 %tmp.187(%tmp.188);
-        %tmp.190 = add %tmp.182 %tmp.189;
-        symbol [ Graphics %tmp.191 97 20 28 ];
-        %tmp.191 = getm $.Toybox.Graphics;
-        symbol [ TEXT_JUSTIFY_CENTER %tmp.192 97 29 48 ];
-        %tmp.192 = getv %tmp.191 :TEXT_JUSTIFY_CENTER;
-        invoke %tmp.162 %tmp.163(%tmp.165, %tmp.171, %tmp.173, %tmp.190, %tmp.192);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 99 8 ]
-        symbol [ Ui %tmp.194 99 8 10 ];
-        %tmp.194 = getv ? :Ui;
-        symbol [ start %tmp.195 99 11 16 ];
-        %tmp.195 = getv function %tmp.194 :start;
-        %tmp.196 = lgetv %dc;
-        symbol [ dc %tmp.196 99 17 19 ];
-        symbol [ _w %tmp.198 99 21 23 ];
-        %tmp.198 = getv ? :_w;
-        symbol [ _h %tmp.200 99 25 27 ];
-        %tmp.200 = getv ? :_h;
-        %tmp.201 = "Select";
-        invoke %tmp.194 %tmp.195(%tmp.196, %tmp.198, %tmp.200, %tmp.201);
+        symbol [ isAlert %isAlert.6 72 12 19 ];
+        symbol [ _key %tmp.54 72 22 26 ];
+        %tmp.54 = getv ? :_key;
+        symbol [ equals %tmp.55 72 27 33 ];
+        %tmp.55 = getv function %tmp.54 :equals;
+        %tmp.56 = "mode";
+        %tmp.57 = invoke %tmp.54 %tmp.55(%tmp.56);
+        lputv %isAlert.6 %tmp.57;
+        symbol [ isAlert %isAlert.6 72 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 73 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
+        %optVal.7 = local;
+        symbol [ optVal %optVal.7 73 12 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_begin:
+        %tmp.58 = lgetv %isAlert.6;
+        symbol [ isAlert %tmp.58 73 21 28 ];
+        bf %tmp.58 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_true:
+        %tmp.59 = lgetv %opt.1;
+        symbol [ opt %tmp.59 73 32 35 ];
+        %tmp.60 = 0;
+        %tmp.61 = agetv %tmp.59 %tmp.60;
+        %tmp.62 = as %tmp.61 Number;
+        symbol [ Number %tmp.62 73 42 48 ];
+        push %tmp.62;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_else_false:
+        %tmp.63 = -1;
+        push %tmp.63;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_end:
+        %tmp.64 = phi [%tmp.58 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_begin] [%tmp.62 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_true] [%tmp.63 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_else_false] [%tmp.64 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_73_21_73_53_end];
+        lputv %optVal.7 %tmp.64;
+        symbol [ optVal %optVal.7 73 12 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 77 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
+        %warnTones.8 = local;
+        symbol [ warnTones %warnTones.8 77 12 21 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_24_78_71_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_24_77_60_begin:
+        %tmp.65 = lgetv %isAlert.6;
+        symbol [ isAlert %tmp.65 77 24 31 ];
+        %tmp.66 = dup %tmp.65;
+        bf %tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_35_77_60_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_35_77_60_true:
+        symbol [ Ringtone %tmp.68 77 35 43 ];
+        %tmp.68 = getv ? :Ringtone;
+        symbol [ tonesSuppressed %tmp.69 77 44 59 ];
+        %tmp.69 = getv function %tmp.68 :tonesSuppressed;
+        %tmp.70 = invoke %tmp.68 %tmp.69();
+        %tmp.71 = and %tmp.65 %tmp.70;
+        push %tmp.71;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_35_77_60_end:
+        %tmp.72 = phi [%tmp.66 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_24_77_60_begin] [%tmp.71 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_35_77_60_true] [%tmp.72 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_35_77_60_end];
+        %tmp.73 = dup %tmp.72;
+        bf %tmp.73 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_27_78_71_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_27_78_71_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_28_78_62_begin:
+        %tmp.74 = lgetv %optVal.7;
+        symbol [ optVal %tmp.74 78 28 34 ];
+        symbol [ MODE_SOUND %tmp.76 78 38 48 ];
+        %tmp.76 = getv ? :MODE_SOUND;
+        %tmp.77 = eq %tmp.74 %tmp.76;
+        %tmp.78 = dup %tmp.77;
+        bt %tmp.78 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_52_78_62_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_52_78_62_false:
+        %tmp.79 = lgetv %optVal.7;
+        symbol [ optVal %tmp.79 78 52 58 ];
+        symbol [ MODE_BOTH %tmp.81 78 62 71 ];
+        %tmp.81 = getv ? :MODE_BOTH;
+        %tmp.82 = eq %tmp.79 %tmp.81;
+        %tmp.83 = or %tmp.77 %tmp.82;
+        push %tmp.83;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_52_78_62_end:
+        %tmp.84 = phi [%tmp.78 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_28_78_62_begin] [%tmp.83 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_52_78_62_false] [%tmp.84 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_52_78_62_end];
+        %tmp.85 = and %tmp.72 %tmp.84;
+        push %tmp.85;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_27_78_71_end:
+        %tmp.86 = phi [%tmp.73 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_77_24_78_71_begin] [%tmp.85 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_27_78_71_true] [%tmp.86 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_78_27_78_71_end];
+        lputv %warnTones.8 %tmp.86;
+        symbol [ warnTones %warnTones.8 77 12 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 79 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_79_8_82_8_if_stmt:
+        %tmp.87 = lgetv %warnTones.8;
+        symbol [ warnTones %tmp.87 79 12 21 ];
+        bf %tmp.87 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_79_8_82_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_79_8_82_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_79_23_82_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 80 12 ]
+        %tmp.88 = lgetv %dc;
+        symbol [ dc %tmp.88 80 12 14 ];
+        symbol [ setColor %tmp.89 80 15 23 ];
+        %tmp.89 = getv function %tmp.88 :setColor;
+        symbol [ UI_RED %tmp.91 80 24 30 ];
+        %tmp.91 = getv ? :UI_RED;
+        symbol [ Graphics %tmp.92 80 32 40 ];
+        %tmp.92 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.93 80 41 58 ];
+        %tmp.93 = getv %tmp.92 :COLOR_TRANSPARENT;
+        invoke %tmp.88 %tmp.89(%tmp.91, %tmp.93);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 81 12 ]
+        %tmp.94 = lgetv %dc;
+        symbol [ dc %tmp.94 81 12 14 ];
+        symbol [ drawText %tmp.95 81 15 23 ];
+        %tmp.95 = getv function %tmp.94 :drawText;
+        symbol [ _cx %tmp.97 81 24 27 ];
+        %tmp.97 = getv ? :_cx;
+        symbol [ _cy %tmp.99 81 29 32 ];
+        %tmp.99 = getv ? :_cy;
+        %tmp.100 = 52;
+        %tmp.101 = sub %tmp.99 %tmp.100;
+        symbol [ Graphics %tmp.102 81 39 47 ];
+        %tmp.102 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.103 81 48 58 ];
+        %tmp.103 = getv %tmp.102 :FONT_XTINY;
+        %tmp.104 = "Alert Tones: OFF";
+        %tmp.105 = lgetv %vc.4;
+        symbol [ vc %tmp.105 81 80 82 ];
+        invoke %tmp.94 %tmp.95(%tmp.97, %tmp.101, %tmp.103, %tmp.104, %tmp.105);
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_79_23_82_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_79_8_82_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_79_8_82_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 88 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
+        %lines.9 = local;
+        symbol [ lines %lines.9 88 12 17 ];
+        %tmp.106 = null;
+        lputv %lines.9 %tmp.106;
+        symbol [ lines %lines.9 88 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 89 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
+        %lineH.10 = local;
+        symbol [ lineH %lineH.10 89 12 17 ];
+        %tmp.107 = 22;
+        lputv %lineH.10 %tmp.107;
+        symbol [ lineH %lineH.10 89 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 90 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
+        %descTop.11 = local;
+        symbol [ descTop %descTop.11 90 12 19 ];
+        symbol [ _cy %tmp.109 90 22 25 ];
+        %tmp.109 = getv ? :_cy;
+        %tmp.110 = 8;
+        %tmp.111 = sub %tmp.109 %tmp.110;
+        lputv %descTop.11 %tmp.111;
+        symbol [ descTop %descTop.11 90 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 91 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_91_8_97_8_if_stmt:
+        %tmp.112 = lgetv %hasDesc.5;
+        symbol [ hasDesc %tmp.112 91 12 19 ];
+        bf %tmp.112 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_91_8_97_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_91_8_97_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_91_21_97_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 92 12 ]
+        symbol [ ChoiceView %tmp.114 92 20 30 ];
+        %tmp.114 = getv ? :ChoiceView;
+        symbol [ wrap %tmp.115 92 31 35 ];
+        %tmp.115 = getv function %tmp.114 :wrap;
+        %tmp.116 = lgetv %dc;
+        symbol [ dc %tmp.116 92 36 38 ];
+        %tmp.117 = lgetv %desc.3;
+        symbol [ desc %tmp.117 92 40 44 ];
+        symbol [ Graphics %tmp.118 92 46 54 ];
+        %tmp.118 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.119 92 55 65 ];
+        %tmp.119 = getv %tmp.118 :FONT_XTINY;
+        symbol [ _w %tmp.121 92 67 69 ];
+        %tmp.121 = getv ? :_w;
+        %tmp.122 = 76;
+        %tmp.123 = mul %tmp.121 %tmp.122;
+        %tmp.124 = 100;
+        %tmp.125 = div %tmp.123 %tmp.124;
+        %tmp.126 = invoke %tmp.114 %tmp.115(%tmp.116, %tmp.117, %tmp.119, %tmp.125);
+        lputv %lines.9 %tmp.126;
+        symbol [ lines %lines.9 92 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 93 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_93_12_96_12_if_stmt:
+        %tmp.127 = lgetv %lines.9;
+        symbol [ lines %tmp.127 93 16 21 ];
+        symbol [ size %tmp.128 93 22 26 ];
+        %tmp.128 = getv function %tmp.127 :size;
+        %tmp.129 = invoke %tmp.127 %tmp.128();
+        %tmp.130 = 4;
+        %tmp.131 = gt %tmp.129 %tmp.130;
+        bf %tmp.131 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_93_12_96_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_93_12_96_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_93_34_96_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 94 16 ]
+        %tmp.132 = 18;
+        lputv %lineH.10 %tmp.132;
+        symbol [ lineH %lineH.10 94 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 95 16 ]
+        symbol [ _cy %tmp.134 95 26 29 ];
+        %tmp.134 = getv ? :_cy;
+        %tmp.135 = 30;
+        %tmp.136 = sub %tmp.134 %tmp.135;
+        lputv %descTop.11 %tmp.136;
+        symbol [ descTop %descTop.11 95 16 23 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_93_34_96_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_93_12_96_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_93_12_96_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_91_21_97_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_91_8_97_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_91_8_97_8_if_end:
 [ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 100 8 ]
-        symbol [ Ui %tmp.203 100 8 10 ];
-        %tmp.203 = getv ? :Ui;
-        symbol [ back %tmp.204 100 11 15 ];
-        %tmp.204 = getv function %tmp.203 :back;
-        %tmp.205 = lgetv %dc;
-        symbol [ dc %tmp.205 100 16 18 ];
-        symbol [ _w %tmp.207 100 20 22 ];
-        %tmp.207 = getv ? :_w;
-        symbol [ _h %tmp.209 100 24 26 ];
-        %tmp.209 = getv ? :_h;
-        %tmp.210 = "Cancel";
-        invoke %tmp.203 %tmp.204(%tmp.205, %tmp.207, %tmp.209, %tmp.210);
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_57_49_101_4_stop:
+        %tmp.137 = lgetv %dc;
+        symbol [ dc %tmp.137 100 8 10 ];
+        symbol [ setColor %tmp.138 100 11 19 ];
+        %tmp.138 = getv function %tmp.137 :setColor;
+        symbol [ Graphics %tmp.139 100 20 28 ];
+        %tmp.139 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.140 100 29 40 ];
+        %tmp.140 = getv %tmp.139 :COLOR_WHITE;
+        symbol [ Graphics %tmp.141 100 42 50 ];
+        %tmp.141 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.142 100 51 68 ];
+        %tmp.142 = getv %tmp.141 :COLOR_TRANSPARENT;
+        invoke %tmp.137 %tmp.138(%tmp.140, %tmp.142);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 101 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop" ]
+        %nameY.12 = local;
+        symbol [ nameY %nameY.12 101 12 17 ];
+        symbol [ _cy %tmp.144 101 20 23 ];
+        %tmp.144 = getv ? :_cy;
+        lputv %nameY.12 %tmp.144;
+        symbol [ nameY %nameY.12 101 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 102 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_8_106_8_if_stmt:
+        %tmp.145 = lgetv %hasDesc.5;
+        symbol [ hasDesc %tmp.145 102 12 19 ];
+        bf %tmp.145 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_8_106_8_if_false;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_8_106_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_21_104_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 103 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_begin:
+        %tmp.146 = lgetv %lines.9;
+        symbol [ lines %tmp.146 103 21 26 ];
+        symbol [ size %tmp.147 103 27 31 ];
+        %tmp.147 = getv function %tmp.146 :size;
+        %tmp.148 = invoke %tmp.146 %tmp.147();
+        %tmp.149 = 4;
+        %tmp.150 = gt %tmp.148 %tmp.149;
+        bf %tmp.150 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_true:
+        symbol [ _cy %tmp.152 103 42 45 ];
+        %tmp.152 = getv ? :_cy;
+        %tmp.153 = 58;
+        %tmp.154 = sub %tmp.152 %tmp.153;
+        push %tmp.154;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_else_false:
+        symbol [ _cy %tmp.156 103 55 58 ];
+        %tmp.156 = getv ? :_cy;
+        %tmp.157 = 44;
+        %tmp.158 = sub %tmp.156 %tmp.157;
+        push %tmp.158;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_end:
+        %tmp.159 = phi [%tmp.150 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_begin] [%tmp.154 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_true] [%tmp.158 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_else_false] [%tmp.159 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_103_20_103_63_end];
+        lputv %nameY.12 %tmp.159;
+        symbol [ nameY %nameY.12 103 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_21_104_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_8_106_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_8_106_8_if_false:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 104 15 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_15_106_8_if_stmt:
+        %tmp.160 = lgetv %isAlert.6;
+        symbol [ isAlert %tmp.160 104 19 26 ];
+        bf %tmp.160 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_15_106_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_15_106_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_28_106_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 105 12 ]
+        symbol [ _cy %tmp.162 105 20 23 ];
+        %tmp.162 = getv ? :_cy;
+        %tmp.163 = 18;
+        %tmp.164 = sub %tmp.162 %tmp.163;
+        lputv %nameY.12 %tmp.164;
+        symbol [ nameY %nameY.12 105 12 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_28_106_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_15_106_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_15_106_8_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_102_8_106_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 107 8 ]
+        %tmp.165 = lgetv %dc;
+        symbol [ dc %tmp.165 107 8 10 ];
+        symbol [ drawText %tmp.166 107 11 19 ];
+        %tmp.166 = getv function %tmp.165 :drawText;
+        symbol [ _cx %tmp.168 107 20 23 ];
+        %tmp.168 = getv ? :_cx;
+        %tmp.169 = lgetv %nameY.12;
+        symbol [ nameY %tmp.169 107 25 30 ];
+        symbol [ Graphics %tmp.170 107 32 40 ];
+        %tmp.170 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.171 107 41 52 ];
+        %tmp.171 = getv %tmp.170 :FONT_MEDIUM;
+        %tmp.172 = lgetv %name.2;
+        symbol [ name %tmp.172 107 54 58 ];
+        %tmp.173 = lgetv %vc.4;
+        symbol [ vc %tmp.173 107 60 62 ];
+        invoke %tmp.165 %tmp.166(%tmp.168, %tmp.169, %tmp.171, %tmp.172, %tmp.173);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 110 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_8_112_8_if_stmt:
+        %tmp.174 = lgetv %isAlert.6;
+        symbol [ isAlert %tmp.174 110 12 19 ];
+        bf %tmp.174 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_8_112_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_8_112_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_21_112_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 111 12 ]
+        symbol [ Icons %tmp.176 111 12 17 ];
+        %tmp.176 = getv ? :Icons;
+        symbol [ alertPair %tmp.177 111 18 27 ];
+        %tmp.177 = getv function %tmp.176 :alertPair;
+        %tmp.178 = lgetv %dc;
+        symbol [ dc %tmp.178 111 28 30 ];
+        symbol [ _cx %tmp.180 111 32 35 ];
+        %tmp.180 = getv ? :_cx;
+        symbol [ _cy %tmp.182 111 37 40 ];
+        %tmp.182 = getv ? :_cy;
+        %tmp.183 = 30;
+        %tmp.184 = add %tmp.182 %tmp.183;
+        %tmp.185 = lgetv %optVal.7;
+        symbol [ optVal %tmp.185 111 47 53 ];
+        %tmp.186 = true;
+        invoke %tmp.176 %tmp.177(%tmp.178, %tmp.180, %tmp.184, %tmp.185, %tmp.186);
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_21_112_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_8_112_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_8_112_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 115 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_8_122_8_if_stmt:
+        %tmp.187 = lgetv %hasDesc.5;
+        symbol [ hasDesc %tmp.187 115 12 19 ];
+        bf %tmp.187 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_8_122_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_8_122_8_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_21_122_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 116 12 ]
+        %tmp.188 = lgetv %dc;
+        symbol [ dc %tmp.188 116 12 14 ];
+        symbol [ setColor %tmp.189 116 15 23 ];
+        %tmp.189 = getv function %tmp.188 :setColor;
+        %tmp.190 = 0xBBBBBB;
+        symbol [ Graphics %tmp.191 116 34 42 ];
+        %tmp.191 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.192 116 43 60 ];
+        %tmp.192 = getv %tmp.191 :COLOR_TRANSPARENT;
+        invoke %tmp.188 %tmp.189(%tmp.190, %tmp.192);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 117 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_21_122_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_21_122_8_stop" ]
+        %y.13 = local;
+        symbol [ y %y.13 117 16 17 ];
+        %tmp.193 = lgetv %descTop.11;
+        symbol [ descTop %tmp.193 117 20 27 ];
+        lputv %y.13 %tmp.193;
+        symbol [ y %y.13 117 16 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 118 12 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_test @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_end" ]
+        %i.14 = local;
+        symbol [ i %i.14 118 21 22 ];
+        %tmp.194 = 0;
+        lputv %i.14 %tmp.194;
+        symbol [ i %i.14 118 21 22 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_test:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_28_118_52_begin:
+        %tmp.195 = lgetv %i.14;
+        symbol [ i %tmp.195 118 28 29 ];
+        %tmp.196 = lgetv %lines.9;
+        symbol [ lines %tmp.196 118 32 37 ];
+        symbol [ size %tmp.197 118 38 42 ];
+        %tmp.197 = getv function %tmp.196 :size;
+        %tmp.198 = invoke %tmp.196 %tmp.197();
+        %tmp.199 = lt %tmp.195 %tmp.198;
+        %tmp.200 = dup %tmp.199;
+        bf %tmp.200 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_48_118_52_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_48_118_52_true:
+        %tmp.201 = lgetv %i.14;
+        symbol [ i %tmp.201 118 48 49 ];
+        %tmp.202 = 6;
+        %tmp.203 = lt %tmp.201 %tmp.202;
+        %tmp.204 = and %tmp.199 %tmp.203;
+        push %tmp.204;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_48_118_52_end:
+        %tmp.205 = phi [%tmp.200 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_28_118_52_begin] [%tmp.204 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_48_118_52_true] [%tmp.205 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_48_118_52_end];
+        bf %tmp.205 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_60_121_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 119 16 ]
+        %tmp.206 = lgetv %dc;
+        symbol [ dc %tmp.206 119 16 18 ];
+        symbol [ drawText %tmp.207 119 19 27 ];
+        %tmp.207 = getv function %tmp.206 :drawText;
+        symbol [ _cx %tmp.209 119 28 31 ];
+        %tmp.209 = getv ? :_cx;
+        %tmp.210 = lgetv %y.13;
+        symbol [ y %tmp.210 119 33 34 ];
+        symbol [ Graphics %tmp.211 119 36 44 ];
+        %tmp.211 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.212 119 45 55 ];
+        %tmp.212 = getv %tmp.211 :FONT_XTINY;
+        %tmp.213 = lgetv %lines.9;
+        symbol [ lines %tmp.213 119 57 62 ];
+        %tmp.214 = lgetv %i.14;
+        symbol [ i %tmp.214 119 63 64 ];
+        %tmp.215 = agetv %tmp.213 %tmp.214;
+        %tmp.216 = lgetv %vc.4;
+        symbol [ vc %tmp.216 119 67 69 ];
+        invoke %tmp.206 %tmp.207(%tmp.209, %tmp.210, %tmp.212, %tmp.215, %tmp.216);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 120 16 ]
+        %tmp.217 = lgetv %y.13;
+        symbol [ y %tmp.217 120 16 17 ];
+        %tmp.218 = lgetv %lineH.10;
+        symbol [ lineH %tmp.218 120 21 26 ];
+        %tmp.219 = add %tmp.217 %tmp.218;
+        lputv %y.13 %tmp.219;
+        symbol [ y %y.13 120 16 17 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_60_121_12_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 118 ]
+        %tmp.222 = lgetv %i.14;
+        symbol [ i %tmp.222 118 55 56 ];
+        %tmp.223 = add %tmp.222 1;
+        lputv %i.14 %tmp.223;
+        symbol [ i %i.14 118 55 56 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_12_121_12_for_end:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_21_122_8_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_8_122_8_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_8_122_8_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 125 8 ]
+        %tmp.224 = lgetv %dc;
+        symbol [ dc %tmp.224 125 8 10 ];
+        symbol [ setColor %tmp.225 125 11 19 ];
+        %tmp.225 = getv function %tmp.224 :setColor;
+        %tmp.226 = 0x777777;
+        symbol [ Graphics %tmp.227 125 30 38 ];
+        %tmp.227 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.228 125 39 56 ];
+        %tmp.228 = getv %tmp.227 :COLOR_TRANSPARENT;
+        invoke %tmp.224 %tmp.225(%tmp.226, %tmp.228);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 126 8 ]
+        %tmp.229 = lgetv %dc;
+        symbol [ dc %tmp.229 126 8 10 ];
+        symbol [ drawText %tmp.230 126 11 19 ];
+        %tmp.230 = getv function %tmp.229 :drawText;
+        symbol [ _cx %tmp.232 126 20 23 ];
+        %tmp.232 = getv ? :_cx;
+        symbol [ _h %tmp.234 126 25 27 ];
+        %tmp.234 = getv ? :_h;
+        %tmp.235 = 72;
+        %tmp.236 = mul %tmp.234 %tmp.235;
+        %tmp.237 = 100;
+        %tmp.238 = div %tmp.236 %tmp.237;
+        symbol [ Graphics %tmp.239 126 40 48 ];
+        %tmp.239 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.240 126 49 59 ];
+        %tmp.240 = getv %tmp.239 :FONT_XTINY;
+        symbol [ _idx %tmp.242 127 21 25 ];
+        %tmp.242 = getv ? :_idx;
+        %tmp.243 = 1;
+        %tmp.244 = add %tmp.242 %tmp.243;
+        symbol [ format %tmp.245 127 31 37 ];
+        %tmp.245 = getv function %tmp.244 :format;
+        %tmp.246 = "%d";
+        %tmp.247 = invoke %tmp.244 %tmp.245(%tmp.246);
+        %tmp.248 = " / ";
+        %tmp.249 = add %tmp.247 %tmp.248;
+        symbol [ _options %tmp.251 127 54 62 ];
+        %tmp.251 = getv ? :_options;
+        symbol [ size %tmp.252 127 63 67 ];
+        %tmp.252 = getv function %tmp.251 :size;
+        %tmp.253 = invoke %tmp.251 %tmp.252();
+        symbol [ format %tmp.254 127 70 76 ];
+        %tmp.254 = getv function %tmp.253 :format;
+        %tmp.255 = "%d";
+        %tmp.256 = invoke %tmp.253 %tmp.254(%tmp.255);
+        %tmp.257 = add %tmp.249 %tmp.256;
+        symbol [ Graphics %tmp.258 128 20 28 ];
+        %tmp.258 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.259 128 29 48 ];
+        %tmp.259 = getv %tmp.258 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.229 %tmp.230(%tmp.232, %tmp.238, %tmp.240, %tmp.257, %tmp.259);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 130 8 ]
+        symbol [ Ui %tmp.261 130 8 10 ];
+        %tmp.261 = getv ? :Ui;
+        symbol [ start %tmp.262 130 11 16 ];
+        %tmp.262 = getv function %tmp.261 :start;
+        %tmp.263 = lgetv %dc;
+        symbol [ dc %tmp.263 130 17 19 ];
+        symbol [ _w %tmp.265 130 21 23 ];
+        %tmp.265 = getv ? :_w;
+        symbol [ _h %tmp.267 130 25 27 ];
+        %tmp.267 = getv ? :_h;
+        %tmp.268 = "Select";
+        invoke %tmp.261 %tmp.262(%tmp.263, %tmp.265, %tmp.267, %tmp.268);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 131 8 ]
+        symbol [ Ui %tmp.270 131 8 10 ];
+        %tmp.270 = getv ? :Ui;
+        symbol [ back %tmp.271 131 11 15 ];
+        %tmp.271 = getv function %tmp.270 :back;
+        %tmp.272 = lgetv %dc;
+        symbol [ dc %tmp.272 131 16 18 ];
+        symbol [ _w %tmp.274 131 20 22 ];
+        %tmp.274 = getv ? :_w;
+        symbol [ _h %tmp.276 131 24 26 ];
+        %tmp.276 = getv ? :_h;
+        %tmp.277 = "Cancel";
+        invoke %tmp.270 %tmp.271(%tmp.272, %tmp.274, %tmp.276, %tmp.277);
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_58_49_132_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 104; @symbol_functiondef = [wrap,104,20,24]; @symbol_param<0> = [dc,104,25,27]; @symbol_param<0>_type<0> = [Graphics,104,31,39]; @symbol_param<0>_type<1> = [Dc,104,40,42]; @symbol_param<1> = [text,104,44,48]; @symbol_param<1>_type<0> = [String,104,52,58]; @symbol_param<2> = [font,104,60,64]; @symbol_param<3> = [maxW,104,66,70]; @symbol_param<3>_type<0> = [Number,104,74,80]; @symbol_return<0> = [Array,104,85,90]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 135; @symbol_functiondef = [wrap,135,20,24]; @symbol_param<0> = [dc,135,25,27]; @symbol_param<0>_type<0> = [Graphics,135,31,39]; @symbol_param<0>_type<1> = [Dc,135,40,42]; @symbol_param<1> = [text,135,44,48]; @symbol_param<1>_type<0> = [String,135,52,58]; @symbol_param<2> = [font,135,60,64]; @symbol_param<3> = [maxW,135,66,70]; @symbol_param<3>_type<0> = [Number,135,74,80]; @symbol_return<0> = [Array,135,85,90]; ]
     static
     function wrap(dc as Graphics.Dc, text as String, font, maxW as Number) as Array {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 105 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_stop" ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 136 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_stop" ]
         %lines.1 = local;
-        symbol [ lines %lines.1 105 12 17 ];
+        symbol [ lines %lines.1 136 12 17 ];
         %tmp.1 = newa 0;
         lputv %lines.1 %tmp.1;
-        symbol [ lines %lines.1 105 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 106 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_stop" ]
+        symbol [ lines %lines.1 136 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 137 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_stop" ]
         %current.2 = local;
-        symbol [ current %current.2 106 12 19 ];
+        symbol [ current %current.2 137 12 19 ];
         %tmp.2 = "";
         lputv %current.2 %tmp.2;
-        symbol [ current %current.2 106 12 19 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 107 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_stop" ]
+        symbol [ current %current.2 137 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 138 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_stop" ]
         %start.3 = local;
-        symbol [ start %start.3 107 12 17 ];
+        symbol [ start %start.3 138 12 17 ];
         %tmp.3 = 0;
         lputv %start.3 %tmp.3;
-        symbol [ start %start.3 107 12 17 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 108 8 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_stop" ]
+        symbol [ start %start.3 138 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 139 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_stop" ]
         %n.4 = local;
-        symbol [ n %n.4 108 12 13 ];
+        symbol [ n %n.4 139 12 13 ];
         %tmp.4 = lgetv %text;
-        symbol [ text %tmp.4 108 16 20 ];
-        symbol [ length %tmp.5 108 21 27 ];
+        symbol [ text %tmp.4 139 16 20 ];
+        symbol [ length %tmp.5 139 21 27 ];
         %tmp.5 = getv function %tmp.4 :length;
         %tmp.6 = invoke %tmp.4 %tmp.5();
         lputv %n.4 %tmp.6;
-        symbol [ n %n.4 108 12 13 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 109 8 ]
-        for @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_init:
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_end" ]
+        symbol [ n %n.4 139 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 140 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_end" ]
         %i.5 = local;
-        symbol [ i %i.5 109 17 18 ];
+        symbol [ i %i.5 140 17 18 ];
         %tmp.7 = 0;
         lputv %i.5 %tmp.7;
-        symbol [ i %i.5 109 17 18 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_test:
+        symbol [ i %i.5 140 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_test:
         %tmp.8 = lgetv %i.5;
-        symbol [ i %tmp.8 109 24 25 ];
+        symbol [ i %tmp.8 140 24 25 ];
         %tmp.9 = lgetv %n.4;
-        symbol [ n %tmp.9 109 29 30 ];
+        symbol [ n %tmp.9 140 29 30 ];
         %tmp.10 = lte %tmp.8 %tmp.9;
-        bf %tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_begin:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_37_124_8_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 110 12 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_37_124_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_37_124_8_stop" ]
+        bf %tmp.10 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_37_155_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 141 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_37_155_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_37_155_8_stop" ]
         %isBreak.6 = local;
-        symbol [ isBreak %isBreak.6 110 16 23 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_26_110_73_begin:
+        symbol [ isBreak %isBreak.6 141 16 23 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_141_26_141_73_begin:
         %tmp.11 = lgetv %i.5;
-        symbol [ i %tmp.11 110 27 28 ];
+        symbol [ i %tmp.11 141 27 28 ];
         %tmp.12 = lgetv %n.4;
-        symbol [ n %tmp.12 110 32 33 ];
+        symbol [ n %tmp.12 141 32 33 ];
         %tmp.13 = eq %tmp.11 %tmp.12;
         %tmp.14 = dup %tmp.13;
-        bt %tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_38_110_73_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_38_110_73_false:
+        bt %tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_141_38_141_73_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_141_38_141_73_false:
         %tmp.15 = lgetv %text;
-        symbol [ text %tmp.15 110 38 42 ];
-        symbol [ substring %tmp.16 110 43 52 ];
+        symbol [ text %tmp.15 141 38 42 ];
+        symbol [ substring %tmp.16 141 43 52 ];
         %tmp.16 = getv function %tmp.15 :substring;
         %tmp.17 = lgetv %i.5;
-        symbol [ i %tmp.17 110 53 54 ];
+        symbol [ i %tmp.17 141 53 54 ];
         %tmp.18 = lgetv %i.5;
-        symbol [ i %tmp.18 110 56 57 ];
+        symbol [ i %tmp.18 141 56 57 ];
         %tmp.19 = 1;
         %tmp.20 = add %tmp.18 %tmp.19;
         %tmp.21 = invoke %tmp.15 %tmp.16(%tmp.17, %tmp.20);
-        symbol [ equals %tmp.22 110 63 69 ];
+        symbol [ equals %tmp.22 141 63 69 ];
         %tmp.22 = getv function %tmp.21 :equals;
         %tmp.23 = " ";
         %tmp.24 = invoke %tmp.21 %tmp.22(%tmp.23);
         %tmp.25 = or %tmp.13 %tmp.24;
         push %tmp.25;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_38_110_73_end:
-        %tmp.26 = phi [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_26_110_73_begin] [%tmp.25 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_38_110_73_false] [%tmp.26 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_110_38_110_73_end];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_141_38_141_73_end:
+        %tmp.26 = phi [%tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_141_26_141_73_begin] [%tmp.25 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_141_38_141_73_false] [%tmp.26 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_141_38_141_73_end];
         lputv %isBreak.6 %tmp.26;
-        symbol [ isBreak %isBreak.6 110 16 23 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 111 12 ]
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_12_123_12_if_stmt:
+        symbol [ isBreak %isBreak.6 141 16 23 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 142 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_12_154_12_if_stmt:
         %tmp.27 = lgetv %isBreak.6;
-        symbol [ isBreak %tmp.27 111 16 23 ];
-        bf %tmp.27 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_12_123_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_12_123_12_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_25_123_12_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 112 16 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_25_123_12_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_25_123_12_stop" ]
+        symbol [ isBreak %tmp.27 142 16 23 ];
+        bf %tmp.27 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_12_154_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_12_154_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_25_154_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 143 16 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_25_154_12_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_25_154_12_stop" ]
         %word.7 = local;
-        symbol [ word %word.7 112 20 24 ];
+        symbol [ word %word.7 143 20 24 ];
         %tmp.28 = lgetv %text;
-        symbol [ text %tmp.28 112 27 31 ];
-        symbol [ substring %tmp.29 112 32 41 ];
+        symbol [ text %tmp.28 143 27 31 ];
+        symbol [ substring %tmp.29 143 32 41 ];
         %tmp.29 = getv function %tmp.28 :substring;
         %tmp.30 = lgetv %start.3;
-        symbol [ start %tmp.30 112 42 47 ];
+        symbol [ start %tmp.30 143 42 47 ];
         %tmp.31 = lgetv %i.5;
-        symbol [ i %tmp.31 112 49 50 ];
+        symbol [ i %tmp.31 143 49 50 ];
         %tmp.32 = invoke %tmp.28 %tmp.29(%tmp.30, %tmp.31);
         lputv %word.7 %tmp.32;
-        symbol [ word %word.7 112 20 24 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 113 16 ]
+        symbol [ word %word.7 143 20 24 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 144 16 ]
         %tmp.33 = lgetv %i.5;
-        symbol [ i %tmp.33 113 24 25 ];
+        symbol [ i %tmp.33 144 24 25 ];
         %tmp.34 = 1;
         %tmp.35 = add %tmp.33 %tmp.34;
         lputv %start.3 %tmp.35;
-        symbol [ start %start.3 113 16 21 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 114 16 ]
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_16_122_16_if_stmt:
+        symbol [ start %start.3 144 16 21 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 145 16 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_16_153_16_if_stmt:
         %tmp.36 = lgetv %word.7;
-        symbol [ word %tmp.36 114 20 24 ];
-        symbol [ length %tmp.37 114 25 31 ];
+        symbol [ word %tmp.36 145 20 24 ];
+        symbol [ length %tmp.37 145 25 31 ];
         %tmp.37 = getv function %tmp.36 :length;
         %tmp.38 = invoke %tmp.36 %tmp.37();
         %tmp.39 = 0;
         %tmp.40 = gt %tmp.38 %tmp.39;
-        bf %tmp.40 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_16_122_16_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_16_122_16_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_39_122_16_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 115 20 ]
-        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_39_122_16_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_39_122_16_stop" ]
+        bf %tmp.40 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_16_153_16_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_16_153_16_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_39_153_16_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 146 20 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_39_153_16_start" "_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_39_153_16_stop" ]
         %trial.8 = local;
-        symbol [ trial %trial.8 115 24 29 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_begin:
+        symbol [ trial %trial.8 146 24 29 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_begin:
         %tmp.41 = lgetv %current.2;
-        symbol [ current %tmp.41 115 33 40 ];
-        symbol [ length %tmp.42 115 41 47 ];
+        symbol [ current %tmp.41 146 33 40 ];
+        symbol [ length %tmp.42 146 41 47 ];
         %tmp.42 = getv function %tmp.41 :length;
         %tmp.43 = invoke %tmp.41 %tmp.42();
         %tmp.44 = 0;
         %tmp.45 = eq %tmp.43 %tmp.44;
-        bf %tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_true:
+        bf %tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_true:
         %tmp.46 = lgetv %word.7;
-        symbol [ word %tmp.46 115 58 62 ];
+        symbol [ word %tmp.46 146 58 62 ];
         push %tmp.46;
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_else_false:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_else_false:
         %tmp.47 = lgetv %current.2;
-        symbol [ current %tmp.47 115 66 73 ];
+        symbol [ current %tmp.47 146 66 73 ];
         %tmp.48 = " ";
         %tmp.49 = add %tmp.47 %tmp.48;
         %tmp.50 = lgetv %word.7;
-        symbol [ word %tmp.50 115 82 86 ];
+        symbol [ word %tmp.50 146 82 86 ];
         %tmp.51 = add %tmp.49 %tmp.50;
         push %tmp.51;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_end:
-        %tmp.52 = phi [%tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_begin] [%tmp.46 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_true] [%tmp.51 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_else_false] [%tmp.52 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_115_32_115_86_end];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_end:
+        %tmp.52 = phi [%tmp.45 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_begin] [%tmp.46 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_true] [%tmp.51 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_else_false] [%tmp.52 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_146_32_146_86_end];
         lputv %trial.8 %tmp.52;
-        symbol [ trial %trial.8 115 24 29 ];
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 116 20 ]
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_20_121_20_if_stmt:
+        symbol [ trial %trial.8 146 24 29 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 147 20 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_20_152_20_if_stmt:
         %tmp.53 = lgetv %dc;
-        symbol [ dc %tmp.53 116 24 26 ];
-        symbol [ getTextWidthInPixels %tmp.54 116 27 47 ];
+        symbol [ dc %tmp.53 147 24 26 ];
+        symbol [ getTextWidthInPixels %tmp.54 147 27 47 ];
         %tmp.54 = getv function %tmp.53 :getTextWidthInPixels;
         %tmp.55 = lgetv %trial.8;
-        symbol [ trial %tmp.55 116 48 53 ];
+        symbol [ trial %tmp.55 147 48 53 ];
         %tmp.56 = lgetv %font;
-        symbol [ font %tmp.56 116 55 59 ];
+        symbol [ font %tmp.56 147 55 59 ];
         %tmp.57 = invoke %tmp.53 %tmp.54(%tmp.55, %tmp.56);
         %tmp.58 = lgetv %maxW;
-        symbol [ maxW %tmp.58 116 64 68 ];
+        symbol [ maxW %tmp.58 147 64 68 ];
         %tmp.59 = lte %tmp.57 %tmp.58;
-        bf %tmp.59 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_20_121_20_if_else_false;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_20_121_20_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_70_118_20_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 117 24 ]
+        bf %tmp.59 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_20_152_20_if_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_20_152_20_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_70_149_20_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 148 24 ]
         %tmp.60 = lgetv %trial.8;
-        symbol [ trial %tmp.60 117 34 39 ];
+        symbol [ trial %tmp.60 148 34 39 ];
         lputv %current.2 %tmp.60;
-        symbol [ current %current.2 117 24 31 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_70_118_20_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_20_121_20_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_20_121_20_if_else_false:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_27_121_20_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 119 24 ]
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_119_24_119_72_if_stmt:
+        symbol [ current %current.2 148 24 31 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_70_149_20_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_20_152_20_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_20_152_20_if_else_false:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_149_27_152_20_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 150 24 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_150_24_150_72_if_stmt:
         %tmp.61 = lgetv %current.2;
-        symbol [ current %tmp.61 119 28 35 ];
-        symbol [ length %tmp.62 119 36 42 ];
+        symbol [ current %tmp.61 150 28 35 ];
+        symbol [ length %tmp.62 150 36 42 ];
         %tmp.62 = getv function %tmp.61 :length;
         %tmp.63 = invoke %tmp.61 %tmp.62();
         %tmp.64 = 0;
         %tmp.65 = gt %tmp.63 %tmp.64;
-        bf %tmp.65 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_119_24_119_72_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_119_24_119_72_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_119_50_119_72_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 119 52 ]
+        bf %tmp.65 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_150_24_150_72_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_150_24_150_72_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_150_50_150_72_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 150 52 ]
         %tmp.66 = lgetv %lines.1;
-        symbol [ lines %tmp.66 119 52 57 ];
-        symbol [ add %tmp.67 119 58 61 ];
+        symbol [ lines %tmp.66 150 52 57 ];
+        symbol [ add %tmp.67 150 58 61 ];
         %tmp.67 = getv function %tmp.66 :add;
         %tmp.68 = lgetv %current.2;
-        symbol [ current %tmp.68 119 62 69 ];
+        symbol [ current %tmp.68 150 62 69 ];
         invoke %tmp.66 %tmp.67(%tmp.68);
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_119_50_119_72_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_119_24_119_72_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_119_24_119_72_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 120 24 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_150_50_150_72_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_150_24_150_72_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_150_24_150_72_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 151 24 ]
         %tmp.69 = lgetv %word.7;
-        symbol [ word %tmp.69 120 34 38 ];
+        symbol [ word %tmp.69 151 34 38 ];
         lputv %current.2 %tmp.69;
-        symbol [ current %current.2 120 24 31 ];
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_118_27_121_20_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_116_20_121_20_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_39_122_16_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_16_122_16_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_114_16_122_16_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_25_123_12_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_12_123_12_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_111_12_123_12_if_end:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_37_124_8_stop:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_incr:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 109 ]
+        symbol [ current %current.2 151 24 31 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_149_27_152_20_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_147_20_152_20_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_39_153_16_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_16_153_16_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_145_16_153_16_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_25_154_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_12_154_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_12_154_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_37_155_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 140 ]
         %tmp.72 = lgetv %i.5;
-        symbol [ i %tmp.72 109 32 33 ];
+        symbol [ i %tmp.72 140 32 33 ];
         %tmp.73 = add %tmp.72 1;
         lputv %i.5 %tmp.73;
-        symbol [ i %i.5 109 32 33 ];
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_test;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_109_8_124_8_for_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 125 8 ]
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_125_8_125_56_if_stmt:
+        symbol [ i %i.5 140 32 33 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_8_155_8_for_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 156 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_156_8_156_56_if_stmt:
         %tmp.74 = lgetv %current.2;
-        symbol [ current %tmp.74 125 12 19 ];
-        symbol [ length %tmp.75 125 20 26 ];
+        symbol [ current %tmp.74 156 12 19 ];
+        symbol [ length %tmp.75 156 20 26 ];
         %tmp.75 = getv function %tmp.74 :length;
         %tmp.76 = invoke %tmp.74 %tmp.75();
         %tmp.77 = 0;
         %tmp.78 = gt %tmp.76 %tmp.77;
-        bf %tmp.78 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_125_8_125_56_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_125_8_125_56_if_true:
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_125_34_125_56_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 125 36 ]
+        bf %tmp.78 @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_156_8_156_56_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_156_8_156_56_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_156_34_156_56_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 156 36 ]
         %tmp.79 = lgetv %lines.1;
-        symbol [ lines %tmp.79 125 36 41 ];
-        symbol [ add %tmp.80 125 42 45 ];
+        symbol [ lines %tmp.79 156 36 41 ];
+        symbol [ add %tmp.80 156 42 45 ];
         %tmp.80 = getv function %tmp.79 :add;
         %tmp.81 = lgetv %current.2;
-        symbol [ current %tmp.81 125 46 53 ];
+        symbol [ current %tmp.81 156 46 53 ];
         invoke %tmp.79 %tmp.80(%tmp.81);
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_125_34_125_56_stop:
-        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_125_8_125_56_if_end;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_125_8_125_56_if_end:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 126 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_156_34_156_56_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_156_8_156_56_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_156_8_156_56_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 157 8 ]
         %tmp.82 = lgetv %lines.1;
-        symbol [ lines %tmp.82 126 15 20 ];
+        symbol [ lines %tmp.82 157 15 20 ];
         ret %tmp.82;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_104_91_127_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_135_91_158_4_stop:
     }
 }
-[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 130; @symbol_classdef = [ChoiceDelegate,130,6,20]; @symbol_extends<0> = [WatchUi,130,29,36]; @symbol_extends<1> = [BehaviorDelegate,130,37,53]; ]
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 161; @symbol_classdef = [ChoiceDelegate,161,6,20]; @symbol_extends<0> = [WatchUi,161,29,36]; @symbol_extends<1> = [BehaviorDelegate,161,37,53]; ]
 class ChoiceDelegate extends WatchUi.BehaviorDelegate {
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 130; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 161; ]
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 130; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 161; ]
     static
     <init> {
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 132; @position = 16; @symbol_vardef = [_view,132,16,21]; @symbol_type<0> = [ChoiceView,132,25,35]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 163; @position = 16; @symbol_vardef = [_view,163,16,21]; @symbol_type<0> = [ChoiceView,163,25,35]; ]
     private
     var _view as ChoiceView;
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 134; @symbol_functiondef = [initialize,134,13,23]; @symbol_param<0> = [view,134,24,28]; @symbol_param<0>_type<0> = [ChoiceView,134,32,42]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 165; @symbol_functiondef = [initialize,165,13,23]; @symbol_param<0> = [view,165,24,28]; @symbol_param<0>_type<0> = [ChoiceView,165,32,42]; ]
     function initialize(view as ChoiceView) as Void {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_134_44_137_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 135 8 ]
-        symbol [ BehaviorDelegate %tmp.2 135 8 24 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_165_44_168_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 166 8 ]
+        symbol [ BehaviorDelegate %tmp.2 166 8 24 ];
         %tmp.2 = getv ? :BehaviorDelegate;
-        symbol [ initialize %tmp.3 135 25 35 ];
+        symbol [ initialize %tmp.3 166 25 35 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 136 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 167 8 ]
         %tmp.4 = lgetv %view;
-        symbol [ view %tmp.4 136 16 20 ];
-        symbol [ _view ? 136 8 13 ];
+        symbol [ view %tmp.4 167 16 20 ];
+        symbol [ _view ? 167 8 13 ];
         putv self :_view %tmp.4;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_134_44_137_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_165_44_168_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 139; @symbol_functiondef = [onNextPage,139,13,23]; @symbol_return<0> = [Boolean,139,29,36]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 170; @symbol_functiondef = [onNextPage,170,13,23]; @symbol_return<0> = [Boolean,170,29,36]; ]
     function onNextPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_139_37_139_67_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 139 39 ]
-        symbol [ _view %tmp.2 139 39 44 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_170_37_170_67_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 170 39 ]
+        symbol [ _view %tmp.2 170 39 44 ];
         %tmp.2 = getv ? :_view;
-        symbol [ move %tmp.3 139 45 49 ];
+        symbol [ move %tmp.3 170 45 49 ];
         %tmp.3 = getv function %tmp.2 :move;
         %tmp.4 = 1;
         invoke %tmp.2 %tmp.3(%tmp.4);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 139 54 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 170 54 ]
         %tmp.5 = true;
         ret %tmp.5;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_139_37_139_67_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_170_37_170_67_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 140; @symbol_functiondef = [onPreviousPage,140,13,27]; @symbol_return<0> = [Boolean,140,33,40]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 171; @symbol_functiondef = [onPreviousPage,171,13,27]; @symbol_return<0> = [Boolean,171,33,40]; ]
     function onPreviousPage() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_41_140_72_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 140 43 ]
-        symbol [ _view %tmp.2 140 43 48 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_171_41_171_72_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 171 43 ]
+        symbol [ _view %tmp.2 171 43 48 ];
         %tmp.2 = getv ? :_view;
-        symbol [ move %tmp.3 140 49 53 ];
+        symbol [ move %tmp.3 171 49 53 ];
         %tmp.3 = getv function %tmp.2 :move;
         %tmp.4 = -1;
         invoke %tmp.2 %tmp.3(%tmp.4);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 140 59 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 171 59 ]
         %tmp.5 = true;
         ret %tmp.5;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_140_41_140_72_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_171_41_171_72_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 142; @symbol_functiondef = [onSelect,142,13,21]; @symbol_return<0> = [Boolean,142,27,34]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 173; @symbol_functiondef = [onSelect,173,13,21]; @symbol_return<0> = [Boolean,173,27,34]; ]
     function onSelect() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_35_146_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 143 8 ]
-        symbol [ _view %tmp.2 143 8 13 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_173_35_177_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 174 8 ]
+        symbol [ _view %tmp.2 174 8 13 ];
         %tmp.2 = getv ? :_view;
-        symbol [ apply %tmp.3 143 14 19 ];
+        symbol [ apply %tmp.3 174 14 19 ];
         %tmp.3 = getv function %tmp.2 :apply;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 144 8 ]
-        symbol [ WatchUi %tmp.4 144 8 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 175 8 ]
+        symbol [ WatchUi %tmp.4 175 8 15 ];
         %tmp.4 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.5 144 16 23 ];
+        symbol [ popView %tmp.5 175 16 23 ];
         %tmp.5 = getv function %tmp.4 :popView;
-        symbol [ WatchUi %tmp.6 144 24 31 ];
+        symbol [ WatchUi %tmp.6 175 24 31 ];
         %tmp.6 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_RIGHT %tmp.7 144 32 43 ];
+        symbol [ SLIDE_RIGHT %tmp.7 175 32 43 ];
         %tmp.7 = getv %tmp.6 :SLIDE_RIGHT;
         invoke %tmp.4 %tmp.5(%tmp.7);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 145 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 176 8 ]
         %tmp.8 = true;
         ret %tmp.8;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_142_35_146_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_173_35_177_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 148; @symbol_functiondef = [onTap,148,13,18]; @symbol_param<0> = [evt,148,19,22]; @symbol_param<0>_type<0> = [WatchUi,148,26,33]; @symbol_param<0>_type<1> = [ClickEvent,148,34,44]; @symbol_return<0> = [Boolean,148,49,56]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 179; @symbol_functiondef = [onTap,179,13,18]; @symbol_param<0> = [evt,179,19,22]; @symbol_param<0>_type<0> = [WatchUi,179,26,33]; @symbol_param<0>_type<1> = [ClickEvent,179,34,44]; @symbol_return<0> = [Boolean,179,49,56]; ]
     function onTap(evt as WatchUi.ClickEvent) as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_148_57_152_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 149 8 ]
-        symbol [ _view %tmp.2 149 8 13 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_179_57_183_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 180 8 ]
+        symbol [ _view %tmp.2 180 8 13 ];
         %tmp.2 = getv ? :_view;
-        symbol [ apply %tmp.3 149 14 19 ];
+        symbol [ apply %tmp.3 180 14 19 ];
         %tmp.3 = getv function %tmp.2 :apply;
         invoke %tmp.2 %tmp.3();
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 150 8 ]
-        symbol [ WatchUi %tmp.4 150 8 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 181 8 ]
+        symbol [ WatchUi %tmp.4 181 8 15 ];
         %tmp.4 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.5 150 16 23 ];
+        symbol [ popView %tmp.5 181 16 23 ];
         %tmp.5 = getv function %tmp.4 :popView;
-        symbol [ WatchUi %tmp.6 150 24 31 ];
+        symbol [ WatchUi %tmp.6 181 24 31 ];
         %tmp.6 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_RIGHT %tmp.7 150 32 43 ];
+        symbol [ SLIDE_RIGHT %tmp.7 181 32 43 ];
         %tmp.7 = getv %tmp.6 :SLIDE_RIGHT;
         invoke %tmp.4 %tmp.5(%tmp.7);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 151 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 182 8 ]
         %tmp.8 = true;
         ret %tmp.8;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_148_57_152_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_179_57_183_4_stop:
     }
-    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 154; @symbol_functiondef = [onBack,154,13,19]; @symbol_return<0> = [Boolean,154,25,32]; ]
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 185; @symbol_functiondef = [onBack,185,13,19]; @symbol_return<0> = [Boolean,185,25,32]; ]
     function onBack() as Boolean {
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_154_33_157_4_start:
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 155 8 ]
-        symbol [ WatchUi %tmp.1 155 8 15 ];
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_185_33_188_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 186 8 ]
+        symbol [ WatchUi %tmp.1 186 8 15 ];
         %tmp.1 = getm $.Toybox.WatchUi;
-        symbol [ popView %tmp.2 155 16 23 ];
+        symbol [ popView %tmp.2 186 16 23 ];
         %tmp.2 = getv function %tmp.1 :popView;
-        symbol [ WatchUi %tmp.3 155 24 31 ];
+        symbol [ WatchUi %tmp.3 186 24 31 ];
         %tmp.3 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_RIGHT %tmp.4 155 32 43 ];
+        symbol [ SLIDE_RIGHT %tmp.4 186 32 43 ];
         %tmp.4 = getv %tmp.3 :SLIDE_RIGHT;
         invoke %tmp.1 %tmp.2(%tmp.4);
-[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 156 8 ]
+[ "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc" 187 8 ]
         %tmp.5 = true;
         ret %tmp.5;
-_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_154_33_157_4_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_ChoiceView_mc_185_33_188_4_stop:
     }
 }
 [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/ChoiceView.mc"; @line = 10; ]

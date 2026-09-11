@@ -1,0 +1,330 @@
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 13; @symbol_importdef<0> = [Toybox,13,7,13]; @symbol_importdef<1> = [Lang,13,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 14; @symbol_importdef<0> = [Toybox,14,7,13]; @symbol_importdef<1> = [WatchUi,14,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 16; @symbol_classdef = [RingtoneMenu,16,6,18]; @symbol_extends<0> = [WatchUi,16,27,34]; @symbol_extends<1> = [Menu2,16,35,40]; ]
+class RingtoneMenu extends WatchUi.Menu2 {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 16; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 16; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 18; @position = 15; @symbol_vardef = [alarm,18,15,20]; @symbol_type<0> = [Dictionary,18,24,34]; ]
+    public
+    var alarm as Dictionary;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 20; @symbol_functiondef = [initialize,20,13,23]; @symbol_param<0> = [working,20,24,31]; @symbol_param<0>_type<0> = [Dictionary,20,35,45]; ]
+    function initialize(working as Dictionary) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_20_47_32_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 21 8 ]
+        symbol [ Menu2 %tmp.2 21 8 13 ];
+        %tmp.2 = getv ? :Menu2;
+        symbol [ initialize %tmp.3 21 14 24 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        %tmp.4 = newd 1;
+        %tmp.6 = const :title;
+        symbol [ title %tmp.6 21 27 32 const ];
+        %tmp.7 = "Ringtone";
+        %tmp.8 = dup %tmp.4;
+        %tmp.9 = aputv %tmp.8 %tmp.6 %tmp.7;
+        invoke %tmp.2 %tmp.3(%tmp.9);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 22 8 ]
+        %tmp.10 = lgetv %working;
+        symbol [ working %tmp.10 22 16 23 ];
+        symbol [ alarm ? 22 8 13 ];
+        putv self :alarm %tmp.10;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 24 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_20_47_32_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_20_47_32_4_stop" ]
+        %names.1 = local;
+        symbol [ names %names.1 24 12 17 ];
+        symbol [ Ringtone %tmp.12 24 20 28 ];
+        %tmp.12 = getv ? :Ringtone;
+        symbol [ names %tmp.13 24 29 34 ];
+        %tmp.13 = getv function %tmp.12 :names;
+        %tmp.14 = invoke %tmp.12 %tmp.13();
+        lputv %names.1 %tmp.14;
+        symbol [ names %names.1 24 12 17 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 25 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_20_47_32_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_20_47_32_4_stop" ]
+        %current.2 = local;
+        symbol [ current %current.2 25 12 19 ];
+        symbol [ AlarmStore %tmp.16 25 22 32 ];
+        %tmp.16 = getv ? :AlarmStore;
+        symbol [ ringtone %tmp.17 25 33 41 ];
+        %tmp.17 = getv function %tmp.16 :ringtone;
+        %tmp.18 = lgetv %working;
+        symbol [ working %tmp.18 25 42 49 ];
+        %tmp.19 = invoke %tmp.16 %tmp.17(%tmp.18);
+        lputv %current.2 %tmp.19;
+        symbol [ current %current.2 25 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 26 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_end" ]
+        %i.3 = local;
+        symbol [ i %i.3 26 17 18 ];
+        %tmp.20 = 0;
+        lputv %i.3 %tmp.20;
+        symbol [ i %i.3 26 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_test:
+        %tmp.21 = lgetv %i.3;
+        symbol [ i %tmp.21 26 24 25 ];
+        %tmp.22 = lgetv %names.1;
+        symbol [ names %tmp.22 26 28 33 ];
+        symbol [ size %tmp.23 26 34 38 ];
+        %tmp.23 = getv function %tmp.22 :size;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        %tmp.25 = lt %tmp.21 %tmp.24;
+        bf %tmp.25 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_47_31_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 27 12 ]
+        %tmp.26 = self;
+        symbol [ addItem %tmp.27 27 12 19 ];
+        %tmp.27 = getv function %tmp.26 :addItem;
+        symbol [ WatchUi %tmp.30 27 24 31 ];
+        %tmp.30 = getm $.Toybox.WatchUi;
+        symbol [ MenuItem %tmp.31 27 32 40 ];
+        %tmp.31 = getv function ? %tmp.30 :MenuItem;
+        %tmp.32 = lgetv %names.1;
+        symbol [ names %tmp.32 28 16 21 ];
+        %tmp.33 = lgetv %i.3;
+        symbol [ i %tmp.33 28 22 23 ];
+        %tmp.34 = agetv %tmp.32 %tmp.33;
+        %tmp.35 = as %tmp.34 String;
+        symbol [ String %tmp.35 28 28 34 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_begin:
+        %tmp.36 = lgetv %i.3;
+        symbol [ i %tmp.36 29 17 18 ];
+        %tmp.37 = lgetv %current.2;
+        symbol [ current %tmp.37 29 22 29 ];
+        %tmp.38 = eq %tmp.36 %tmp.37;
+        bf %tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_true:
+        %tmp.39 = "Selected";
+        push %tmp.39;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_else_false:
+        %tmp.40 = null;
+        push %tmp.40;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_end:
+        %tmp.41 = phi [%tmp.38 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_begin] [%tmp.39 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_true] [%tmp.40 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_else_false] [%tmp.41 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_29_16_29_46_end];
+        %tmp.42 = lgetv %i.3;
+        symbol [ i %tmp.42 30 16 17 ];
+        %tmp.43 = null;
+        %tmp.28 = newc %tmp.31 (%tmp.35, %tmp.41, %tmp.42, %tmp.43);
+        invoke %tmp.26 %tmp.27(%tmp.28);
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_47_31_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 26 ]
+        %tmp.46 = lgetv %i.3;
+        symbol [ i %tmp.46 26 42 43 ];
+        %tmp.47 = add %tmp.46 1;
+        lputv %i.3 %tmp.47;
+        symbol [ i %i.3 26 42 43 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_26_8_31_8_for_end:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_20_47_32_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 35; @symbol_functiondef = [refresh,35,13,20]; ]
+    function refresh() as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_35_31_44_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 36 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_35_31_44_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_35_31_44_4_stop" ]
+        %current.1 = local;
+        symbol [ current %current.1 36 12 19 ];
+        symbol [ AlarmStore %tmp.2 36 22 32 ];
+        %tmp.2 = getv ? :AlarmStore;
+        symbol [ ringtone %tmp.3 36 33 41 ];
+        %tmp.3 = getv function %tmp.2 :ringtone;
+        symbol [ alarm %tmp.5 36 42 47 ];
+        %tmp.5 = getv ? :alarm;
+        %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
+        lputv %current.1 %tmp.6;
+        symbol [ current %current.1 36 12 19 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 37 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_35_31_44_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_35_31_44_4_stop" ]
+        %n.2 = local;
+        symbol [ n %n.2 37 12 13 ];
+        symbol [ Ringtone %tmp.8 37 16 24 ];
+        %tmp.8 = getv ? :Ringtone;
+        symbol [ count %tmp.9 37 25 30 ];
+        %tmp.9 = getv function %tmp.8 :count;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        lputv %n.2 %tmp.10;
+        symbol [ n %n.2 37 12 13 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 38 8 ]
+        for @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_test @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_incr @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_init:
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_begin" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_end" ]
+        %i.3 = local;
+        symbol [ i %i.3 38 17 18 ];
+        %tmp.11 = 0;
+        lputv %i.3 %tmp.11;
+        symbol [ i %i.3 38 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_test:
+        %tmp.12 = lgetv %i.3;
+        symbol [ i %tmp.12 38 24 25 ];
+        %tmp.13 = lgetv %n.2;
+        symbol [ n %tmp.13 38 28 29 ];
+        %tmp.14 = lt %tmp.12 %tmp.13;
+        bf %tmp.14 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_begin:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_36_43_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 39 12 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_36_43_8_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_36_43_8_stop" ]
+        %it.4 = local;
+        symbol [ it %it.4 39 16 18 ];
+        %tmp.15 = self;
+        symbol [ getItem %tmp.16 39 21 28 ];
+        %tmp.16 = getv function %tmp.15 :getItem;
+        %tmp.17 = lgetv %i.3;
+        symbol [ i %tmp.17 39 29 30 ];
+        %tmp.18 = invoke %tmp.15 %tmp.16(%tmp.17);
+        lputv %it.4 %tmp.18;
+        symbol [ it %it.4 39 16 18 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 40 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_40_12_42_12_if_stmt:
+        %tmp.19 = lgetv %it.4;
+        symbol [ it %tmp.19 40 16 18 ];
+        %tmp.20 = null;
+        %tmp.21 = ne %tmp.19 %tmp.20;
+        bf %tmp.21 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_40_12_42_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_40_12_42_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_40_28_42_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 41 16 ]
+        %tmp.22 = lgetv %it.4;
+        symbol [ it %tmp.22 41 16 18 ];
+        %tmp.23 = as %tmp.22 { (!Null) };
+        symbol [ setSubLabel %tmp.24 41 19 30 ];
+        %tmp.24 = getv function %tmp.23 :setSubLabel;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_begin:
+        %tmp.25 = lgetv %i.3;
+        symbol [ i %tmp.25 41 32 33 ];
+        %tmp.26 = lgetv %current.1;
+        symbol [ current %tmp.26 41 37 44 ];
+        %tmp.27 = eq %tmp.25 %tmp.26;
+        bf %tmp.27 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_else_false;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_true:
+        %tmp.28 = "Selected";
+        push %tmp.28;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_else_false:
+        %tmp.29 = null;
+        push %tmp.29;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_end:
+        %tmp.30 = phi [%tmp.27 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_begin] [%tmp.28 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_true] [%tmp.29 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_else_false] [%tmp.30 @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_41_31_41_61_end];
+        invoke %tmp.23 %tmp.24(%tmp.30);
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_40_28_42_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_40_12_42_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_40_12_42_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_36_43_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_incr:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 38 ]
+        %tmp.33 = lgetv %i.3;
+        symbol [ i %tmp.33 38 31 32 ];
+        %tmp.34 = add %tmp.33 1;
+        lputv %i.3 %tmp.34;
+        symbol [ i %i.3 38 31 32 ];
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_test;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_38_8_43_8_for_end:
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_35_31_44_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 47; @symbol_classdef = [RingtoneMenuDelegate,47,6,26]; @symbol_extends<0> = [WatchUi,47,35,42]; @symbol_extends<1> = [Menu2InputDelegate,47,43,61]; ]
+class RingtoneMenuDelegate extends WatchUi.Menu2InputDelegate {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 47; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 47; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 49; @position = 16; @symbol_vardef = [_menu,49,16,21]; @symbol_type<0> = [RingtoneMenu,49,25,37]; ]
+    private
+    var _menu as RingtoneMenu;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 51; @symbol_functiondef = [initialize,51,13,23]; @symbol_param<0> = [menu,51,24,28]; @symbol_param<0>_type<0> = [RingtoneMenu,51,32,44]; ]
+    function initialize(menu as RingtoneMenu) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_51_46_54_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 52 8 ]
+        symbol [ Menu2InputDelegate %tmp.2 52 8 26 ];
+        %tmp.2 = getv ? :Menu2InputDelegate;
+        symbol [ initialize %tmp.3 52 27 37 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 53 8 ]
+        %tmp.4 = lgetv %menu;
+        symbol [ menu %tmp.4 53 16 20 ];
+        symbol [ _menu ? 53 8 13 ];
+        putv self :_menu %tmp.4;
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_51_46_54_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 56; @symbol_functiondef = [onSelect,56,13,21]; @symbol_param<0> = [item,56,22,26]; @symbol_param<0>_type<0> = [WatchUi,56,30,37]; @symbol_param<0>_type<1> = [MenuItem,56,38,46]; ]
+    function onSelect(item as WatchUi.MenuItem) as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_56_56_62_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 57 8 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_56_56_62_4_start" "_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_56_56_62_4_stop" ]
+        %idx.1 = local;
+        symbol [ idx %idx.1 57 12 15 ];
+        %tmp.1 = lgetv %item;
+        symbol [ item %tmp.1 57 18 22 ];
+        symbol [ getId %tmp.2 57 23 28 ];
+        %tmp.2 = getv function %tmp.1 :getId;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        %tmp.4 = as %tmp.3 Number;
+        symbol [ Number %tmp.4 57 34 40 ];
+        lputv %idx.1 %tmp.4;
+        symbol [ idx %idx.1 57 12 15 ];
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 58 8 ]
+        symbol [ _menu %tmp.6 58 8 13 ];
+        %tmp.6 = getv ? :_menu;
+        symbol [ alarm %tmp.7 58 14 19 ];
+        %tmp.7 = getv %tmp.6 :alarm;
+        symbol [ put %tmp.8 58 20 23 ];
+        %tmp.8 = getv function %tmp.7 :put;
+        %tmp.9 = "tone";
+        %tmp.10 = lgetv %idx.1;
+        symbol [ idx %tmp.10 58 32 35 ];
+        invoke %tmp.7 %tmp.8(%tmp.9, %tmp.10);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 59 8 ]
+        symbol [ _menu %tmp.12 59 8 13 ];
+        %tmp.12 = getv ? :_menu;
+        symbol [ refresh %tmp.13 59 14 21 ];
+        %tmp.13 = getv function %tmp.12 :refresh;
+        invoke %tmp.12 %tmp.13();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 60 8 ]
+        symbol [ Ringtone %tmp.15 60 8 16 ];
+        %tmp.15 = getv ? :Ringtone;
+        symbol [ play %tmp.16 60 17 21 ];
+        %tmp.16 = getv function %tmp.15 :play;
+        %tmp.17 = lgetv %idx.1;
+        symbol [ idx %tmp.17 60 22 25 ];
+        invoke %tmp.15 %tmp.16(%tmp.17);
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 61 8 ]
+        symbol [ WatchUi %tmp.18 61 8 15 ];
+        %tmp.18 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.19 61 16 29 ];
+        %tmp.19 = getv function %tmp.18 :requestUpdate;
+        invoke %tmp.18 %tmp.19();
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_56_56_62_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 64; @symbol_functiondef = [onBack,64,13,19]; ]
+    function onBack() as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_64_30_66_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc" 65 8 ]
+        symbol [ WatchUi %tmp.1 65 8 15 ];
+        %tmp.1 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.2 65 16 23 ];
+        %tmp.2 = getv function %tmp.1 :popView;
+        symbol [ WatchUi %tmp.3 65 24 31 ];
+        %tmp.3 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_RIGHT %tmp.4 65 32 43 ];
+        %tmp.4 = getv %tmp.3 :SLIDE_RIGHT;
+        invoke %tmp.1 %tmp.2(%tmp.4);
+_Users_miren_Documents_GitHub_smartalarm_source_RingtoneMenu_mc_64_30_66_4_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/RingtoneMenu.mc"; @line = 13; ]
+<init> {
+}

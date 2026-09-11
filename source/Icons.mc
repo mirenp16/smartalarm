@@ -27,30 +27,55 @@ class Icons {
 
     // Draws the sound + vibration pair centred on (x, y).
     // large=true uses the 36px glyphs, otherwise the 22px ones.
+    //
+    // For "off" states we draw the PLAIN glyph and stroke a bold red slash over
+    // it ourselves. The artwork's own thin strike was almost invisible at row
+    // size; a drawn slash stays crisp and is obvious at a glance.
     static function alertPair(dc as Graphics.Dc, x as Number, y as Number,
                               mode as Number, large as Boolean) as Void {
         var soundOn = (mode == MODE_BOTH || mode == MODE_SOUND);
         var vibeOn  = (mode == MODE_BOTH || mode == MODE_VIBE);
 
-        var sIcon = large
-            ? (soundOn ? bmp("sl", Rez.Drawables.IconSoundL) : bmp("nsl", Rez.Drawables.IconNoSoundL))
-            : (soundOn ? bmp("ss", Rez.Drawables.IconSoundS) : bmp("nss", Rez.Drawables.IconNoSoundS));
-        var vIcon = large
-            ? (vibeOn ? bmp("vl", Rez.Drawables.IconVibeL) : bmp("nvl", Rez.Drawables.IconNoVibeL))
-            : (vibeOn ? bmp("vs", Rez.Drawables.IconVibeS) : bmp("nvs", Rez.Drawables.IconNoVibeS));
+        var sIcon = large ? bmp("sl", Rez.Drawables.IconSoundL) : bmp("ss", Rez.Drawables.IconSoundS);
+        var vIcon = large ? bmp("vl", Rez.Drawables.IconVibeL)  : bmp("vs", Rez.Drawables.IconVibeS);
 
-        var gap = large ? 6 : 3;
+        var gap = large ? 8 : 5;
         var sw = (sIcon != null) ? sIcon.getWidth() : 0;
         var vw = (vIcon != null) ? vIcon.getWidth() : 0;
         var total = sw + gap + vw;
         var left = x - total / 2;
 
         if (sIcon != null) {
-            dc.drawBitmap(left, y - sIcon.getHeight() / 2, sIcon);
+            var sh = sIcon.getHeight();
+            dc.drawBitmap(left, y - sh / 2, sIcon);
+            if (!soundOn) { slash(dc, left, y - sh / 2, sw, sh, large); }
         }
         if (vIcon != null) {
-            dc.drawBitmap(left + sw + gap, y - vIcon.getHeight() / 2, vIcon);
+            var vx = left + sw + gap;
+            var vh = vIcon.getHeight();
+            dc.drawBitmap(vx, y - vh / 2, vIcon);
+            if (!vibeOn) { slash(dc, vx, y - vh / 2, vw, vh, large); }
         }
+    }
+
+    // Bold red diagonal across a glyph, with a dark outline so it reads clearly
+    // against the white artwork underneath.
+    private static function slash(dc as Graphics.Dc, x as Number, y as Number,
+                                  w as Number, h as Number, large as Boolean) as Void {
+        var pad = 1;
+        var x1 = x - pad;
+        var y1 = y + h + pad;
+        var x2 = x + w + pad;
+        var y2 = y - pad;
+
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(large ? 7 : 5);
+        dc.drawLine(x1, y1, x2, y2);
+
+        dc.setColor(UI_RED, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(large ? 4 : 3);
+        dc.drawLine(x1, y1, x2, y2);
+        dc.setPenWidth(1);
     }
 
     // The ON/OFF pill switch, matching the one on the alarm's Status row:

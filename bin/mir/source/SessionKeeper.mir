@@ -1,0 +1,232 @@
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 19; @symbol_importdef<0> = [Toybox,19,7,13]; @symbol_importdef<1> = [Activity,19,14,22]; ]
+import Toybox.Activity;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 20; @symbol_importdef<0> = [Toybox,20,7,13]; @symbol_importdef<1> = [ActivityRecording,20,14,31]; ]
+import Toybox.ActivityRecording;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 21; @symbol_importdef<0> = [Toybox,21,7,13]; @symbol_importdef<1> = [Lang,21,14,18]; ]
+import Toybox.Lang;
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 23; @symbol_classdef = [SessionKeeper,23,6,19]; ]
+class SessionKeeper {
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 23; ]
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 23; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 25; @position = 23; @symbol_vardef = [_session,25,23,31]; ]
+    private static
+    var _session = null;
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 28; @symbol_functiondef = [start,28,20,25]; @symbol_return<0> = [Boolean,28,31,38]; ]
+    static
+    function start() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_28_39_47_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 29 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_29_8_29_45_if_stmt:
+        symbol [ _session %tmp.2 29 12 20 ];
+        %tmp.2 = getv ? :_session;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_29_8_29_45_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_29_8_29_45_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_29_30_29_45_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 29 32 ]
+        %tmp.5 = true;
+        ret %tmp.5;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_29_30_29_45_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_29_8_29_45_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_29_8_29_45_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 30 8 ]
+        try @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_beginTry:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_12_43_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 31 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_31_12_31_66_if_stmt:
+        symbol [ Toybox %tmp.7 31 18 24 ];
+        %tmp.7 = getv ? :Toybox;
+        %tmp.9 = const :ActivityRecording;
+        symbol [ ActivityRecording %tmp.9 31 30 47 const ];
+        %tmp.10 = canhazplz %tmp.7 %tmp.9;
+        %tmp.11 = not %tmp.10;
+        bf %tmp.11 @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_31_12_31_66_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_31_12_31_66_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_31_50_31_66_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 31 52 ]
+        %tmp.12 = false;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally;
+        ret %tmp.12;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_31_50_31_66_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_31_12_31_66_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_31_12_31_66_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 35 12 ]
+        symbol [ ActivityRecording %tmp.13 35 23 40 ];
+        %tmp.13 = getm $.Toybox.ActivityRecording;
+        symbol [ createSession %tmp.14 35 41 54 ];
+        %tmp.14 = getv function %tmp.13 :createSession;
+        %tmp.15 = newd 2;
+        %tmp.17 = const :name;
+        symbol [ name %tmp.17 36 17 21 const ];
+        %tmp.18 = "Smart Alarm";
+        %tmp.19 = dup %tmp.15;
+        %tmp.20 = aputv %tmp.19 %tmp.17 %tmp.18;
+        %tmp.22 = const :sport;
+        symbol [ sport %tmp.22 37 17 22 const ];
+        symbol [ Activity %tmp.23 37 26 34 ];
+        %tmp.23 = getm $.Toybox.Activity;
+        symbol [ SPORT_GENERIC %tmp.24 37 35 48 ];
+        %tmp.24 = getv %tmp.23 :SPORT_GENERIC;
+        %tmp.25 = dup %tmp.20;
+        %tmp.26 = aputv %tmp.25 %tmp.22 %tmp.24;
+        %tmp.27 = invoke %tmp.13 %tmp.14(%tmp.26);
+        symbol [ _session ? 35 12 20 ];
+        putv self :_session %tmp.27;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 39 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_39_12_42_12_if_stmt:
+        symbol [ _session %tmp.29 39 16 24 ];
+        %tmp.29 = getv ? :_session;
+        %tmp.30 = null;
+        %tmp.31 = ne %tmp.29 %tmp.30;
+        bf %tmp.31 @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_39_12_42_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_39_12_42_12_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_39_34_42_12_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 40 16 ]
+        symbol [ _session %tmp.33 40 16 24 ];
+        %tmp.33 = getv ? :_session;
+        %tmp.34 = as %tmp.33 { (!Null) };
+        symbol [ start %tmp.35 40 25 30 ];
+        %tmp.35 = getv function %tmp.34 :start;
+        invoke %tmp.34 %tmp.35();
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 41 16 ]
+        %tmp.36 = true;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally;
+        ret %tmp.36;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_39_34_42_12_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_39_12_42_12_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_39_12_42_12_if_end:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_12_43_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_endTry:
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_catch:
+        %tmp.37 = exception;
+        push %tmp.37;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 43 10 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_43_10_45_8_end" ]
+        %e.1 = local;
+        symbol [ e %e.1 43 17 18 ];
+        %tmp.38 = dup %tmp.37;
+        lputv %e.1 %tmp.38;
+        symbol [ e %e.1 43 17 18 ];
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_43_20_45_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 44 12 ]
+        %tmp.39 = null;
+        symbol [ _session ? 44 12 20 ];
+        putv self :_session %tmp.39;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_43_20_45_8_stop:
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally;
+        pop;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_43_10_45_8_end:
+        try @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_43_10_45_8_end @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_43_10_45_8_end @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally;
+        throw %tmp.37;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_finally:
+        jsrret;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_30_8_45_8_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 46 8 ]
+        %tmp.40 = false;
+        ret %tmp.40;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_28_39_47_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 50; @symbol_functiondef = [stop,50,20,24]; ]
+    static
+    function stop() as Void {
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_50_35_58_4_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 51 8 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_51_8_51_40_if_stmt:
+        symbol [ _session %tmp.2 51 12 20 ];
+        %tmp.2 = getv ? :_session;
+        %tmp.3 = null;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_51_8_51_40_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_51_8_51_40_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_51_30_51_40_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 51 32 ]
+        ret ?;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_51_30_51_40_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_51_8_51_40_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_51_8_51_40_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 52 8 ]
+        try @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_beginTry @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_endTry @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_finally;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_beginTry:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_12_55_8_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 53 12 ]
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_53_12_53_59_if_stmt:
+        symbol [ _session %tmp.6 53 16 24 ];
+        %tmp.6 = getv ? :_session;
+        symbol [ isRecording %tmp.7 53 25 36 ];
+        %tmp.7 = getv function %tmp.6 :isRecording;
+        %tmp.8 = invoke %tmp.6 %tmp.7();
+        bf %tmp.8 @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_53_12_53_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_53_12_53_59_if_true:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_53_40_53_59_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 53 42 ]
+        symbol [ _session %tmp.10 53 42 50 ];
+        %tmp.10 = getv ? :_session;
+        symbol [ stop %tmp.11 53 51 55 ];
+        %tmp.11 = getv function %tmp.10 :stop;
+        invoke %tmp.10 %tmp.11();
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_53_40_53_59_stop:
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_53_12_53_59_if_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_53_12_53_59_if_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 54 12 ]
+        symbol [ _session %tmp.13 54 12 20 ];
+        %tmp.13 = getv ? :_session;
+        symbol [ discard %tmp.14 54 21 28 ];
+        %tmp.14 = getv function %tmp.13 :discard;
+        invoke %tmp.13 %tmp.14();
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_12_55_8_stop:
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_endTry:
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_finally;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_catch:
+        %tmp.15 = exception;
+        push %tmp.15;
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 55 10 ]
+        [ "_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_catch" "_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_55_10_56_8_end" ]
+        %e.1 = local;
+        symbol [ e %e.1 55 17 18 ];
+        %tmp.16 = dup %tmp.15;
+        lputv %e.1 %tmp.16;
+        symbol [ e %e.1 55 17 18 ];
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_finally;
+        pop;
+        goto @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_end;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_55_10_56_8_end:
+        try @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_catch @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_55_10_56_8_end @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_55_10_56_8_end @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_finally;
+        jsr @_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_finally;
+        throw %tmp.15;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_finally:
+        jsrret;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_52_8_56_8_end:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 57 8 ]
+        %tmp.17 = null;
+        symbol [ _session ? 57 8 16 ];
+        putv self :_session %tmp.17;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_50_35_58_4_stop:
+    }
+    [ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 60; @symbol_functiondef = [isActive,60,20,28]; @symbol_return<0> = [Boolean,60,34,41]; ]
+    static
+    function isActive() as Boolean {
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_60_42_60_69_start:
+[ "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc" 60 44 ]
+        symbol [ _session %tmp.2 60 51 59 ];
+        %tmp.2 = getv ? :_session;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        ret %tmp.4;
+_Users_miren_Documents_GitHub_smartalarm_source_SessionKeeper_mc_60_42_60_69_stop:
+    }
+}
+[ @file = "/Users/miren/Documents/GitHub/smartalarm/source/SessionKeeper.mc"; @line = 19; ]
+<init> {
+}

@@ -26,10 +26,11 @@ class MainListMenu extends WatchUi.CustomMenu {
 
         var list = AlarmStore.getAlarms();
         for (var i = 0; i < list.size(); i++) {
-            addItem(new AlarmRow(i, list[i] as Dictionary));
+            addItem(new AlarmRow(i));
         }
 
         addItem(new SimpleRow(:add, "Add Alarm"));
+        addItem(new SimpleRow(:passcode, "Passcode Setup"));
     }
 
     static function titleText() as String {
@@ -49,6 +50,21 @@ class MainListMenu extends WatchUi.CustomMenu {
 // Header: the app logo with the "X Alarms On" count beneath it.
 class MainListTitle extends WatchUi.Drawable {
 
+    private static var _logoBmp = null;
+    private static var _logoTried as Boolean = false;
+
+    private static function _logo() {
+        if (!_logoTried) {
+            _logoTried = true;
+            try {
+                _logoBmp = WatchUi.loadResource(Rez.Drawables.AlarmLogo);
+            } catch (e) {
+                _logoBmp = null;
+            }
+        }
+        return _logoBmp;
+    }
+
     function initialize() {
         Drawable.initialize({});
     }
@@ -61,11 +77,8 @@ class MainListTitle extends WatchUi.Drawable {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
-        var logo = null;
-        try {
-            logo = WatchUi.loadResource(Rez.Drawables.AlarmLogo);
-        } catch (e) {
-        }
+        // Cached: loadResource on every draw leaked memory.
+        var logo = _logo();
         if (logo != null) {
             dc.drawBitmap(w / 2 - logo.getWidth() / 2, h / 2 - logo.getHeight() - 2, logo);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -108,7 +121,8 @@ class AlarmRow extends WatchUi.CustomMenuItem {
 
     private var _index as Number;
 
-    function initialize(index as Number, alarm as Dictionary) {
+    // The alarm is looked up fresh in draw(), so only the index is stored.
+    function initialize(index as Number) {
         CustomMenuItem.initialize(index, {});
         _index = index;
     }
@@ -155,8 +169,16 @@ class MainListDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId();
 
         if (id == :active) {
+            // Entering from the main list means a NEW sleep session, so any
+            // snooze or ringing flag left over from a previous one is dropped.
+            AlarmStore.clearSessionState();
             var bv = new BedsideView();
             WatchUi.switchToView(bv, new BedsideDelegate(bv), WatchUi.SLIDE_UP);
+
+        } else if (id == :passcode) {
+            // Set the global code. It's shared by every alarm.
+            var pv = new PasscodeView(PC_MODE_SET, null);
+            WatchUi.pushView(pv, new PasscodeDelegate(pv), WatchUi.SLIDE_LEFT);
 
         } else if (id == :add) {
             if (AlarmStore.isFull()) {

@@ -1,0 +1,138 @@
+// Ringtone.mc
+// Ringtones are Garmin's BUILT-IN alarm tones.
+//
+// We originally rebuilt the user's .wav files as custom ToneProfile sequences,
+// but the FR265S does not play them, so that approach is gone. Connect IQ apps
+// cannot play audio files at all, and custom tone profiles need a tone generator
+// this watch doesn't expose - the only sounds available are Garmin's presets.
+//
+// The list is built at RUNTIME and only includes tones the device actually has
+// (checked with `Attention has :TONE_X`), so nothing can be selected that the
+// watch can't play.
+
+import Toybox.Attention;
+import Toybox.Lang;
+import Toybox.System;
+
+class Ringtone {
+
+    // ── Why sound may be silent ──────────────────────────────────────────────
+    // Garmin suppresses APP tones while the watch is in Sleep Mode / Do Not
+    // Disturb - which is exactly when an alarm app runs. Garmin's own alarm is
+    // privileged and allowed to override it; a Connect IQ app is not.
+    // Vibration is unaffected, which is why Vibrate Only is the default.
+    //
+    // Returns true when the watch is currently muting app tones.
+    static function tonesSuppressed() as Boolean {
+        try {
+            // getDeviceSettings() always returns an object, so no null check.
+            var s = System.getDeviceSettings();
+            if ((s has :doNotDisturb) && s.doNotDisturb) { return true; }
+            if ((s has :tonesOn) && !s.tonesOn) { return true; }
+        } catch (e) {
+        }
+        return false;
+    }
+
+    // Cached list of [displayName, toneConstant] for this device.
+    private static var _list as Array? = null;
+
+    private static function build() as Array {
+        if (_list != null) { return _list as Array; }
+        var out = [];
+
+        // Each entry is only added if this device supports that tone.
+        if (Attention has :TONE_ALARM)          { out.add(["Alarm",      Attention.TONE_ALARM]); }
+        if (Attention has :TONE_LOUD_BEEP)      { out.add(["Loud Beep",  Attention.TONE_LOUD_BEEP]); }
+        if (Attention has :TONE_ALERT_HI)       { out.add(["Alert High", Attention.TONE_ALERT_HI]); }
+        if (Attention has :TONE_ALERT_LO)       { out.add(["Alert Low",  Attention.TONE_ALERT_LO]); }
+        if (Attention has :TONE_INTERVAL_ALERT) { out.add(["Interval",   Attention.TONE_INTERVAL_ALERT]); }
+        if (Attention has :TONE_CANARY)         { out.add(["Canary",     Attention.TONE_CANARY]); }
+        if (Attention has :TONE_ATTENTION)      { out.add(["Attention",  Attention.TONE_ATTENTION]); }
+        if (Attention has :TONE_TIME_ALERT)     { out.add(["Time Alert", Attention.TONE_TIME_ALERT]); }
+        if (Attention has :TONE_MSG)            { out.add(["Message",    Attention.TONE_MSG]); }
+        if (Attention has :TONE_SUCCESS)        { out.add(["Success",    Attention.TONE_SUCCESS]); }
+        if (Attention has :TONE_LAP)            { out.add(["Lap",        Attention.TONE_LAP]); }
+        if (Attention has :TONE_START)          { out.add(["Start",      Attention.TONE_START]); }
+
+        // Absolute fallback so the list is never empty.
+        //
+        // It cannot name a tone CONSTANT. This branch is reached only when every
+        // `has` above was false, TONE_ALARM included, so the old line here read
+        // Attention.TONE_ALARM on a device that had just told us it has no such
+        // symbol - an uncaught throw inside menu construction, on precisely the
+        // hardware the fallback exists to accommodate. null is a fine entry: it
+        // gives the menu a row to show, and playReport() catches the rejection
+        // and reports it instead of dying.
+        if (out.size() == 0) { out.add(["Default", null]); }
+
+        _list = out;
+        return out;
+    }
+
+    // Display names, for the Ringtone menu.
+    static function names() as Array {
+        var l = build();
+        var out = [];
+        for (var i = 0; i < l.size(); i++) {
+            out.add((l[i] as Array)[0]);
+        }
+        return out;
+    }
+
+    static function count() as Number { return build().size(); }
+
+    static function nameAt(index as Number) as String {
+        var l = build();
+        var i = index;
+        if (i < 0 || i >= l.size()) { i = 0; }
+        return (l[i] as Array)[0] as String;
+    }
+
+    // Plays ringtone `index` once, ignoring the outcome. The ringing screen calls
+    // this on a repeating timer, which is what makes it loop until you snooze or
+    // wake - and it is the one caller that genuinely cannot act on a failure
+    // report, because interrupting a sounding alarm with an error message would
+    // be worse than the silence it is describing.
+    //
+    // The ringtone PICKER calls playReport() directly and shows what it says.
+    static function play(index as Number) as Void {
+        playReport(index);
+    }
+
+    // Same as play(), but returns what actually happened. Silent failures were
+    // impossible to diagnose before: the old code caught every exception and
+    // threw the reason away, so a device that can't play tones looked identical
+    // to one that simply had the volume down.
+    static function playReport(index as Number) as String {
+        if (!(Attention has :playTone)) {
+            return "This watch has no tone support";
+        }
+        var l = build();
+        var i = index;
+        if (i < 0 || i >= l.size()) { i = 0; }
+        // A null entry means build() found no tone constants at all on this
+        // device (see the fallback there). Nothing to play, and saying so is
+        // better than throwing.
+        var entry = l[i] as Array;
+        if (entry[1] == null) { return "This watch exposes no alarm tones"; }
+        try {
+            // No cast here: these are Attention.Tone values, not Numbers.
+            Attention.playTone(entry[1]);
+            return "OK";
+        } catch (e) {
+            // Fall back to the plain alarm tone before giving up. Guarded as well
+            // as caught: `has` is the cheap check and the catch is the backstop.
+            try {
+                if (Attention has :TONE_ALARM) {
+                    Attention.playTone(Attention.TONE_ALARM);
+                    return "Fallback tone used";
+                }
+                return "Tone rejected by watch";
+            } catch (e2) {
+                return "Tone rejected by watch";
+            }
+        }
+    }
+
+}

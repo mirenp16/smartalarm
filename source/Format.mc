@@ -14,17 +14,29 @@ class Fmt {
         return h.format("%d") + ":" + minute.format("%02d") + " " + ampm;
     }
 
-    // Just the "AM"/"PM" suffix.
-    static function ampm(hour as Number) as String {
-        return (hour >= 12) ? "PM" : "AM";
+
+    // "HH:MM" remaining, from a number of seconds. "--:--" when there is
+    // nothing to count down to.
+    //
+    // Rounds UP to the next whole minute so the figure agrees with the clock
+    // shown beside it: at 1:05:30 with an alarm at 4:07, truncating gives 03:01
+    // while the two displayed times plainly read three hours and two minutes.
+    static function duration(secs as Number) as String {
+        if (secs < 0) { return "--:--"; }
+        var mins = (secs + 59) / 60;
+        var h = mins / 60;
+        var m = mins % 60;
+        return h.format("%02d") + ":" + m.format("%02d");
     }
 
-    // Human-readable day summary from a bitmask.
+    // Human-readable repeat summary from a bitmask. Named presets first, then a
+    // day list for anything custom.
     static function days(mask as Number) as String {
-        if (mask == DAYS_ALL)      { return "Every day"; }
-        if (mask == DAYS_WEEKDAYS) { return "Mon-Fri"; }
-        if (mask == (DAY_SAT | DAY_SUN)) { return "Weekends"; }
-        if (mask == 0)             { return "Once"; }
+        if (mask == DAYS_ONCE)     { return "Once"; }
+        if (mask == DAYS_ALL)      { return "Daily"; }
+        if (mask == DAYS_4X10)     { return "4x10"; }
+        if (mask == DAYS_WEEKDAYS) { return "Weekdays"; }
+        if (mask == DAYS_WEEKEND)  { return "Weekend"; }
 
         var names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         var out = "";
@@ -40,13 +52,10 @@ class Fmt {
         return out;
     }
 
-    static function typeName(type as Number) as String {
-        return (type == TYPE_REMINDER) ? "Reminder" : "Sleep";
-    }
 
     static function modeName(mode as Number) as String {
-        if (mode == MODE_SOUND) { return "Sound only"; }
-        if (mode == MODE_VIBE)  { return "Vibrate only"; }
+        if (mode == MODE_SOUND) { return "Sound Only"; }
+        if (mode == MODE_VIBE)  { return "Vibrate Only"; }
         return "Sound + Vibrate";
     }
 }

@@ -18,10 +18,10 @@ class TimePickerView extends WatchUi.View {
     private var _hour12 as Number;      // 1..12
     private var _min as Number;
     private var _pm as Boolean;
-    private var _w as Number = 260;
-    private var _h as Number = 260;
-    private var _cx as Number = 130;
-    private var _cy as Number = 130;
+    private var _w as Number = 360;
+    private var _h as Number = 360;
+    private var _cx as Number = 180;
+    private var _cy as Number = 180;
 
     function initialize(alarm as Dictionary) {
         View.initialize();
@@ -92,6 +92,7 @@ class TimePickerView extends WatchUi.View {
         return true;
     }
 
+
     // BACK: step back a field. Returns true if we should exit the picker.
     function back() as Boolean {
         if (_focus > 0) {
@@ -118,6 +119,13 @@ class TimePickerDelegate extends WatchUi.BehaviorDelegate {
         _alarm = alarm;
     }
 
+    // One step per press, for every field.
+    //
+    // A hold-to-step-by-5 shortcut was tried here and removed. Two Garmin
+    // behaviours make it unworkable: onKeyPressed/onKeyReleased are widely
+    // reported to fire in the simulator but NOT on real hardware, and a long
+    // press of UP is claimed by the system as a menu gesture before an app sees
+    // it. Anything built on those is unreliable, so the picker stays predictable.
     function onPreviousPage() as Boolean { _view.bump(1); return true; }   // UP
     function onNextPage() as Boolean { _view.bump(-1); return true; }      // DOWN
 
