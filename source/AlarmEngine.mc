@@ -7,10 +7,7 @@
 //
 // Returns the alarm id to fire, or -1 if nothing should fire yet.
 
-import Toybox.Application;
 import Toybox.Lang;
-import Toybox.Time;
-import Toybox.Time.Gregorian;
 
 class AlarmEngine {
 

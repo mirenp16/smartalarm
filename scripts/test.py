@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Compile production Monkey C and run regression tests in Garmin's simulator."""
 import os
+import hashlib
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -24,6 +26,15 @@ for jungle, name, extra in [('monkey.jungle', 'smartalarm', ['-r']), ('tests.jun
     subprocess.run([str(sdk / 'bin/monkeyc'), '-f', jungle, '-o', str(out / (name + '.prg')),
                     '-y', str(key), '-d', 'fr265s', '-w', *extra], cwd=ROOT, check=True)
 subprocess.run([str(sdk / 'bin/connectiq')], check=True)
+# Reusing tests.prg can run an older simulator-loaded suite after rebuilding.
+# A content-specific name ensures a different binary has a different identity.
+compiled = out / 'tests.prg'
+digest = hashlib.sha256(compiled.read_bytes()).hexdigest()[:16]
+run_prg = out / f'tests-{digest}.prg'
+shutil.copyfile(compiled, run_prg)
+debug = out / 'tests.prg.debug.xml'
+if debug.exists():
+    shutil.copyfile(debug, Path(str(run_prg) + '.debug.xml'))
 runs = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 expected = sum(len(re.findall(r'\(:test\)\s*function\s+', path.read_text()))
                for path in (ROOT / 'tests').glob('*.mc'))
@@ -33,7 +44,7 @@ for run in range(1, runs + 1):
     # macOS open returns before the simulator starts listening. Retry only a
     # connection failure, never a test failure or an incomplete test execution.
     for attempt in range(10):
-        result = subprocess.run([str(sdk / 'bin/monkeydo'), str(out / 'tests.prg'), 'fr265s', '-t'],
+        result = subprocess.run([str(sdk / 'bin/monkeydo'), str(run_prg), 'fr265s', '-t'],
                                 text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=180)
         if 'Unable to connect to simulator.' not in result.stdout or 'Executing test' in result.stdout:
             break

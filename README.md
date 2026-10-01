@@ -27,6 +27,12 @@ looks for a suitable score inside the window and falls back to the set time.
 The timer runs every 15 seconds near an alarm, so timing has up to one tick of
 normal scheduling delay; it is not exact to the second.
 
+**The set time is the deadline for the initial ring.** Missing heart-rate data,
+an unfinished warm-up, or a low sleep score does not postpone it. Choosing
+Snooze after the alarm rings starts a separate delay, which may end after the
+original deadline. The 15-minute grace period below is recovery for an
+interruption; the app does not deliberately wait until the end of that period.
+
 ### Controls and defaults
 
 | Setting or control | Behavior |
@@ -127,6 +133,9 @@ and sensor registration in
   the earliest eligible deadline when multiple alarms qualify.
 - Preserved an alarm's scheduled occurrence when only its label or other
   non-scheduling settings change.
+- Prevented newly enabled repeating alarms from catching up yesterday's target
+  just after midnight. Existing, unchanged alarms retain their recovery grace.
+- Corrected Next Alarm to show an earlier backup ahead of a later pending snooze.
 
 The exact cause of the reported September 24 firing at 5:38 am cannot be proven
 without device logs. These changes address reproducible logic defects; they do
@@ -159,7 +168,7 @@ python3 scripts/test.py 3
 ```
 
 The script builds release code and a test executable, starts the Garmin simulator,
-and runs 30 native Monkey C regression tests three times. `CIQ_SDK` can override
+and runs 33 native Monkey C regression tests three times. `CIQ_SDK` can override
 the SDK path. Generated files and logs go under `bin/validation/`; its generated
 signing key is for local validation, not your existing watch installation.
 

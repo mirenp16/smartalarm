@@ -1,7 +1,6 @@
 // Alarms and completed occurrences persist across midnight and clock changes.
 import Toybox.Application;
 import Toybox.Lang;
-import Toybox.Time;
 
 class AlarmStore {
     private static var _alarmCache = null;
@@ -218,6 +217,9 @@ class AlarmStore {
         if (!isOn(a) || days(a) == 0) { return; }
         var now = AlarmClock.now().value();
         var key = AlarmClock.targetKey(AlarmClock.day(now),totalMinutes(a));
+        // Yesterday may still be inside its grace period just after midnight.
+        // Explicit rearming schedules the next occurrence, never a catch-up.
+        markOccurrence(id(a),key-86400);
         if (key <= AlarmClock.wall(now)) { markOccurrence(id(a),key); }
     }
     static function rescheduled(before as Dictionary?, after as Dictionary) as Boolean {

@@ -20,7 +20,6 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Timer;
-import Toybox.Time;
 
 const PC_MODE_ENTER = 0;
 const PC_MODE_SET   = 1;

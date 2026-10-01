@@ -10,7 +10,6 @@
 // it barely lights the AMOLED). Pressing any button reveals the exit controls for
 // a few seconds. Exit is deliberately a two-step combo: BACK, then UP.
 
-import Toybox.Application;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Time;
@@ -408,16 +407,17 @@ class BedsideView extends WatchUi.View {
 
     private function computeNextAlarmStr() as String {
         var nowSecs = AlarmClock.now().value();
+        var next = AlarmEngine.nextAlarm(nowSecs);
+        var nextEpoch = (next != null) ? AlarmStore.nextFireEpoch(next,nowSecs) : -1;
         // Only show a snooze time if that alarm still exists (validSnoozeId
         // clears the snooze when its alarm has been deleted).
         if (AlarmStore.validSnoozeId() != null) {
             var snU = AlarmStore.snoozeUntil();
-            if (snU != null && snU > nowSecs) {
+            if (snU != null && (nextEpoch < 0 || snU <= nextEpoch)) {
                 var si = Gregorian.info(new Time.Moment(snU), Time.FORMAT_SHORT);
                 return Fmt.time12(si.hour, si.min);
             }
         }
-        var next = AlarmEngine.nextAlarm(nowSecs);
         return (next != null) ? Fmt.time12(AlarmStore.hour(next), AlarmStore.minute(next)) : "NONE";
     }
 

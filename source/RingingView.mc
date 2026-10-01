@@ -9,7 +9,6 @@
 //
 // When snoozes run out, only BACK-then-UP ("I'm Awake!") stops it.
 
-import Toybox.Application;
 import Toybox.Attention;
 import Toybox.Graphics;
 import Toybox.Lang;

@@ -4,6 +4,23 @@ import Toybox.Time;
 import Toybox.Time.Gregorian;
 import Toybox.Application;
 
+(:test)
+function nextDisplayIncludesEarlierBackupBeforeSnooze(logger as Test.Logger) as Boolean {
+    resetFixture();
+    var now=utc(2026,10,1,6,0);
+    AlarmClock.setTestTime(now,0);
+    var a=repeatAlarm(6,0,DAYS_ALL);
+    Test.assert(AlarmEngine.evaluate(now) == AlarmStore.id(a));
+    AlarmStore.beginRing(AlarmStore.id(a));
+    AlarmStore.setRinging(null);
+    AlarmStore.scheduleSnooze(AlarmStore.id(a),now+600);
+    repeatAlarm(6,2,DAYS_ALL);
+    var view=new BedsideView();
+    Test.assert(view.nextAlarmStr().equals("6:02 AM"));
+    Test.assert(view.durationStr().equals("Duration: 00:02"));
+    return true;
+}
+
 (:testSupport)
 function utc(y as Number, mo as Number, d as Number, h as Number, m as Number) as Number {
     return Gregorian.moment({:year=>y,:month=>mo,:day=>d,:hour=>h,:minute=>m,:second=>0}).value();

@@ -4,6 +4,8 @@
 *.iq
 bin/
 gen/
+mir/
+internal-mir/
 
 # Developer credentials — never commit these
 *.der
