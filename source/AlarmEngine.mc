@@ -1,7 +1,6 @@
 // AlarmEngine.mc
 // The shared scheduling brain. Given the current time, it decides which alarm (if
-// any) should fire right now, and updates per-day state (missed,
-// one-time retirement) along the way.
+// any) should fire right now, retiring expired one-time alarms along the way.
 //
 // evaluate() is the single source of truth for "should something ring right now?".
 // Active Alarm Mode calls it on every tick.
@@ -15,12 +14,33 @@ import Toybox.Time.Gregorian;
 
 class AlarmEngine {
 
-    static function evaluate(nowSecs as Number) as Number {
-        AlarmStore.resetIfNewDay();
+    private static var _lastAt as Number = 0;
+    private static var _lastWall as Number = 0;
+    private static var _lastOffset as Number = 0;
+    private static var _jumpFrom as Number = 0;
+    private static var _jumpTo as Number = 0;
+    private static var _jumpAt as Number = 0;
+    static function resetClock() as Void { _lastAt = 0; _jumpAt = 0; }
 
-        var info = Gregorian.info(new Time.Moment(nowSecs), Time.FORMAT_SHORT);
-        var todayBit = 1 << (info.day_of_week - 1);
-        var midnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
+    static function crossedByClockChange(key as Number, now as Number) as Boolean {
+        var age = now-_jumpAt;
+        return _jumpAt > 0 && age >= 0 && age <= FIRE_GRACE_MINS*60
+            && key > _jumpFrom && key <= _jumpTo;
+    }
+
+    static function evaluate(nowSecs as Number) as Number {
+        AlarmStore.ensureState();
+
+        var offset = AlarmClock.offset(nowSecs);
+        var wall = nowSecs + offset;
+        var day = wall / 86400;
+        var gap = nowSecs - _lastAt;
+        var jumped = _lastAt > 0 && gap >= 0 && gap <= 120 && offset > _lastOffset;
+        var previousWall = _lastWall;
+        if (jumped) { _jumpFrom = previousWall; _jumpTo = wall; _jumpAt = nowSecs; }
+        _lastAt = nowSecs;
+        _lastWall = wall;
+        _lastOffset = offset;
         var graceSecs = FIRE_GRACE_MINS * 60;
 
         // A snoozed alarm due to re-fire? (validSnoozeId drops snoozes whose
@@ -31,12 +51,15 @@ class AlarmEngine {
             if (until != null && nowSecs >= until) {
                 // The snooze has been served - drop the whole thing, id included.
                 AlarmStore.clearSnooze();
-                return sid as Number;
+                return AlarmStore.prepareRing(sid as Number, 0, true);
             }
         }
 
         // Keep peak history while any alarm is inside its wake window.
         var detectorNeeded = false;
+        var selected = -1;
+        var selectedKey = 0;
+        var selectedTarget = 0;
 
         var list = AlarmStore.getAlarms();
         for (var i = 0; i < list.size(); i++) {
@@ -44,62 +67,47 @@ class AlarmEngine {
             if (!AlarmStore.isOn(a)) { continue; }
 
             var aid = AlarmStore.id(a);
-            if (AlarmStore.hasFired(aid)) { continue; }
 
             var days = AlarmStore.days(a);
             var oneTime = (days == 0);
 
-            var targetSecs = 0;
-            if (oneTime) {
-                // ensureFireAt repairs alarms saved before "fireAt" existed,
-                // which would otherwise never be able to fire.
-                targetSecs = AlarmStore.ensureFireAt(a);
-                if (targetSecs <= 0) { continue; }
-            } else {
-                if ((days & todayBit) == 0) { continue; }
-                targetSecs = midnight + AlarmStore.totalMinutes(a) * 60;
-            }
-
-            // Past the grace period — retire it.
-            if (nowSecs > targetSecs + graceSecs) {
-                AlarmStore.markFired(aid);
-                if (oneTime) { AlarmStore.disableById(aid); }
-                continue;
-            }
-
-            // Awake evidence is accumulated during sampling, including before
-            // the window. Never downgrade an already-awake user to a later alarm.
-            var winSecs = AlarmStore.window(a) * 60;
-            var windowStartSecs = targetSecs - winSecs;
-
-            if (nowSecs >= windowStartSecs) {
+            // Yesterday retains its after-midnight grace period. Tomorrow's
+            // window can begin tonight. Identity always belongs to the TARGET.
+            for (var off = -1; off <= 1; off++) {
+                if (oneTime && off != 0) { continue; }
+                if (!oneTime && (days & AlarmClock.dayBit(day+off)) == 0) { continue; }
+                var key = AlarmClock.targetKey(day+off,AlarmStore.totalMinutes(a));
+                var targetSecs = oneTime ? AlarmStore.ensureFireAt(a) : key-offset;
+                if (oneTime) { key = targetSecs+offset; }
+                if (AlarmStore.occurrenceDone(aid,key)) { continue; }
+                var crossed = crossedByClockChange(key,nowSecs);
+                if (nowSecs > targetSecs+graceSecs && !crossed) {
+                    // Only one-time alarms need retirement. Old repeating dates
+                    // naturally fall out of the three-day candidate range.
+                    if (oneTime) { AlarmStore.disableById(aid); }
+                    continue;
+                }
+                var winSecs = AlarmStore.window(a)*60;
+                var start = targetSecs-winSecs;
+                if (nowSecs < start) { continue; }
                 detectorNeeded = true;
-                if (nowSecs >= targetSecs) { return aid; }   // hard deadline
-
-                // Already awake INSIDE the window -> ring now.
-                //
-                // This check used to run only in the 15 minutes BEFORE the window
-                // opened. If you woke up naturally once the window was already
-                // open - say 6:42, with a 6:15-7:00 window - nothing could fire
-                // until the score happened to peak or the window reached 90%, so
-                // you lay there awake waiting for an alarm that stayed silent.
-                // Being awake is the strongest possible signal that now is a good
-                // time to wake up, so it takes priority over peak detection.
-                if (SleepDetector.isAwake()) { return aid; }
-
-                // Peak detection: wake just after the lightest moment.
-                // winSecs is guarded so corrupt storage can't divide by zero.
-                var progress = (winSecs > 0)
-                    ? ((nowSecs - windowStartSecs).toFloat() / winSecs.toFloat())
-                    : 1.0;
-                if (SleepDetector.shouldWake(progress)) { return aid; }
+                var fire = nowSecs >= targetSecs;
+                if (!fire) {
+                    var progress = winSecs > 0 ? (nowSecs-start).toFloat()/winSecs : 1.0;
+                    fire = SleepDetector.isAwake() || SleepDetector.shouldWake(progress);
+                }
+                if (fire && (selected < 0 || targetSecs < selectedTarget)) {
+                    selected = aid; selectedKey = key; selectedTarget = targetSecs;
+                }
             }
         }
 
         // Nothing is using the detector, so its peak belongs to
-        // no alarm and are dropped. Deferred to here so one alarm cannot clear
+        // no alarm and is dropped. Deferred to here so one alarm cannot clear
         // the state another is still accumulating.
         if (!detectorNeeded) { SleepDetector.resetWindow(); }
+
+        if (selected >= 0) { return AlarmStore.prepareRing(selected,selectedKey,false); }
 
         return -1;
     }
@@ -113,25 +121,16 @@ class AlarmEngine {
         for (var i = 0; i < list.size(); i++) {
             var a = list[i] as Dictionary;
             if (!AlarmStore.isOn(a)) { continue; }
-            // NO hasFired() check here, deliberately.
-            //
-            // It was redundant and actively wrong. nextFireEpoch() only ever
-            // returns a FUTURE occurrence, so an alarm that has already gone off
-            // today resolves to tomorrow by itself. Skipping it here instead made
-            // this function disagree with nextAlarm(), which has no such check -
-            // so creating a 4x10 alarm for 06:00 in the evening (which marks it
-            // fired for today, since today's slot has passed) showed
-            // "Next Alarm 6:00 AM" beside "Duration --:--". Two functions
-            // answering the same question differently is the bug; they agree now.
+            // nextFireEpoch owns occurrence filtering for both UI and sampling.
             var e = AlarmStore.nextFireEpoch(a, nowSecs);
             if (e < 0) { continue; }
-            var d = e - nowSecs;
+            var d = e > nowSecs ? e-nowSecs : 0;
             if (soonest < 0 || d < soonest) { soonest = d; }
         }
         var sn = AlarmStore.snoozeUntil();
         if (sn != null) {
-            var ds = sn - nowSecs;
-            if (ds >= 0 && (soonest < 0 || ds < soonest)) { soonest = ds; }
+            var ds = sn > nowSecs ? sn-nowSecs : 0;
+            if (soonest < 0 || ds < soonest) { soonest = ds; }
         }
         return soonest;
     }

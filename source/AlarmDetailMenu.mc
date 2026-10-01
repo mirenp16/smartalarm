@@ -192,8 +192,8 @@ class AlarmDetailDelegate extends WatchUi.Menu2InputDelegate {
         }
         var moved = AlarmStore.rescheduled(before, a);
 
-        if (AlarmStore.days(a) == 0) {
-            a.put("fireAt", AlarmStore.nextOccurrence(AlarmStore.hour(a), AlarmStore.minute(a)));
+        if (AlarmStore.days(a) == 0 && moved) {
+            AlarmStore.scheduleOnce(a);
         }
         if (_menu.isNew) {
             AlarmStore.addAlarm(a);

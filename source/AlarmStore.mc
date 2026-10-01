@@ -1,627 +1,298 @@
-// AlarmStore.mc
-// The data layer. Manages the list of alarms plus per-day runtime state and the
-// "currently ringing" state. Everything is persisted with Application.Storage so
-// it survives app restarts.
-//
-// An alarm is stored as a Dictionary with short keys to save space:
-//   "id"    Number   unique id
-//   "on"    Boolean  enabled?
-//   "h"     Number   hour (0-23)
-//   "m"     Number   minute (0-59)
-//   "days"  Number   day bitmask (see Constants.mc)
-//   "label" String   user-facing label
-//   "win"   Number   wake-window minutes (sleep alarms only)
-//   "mode"  Number   MODE_BOTH / MODE_SOUND / MODE_VIBE
-//   "snLen" Number   snooze length in minutes
-//   "snMax" Number   maximum snoozes allowed
-//   "tone"  Number   index into Ringtone.names()
-//   "pc"    Boolean  require the passcode to dismiss this alarm
-//   "fireAt" Number  epoch seconds for one-time alarms
-
+// Alarms and completed occurrences persist across midnight and clock changes.
 import Toybox.Application;
 import Toybox.Lang;
 import Toybox.Time;
-import Toybox.Time.Gregorian;
 
 class AlarmStore {
+    private static var _alarmCache = null;
+    private static var _stateCache = null;
+    private static var _migrated as Boolean = false;
+    private static var _pendingId as Number = -1;
+    private static var _pendingKey as Number = 0;
+    private static var _pendingSnooze as Boolean = false;
 
-    // ── In-memory caches ─────────────────────────────────────────────────────
-    // Persistent storage reads deserialise the whole alarm array, and
-    // Gregorian.info() is a system call. The overnight tick used to trigger ~87
-    // storage reads and ~63 calendar conversions EVERY tick, which trips
-    // Connect IQ's instruction watchdog and kills the app ("IQ!" screen).
-    // These caches reduce that to roughly one of each per minute.
-    private static var _alarmCache = null;      // Array or null when dirty
-    private static var _dayStateCache = null;   // Dictionary or null when dirty
-    private static var _ctxMinute as Number = -1;
-    private static var _ctxMidnight as Number = 0;
-    private static var _ctxDow as Number = 0;   // 0 = Sunday
-
-    // Called whenever anything is written, so nothing can serve stale data.
     static function invalidate() as Void {
         _alarmCache = null;
-        _dayStateCache = null;
-        _confirmedDay = -1;   // force the day check to consult storage again
+        _stateCache = null;
+        _migrated = false;
+        _pendingId = -1;
     }
-
-    // Midnight (epoch secs) and day-of-week for "now", computed at most once a
-    // minute instead of once per alarm per call.
-    static function dayContext(nowSecs as Number) as Array<Number> {
-        var minute = nowSecs / 60;
-        if (minute != _ctxMinute) {
-            var info = Gregorian.info(new Time.Moment(nowSecs), Time.FORMAT_SHORT);
-            _ctxMidnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
-            _ctxDow = info.day_of_week - 1;     // Gregorian: 1=Sun -> 0=Sun
-            _ctxMinute = minute;
-        }
-        return [_ctxMidnight, _ctxDow];
-    }
-
-    // ── Alarm list CRUD ──────────────────────────────────────────────────────
-
     static function getAlarms() as Array {
-        if (_alarmCache != null) { return _alarmCache as Array; }
-        var v = Application.Storage.getValue(KEY_ALARMS);
-        _alarmCache = (v == null) ? [] : (v as Array);
+        if (_alarmCache == null) {
+            var v = Application.Storage.getValue(KEY_ALARMS);
+            _alarmCache = (v instanceof Array) ? v : [];
+        }
         return _alarmCache as Array;
     }
-
     static function saveAlarms(list as Array) as Void {
         Application.Storage.setValue(KEY_ALARMS, list);
         _alarmCache = list;
-        _dayStateCache = null;
     }
-
-    // Builds a brand-new alarm Dictionary with sensible defaults.
-    // Default days = 0 means "one-time" (fires once at the next 6:00, then off).
     static function newAlarm() as Dictionary {
-        return {
-            "id"     => nextId(),
-            "on"     => true,
-            "h"      => 6,
-            "m"      => 0,
-            "days"   => 0,
-            "label"  => "Wake Up!",
-            "win"    => DEFAULT_WINDOW,   // 45 minutes
-            "mode"   => DEFAULT_ALERT_MODE,   // Vibrate Only
-            "snLen"  => DEFAULT_SNOOZE_MINUTES,   // 5 minutes
-            "snMax"  => DEFAULT_MAX_SNOOZE,       // 3 snoozes
-            "tone"   => DEFAULT_RINGTONE,         // "Alert"
-            "pc"     => DEFAULT_PASSCODE_ON,      // require passcode to get up
-            "fireAt" => nextOccurrence(6, 0)
-        };
+        return {"id"=>nextId(), "on"=>true, "h"=>6, "m"=>0, "days"=>0,
+            "label"=>"Wake Up!", "win"=>DEFAULT_WINDOW, "mode"=>DEFAULT_ALERT_MODE,
+            "snLen"=>DEFAULT_SNOOZE_MINUTES, "snMax"=>DEFAULT_MAX_SNOOZE,
+            "tone"=>DEFAULT_RINGTONE, "pc"=>DEFAULT_PASSCODE_ON, "fireAt"=>nextOccurrence(6,0),
+            "utcOffset"=>AlarmClock.offset(AlarmClock.now().value())};
     }
-
-    // Per-alarm snooze settings (fall back to defaults for older saved alarms).
-    static function snoozeLen(a as Dictionary) as Number { return _n(a, "snLen", DEFAULT_SNOOZE_MINUTES); }
-    static function maxSnoozeOf(a as Dictionary) as Number { return _n(a, "snMax", DEFAULT_MAX_SNOOZE); }
-    static function ringtone(a as Dictionary) as Number { return _n(a, "tone", DEFAULT_RINGTONE); }
-    static function passcodeOn(a as Dictionary) as Boolean { return _b(a, "pc", DEFAULT_PASSCODE_ON); }
-
-    // ── Global passcode (plain text - it's friction, not security) ───────────
-
-    static function passcode() as String {
-        var v = Application.Storage.getValue(KEY_PASSCODE);
-        return (v != null) ? v as String : DEFAULT_PASSCODE;
+    static function addAlarm(a as Dictionary) as Void {
+        var list = getAlarms();
+        if (list.size() >= MAX_ALARMS) { return; }
+        list.add(a);
+        saveAlarms(list);
     }
-
-    static function setPasscode(code as String) as Void {
-        Application.Storage.setValue(KEY_PASSCODE, code);
+    static function updateAlarm(index as Number, a as Dictionary) as Void {
+        var list = getAlarms();
+        if (index >= 0 && index < list.size()) { list[index] = a; saveAlarms(list); }
     }
-
-    // Accepts the user's code or the master code.
-    static function checkPasscode(entered as String) as Boolean {
-        return entered.equals(passcode()) || entered.equals(MASTER_PASSCODE);
+    static function deleteAlarm(index as Number) as Void {
+        var list = getAlarms();
+        if (index < 0 || index >= list.size()) { return; }
+        var aid = id(list[index] as Dictionary);
+        var kept = [];
+        for (var i = 0; i < list.size(); i++) { if (i != index) { kept.add(list[i]); } }
+        saveAlarms(kept);
+        clearStateFor(aid);
+        var all = getOccurrenceState();
+        all.remove(aid.toString());
+        saveState(all);
     }
-
-    // How many saved alarms are enabled (for the "X Alarms On" header).
+    static function findById(aid as Number) as Array {
+        var list = getAlarms();
+        for (var i = 0; i < list.size(); i++) {
+            if (id(list[i] as Dictionary) == aid) { return [i, list[i]]; }
+        }
+        return [-1, null];
+    }
+    static function clone(a as Dictionary) as Dictionary {
+        var out = {};
+        var keys = a.keys();
+        for (var i = 0; i < keys.size(); i++) { out.put(keys[i], a.get(keys[i])); }
+        return out;
+    }
+    static function nextId() as Number {
+        var v = Application.Storage.getValue(KEY_NEXT_ID);
+        var aid = (v instanceof Number) ? v : 1;
+        Application.Storage.setValue(KEY_NEXT_ID, aid + 1);
+        return aid;
+    }
     static function countOn() as Number {
         var list = getAlarms();
-        var c = 0;
-        for (var i = 0; i < list.size(); i++) {
-            if (isOn(list[i] as Dictionary)) { c++; }
-        }
-        return c;
+        var count = 0;
+        for (var i = 0; i < list.size(); i++) { if (isOn(list[i])) { count++; } }
+        return count;
     }
-
     static function isFull() as Boolean { return getAlarms().size() >= MAX_ALARMS; }
 
-    // Epoch seconds of the next time this alarm will actually ring - repeating
-    // alarms scan up to 7 days ahead for a scheduled day, one-time alarms use
-    // their fireAt. Returns -1 when there is no next occurrence.
-    //
-    // "Already fired today" is part of that answer, not a separate concern.
-    // Callers used to apply their own hasFired() filter on top, and getting that
-    // wrong broke things in both directions: with the filter, an alarm created in
-    // the evening (marked fired because today's slot had passed) reported no next
-    // occurrence at all, so "Duration" read "--:--"; without it, dismissing an
-    // alarm that smart wake had fired EARLY - at 05:38 for an 06:00 alarm - still
-    // saw today's 06:00 as upcoming, so the app stayed in Active Alarm Mode
-    // instead of returning to the main screen.
-    //
-    // Both are the same question, so it is answered once, here.
-    static function nextFireEpoch(a as Dictionary, nowSecs as Number) as Number {
-        var d = days(a);
-        var firedToday = hasFired(id(a));
-        if (d == 0) {
-            if (firedToday) { return -1; }   // one-time alarm has done its job
-            var fa = ensureFireAt(a);        // repairs a legacy alarm with no fireAt
-            return (fa > nowSecs) ? fa : -1;
+    static function isOn(a as Dictionary) as Boolean { return _b(a,"on",false); }
+    static function id(a as Dictionary) as Number { return _n(a,"id",0); }
+    static function hour(a as Dictionary) as Number { return bounded(_n(a,"h",6),0,23); }
+    static function minute(a as Dictionary) as Number { return bounded(_n(a,"m",0),0,59); }
+    static function days(a as Dictionary) as Number { return _n(a,"days",0) & DAYS_ALL; }
+    static function window(a as Dictionary) as Number { return bounded(_n(a,"win",DEFAULT_WINDOW),0,MAX_WINDOW_MINS); }
+    static function mode(a as Dictionary) as Number { return bounded(_n(a,"mode",DEFAULT_ALERT_MODE),0,2); }
+    static function snoozeLen(a as Dictionary) as Number { return bounded(_n(a,"snLen",DEFAULT_SNOOZE_MINUTES),1,15); }
+    static function maxSnoozeOf(a as Dictionary) as Number { return bounded(_n(a,"snMax",DEFAULT_MAX_SNOOZE),0,10); }
+    static function ringtone(a as Dictionary) as Number { return _n(a,"tone",DEFAULT_RINGTONE); }
+    static function passcodeOn(a as Dictionary) as Boolean { return _b(a,"pc",DEFAULT_PASSCODE_ON); }
+    static function label(a as Dictionary) as String {
+        var v = a.get("label"); return (v instanceof String) ? v : "Alarm";
+    }
+    static function totalMinutes(a as Dictionary) as Number { return hour(a)*60 + minute(a); }
+    static function passcode() as String {
+        var v = Application.Storage.getValue(KEY_PASSCODE);
+        return (v instanceof String) ? v : DEFAULT_PASSCODE;
+    }
+    static function setPasscode(code as String) as Void { Application.Storage.setValue(KEY_PASSCODE,code); }
+    static function checkPasscode(code as String) as Boolean {
+        return code.equals(passcode()) || code.equals(MASTER_PASSCODE);
+    }
+
+    static function nextOccurrence(h as Number, m as Number) as Number {
+        var now = AlarmClock.now().value();
+        var wall = AlarmClock.wall(now);
+        var key = AlarmClock.targetKey(wall / 86400,h*60+m);
+        if (key <= wall) { key += 86400; }
+        return key - AlarmClock.offset(now);
+    }
+    static function fireAt(a as Dictionary) as Number { return _n(a,"fireAt",0); }
+    static function scheduleOnce(a as Dictionary) as Void {
+        a.put("fireAt",nextOccurrence(hour(a),minute(a)));
+        a.put("utcOffset",AlarmClock.offset(AlarmClock.now().value()));
+    }
+    static function ensureFireAt(a as Dictionary) as Number {
+        var fa = fireAt(a);
+        var offset = AlarmClock.offset(AlarmClock.now().value());
+        var previous = a.get("utcOffset");
+        if (fa > 0 && previous == offset) { return fa; }
+        if (fa <= 0) { fa = nextOccurrence(hour(a),minute(a)); }
+        else if (previous instanceof Number) { fa += (previous as Number) - offset; }
+        // Legacy records acquire an offset once. Later changes preserve the
+        // saved local date/time rather than the old absolute timestamp.
+        a.put("fireAt",fa);
+        a.put("utcOffset",offset);
+        var found = findById(id(a));
+        if (found[0] >= 0) { updateAlarm(found[0],a); }
+        return fa;
+    }
+    static function nextFireEpoch(a as Dictionary, now as Number) as Number {
+        ensureState();
+        if (days(a) == 0) {
+            var fa = ensureFireAt(a);
+            var key = fa+AlarmClock.offset(now);
+            return (fa >= now-FIRE_GRACE_MINS*60 || AlarmEngine.crossedByClockChange(key,now))
+                && !occurrenceDone(id(a),key) ? fa : -1;
         }
-        // Uses the cached day context - this used to call Gregorian.info() once
-        // per alarm per lookup, which is what overloaded the watchdog.
-        var ctx = dayContext(nowSecs);
-        var midnight = ctx[0];
-        var dow = ctx[1];
-        var secOfDay = totalMinutes(a) * 60;
-        for (var off = 0; off < 8; off++) {
-            // Today's slot is spent once the alarm has fired, even if the clock
-            // has not reached the set time - smart wake rings EARLY by design.
-            if (off == 0 && firedToday) { continue; }
-            var epoch = midnight + off * 86400 + secOfDay;
-            if (epoch <= nowSecs) { continue; }
-            var bit = (dow + off) % 7;
-            if ((d & (1 << bit)) != 0) { return epoch; }
+        var day = AlarmClock.day(now);
+        var offset = AlarmClock.offset(now);
+        for (var off = -1; off < 8; off++) {
+            if ((days(a) & AlarmClock.dayBit(day+off)) == 0) { continue; }
+            var key = AlarmClock.targetKey(day+off,totalMinutes(a));
+            var target = key-offset;
+            if ((target >= now-FIRE_GRACE_MINS*60 || AlarmEngine.crossedByClockChange(key,now))
+                && !occurrenceDone(id(a),key)) { return target; }
         }
         return -1;
     }
 
-    // Epoch seconds of the next time the clock reads h:m (today if still ahead,
-    // otherwise tomorrow). Used for one-time alarms.
-    static function nextOccurrence(h as Number, m as Number) as Number {
-        var now = Time.now();
-        var info = Gregorian.info(now, Time.FORMAT_SHORT);
-        var midnight = now.value() - (info.hour * 3600 + info.min * 60 + info.sec);
-        var t = midnight + h * 3600 + m * 60;
-        if (t <= now.value()) { t += 86400; }
-        return t;
-    }
-
-    static function fireAt(a as Dictionary) as Number {
-        return _n(a, "fireAt", 0);
-    }
-
-    // MIGRATION SAFETY.
-    // A one-time alarm stores its trigger moment in "fireAt". An alarm saved by
-    // an older build can lack that field entirely, which reads back as 0 - and 0
-    // is treated as "nothing scheduled", so the alarm would sit in the list
-    // looking enabled while being permanently unable to fire, with no warning.
-    // Repair it the first time we look at it.
-    static function ensureFireAt(a as Dictionary) as Number {
-        var fa = fireAt(a);
-        if (fa > 0) { return fa; }
-        fa = nextOccurrence(hour(a), minute(a));
-        a.put("fireAt", fa);
-        var found = findById(id(a));
-        var idx = found[0] as Number;
-        if (idx >= 0) { updateAlarm(idx, a); }
-        return fa;
-    }
-
-    static function addAlarm(alarm as Dictionary) as Void {
-        var list = getAlarms();
-        list.add(alarm);
-        saveAlarms(list);
-    }
-
-    static function updateAlarm(index as Number, alarm as Dictionary) as Void {
-        var list = getAlarms();
-        if (index >= 0 && index < list.size()) {
-            list[index] = alarm;
-            saveAlarms(list);
-        }
-    }
-
-    static function deleteAlarm(index as Number) as Void {
-        var list = getAlarms();
-        if (index >= 0 && index < list.size()) {
-            var doomed = id(list[index] as Dictionary);
-            // Rebuild by index rather than Array.remove(), which deletes by
-            // value and could pick the wrong entry if two alarms ever matched.
-            var kept = [];
+    // Migration only: occurrence records and snooze counts now survive midnight.
+    static function ensureState() as Void {
+        if (_migrated) { return; }
+        if (Application.Storage.getValue("occurrenceSchema") != 1) {
+            var now = AlarmClock.now().value();
+            var day = AlarmClock.day(now);
+            var legacyDay = (day*86400-AlarmClock.offset(now))/86400;
+            var all = getOccurrenceState();
+            var list = getAlarms();
             for (var i = 0; i < list.size(); i++) {
-                if (i != index) { kept.add(list[i]); }
+                var a = list[i] as Dictionary;
+                var s = stateFor(id(a));
+                var done = [];
+                if (Application.Storage.getValue(KEY_STATE_DAY) == legacyDay && _b(s,"f",false)) {
+                    done.add(AlarmClock.targetKey(day,totalMinutes(a)));
+                }
+                s.put("done",done); s.remove("f"); s.remove("p");
+                all.put(id(a).toString(),s);
             }
-            saveAlarms(kept);
-            // Clear any pending snooze / ringing state that belonged to it,
-            // otherwise its snooze time keeps showing up as the Next Alarm.
-            clearStateFor(doomed);
+            saveState(all);
+            Application.Storage.setValue("occurrenceSchema",1);
         }
+        _migrated = true;
     }
-
-    // Drops snooze + ringing state for an alarm that no longer exists (or is off).
-    static function clearStateFor(alarmId as Number) as Void {
-        if (snoozedAlarmId() == alarmId) {
-            clearSnooze();
+    static function getOccurrenceState() as Dictionary {
+        if (_stateCache == null) {
+            var v = Application.Storage.getValue(KEY_DAY_STATE);
+            _stateCache = (v instanceof Dictionary) ? v : {};
         }
-        if (ringingId() == alarmId) {
-            setRinging(null);
-        }
+        return _stateCache as Dictionary;
     }
-
-    // A snooze is only valid while its alarm still exists AND is enabled.
-    static function validSnoozeId() as Number or Null {
-        var until = snoozeUntil();
-        if (until == null) { return null; }
-        var sid = snoozedAlarmId();
-        if (sid == null) { return null; }
-        var found = findById(sid as Number);
-        if (found[1] == null) {
-            clearStateFor(sid as Number);   // alarm was deleted - forget the snooze
-            return null;
-        }
-        return sid;
+    private static function saveState(all as Dictionary) as Void {
+        Application.Storage.setValue(KEY_DAY_STATE,all); _stateCache = all;
     }
-
-    // Returns a unique, ever-increasing id.
-    static function nextId() as Number {
-        var id = Application.Storage.getValue(KEY_NEXT_ID);
-        if (id == null) { id = 1; }
-        Application.Storage.setValue(KEY_NEXT_ID, id + 1);
-        return id;
+    static function stateFor(aid as Number) as Dictionary {
+        var s = getOccurrenceState().get(aid.toString());
+        return (s instanceof Dictionary) ? s : {"done"=>[],"s"=>0};
     }
-
-    // ── Field accessors (read a field from an alarm dict with a default) ──────
-
-    static function isOn(a as Dictionary)   as Boolean { return _b(a, "on", false); }
-    static function hour(a as Dictionary)    as Number  { return _n(a, "h", 7); }
-    static function minute(a as Dictionary)  as Number  { return _n(a, "m", 0); }
-    static function days(a as Dictionary)    as Number  { return _n(a, "days", 0); }
-    static function window(a as Dictionary)  as Number  { return _n(a, "win", DEFAULT_WINDOW); }
-    static function mode(a as Dictionary)    as Number  { return _n(a, "mode", DEFAULT_ALERT_MODE); }
-    static function label(a as Dictionary)   as String  {
-        var v = a.get("label");
-        return (v != null) ? v as String : "Alarm";
+    static function setStateFor(aid as Number, s as Dictionary) as Void {
+        var all = getOccurrenceState(); all.put(aid.toString(),s); saveState(all);
     }
-    static function id(a as Dictionary)      as Number  { return _n(a, "id", 0); }
-
-    // Total minutes since midnight for the alarm's set time (e.g. 7:30 -> 450).
-    static function totalMinutes(a as Dictionary) as Number {
-        return hour(a) * 60 + minute(a);
+    static function occurrenceDone(aid as Number, key as Number) as Boolean {
+        var done = stateFor(aid).get("done");
+        if (!(done instanceof Array)) { return false; }
+        for (var i=0; i<done.size(); i++) { if (done[i] == key) { return true; } }
+        return false;
     }
-
-    // ── Daily runtime state ──────────────────────────────────────────────────
-    // Per-day flags per alarm, reset automatically each calendar day:
-    //   "f" => fired/dismissed already today
-    //   "p" => plainFire (awake detected -> skip smart wake, fire on time)
-    //   "s" => snooze count today
-    //   "best" => best lightness seen so far in the window (for debugging)
-
-    // The day we last confirmed the state belongs to, remembered in memory.
-    //
-    // Without it, every call read KEY_STATE_DAY back out of storage, and the
-    // answer is the same for a whole day. That cost mattered because the check
-    // has to run BEFORE anything reads a fired flag, which means more than one
-    // call site - see the note in BedsideView.onTick. Memoised, the repeat calls
-    // are a division and a compare, and storage is touched about once a day
-    // instead of once a tick. -1 on start-up, so a fresh app always checks.
-    private static var _confirmedDay as Number = -1;
-
-    // Cheap day check: derives the day number from the cached midnight rather
-    // than making a fresh Gregorian.info() call on every tick.
-    static function resetIfNewDay() as Void {
-        var ctx = dayContext(Time.now().value());
-        var today = ctx[0] / 86400;                  // day index from midnight
-        if (_confirmedDay == today) { return; }      // already checked this day
-        var stored = Application.Storage.getValue(KEY_STATE_DAY);
-        if (stored == null || stored != today) {
-            Application.Storage.setValue(KEY_STATE_DAY, today);
-            Application.Storage.setValue(KEY_DAY_STATE, {});
-            _dayStateCache = {};
-
-            // Clear ringing/snooze state ONLY when it is genuinely stale.
-            //
-            // These two used to be wiped unconditionally, which quietly deleted
-            // work in progress: snoozing at 23:58 for five minutes meant that at
-            // 00:00 the pending snooze was erased and the alarm never rang again.
-            // An oversleep is the single worst thing this app can do, and it
-            // needed nothing more unusual than a late night to trigger.
-            //
-            // "Fired today" is genuinely day-scoped and is right to reset. A
-            // pending snooze and an alarm that is ringing right now are absolute
-            // moments in time, and they legitimately span midnight.
-            var now = Time.now().value();
-            var graceSecs = FIRE_GRACE_MINS * 60;
-
-            var sn = Application.Storage.getValue(KEY_SNOOZE_UNTIL);
-            if (sn == null || (sn as Number) + graceSecs < now) {
-                clearSnooze();
-            }
-
-            var rs = Application.Storage.getValue(KEY_RING_START);
-            if (rs == null || (now - (rs as Number)) > graceSecs) {
-                setRinging(null);
-            }
-        }
-        // Stamped only once the reset has actually completed, so a storage error
-        // part-way through cannot leave the day marked as handled.
-        _confirmedDay = today;
+    static function markOccurrence(aid as Number, key as Number) as Void {
+        if (occurrenceDone(aid,key)) { return; }
+        var s = stateFor(aid);
+        var done = s.get("done");
+        if (!(done instanceof Array)) { done = []; }
+        done.add(key);
+        if (done.size() > 8) { done = done.slice(done.size()-8,null); }
+        s.put("done",done); setStateFor(aid,s);
     }
-
-    // Cached: hasFired() is called once per alarm per scan, and each call used to
-    // deserialise this dictionary from storage.
-    static function getDayState() as Dictionary {
-        if (_dayStateCache != null) { return _dayStateCache as Dictionary; }
-        var v = Application.Storage.getValue(KEY_DAY_STATE);
-        _dayStateCache = (v == null) ? {} : (v as Dictionary);
-        return _dayStateCache as Dictionary;
-    }
-
-    static function stateFor(alarmId as Number) as Dictionary {
-        var all = getDayState();
-        var key = alarmId.toString();
-        var s = all.get(key);
-        if (s == null) { return { "f" => false, "s" => 0 }; }
-        return s as Dictionary;
-    }
-
-    static function setStateFor(alarmId as Number, s as Dictionary) as Void {
-        var all = getDayState();
-        all.put(alarmId.toString(), s);
-        Application.Storage.setValue(KEY_DAY_STATE, all);
-        _dayStateCache = all;
-    }
-
-    static function markFired(alarmId as Number) as Void {
-        var s = stateFor(alarmId);
-        s.put("f", true);
-        setStateFor(alarmId, s);
-    }
-
-    // Arms a saved alarm for its NEXT genuine occurrence, after the editor has
-    // written it.
-    //
-    // Re-enabling a repeating alarm whose time already passed today used to make
-    // it ring the instant you saved (the fired flag was cleared and the engine
-    // saw it as due inside the grace window). So: clear the flags, but if today's
-    // slot is already gone, mark it fired for today so it waits for tomorrow.
-    //
-    // rescheduled = the user changed WHEN this alarm rings (its time or its
-    // repeat days). Only then does today's slot genuinely reopen.
-    //
-    // Without that distinction, an alarm woken EARLY by smart wake came back from
-    // the dead. Dismiss at 05:38 for an 06:00 alarm, then merely open that alarm
-    // and press BACK - the editor commits on the way out, by design - and the
-    // fired flag was cleared unconditionally. The "has today's slot passed?"
-    // test then compared the clock (05:50) against the set time (06:00), decided
-    // it had not, and left the alarm armed. It rang a second time at 06:00, for
-    // someone who was already up.
-    //
-    // Ringing EARLY is the point of this app, so the clock reaching the set time
-    // is not what spends a slot - firing is. nextFireEpoch() reasons the same way
-    // for exactly the same reason; both now answer "is today done?" by asking
-    // whether the alarm fired, not what time it is.
     static function armForNextOccurrence(a as Dictionary, rescheduled as Boolean) as Void {
-        var aid = id(a);
-        var firedToday = hasFired(aid);
-        clearFired(aid);
-        clearStateFor(aid);
-        if (!isOn(a)) { return; }
-
-        var d = days(a);
-        if (d == 0) { return; }   // one-time alarms use fireAt, already correct
-
-        // Fired today and still set to the same time? Then today is spent and
-        // nothing the editor did reopens it.
-        if (firedToday && !rescheduled) {
-            markFired(aid);
-            return;
-        }
-
-        var now = Time.now();
-        var info = Gregorian.info(now, Time.FORMAT_SHORT);
-        var todayBit = 1 << (info.day_of_week - 1);
-        if ((d & todayBit) == 0) { return; }   // not scheduled today anyway
-
-        var midnight = now.value() - (info.hour * 3600 + info.min * 60 + info.sec);
-        var target = midnight + totalMinutes(a) * 60;
-        if (now.value() >= target) {
-            markFired(aid);   // today's slot has passed - wait for the next day
-        }
+        if (!rescheduled) { return; }
+        setStateFor(id(a),{"done"=>[],"s"=>0});
+        clearStateFor(id(a));
+        if (!isOn(a) || days(a) == 0) { return; }
+        var now = AlarmClock.now().value();
+        var key = AlarmClock.targetKey(AlarmClock.day(now),totalMinutes(a));
+        if (key <= AlarmClock.wall(now)) { markOccurrence(id(a),key); }
     }
-
-    // Did the editor change WHEN this alarm rings? Compares only the scheduling
-    // fields: renaming an alarm or changing its ringtone must not re-arm a slot
-    // that has already been used today.
     static function rescheduled(before as Dictionary?, after as Dictionary) as Boolean {
-        if (before == null) { return true; }   // brand-new alarm
-        var b = before as Dictionary;
-        return hour(b) != hour(after)
-            || minute(b) != minute(after)
-            || days(b) != days(after)
-            || isOn(b) != isOn(after);   // switching it back on re-arms it
+        if (before == null) { return true; }
+        return hour(before) != hour(after) || minute(before) != minute(after)
+            || days(before) != days(after) || isOn(before) != isOn(after);
+    }
+    static function snoozeCount(aid as Number) as Number { return _n(stateFor(aid),"s",0); }
+    static function incSnooze(aid as Number) as Void {
+        var s = stateFor(aid); s.put("s",snoozeCount(aid)+1); setStateFor(aid,s);
     }
 
-    // Re-arm an alarm: clear today's fired/plain flags so it can fire again (used
-    // when the user edits an alarm that had already gone off).
-    static function clearFired(alarmId as Number) as Void {
-        var s = stateFor(alarmId);
-        s.put("f", false);
-        setStateFor(alarmId, s);
+    // evaluate selects an occurrence; beginRing commits it before displaying UI.
+    static function prepareRing(aid as Number, key as Number, snooze as Boolean) as Number {
+        _pendingId = aid; _pendingKey = key; _pendingSnooze = snooze; return aid;
     }
-
-    static function hasFired(alarmId as Number) as Boolean {
-        return _b(stateFor(alarmId), "f", false);
-    }
-
-    static function snoozeCount(alarmId as Number) as Number {
-        return _n(stateFor(alarmId), "s", 0);
-    }
-
-    static function incSnooze(alarmId as Number) as Void {
-        var s = stateFor(alarmId);
-        s.put("s", _n(s, "s", 0) + 1);
-        setStateFor(alarmId, s);
-    }
-
-    // ── Ringing / snooze state ───────────────────────────────────────────────
-
-    static function ringingId() as Number or Null {
-        return Application.Storage.getValue(KEY_RING_ID);
-    }
-
-    // A ring is ONE fact stored in two keys: which alarm, and when it started.
-    // They are written together and cleared together, so no reader can ever see
-    // an id without a matching timestamp or a timestamp without an id.
-    //
-    // Clearing only the id used to leave the old start time behind. Every reader
-    // happens to check the id first, so nothing misbehaved - but
-    // ringServesTodaysOccurrence() reads the timestamp to decide whether an
-    // alarm has been dealt with for today, and a decision that important should
-    // not rest on every caller remembering to check a different key first.
-    static function setRinging(alarmId as Number or Null) as Void {
-        Application.Storage.setValue(KEY_RING_ID, alarmId);
-        Application.Storage.setValue(KEY_RING_START,
-            (alarmId != null) ? Time.now().value() : null);
-    }
-
-    // The snooze pair, for the same reason: an id with no time is not a snooze.
-    static function clearSnooze() as Void {
-        Application.Storage.setValue(KEY_SNOOZE_UNTIL, null);
-        Application.Storage.setValue(KEY_SNOOZE_ID, null);
-    }
-
-    static function ringStart() as Number or Null {
-        return Application.Storage.getValue(KEY_RING_START);
-    }
-
-    // Is the ring that is now finishing serving TODAY's occurrence of this alarm?
-    //
-    // Stamping an alarm "fired today" is only correct when the occurrence just
-    // dealt with belongs to today. Usually it does, so this usually returns true
-    // - but an alarm near midnight breaks the assumption in two different ways,
-    // and getting it wrong silently skips a whole day's alarm:
-    //
-    //   - A 23:55 alarm still sounding at 00:02. The occurrence was YESTERDAY's;
-    //     marking it onto the new day suppresses tonight's genuine 23:55.
-    //   - The same alarm SNOOZED past midnight. Here the re-ring starts on the
-    //     new day, so "which day did this ring begin?" answers the wrong
-    //     question - the episode is still serving yesterday's occurrence.
-    //
-    // Asking about the calendar day handles the first and misses the second.
-    // Asking where the ring started relative to TODAY's scheduled time handles
-    // both, because that is the thing actually being decided.
-    //
-    // The window used is the widest one offered rather than this alarm's own, so
-    // that changing the setting mid-episode errs towards marking the slot spent
-    // - a duplicate ring is a worse outcome than a redundant flag.
-    static function ringServesTodaysOccurrence(a as Dictionary) as Boolean {
-        if (days(a) == 0) { return true; }   // one-time alarms switch off anyway
-        var rs = ringStart();
-        if (rs == null) { return true; }     // no evidence - behave as before
-        var now = Time.now().value();
-        if ((rs as Number) > now) { return true; }   // clock moved back; unusable
-        var ctx = dayContext(now);
-        var target   = ctx[0] + totalMinutes(a) * 60;
-        var earliest = target - MAX_WINDOW_MINS * 60;
-        var latest   = target + FIRE_GRACE_MINS * 60;
-        return (rs as Number) >= earliest && (rs as Number) <= latest;
-    }
-
-    // Start ringing an alarm. One-time alarms are switched off immediately since
-    // they've done their job.
-    static function beginRing(alarmId as Number) as Void {
-        setRinging(alarmId);
-        var found = findById(alarmId);
-        if (found[1] != null && days(found[1] as Dictionary) == 0) {
-            disableById(alarmId);
+    static function beginRing(aid as Number) as Void {
+        var found = findById(aid);
+        if (found[1] == null) { return; }
+        var a = found[1] as Dictionary;
+        var snooze = (_pendingId == aid && _pendingSnooze);
+        var key = (_pendingId == aid) ? _pendingKey
+            : AlarmClock.targetKey(AlarmClock.day(AlarmClock.now().value()),totalMinutes(a));
+        if (!snooze) {
+            markOccurrence(aid,key);
+            var s = stateFor(aid); s.put("s",0); setStateFor(aid,s);
         }
+        _pendingId = -1;
+        setRinging(aid);
+        if (days(a) == 0) { disableById(aid); }
     }
-
-    // A ring is "stale" if it was set more than the grace period ago. This happens
-    // when the background fired the alarm but the watch couldn't surface the app
-    // until much later. We drop stale rings so an old alarm never goes off hours
-    // late (e.g. firing at 7:04 for a 5:54 alarm).
+    static function ringingId() as Number? { return Application.Storage.getValue(KEY_RING_ID); }
+    static function ringStart() as Number? { return Application.Storage.getValue(KEY_RING_START); }
+    static function setRinging(aid as Number?) as Void {
+        Application.Storage.setValue(KEY_RING_ID,aid);
+        Application.Storage.setValue(KEY_RING_START,aid == null ? null : AlarmClock.now().value());
+    }
     static function clearStaleRing() as Void {
-        var id = ringingId();
-        if (id == null) { return; }
         var start = ringStart();
-        if (start == null || (Time.now().value() - start) > FIRE_GRACE_MINS * 60) {
-            if (id != null) { markFired(id); }
-            setRinging(null);
-        }
+        if (start == null || AlarmClock.now().value()-start > FIRE_GRACE_MINS*60) { setRinging(null); }
     }
-
-    // Turn an alarm off by id (used to retire one-time alarms after they fire).
-    static function disableById(alarmId as Number) as Void {
-        var found = findById(alarmId);
-        var idx = found[0] as Number;
-        if (idx >= 0) {
-            var a = found[1] as Dictionary;
-            a.put("on", false);
-            updateAlarm(idx, a);
-        }
+    static function snoozeUntil() as Number? { return Application.Storage.getValue(KEY_SNOOZE_UNTIL); }
+    static function snoozedAlarmId() as Number? { return Application.Storage.getValue(KEY_SNOOZE_ID); }
+    static function clearSnooze() as Void {
+        Application.Storage.setValue(KEY_SNOOZE_UNTIL,null);
+        Application.Storage.setValue(KEY_SNOOZE_ID,null);
     }
-
-    static function snoozeUntil() as Number or Null {
-        return Application.Storage.getValue(KEY_SNOOZE_UNTIL);
+    static function scheduleSnooze(aid as Number, at as Number) as Void {
+        Application.Storage.setValue(KEY_SNOOZE_ID,aid);
+        Application.Storage.setValue(KEY_SNOOZE_UNTIL,at);
     }
-
-    // NOTE: there is deliberately no setSnoozeUntil(). It existed, and every
-    // caller passed null to mean "the snooze is over" - which set half the pair
-    // and left the id behind. Removing it leaves exactly two ways to change a
-    // snooze, scheduleSnooze() and clearSnooze(), both of which write both keys.
-    // The half-state is now unreachable rather than merely unused.
-
-    static function snoozedAlarmId() as Number or Null {
-        return Application.Storage.getValue(KEY_SNOOZE_ID);
+    static function validSnoozeId() as Number? {
+        var aid = snoozedAlarmId();
+        if (snoozeUntil() == null || aid == null) { return null; }
+        if (findById(aid)[1] == null) { clearSnooze(); return null; }
+        return aid;
     }
-
-    // Schedule a snoozed alarm to re-fire at a future epoch time.
-    // Drops everything that only means something INSIDE one Active Alarm Mode
-    // session: a pending snooze, and any ringing flag left behind.
-    //
-    // A snooze is a promise made within a sleep session ("wake me again in five
-    // minutes"). Leaving Active Alarm Mode ends that session, so the promise
-    // should end with it. Without this, snoozing a 12:00 alarm and then dropping
-    // out of Active Alarm Mode - the palm gesture does exactly that - left the
-    // snooze alive in storage. Re-entering at 12:04 showed "Next Alarm: None",
-    // and then the alarm went off anyway at 12:05 announcing "2 snoozes left".
-    //
-    // The base schedule is untouched: an alarm set for 2 pm is still there when
-    // you come back at 1:47, because that is a scheduled alarm, not a snooze.
+    static function clearStateFor(aid as Number) as Void {
+        if (snoozedAlarmId() == aid) { clearSnooze(); }
+        if (ringingId() == aid) { setRinging(null); }
+    }
     static function clearSessionState() as Void {
-        clearSnooze();
-        setRinging(null);
+        clearSnooze(); setRinging(null); AlarmEngine.resetClock();
     }
-
-    static function scheduleSnooze(alarmId as Number, epochSecs as Number) as Void {
-        Application.Storage.setValue(KEY_SNOOZE_ID, alarmId);
-        Application.Storage.setValue(KEY_SNOOZE_UNTIL, epochSecs);
+    static function disableById(aid as Number) as Void {
+        var found = findById(aid);
+        if (found[0] >= 0) { var a = found[1] as Dictionary; a.put("on",false); updateAlarm(found[0],a); }
     }
-
-    // Find an alarm dict by id (or null). Returns [index, dict].
-    static function findById(alarmId as Number) as Array {
-        var list = getAlarms();
-        for (var i = 0; i < list.size(); i++) {
-            var a = list[i] as Dictionary;
-            if (id(a) == alarmId) { return [i, a]; }
-        }
-        return [-1, null];
+    private static function bounded(v as Number, lo as Number, hi as Number) as Number {
+        return v < lo ? lo : (v > hi ? hi : v);
     }
-
-
-    // Shallow copy of an alarm dict (all values are primitives). Used so the
-    // editor can work on a copy and discard changes on cancel.
-    static function clone(a as Dictionary) as Dictionary {
-        var keys = a.keys();
-        var out = {};
-        for (var i = 0; i < keys.size(); i++) {
-            var k = keys[i];
-            out.put(k, a.get(k));
-        }
-        return out;
+    private static function _n(d as Dictionary, key as String, fallback as Number) as Number {
+        var v = d.get(key); return (v instanceof Number) ? v : fallback;
     }
-
-    // ── Tiny typed helpers ───────────────────────────────────────────────────
-
-    private static function _n(d as Dictionary, key as String, def as Number) as Number {
-        var v = d.get(key);
-        return (v != null) ? v as Number : def;
-    }
-
-    private static function _b(d as Dictionary, key as String, def as Boolean) as Boolean {
-        var v = d.get(key);
-        return (v != null) ? v as Boolean : def;
+    private static function _b(d as Dictionary, key as String, fallback as Boolean) as Boolean {
+        var v = d.get(key); return (v instanceof Boolean) ? v : fallback;
     }
 }

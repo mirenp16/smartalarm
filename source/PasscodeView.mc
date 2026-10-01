@@ -68,7 +68,7 @@ class PasscodeView extends WatchUi.View {
     }
 
     function checkAlarms() as Void {
-        var now = Time.now().value();
+        var now = AlarmClock.now().value();
         try {
             if (AlarmEngine.shouldSampleAt(AlarmEngine.secsUntilNextTarget(now))) {
                 SleepDetector.startSensor();

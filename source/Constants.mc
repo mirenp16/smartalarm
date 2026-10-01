@@ -52,25 +52,13 @@ const KEEP_ACTIVE_WITHIN_SECS = 2 * 3600;
 
 
 // ── Sleep Cycle Window options (minutes before the set time) ─────────────────
-// 15 min was dropped: simulation showed it barely beats a plain alarm (0.53 vs
-// 0.47 lightness) because there isn't enough of a sleep cycle to find a light
-// moment in. 45 min is the default - it's the knee of the curve, where extra
-// window stops buying much (45->60 gains only +0.02 for 12 more minutes in bed).
+// Available windows; no clinical sleep-stage accuracy is implied.
 const WINDOW_OPTIONS = [30, 45, 60, 75];
 const DEFAULT_WINDOW = 45;
 
 // ── Sleep detection tuning ───────────────────────────────────────────────────
-// Scores are RELATIVE to your own night (see SleepDetector.mc), so these are
-// stable across people. Values chosen by simulating 100 nights.
-//
-// Peak detection: once the score has reached the bar and then falls by
-// PEAK_DROP, we've just passed the lightest moment -> wake now.
-//
-// The bar DECLINES across the window, from PEAK_BAR_EARLY down to PEAK_BAR at
-// the set time, and peak detection is off entirely for the first
-// PEAK_MIN_PROGRESS of the window. Hold out for an excellent moment early;
-// accept a merely good one later. A fixed bar fired on the first peak, which
-// meant a 45-minute window rang ~42 minutes early every single night.
+// Relative heuristic thresholds. A recent peak followed by a decline may
+// trigger an early wake; thresholds relax as the deadline approaches.
 const PEAK_BAR          = 70;    // floor, reached at the set time
 const PEAK_BAR_EARLY    = 94;    // bar at the earliest allowed moment
 const PEAK_MIN_PROGRESS = 0.30;  // no smart fire in the first 30% of the window
@@ -107,11 +95,7 @@ const FAST_TICK_WITHIN_SECS = (MAX_WINDOW_MINS + SAMPLE_LEAD_MINS) * 60;
 // lowest deep-sleep baseline seen tonight), not by the lightness score - see the
 // long comment on SleepDetector.isAwake for why the score cannot do this job.
 //
-// Measured medians across 40 simulated nights:
-//     deep 1.02   light 1.20   REM 1.30   awake 1.50
-// 1.40 sits in the gap above REM. At this ratio, sustained for
-// AWAKE_CONFIRM_TICKS samples, 85% of awake time was caught with ZERO false
-// positives on either REM or light sleep.
+// This ratio is a heuristic, not a validated separation of sleep stages.
 const AWAKE_HR_RATIO = 1.40;
 // Consecutive samples (~15 s each) the awake reading must hold before we act on
 // it, so a brief arousal doesn't trigger a false early alarm. 4 = about a minute.
@@ -219,8 +203,7 @@ const UI_AMBER = 0xDD8833;   // no heart rate - the one state meant to stand out
 
 // ── Firing tolerance ─────────────────────────────────────────────────────────
 // How long after the set time an alarm may still fire. Past this we treat it as
-// "missed" (so enabling a 7:00 alarm at 11pm doesn't ring instantly). Wider than
-// the 5-min sampling so we never skip a legitimate fire.
+// missed. Explicit rearming also suppresses the already-past occurrence.
 const FIRE_GRACE_MINS = 15;
 
 // ── Snooze defaults ──────────────────────────────────────────────────────────
@@ -234,11 +217,11 @@ const SNOOZE_MAX_OPTIONS = [0, 1, 2, 3, 4, 5, 10];
 const MAX_ALARMS = 20;   // most saved alarms allowed
 
 // ── Storage keys ─────────────────────────────────────────────────────────────
-// Kept here so foreground and background always agree on the exact strings.
+// Persistent keys retain their original names for upgrade compatibility.
 const KEY_ALARMS       = "alarms";      // Array of alarm Dictionaries
 const KEY_NEXT_ID      = "nextId";      // running counter for unique alarm ids
-const KEY_STATE_DAY    = "stateDay";    // day-of-year the daily state belongs to
-const KEY_DAY_STATE    = "dayState";    // Dictionary: idStr -> per-day flags
+const KEY_STATE_DAY    = "stateDay";    // legacy local-midnight day number (migration only)
+const KEY_DAY_STATE    = "dayState";    // Dictionary: idStr -> completed occurrences / snooze count
 const KEY_RING_ID      = "ringId";      // id of the alarm currently ringing, or null
 const KEY_RING_START   = "ringStart";   // moment (epoch secs) ringing began
 const KEY_SNOOZE_UNTIL = "snoozeUntil"; // epoch secs to re-fire a snoozed alarm

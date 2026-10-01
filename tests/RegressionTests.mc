@@ -5,9 +5,11 @@ import Toybox.Application;
 
 (:testSupport)
 function resetFixture() as Void {
+    AlarmClock.setTestTime(null,null);
+    AlarmEngine.resetClock();
     Application.Storage.clearValues();
     AlarmStore.invalidate();
-    AlarmStore.resetIfNewDay();
+    AlarmStore.ensureState();
     SleepDetector.resetForTest();
 }
 
@@ -183,7 +185,6 @@ function snoozeAndDeletion(logger as Test.Logger) as Boolean {
     var id = addTarget(now + 600, 45);
     AlarmStore.beginRing(id);
     Test.assert(!AlarmStore.isOn(AlarmStore.findById(id)[1]));
-    AlarmStore.markFired(id);
     AlarmStore.incSnooze(id);
     AlarmStore.scheduleSnooze(id, now + 60);
     AlarmStore.setRinging(null);
@@ -228,7 +229,8 @@ function passcodesAndEditing(logger as Test.Logger) as Boolean {
 (:test)
 function repeatMasksAndScheduling(logger as Test.Logger) as Boolean {
     resetFixture();
-    var now = Time.now().value();
+    var now = utc(2026,9,30,12,0);
+    AlarmClock.setTestTime(now,0);
     var a = AlarmStore.newAlarm();
     a.put("h", 6);
     a.put("m", 0);
@@ -238,7 +240,7 @@ function repeatMasksAndScheduling(logger as Test.Logger) as Boolean {
             var at = now + day * 86400;
             var next = AlarmStore.nextFireEpoch(a, at);
             Test.assert(next > at && next <= at + 7 * 86400);
-            var info = Toybox.Time.Gregorian.info(new Time.Moment(next), Time.FORMAT_SHORT);
+            var info = Toybox.Time.Gregorian.utcInfo(new Time.Moment(next), Time.FORMAT_SHORT);
             Test.assert((mask & (1 << (info.day_of_week - 1))) != 0);
             Test.assert(info.hour == 6 && info.min == 0);
         }
@@ -261,7 +263,6 @@ function repeatSnoozeDoesNotImmediatelyRefire(logger as Test.Logger) as Boolean 
     AlarmStore.beginRing(id);
     var rv = new RingingView();
     Test.assert(!rv.snoozeExhausted());
-    AlarmStore.markFired(id);
     AlarmStore.scheduleSnooze(id, now + 300);
     AlarmStore.setRinging(null);
     Test.assert(AlarmEngine.evaluate(now + 15) == -1);

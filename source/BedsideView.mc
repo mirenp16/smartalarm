@@ -85,7 +85,7 @@ class BedsideView extends WatchUi.View {
                 // Already inside the sampling window? Then start real sampling
                 // straight away, so the first frame shows the live readout rather
                 // than a probe result that is about to be replaced.
-                if (AlarmEngine.shouldSampleAt(AlarmEngine.secsUntilNextTarget(Time.now().value()))) {
+                if (AlarmEngine.shouldSampleAt(AlarmEngine.secsUntilNextTarget(AlarmClock.now().value()))) {
                     SleepDetector.startSensor();
                     SleepDetector.sample();
                     _sampling = true;
@@ -107,7 +107,7 @@ class BedsideView extends WatchUi.View {
             }
         }
         if (AlarmStore.ringingId() != null) { showRinging(); return; }
-        startTimer(intervalFor(AlarmEngine.secsUntilNextTarget(Time.now().value())));
+        startTimer(intervalFor(AlarmEngine.secsUntilNextTarget(AlarmClock.now().value())));
     }
 
     // 5 s while the bedtime heart-rate check is running, 15 s near an alarm,
@@ -183,31 +183,11 @@ class BedsideView extends WatchUi.View {
     // uncaught exception used to kill the app (the "IQ!" screen) and take the
     // alarm with it. Sleep sampling is best-effort; the alarm itself must survive.
     function onTick() as Void {
-        var now = Time.now().value();
+        var now = AlarmClock.now().value();
         // Negative age = the clock moved back; the arm stamp is meaningless, so
         // lapse it rather than leave the exit gesture armed indefinitely.
         var armAge = now - _armSecs;
         if (_exitArmed && (armAge < 0 || armAge > EXIT_ARM_SECS)) { _exitArmed = false; }
-
-        // Roll the daily state over BEFORE anything reads a fired flag.
-        //
-        // evaluate() does this too, but it runs later in the tick - and
-        // secsUntilNextTarget() below asks whether each alarm has already fired
-        // TODAY. Just after midnight, with the rollover still pending, "today"
-        // still meant yesterday, so every alarm that rang yesterday looked spent
-        // and resolved to its NEXT day instead of this one. A 00:30 daily alarm
-        // reported 24.5 hours away rather than 30 minutes, which showed a wrong
-        // Duration on screen and, worse, told shouldSampleAt() there was nothing
-        // to warm up for - costing a tick of heart-rate lead at the one moment it
-        // is being collected. It corrected itself on the following tick, up to a
-        // minute later on the idle cadence.
-        //
-        // Ordering it first is free: the check memoises the day it last
-        // confirmed, so evaluate()'s own call is now a compare.
-        try {
-            AlarmStore.resetIfNewDay();
-        } catch (eD) {
-        }
 
         // Work out the distance to the next alarm ONCE and reuse it. This scan
         // walks every alarm, so doing it repeatedly per tick was a large part of
@@ -313,7 +293,7 @@ class BedsideView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
         var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-        var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var now = Gregorian.info(AlarmClock.now(), Time.FORMAT_SHORT);
 
         // Title, curved along the top of the bezel (falls back to straight text).
         Ui.labelSized(dc, _w, _h, 90, UI_TITLE, "Active Alarm Mode", 28);
@@ -413,7 +393,7 @@ class BedsideView extends WatchUi.View {
     private function computeDurationStr() as String {
         var d = -1;
         try {
-            d = AlarmEngine.secsUntilNextTarget(Time.now().value());
+            d = AlarmEngine.secsUntilNextTarget(AlarmClock.now().value());
         } catch (e) {
         }
         return "Duration: " + Fmt.duration(d);
@@ -427,7 +407,7 @@ class BedsideView extends WatchUi.View {
     }
 
     private function computeNextAlarmStr() as String {
-        var nowSecs = Time.now().value();
+        var nowSecs = AlarmClock.now().value();
         // Only show a snooze time if that alarm still exists (validSnoozeId
         // clears the snooze when its alarm has been deleted).
         if (AlarmStore.validSnoozeId() != null) {
@@ -444,7 +424,7 @@ class BedsideView extends WatchUi.View {
     // ── Controls / exit ──────────────────────────────────────────────────────
 
     function revealControls() as Void {
-        _controlsSecs = Time.now().value();
+        _controlsSecs = AlarmClock.now().value();
         // A button press also asks for a FRESH heart-rate reading. Keeping the
         // sensor on continuously is what costs real battery (an always-on session
         // measured ~24% a night); a probe on demand costs at most PROBE_TICKS
@@ -463,7 +443,7 @@ class BedsideView extends WatchUi.View {
         WatchUi.requestUpdate();
     }
     function controlsVisible() as Boolean {
-        var age = Time.now().value() - _controlsSecs;
+        var age = AlarmClock.now().value() - _controlsSecs;
         return age >= 0 && age <= 6;
     }
 
@@ -471,7 +451,7 @@ class BedsideView extends WatchUi.View {
     // button in between calls disarm() and the sequence starts over.
     function armExit() as Void {
         _exitArmed = true;
-        _armSecs = Time.now().value();
+        _armSecs = AlarmClock.now().value();
         revealControls();
     }
     function disarmExit() as Void {
@@ -480,7 +460,7 @@ class BedsideView extends WatchUi.View {
     }
     function exitReady() as Boolean {
         if (!_exitArmed) { return false; }
-        var age = Time.now().value() - _armSecs;
+        var age = AlarmClock.now().value() - _armSecs;
         return age >= 0 && age <= EXIT_ARM_SECS;
     }
 
@@ -532,7 +512,7 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     private function _leave() as Void {
         // governingAlarm counts a snoozed/ringing alarm too, so hitting snooze
         // can't be used to slip out without the passcode.
-        var next = AlarmEngine.governingAlarm(Time.now().value());
+        var next = AlarmEngine.governingAlarm(AlarmClock.now().value());
         if (next != null && AlarmStore.passcodeOn(next)) {
             var pv = new PasscodeView(PC_MODE_ENTER, method(:finishLeave));
             pv.guardAlarms = true;

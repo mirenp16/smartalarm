@@ -46,6 +46,30 @@ Active Alarm Mode open after dismissal if its target is within two hours.
 The exit passcode prompt continues checking alarms; an alarm becoming due
 interrupts that exit attempt and shows the ringing screen.
 
+### Midnight and clock changes
+
+A wake window may start the previous evening: Thursday's 12:30 am alarm with
+a 45-minute window can ring from Wednesday at 11:45 pm. The app remembers the
+scheduled occurrence across midnight and restarts, so an early ring does not
+repeat at the deadline. Snooze counts also survive midnight.
+
+Once and repeating alarms follow the watch's local clock when its time-zone
+offset changes. A repeated hour does not ring an already-completed occurrence
+again. If active evaluation observes a forward offset change, alarms skipped
+by that change become due on the next check, with a 15-minute recovery period.
+Snooze remains an elapsed-time deadline when the time-zone offset changes.
+
+Countdowns use the current offset and may adjust when the watch changes it;
+the app does not predict future time-zone rules. Skipped-time recovery requires
+evaluation immediately before and after the change (no gap over two minutes).
+Only one alarm rings at a time; another due alarm remains eligible for 15 minutes
+after its target, or after an observed forward jump. Dismiss within that period
+to hear the queued alarm. Completing an occurrence suppresses duplicates for
+that local date even if you travel backward across time zones.
+
+The calendar implementation uses Garmin's local and UTC conversions documented
+in [Time.Gregorian](https://developer.garmin.com/connect-iq/api-docs/Toybox/Time/Gregorian.html).
+
 Sound depends on the watch's app alert-tone settings and Do Not Disturb.
 Preview a ringtone before relying on sound. A native Garmin alarm can behave
 differently from a Connect IQ app under the same device settings.
@@ -88,7 +112,7 @@ and sensor registration in
 ## September 2026 fixes
 
 - Removed the pre-window rule that postponed already-awake alarms to the set time.
-  Old stored downgrade flags are ignored; existing alarms need no migration.
+  Old stored downgrade flags are ignored; existing alarms are migrated automatically.
 - Established the heart-rate floor during warm-up instead of first calculating
   it much later when the scheduler asked whether the user was awake.
 - Added recent walking as another wake signal.
@@ -97,6 +121,12 @@ and sensor registration in
 - Prevented an old high score from causing a later low-score wake.
 - Kept alarm evaluation active during the exit passcode prompt.
 - Released sensors after partial registration failures as well as normal sessions.
+- Fixed windows crossing midnight, snooze limits across midnight, and local-time
+  scheduling after daylight-saving or time-zone offset changes.
+- Kept overdue backup alarms active during their grace period and prioritized
+  the earliest eligible deadline when multiple alarms qualify.
+- Preserved an alarm's scheduled occurrence when only its label or other
+  non-scheduling settings change.
 
 The exact cause of the reported September 24 firing at 5:38 am cannot be proven
 without device logs. These changes address reproducible logic defects; they do
@@ -129,13 +159,16 @@ python3 scripts/test.py 3
 ```
 
 The script builds release code and a test executable, starts the Garmin simulator,
-and runs 15 native Monkey C regression tests three times. `CIQ_SDK` can override
+and runs 30 native Monkey C regression tests three times. `CIQ_SDK` can override
 the SDK path. Generated files and logs go under `bin/validation/`; its generated
 signing key is for local validation, not your existing watch installation.
 
 Tests exercise production code for pre-window wakefulness, walking, missing HR,
 warm-up and buffer bounds, peak expiry, deadlines for all four window sizes,
-snooze, deletion, repeat masks, passcodes, and editing. The repeat test checks
+snooze, deletion, repeat masks, passcodes, editing, midnight windows, daylight
+saving, time-zone changes, state migration, and the 20-alarm capacity. A timed
+synthetic replay checks baseline collection from 4:15, elevated HR from 4:36,
+and firing at 5:15 for a 6:00 alarm. The repeat test checks
 all 127 nonempty masks across seven day offsets. Synthetic inputs do not prove
 sleep-stage accuracy or replace an overnight test on the real watch.
 

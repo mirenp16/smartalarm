@@ -59,7 +59,7 @@ class RingingView extends WatchUi.View {
     function onHide() as Void { }
 
     function onTick() as Void {
-        var armAge = Time.now().value() - _armSecs;
+        var armAge = AlarmClock.now().value() - _armSecs;
         if (_awakeArmed && (armAge < 0 || armAge > EXIT_ARM_SECS)) {
             _awakeArmed = false;
         }
@@ -89,7 +89,7 @@ class RingingView extends WatchUi.View {
         var vc = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
 
         var label = (_alarm != null) ? AlarmStore.label(_alarm) : "Alarm";
-        var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var now = Gregorian.info(AlarmClock.now(), Time.FORMAT_SHORT);
         var atMax = snoozeExhausted();
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -130,16 +130,6 @@ class RingingView extends WatchUi.View {
         var id = AlarmStore.ringingId();
         return (id != null) ? AlarmStore.snoozeCount(id) : 0;
     }
-    // Same question, asked about a KNOWN alarm rather than whichever one happens
-    // to be ringing at this instant. doSnooze() needs this: the rollover it runs
-    // can legitimately clear the ringing flag, after which the id-free version
-    // above reports zero snoozes for want of an alarm to ask about. It currently
-    // gives the right answer anyway - a rollover also resets the day's snooze
-    // count to zero - but only by coincidence, and this app has been bitten
-    // enough times by code that is accidentally correct.
-    function snoozeExhaustedFor(id as Number) as Boolean {
-        return AlarmStore.snoozeCount(id) >= maxSn();
-    }
     function maxSn() as Number {
         return (_alarm != null) ? AlarmStore.maxSnoozeOf(_alarm) : DEFAULT_MAX_SNOOZE;
     }
@@ -150,11 +140,11 @@ class RingingView extends WatchUi.View {
 
     // Controls appear for a few seconds after any button press.
     function revealControls() as Void {
-        _controlsSecs = Time.now().value();
+        _controlsSecs = AlarmClock.now().value();
         WatchUi.requestUpdate();
     }
     function controlsVisible() as Boolean {
-        var age = Time.now().value() - _controlsSecs;
+        var age = AlarmClock.now().value() - _controlsSecs;
         return age >= 0 && age <= 8;
     }
 
@@ -162,7 +152,7 @@ class RingingView extends WatchUi.View {
     // anything else disarms it, so you can't dismiss the alarm by accident.
     function armAwake() as Void {
         _awakeArmed = true;
-        _armSecs = Time.now().value();
+        _armSecs = AlarmClock.now().value();
         revealControls();
     }
     function disarmAwake() as Void {
@@ -171,7 +161,7 @@ class RingingView extends WatchUi.View {
     }
     function awakeReady() as Boolean {
         if (!_awakeArmed) { return false; }
-        var age = Time.now().value() - _armSecs;
+        var age = AlarmClock.now().value() - _armSecs;
         return age >= 0 && age <= EXIT_ARM_SECS;
     }
 
@@ -185,31 +175,11 @@ class RingingView extends WatchUi.View {
         var id = AlarmStore.ringingId();
         if (id == null) { close(); return; }
 
-        // Same day question as finishAwake, and answered the same way so the two
-        // paths cannot drift apart. Snoozing a 23:55 alarm at 00:02 must not
-        // stamp it spent for the new day, or tonight's 23:55 never rings.
-        //
-        // Settled BEFORE the snooze-limit check, not after, so that every read
-        // in this function sees one consistent day. Split across the rollover,
-        // the limit would be tested against yesterday's count and then written
-        // into today's - two days' worth of bookkeeping in one decision.
-        var servesToday = (_alarm != null)
-            ? AlarmStore.ringServesTodaysOccurrence(_alarm as Dictionary) : true;
-        AlarmStore.resetIfNewDay();
-
-        if (snoozeExhaustedFor(id)) { return; }   // must use I'm Awake instead
+        // The base occurrence was consumed by beginRing. Only the snooze
+        // deadline and count change here, including across midnight.
+        if (snoozeExhausted()) { return; }
         AlarmStore.incSnooze(id);
-        // Mark today's slot as done. Without this a REPEATING alarm is still
-        // "due" (we're inside its 15-minute grace window), so the base schedule
-        // re-fires it a second later and the snooze is ignored entirely.
-        // The snooze entry below is what brings it back.
-        //
-        // Across a day boundary the mark is unnecessary as well as wrong: the
-        // target is recomputed from today's midnight, so the grace window it
-        // guards against belongs to a day that has ended. The snooze itself is
-        // absolute in time and is unaffected either way.
-        if (servesToday) { AlarmStore.markFired(id); }
-        var until = Time.now().value() + snLen() * 60;
+        var until = AlarmClock.now().value() + snLen() * 60;
         AlarmStore.scheduleSnooze(id, until);
         AlarmStore.setRinging(null);
         close();
@@ -226,55 +196,12 @@ class RingingView extends WatchUi.View {
     }
 
     function finishAwake() as Void {
-        var id = AlarmStore.ringingId();
-
-        // Settle which DAY it is before deciding anything, and capture whether
-        // this ring started on the previous one before the rollover erases the
-        // evidence.
-        //
-        // Both matter, and they pull in opposite directions. Dismissing a 23:55
-        // alarm at 00:02 used to reason entirely in yesterday's terms: a 00:30
-        // alarm due 28 minutes later still carried yesterday's "fired" flag, so
-        // it resolved to TOMORROW's 00:30, the exit test saw nothing due for a
-        // day and a half, and Active Alarm Mode closed. Alarms only ring while
-        // that screen is open, so the 00:30 alarm was silently disarmed - a
-        // missed alarm, which is the worst thing this app can do.
-        //
-        // Rolling over first fixes that, but on its own it introduces the
-        // opposite fault: markFired() would then stamp the alarm as spent for
-        // TODAY, suppressing tonight's genuine 23:55. The occurrence that just
-        // rang was yesterday's, so on that path it is not marked at all - and it
-        // cannot re-fire either way, because the target is recomputed against
-        // today's midnight and is fifteen hours away.
-        var servesToday = (_alarm != null)
-            ? AlarmStore.ringServesTodaysOccurrence(_alarm as Dictionary) : true;
-        AlarmStore.resetIfNewDay();
-
-        if (id != null) {
-            if (servesToday) { AlarmStore.markFired(id); }
-            // A one-time ("Once") alarm has done its job - switch it off so the
-            // list shows OFF afterwards.
-            var found = AlarmStore.findById(id);
-            if (found[1] != null && AlarmStore.days(found[1] as Dictionary) == 0) {
-                AlarmStore.disableById(id);
-            }
-        }
         AlarmStore.setRinging(null);
         AlarmStore.clearSnooze();          // "I'm Awake" cancels any pending snooze
 
-        // Leave Active Alarm Mode only when nothing else is waiting to ring.
-        //
-        // This used to test validSnoozeId(), which is ALWAYS null by this point
-        // because the line above just cleared the snooze - so the guard was dead
-        // and the app exited unconditionally. That silently disarmed backup
-        // alarms: with a 06:00 and a 06:30 set, dismissing the 06:00 closed
-        // Active Alarm Mode and the 06:30 never rang, which is precisely the
-        // situation a backup alarm exists to protect against.
-        //
-        // Alarms further off than KEEP_ACTIVE_WITHIN_SECS (tomorrow's repeat, for
-        // instance) should not pin you in Active Alarm Mode all day, so only a
-        // genuinely imminent one keeps it open.
-        var nextSecs = AlarmEngine.secsUntilNextTarget(Time.now().value());
+        // Keep nearby backups and overdue alarms inside their grace period
+        // active. Tomorrow's repeat should not keep the app open all day.
+        var nextSecs = AlarmEngine.secsUntilNextTarget(AlarmClock.now().value());
         if (nextSecs < 0 || nextSecs > KEEP_ACTIVE_WITHIN_SECS) {
             BedsideView.exitRequested = true;
         }

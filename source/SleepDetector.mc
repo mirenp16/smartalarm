@@ -1,37 +1,10 @@
 // SleepDetector.mc
-// Decides when you are in light sleep, so the alarm can wake you gently.
-//
-// THREE SEPARATE BUGS ONCE STOPPED THIS FIRING EARLY. All are fixed; each is
-// documented in full at the code it affects, and all three were silent - the app
-// simply behaved like an ordinary alarm.
-//   1. NO HEART-RATE DATA AT ALL. The only source was
-//      Activity.getActivityInfo().currentHeartRate, which is null outside an
-//      activity session. See "Sensor session" below.
-//   2. A FROZEN BASELINE. The staleness checks keyed off _samples.size(), which
-//      stops changing once the ring buffer fills. See _seq below.
-//   3. AN UNREACHABLE AWAKE THRESHOLD. A stress blend capped the score at 87
-//      while the awake threshold was 88. See lightness() and isAwake() below.
-//
-// HOW THIS VERSION WORKS
-// While Active Alarm Mode runs we sample your heart rate every tick (~15 s) into
-// a rolling buffer. Everything is judged RELATIVE TO YOUR OWN NIGHT:
-//   baseline = 20th percentile of samples  -> your deep-sleep floor
-//   ceiling  = 85th percentile of samples  -> your light/REM ceiling
-//   elevation   = how far recent HR sits between those two (0..1)
-//   variability = recent beat-to-beat change vs the night's typical change (0..1)
-//   score = 100 * (0.60*elevation + 0.40*variability)
-// Measured over simulated nights this separates deep sleep (~16) from light
-// sleep (~84). It does NOT separate light sleep from being awake - see isAwake().
-//
-// Firing uses PEAK DETECTION against a DECLINING bar: we track the best score of
-// the window and fire just after it starts falling (you have passed the lightest
-// point), but early in the window only an excellent peak qualifies. Near the
-// deadline we accept any decent moment. Measured over 80 nights with randomised
-// sleep-cycle phase, against 0.45 sleep-lightness for a plain alarm:
-//   30-min window -> 0.61 (14 min early)   45-min -> 0.63 (22 min early)
-//   60-min window -> 0.57 (31 min early)   75-min -> 0.54 (43 min early)
-// 45 minutes is the sweet spot, which is why it is the default: longer windows
-// force a decision earlier, when the cycle position is less predictable.
+// Early-wake heuristic using heart-rate trends and recent steps. This does not
+// read Garmin sleep stages or distinguish quiet wakefulness reliably.
+// A rolling buffer supplies a 20th-percentile baseline and 85th-percentile
+// ceiling. The score combines relative elevation (60%) with variability (40%).
+// Fresh awake evidence may trigger at window opening; otherwise a recent peak
+// and decline, or a qualifying late score, may trigger before the deadline.
 
 import Toybox.Activity;
 import Toybox.ActivityMonitor;
@@ -106,7 +79,7 @@ class SleepDetector {
         // The buffer is a 60-minute rolling window, so heart rate from three
         // minutes ago is still perfectly good evidence. Only a gap longer than
         // SESSION_RESUME_SECS means a genuinely new night.
-        var now = Time.now().value();
+        var now = AlarmClock.now().value();
         // A NEGATIVE gap means the clock moved backwards since we stamped it, so
         // the stamp belongs to a different epoch and tells us nothing. Treat it as
         // a real break and recalibrate rather than trusting a buffer we cannot
@@ -139,7 +112,7 @@ class SleepDetector {
     static function stopSensor() as Void {
         if (!_sessionOpen) { return; }
         _sessionOpen = false;
-        _closedAt = Time.now().value();
+        _closedAt = AlarmClock.now().value();
         try {
             // Passing null is the documented way to stop sensor callbacks.
             if (_listener != null) {
@@ -160,7 +133,7 @@ class SleepDetector {
     static function acceptHr(hr as Number) as Void {
         if (hr > HR_MIN && hr < 200) {
             _liveHr = hr;
-            _liveAt = Time.now().value();
+            _liveAt = AlarmClock.now().value();
         }
     }
 
@@ -230,7 +203,7 @@ class SleepDetector {
     }
 
     static function sample() as Void {
-        var now = Time.now().value();
+        var now = AlarmClock.now().value();
         try {
             var info = ActivityMonitor.getInfo();
             recordSteps(info.steps, now);
@@ -246,6 +219,10 @@ class SleepDetector {
     // when a scheduler first asks about wakefulness much later in the morning.
     static function recordHr(hr as Number?, now as Number) as Void {
         var gap = now - _sampleAt;
+        if (_sampleAt > 0 && (gap < 0 || gap > HR_STALE_SECS)) {
+            _awakeStreak = 0;
+            resetWindow();
+        }
         if (_sampleAt > 0 && (gap < 0 || gap > SESSION_RESUME_SECS)) {
             _samples = [];
             _nightFloor = 0.0;
@@ -276,7 +253,7 @@ class SleepDetector {
     }
 
     private static function fresh() as Boolean {
-        var age = Time.now().value() - _sampleAt;
+        var age = AlarmClock.now().value() - _sampleAt;
         return _hasCurrent && _sampleAt > 0 && age >= 0 && age <= HR_STALE_SECS;
     }
 
@@ -294,7 +271,7 @@ class SleepDetector {
     // all-day history, which survives taking the watch off, so without an age
     // check it reports a plausible number indefinitely.
     static function currentHr() as Number? {
-        var nowSecs = Time.now().value();
+        var nowSecs = AlarmClock.now().value();
 
         // 1. Live sensor callback (most accurate, only while the session is open).
         var liveAge = nowSecs - _liveAt;
@@ -372,7 +349,7 @@ class SleepDetector {
     static function probe() as Void {
         startSensor();
         var hr = currentHr();
-        var now = Time.now().value();
+        var now = AlarmClock.now().value();
         if (hr == null) {
             _probeSamples = [];      // a gap breaks the run; start again
             return;
@@ -433,7 +410,7 @@ class SleepDetector {
         // Stamp the CONCLUSION, whatever it was. Without this a failed check has
         // _probeAt == 0, which reads as infinitely old and would re-probe on every
         // single tick.
-        _probeAt = Time.now().value();
+        _probeAt = AlarmClock.now().value();
         stopSensor();
     }
     static function probeHr() as Number { return _probeHr; }
@@ -484,7 +461,7 @@ class SleepDetector {
                 if (iter != null) {
                     var s = iter.next();
                     if (s != null && s.data != null && s.when != null) {
-                        var age = Time.now().value() - s.when.value();
+                        var age = AlarmClock.now().value() - s.when.value();
                         var value = s.data as Number;
                         if (age >= 0 && age <= HR_HISTORY_MAX_AGE_SECS && value >= 0) {
                             return clamp(value, 0, 100);
@@ -543,7 +520,7 @@ class SleepDetector {
         var elevation = (recentMean - base) / span;
         elevation = clampF(elevation, 0.0, 1.0);
 
-        // Variability: recent beat-to-beat change vs the night's typical change.
+        // Variability: recent sample-to-sample change vs the night's typical change.
         var dRecent = meanAbsDiff(_samples, n - rn, n);
         var dAll    = meanAbsDiff(_samples, 0, n);
         if (dAll < 0.01) { dAll = 0.01; }
@@ -589,21 +566,8 @@ class SleepDetector {
             _bestSeq = _seq;
         }
 
-        // Just past a peak: we were in light sleep and are now sliding back down.
-        //
-        // The bar is DECLINING, not fixed, and the peak path is disabled for the
-        // first PEAK_MIN_PROGRESS of the window. With a fixed bar of 70 the very
-        // first peak almost always qualified, so the alarm fired within a couple
-        // of minutes of the window opening - a 45-minute window rang 42 minutes
-        // early every night, which is not a smart alarm, just an early one.
-        //
-        // This is an optimal-stopping problem: early on we should hold out for an
-        // excellent moment, and grow less fussy as the deadline approaches. The
-        // bar starts at PEAK_BAR_EARLY and falls linearly to PEAK_BAR at the set
-        // time. Measured over 80 simulated nights with randomised sleep-cycle
-        // phase, a 45-minute window wakes ~22 min early at a sleep-lightness of
-        // 0.63, against 0.45 for a plain alarm - a real improvement that still
-        // leaves half the window unspent.
+        // Require a recent peak and decline. The threshold decreases toward
+        // the deadline, while the current score must remain at least LATE_BAR.
         if (progress >= PEAK_MIN_PROGRESS) {
             var bar = PEAK_BAR + (PEAK_BAR_EARLY - PEAK_BAR) * (1.0 - progress);
             if (_best >= bar && s >= LATE_BAR && s <= _best - PEAK_DROP) { return true; }
@@ -647,7 +611,7 @@ class SleepDetector {
     // counts VM instructions and terminates the app if a callback runs too long,
     // so that was a standing crash risk. This version is O(n + range): one pass
     // to bucket the samples and one pass over ~176 buckets, roughly 60x cheaper,
-    // and it allocates nothing per call.
+    // with one bounded temporary array per call.
     private static function recomputeBounds() as Void {
         var n = _samples.size();
         if (n == 0) { return; }
@@ -701,23 +665,8 @@ class SleepDetector {
         return v;
     }
 
-    // True when the user is clearly awake.
-    //
-    // This deliberately does NOT use lightness(). That score is normalised
-    // against a rolling 60-minute buffer, so during a long light-sleep stretch
-    // the recent mean sits at the top of its own distribution and scores ~84 -
-    // statistically indistinguishable from genuinely awake (~90). Simulation over
-    // 40 nights showed no threshold on that score can separate the two, and using
-    // one made the alarm fire the moment the window opened.
-    //
-    // Instead we compare recent heart rate against the night's FLOOR - the lowest
-    // deep-sleep baseline seen since sampling began. That is a long-horizon
-    // reference, so it separates the states cleanly (measured medians):
-    //     deep 1.02   light 1.20   REM 1.30   awake 1.50
-    // A ratio of 1.40 held for AWAKE_CONFIRM_TICKS samples (~1 min) caught 85% of
-    // awake time with zero false positives on REM or light sleep. The persistence
-    // requirement is what rejects brief arousals, which are a normal part of
-    // sleep and must not trigger the alarm.
+    // Awake evidence uses sustained elevation relative to the session floor.
+    // These thresholds are heuristics, not measured sleep-stage accuracy.
     private static var _awakeStreak as Number = 0;
     private static var _nightFloor as Float = 0.0;
 
@@ -732,7 +681,7 @@ class SleepDetector {
     private static var _awakeCacheSeq as Number = -1;
 
     static function isAwake() as Boolean {
-        var walkAge = Time.now().value() - _walkAt;
+        var walkAge = AlarmClock.now().value() - _walkAt;
         if (_walkAt > 0 && walkAge >= 0 && walkAge <= WALK_WINDOW_SECS) { return true; }
         if (!fresh()) { return false; }
         if (_awakeCacheSeq == _seq) { return _awakeCache; }

@@ -25,6 +25,8 @@ for jungle, name, extra in [('monkey.jungle', 'smartalarm', ['-r']), ('tests.jun
                     '-y', str(key), '-d', 'fr265s', '-w', *extra], cwd=ROOT, check=True)
 subprocess.run([str(sdk / 'bin/connectiq')], check=True)
 runs = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+expected = sum(len(re.findall(r'\(:test\)\s*function\s+', path.read_text()))
+               for path in (ROOT / 'tests').glob('*.mc'))
 if runs < 1:
     raise SystemExit('At least one run is required')
 for run in range(1, runs + 1):
@@ -42,6 +44,6 @@ for run in range(1, runs + 1):
     # SDK 9.2 monkeydo exits 1 even on success. Require the full result footer,
     # positive test count and zero failures/errors; a crash or empty run fails.
     match = re.search(r'PASSED \(passed=(\d+), failed=0, errors=0\)', result.stdout)
-    if not match or int(match[1]) != 15:
+    if not match or int(match[1]) != expected or expected == 0:
         raise SystemExit(f'Simulator regression run {run} failed or was incomplete')
-print(f'PASS: release build and {runs} simulator run(s), 15 tests per run')
+print(f'PASS: release build and {runs} simulator run(s), {expected} tests per run')
