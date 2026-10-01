@@ -106,6 +106,7 @@ class BedsideView extends WatchUi.View {
                 _probeTicks = 1;
             }
         }
+        if (AlarmStore.ringingId() != null) { showRinging(); return; }
         startTimer(intervalFor(AlarmEngine.secsUntilNextTarget(Time.now().value())));
     }
 
@@ -534,6 +535,7 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
         var next = AlarmEngine.governingAlarm(Time.now().value());
         if (next != null && AlarmStore.passcodeOn(next)) {
             var pv = new PasscodeView(PC_MODE_ENTER, method(:finishLeave));
+            pv.guardAlarms = true;
             WatchUi.pushView(pv, new PasscodeDelegate(pv), WatchUi.SLIDE_UP);
             return;
         }

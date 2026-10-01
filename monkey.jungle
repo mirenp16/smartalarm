@@ -7,3 +7,6 @@ base.resourcePath = resources
 # Forerunner 265S target
 fr265s.sourcePath = $(base.sourcePath)
 fr265s.resourcePath = $(base.resourcePath)
+
+# Test setup helpers are never shipped on the watch.
+base.excludeAnnotations = testSupport

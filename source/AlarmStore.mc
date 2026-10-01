@@ -49,7 +49,7 @@ class AlarmStore {
     static function dayContext(nowSecs as Number) as Array<Number> {
         var minute = nowSecs / 60;
         if (minute != _ctxMinute) {
-            var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+            var info = Gregorian.info(new Time.Moment(nowSecs), Time.FORMAT_SHORT);
             _ctxMidnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
             _ctxDow = info.day_of_week - 1;     // Gregorian: 1=Sun -> 0=Sun
             _ctxMinute = minute;
@@ -351,7 +351,7 @@ class AlarmStore {
         var all = getDayState();
         var key = alarmId.toString();
         var s = all.get(key);
-        if (s == null) { return { "f" => false, "p" => false, "s" => 0 }; }
+        if (s == null) { return { "f" => false, "s" => 0 }; }
         return s as Dictionary;
     }
 
@@ -437,22 +437,11 @@ class AlarmStore {
     static function clearFired(alarmId as Number) as Void {
         var s = stateFor(alarmId);
         s.put("f", false);
-        s.put("p", false);
-        setStateFor(alarmId, s);
-    }
-
-    static function markPlainFire(alarmId as Number) as Void {
-        var s = stateFor(alarmId);
-        s.put("p", true);
         setStateFor(alarmId, s);
     }
 
     static function hasFired(alarmId as Number) as Boolean {
         return _b(stateFor(alarmId), "f", false);
-    }
-
-    static function isPlainFire(alarmId as Number) as Boolean {
-        return _b(stateFor(alarmId), "p", false);
     }
 
     static function snoozeCount(alarmId as Number) as Number {

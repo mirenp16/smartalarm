@@ -19,6 +19,8 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.WatchUi;
+import Toybox.Timer;
+import Toybox.Time;
 
 const PC_MODE_ENTER = 0;
 const PC_MODE_SET   = 1;
@@ -40,12 +42,45 @@ class PasscodeView extends WatchUi.View {
     private var _cx as Number = 180;
     private var _cy as Number = 180;
 
+    public var guardAlarms as Boolean = false;
+    private var _guardTimer as Timer.Timer?;
+
     public var onOk as Method?;   // run by the delegate AFTER this view closes
 
     function initialize(mode as Number, callback as Method?) {
         View.initialize();
         _mode = mode;
         onOk = callback;
+    }
+
+    // An exit prompt must not silently disarm Active Alarm Mode. When an
+    // alarm becomes due, abandon this exit attempt and return to the alarm view.
+    function onShow() as Void {
+        if (guardAlarms && _guardTimer == null) {
+            _guardTimer = new Timer.Timer();
+            _guardTimer.start(method(:checkAlarms), TICK_FAST_MS, true);
+        }
+    }
+
+    function onHide() as Void {
+        if (_guardTimer != null) { _guardTimer.stop(); _guardTimer = null; }
+        if (guardAlarms) { SleepDetector.stopSensor(); }
+    }
+
+    function checkAlarms() as Void {
+        var now = Time.now().value();
+        try {
+            if (AlarmEngine.shouldSampleAt(AlarmEngine.secsUntilNextTarget(now))) {
+                SleepDetector.startSensor();
+                SleepDetector.sample();
+            }
+        } catch (e) { }
+        var id = AlarmEngine.evaluate(now);
+        if (id >= 0) {
+            AlarmStore.beginRing(id);
+            onOk = null;
+            WatchUi.popView(WatchUi.SLIDE_DOWN);
+        }
     }
 
     function onLayout(dc as Graphics.Dc) as Void {

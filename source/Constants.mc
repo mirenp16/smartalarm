@@ -93,9 +93,7 @@ const HR_RANGE = 176;   // covers 25-200 bpm
 // the heart-rate sensor. Outside that span the app just watches the clock, which
 // is most of the night - this is the single biggest battery saving.
 const MAX_WINDOW_MINS  = 75;
-// Must cover AWAKE_CHECK_LEAD (15) plus the detector's ~10 min warm-up, or the
-// "are you already awake?" check runs before enough samples exist and can never
-// trigger. 30 leaves a safe margin.
+// Start early enough to establish a resting baseline before the wake window.
 const SAMPLE_LEAD_MINS = 30;
 
 // Timer cadence. We only need 15 s precision near the alarm; the rest of the
@@ -118,8 +116,9 @@ const AWAKE_HR_RATIO = 1.40;
 // Consecutive samples (~15 s each) the awake reading must hold before we act on
 // it, so a brief arousal doesn't trigger a false early alarm. 4 = about a minute.
 const AWAKE_CONFIRM_TICKS = 4;
-// How many minutes before the window opens we do the "are you already awake?" check.
-const AWAKE_CHECK_LEAD = 15;
+// At least 12 new steps within three minutes count as recent walking.
+const WALK_MIN_STEPS = 12;
+const WALK_WINDOW_SECS = 180;
 // The bedtime heart-rate check runs on its OWN cadence, much faster than the
 // alarm tick.
 //

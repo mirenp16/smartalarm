@@ -34,8 +34,8 @@
 // force a decision earlier, when the cycle position is less predictable.
 
 import Toybox.Activity;
+import Toybox.ActivityMonitor;
 import Toybox.Lang;
-import Toybox.Math;
 import Toybox.Sensor;
 import Toybox.SensorHistory;
 import Toybox.Time;
@@ -61,6 +61,7 @@ class SleepDetector {
     private static var _samples as Array<Number> = [];   // HR samples, oldest first
     private static var _best as Number = -1;   // best score seen this window
     private static var _armed as Boolean = false;
+    private static var _bestSeq as Number = 0;
 
     // ── Sensor session ───────────────────────────────────────────────────────
     //
@@ -80,22 +81,12 @@ class SleepDetector {
     //
     // The fix is to open a real sensor session while a wake window is
     // approaching, and to read from several sources rather than trusting one.
-    private static var _sensorOn as Boolean = false;
     private static var _listener as HrListener? = null;
     private static var _liveHr as Number = 0;      // most recent callback value
     private static var _liveAt as Number = 0;      // epoch secs it arrived
 
-    // Tracks that a sampling session is open, INDEPENDENTLY of whether the sensor
-    // API accepted us. These must be two separate flags.
-    //
-    // With a single flag the failure mode is severe and silent: if the Sensor
-    // calls throw, _sensorOn stays false, so the next tick calls startSensor()
-    // again - and the buffer reset below runs again. The buffer would be wiped
-    // every 15 seconds, never reach MIN_HR_SAMPLES, and smart wake would never
-    // fire, on exactly the devices where the sensor API is flaky. The session
-    // flag is set unconditionally so the reset happens once per session whether
-    // or not the hardware cooperated; the polling fallbacks in currentHr() can
-    // still supply data.
+    // Mark the session open even if sensor registration fails: retrying the
+    // session reset on every tick would erase data supplied by polling fallbacks.
     private static var _sessionOpen as Boolean = false;
     private static var _closedAt as Number = 0;    // when the session last closed
 
@@ -124,20 +115,7 @@ class SleepDetector {
         var gap = now - _closedAt;
         var resuming = (_closedAt > 0) && (gap >= 0) && (gap <= SESSION_RESUME_SECS);
         if (!resuming) {
-            _nightFloor = 0.0;
-            _samples = [];
-            _seq = 0;
-            _lastCalc = -9999;
-            _lightCacheN = -1;
-            _boundsValid = false;
-            _awakeStreak = 0;
-            _awakeCacheSeq = -1;
-            _best = -1;
-            _armed = false;
-            _liveHr = 0;
-            _liveAt = 0;
-            _probeSamples = [];
-            _probeSampleAt = 0;
+            resetSession();
         }
 
         try {
@@ -151,9 +129,8 @@ class SleepDetector {
                 _listener = new HrListener();
                 Sensor.enableSensorEvents((_listener as HrListener).method(:onSensor));
             }
-            _sensorOn = true;
         } catch (e) {
-            _sensorOn = false;   // fall back to polling the other sources
+            // Polling remains available if sensor registration fails.
         }
     }
 
@@ -163,24 +140,20 @@ class SleepDetector {
         if (!_sessionOpen) { return; }
         _sessionOpen = false;
         _closedAt = Time.now().value();
-        if (_sensorOn) {
-            try {
-                // Toybox.Sensor has NO disableSensorEvents(). Passing null to
-                // enableSensorEvents is the documented way to stop delivery.
-                // The earlier `has :disableSensorEvents` guard silently evaluated
-                // false forever, so the sensor was never released and kept
-                // draining the battery for the rest of the night - a warning the
-                // compiler did report, and worth heeding.
-                if (_listener != null) {
-                    Sensor.enableSensorEvents(null);
-                    _listener = null;
-                }
-                if (Sensor has :setEnabledSensors) { Sensor.setEnabledSensors([]); }
-            } catch (e) {
+        try {
+            // Passing null is the documented way to stop sensor callbacks.
+            if (_listener != null) {
+                Sensor.enableSensorEvents(null);
+                _listener = null;
             }
+        } catch (e) {
         }
+        // Registration may have partially succeeded before throwing. Release
+        // enabled sensors even if listener cleanup failed independently.
+        try {
+            if (Sensor has :setEnabledSensors) { Sensor.setEnabledSensors([]); }
+        } catch (e2) { }
         _listener = null;
-        _sensorOn = false;
     }
 
     // Called from the sensor callback.
@@ -204,16 +177,112 @@ class SleepDetector {
     // changing for the entire window.
     private static var _seq as Number = 0;
 
-    // Called every tick from Active Alarm Mode while a window is approaching.
+    private static var _sampleAt as Number = 0;
+    private static var _hasCurrent as Boolean = false;
+    private static var _stepBase as Number = -1;
+    private static var _stepAt as Number = 0;
+    private static var _walkAt as Number = 0;
+
+    private static function resetSession() as Void {
+        _nightFloor = 0.0;
+        _samples = [];
+        _seq = 0;
+        _sampleAt = 0;
+        _hasCurrent = false;
+        _lastCalc = -9999;
+        _lightCacheN = -1;
+        _boundsValid = false;
+        _awakeStreak = 0;
+        _awakeCacheSeq = -1;
+        _awakeCache = false;
+        _best = -1;
+        _armed = false;
+        _liveHr = 0;
+        _liveAt = 0;
+        _probeSamples = [];
+        _probeSampleAt = 0;
+        _stepBase = -1;
+        _stepAt = 0;
+        _walkAt = 0;
+    }
+
+    // Steps are a conservative additional signal for getting out of bed. A
+    // single wrist movement is not enough. Counter resets (midnight) and gaps
+    // start a new observation period rather than crediting old activity.
+    static function recordSteps(steps as Number?, now as Number) as Void {
+        if (steps == null || steps < 0) {
+            _stepBase = -1;
+            _walkAt = 0;
+            return;
+        }
+        var age = now - _stepAt;
+        if (_stepBase < 0 || steps < _stepBase || age < 0 || age > WALK_WINDOW_SECS) {
+            if (age < 0 || steps < _stepBase) { _walkAt = 0; }
+            _stepBase = steps;
+            _stepAt = now;
+            return;
+        }
+        if (steps - _stepBase >= WALK_MIN_STEPS) {
+            _walkAt = now;
+            _stepBase = steps;
+            _stepAt = now;
+        }
+    }
+
     static function sample() as Void {
-        var hr = currentHr();
-        if (hr == null) { return; }
+        var now = Time.now().value();
+        try {
+            var info = ActivityMonitor.getInfo();
+            recordSteps(info.steps, now);
+        } catch (e) {
+            recordSteps(null, now);
+        }
+        recordHr(currentHr(), now);
+    }
+
+    // Keep a missing sample from reusing a previous awake result or old peak.
+    // Recalibrate after long gaps; brief gaps retain the baseline, but break the
+    // consecutive awake streak. Calibrate from the FIRST ten minutes, not only
+    // when a scheduler first asks about wakefulness much later in the morning.
+    static function recordHr(hr as Number?, now as Number) as Void {
+        var gap = now - _sampleAt;
+        if (_sampleAt > 0 && (gap < 0 || gap > SESSION_RESUME_SECS)) {
+            _samples = [];
+            _nightFloor = 0.0;
+            _boundsValid = false;
+            _lastCalc = -9999;
+            _awakeStreak = 0;
+            resetWindow();
+        }
+        _seq++;
+        _lightCacheN = -1;
+        _awakeCacheSeq = -1;
+        if (hr == null || hr <= HR_MIN || hr >= 200) {
+            _hasCurrent = false;
+            _awakeStreak = 0;
+            _awakeCache = false;
+            resetWindow();
+            return;
+        }
+        _sampleAt = now;
+        _hasCurrent = true;
         _samples.add(hr);
         if (_samples.size() > MAX_HR_SAMPLES) {
             _samples = _samples.slice(_samples.size() - MAX_HR_SAMPLES, null);
         }
-        _seq++;
+        // Update once per sample, independently of the number of enabled alarms.
+        _awakeCache = computeAwake();
+        _awakeCacheSeq = _seq;
     }
+
+    private static function fresh() as Boolean {
+        var age = Time.now().value() - _sampleAt;
+        return _hasCurrent && _sampleAt > 0 && age >= 0 && age <= HR_STALE_SECS;
+    }
+
+    // Test-only setup: absent from release builds. Decisions use production code.
+    (:testSupport)
+    static function resetForTest() as Void { resetSession(); }
 
     // Four sources, best first. Any one of them working is enough, so a device
     // or firmware that withholds one still gets a usable signal.
@@ -402,9 +471,9 @@ class SleepDetector {
     static function sampleCount() as Number { return _samples.size(); }
     static function lastHr() as Number {
         var n = _samples.size();
-        return (n > 0) ? _samples[n - 1] : 0;
+        return (n > 0 && fresh()) ? _samples[n - 1] : 0;
     }
-    static function ready() as Boolean { return _samples.size() >= MIN_HR_SAMPLES; }
+    static function ready() as Boolean { return fresh() && _samples.size() >= MIN_HR_SAMPLES; }
 
     // Optional secondary signal: Garmin's stress value (derived from HRV).
     // Higher stress generally tracks lighter sleep. Returns 0..100 or -1.
@@ -414,8 +483,12 @@ class SleepDetector {
                 var iter = SensorHistory.getStressHistory({:period => 1});
                 if (iter != null) {
                     var s = iter.next();
-                    if (s != null && s.data != null) {
-                        return clamp((s.data as Number), 0, 100);
+                    if (s != null && s.data != null && s.when != null) {
+                        var age = Time.now().value() - s.when.value();
+                        var value = s.data as Number;
+                        if (age >= 0 && age <= HR_HISTORY_MAX_AGE_SECS && value >= 0) {
+                            return clamp(value, 0, 100);
+                        }
                     }
                 }
             }
@@ -449,7 +522,7 @@ class SleepDetector {
     // 0-100 lightness, or -1 when there isn't enough data yet.
     static function lightness() as Number {
         var n = _samples.size();
-        if (n < MIN_HR_SAMPLES) { return -1; }
+        if (!fresh() || n < MIN_HR_SAMPLES) { return -1; }
         if (_lightCacheN == _seq) { return _lightCache; }
 
         if (!_boundsValid || (_seq - _lastCalc) >= RECALC_EVERY) {
@@ -509,7 +582,12 @@ class SleepDetector {
         if (s < 0) { return false; }          // not enough data yet
 
         _armed = true;
-        if (s > _best) { _best = s; }
+        // A peak from much earlier in the window cannot justify waking during
+        // deep sleep now. Expire it after three minutes of sensor samples.
+        if (s >= _best || _seq - _bestSeq > RECENT_SAMPLES) {
+            _best = s;
+            _bestSeq = _seq;
+        }
 
         // Just past a peak: we were in light sleep and are now sliding back down.
         //
@@ -528,7 +606,7 @@ class SleepDetector {
         // leaves half the window unspent.
         if (progress >= PEAK_MIN_PROGRESS) {
             var bar = PEAK_BAR + (PEAK_BAR_EARLY - PEAK_BAR) * (1.0 - progress);
-            if (_best >= bar && s <= _best - PEAK_DROP) { return true; }
+            if (_best >= bar && s >= LATE_BAR && s <= _best - PEAK_DROP) { return true; }
         }
 
         // Near the deadline, take any reasonably light moment we can still get.
@@ -546,11 +624,7 @@ class SleepDetector {
             _armed = false;
             _boundsValid = false;
         }
-        _awakeStreak = 0;
         _lightCacheN = -1;
-        // Must also drop the awake memo, or a value computed before the reset
-        // could be returned afterwards within the same tick.
-        _awakeCacheSeq = -1;
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────
@@ -658,6 +732,9 @@ class SleepDetector {
     private static var _awakeCacheSeq as Number = -1;
 
     static function isAwake() as Boolean {
+        var walkAge = Time.now().value() - _walkAt;
+        if (_walkAt > 0 && walkAge >= 0 && walkAge <= WALK_WINDOW_SECS) { return true; }
+        if (!fresh()) { return false; }
         if (_awakeCacheSeq == _seq) { return _awakeCache; }
         _awakeCacheSeq = _seq;
         _awakeCache = computeAwake();

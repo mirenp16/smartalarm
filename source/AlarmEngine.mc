@@ -1,6 +1,6 @@
 // AlarmEngine.mc
 // The shared scheduling brain. Given the current time, it decides which alarm (if
-// any) should fire right now, and updates per-day state (awake-downgrade, missed,
+// any) should fire right now, and updates per-day state (missed,
 // one-time retirement) along the way.
 //
 // evaluate() is the single source of truth for "should something ring right now?".
@@ -18,7 +18,7 @@ class AlarmEngine {
     static function evaluate(nowSecs as Number) as Number {
         AlarmStore.resetIfNewDay();
 
-        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var info = Gregorian.info(new Time.Moment(nowSecs), Time.FORMAT_SHORT);
         var todayBit = 1 << (info.day_of_week - 1);
         var midnight = nowSecs - (info.hour * 3600 + info.min * 60 + info.sec);
         var graceSecs = FIRE_GRACE_MINS * 60;
@@ -35,29 +35,7 @@ class AlarmEngine {
             }
         }
 
-        // Whether ANY alarm still NEEDS the detector's accumulated state.
-        //
-        // The detector is a singleton holding one window's peak and one awake
-        // streak, but this loop visits every enabled alarm. resetWindow() used to
-        // be called from inside the loop by every alarm that was NOT in its
-        // window - including alarms days away. With two alarms enabled (a weekday
-        // one and a weekend one, say), the far-off alarm wiped _best on every
-        // single tick, so "score has fallen PEAK_DROP below its peak" could never
-        // become true and peak detection was dead. Measured over 40 nights:
-        // average wake lead collapsed from 21.4 min with one alarm to 4.4 min
-        // with two, leaving only the last-10%-of-window fallback.
-        //
-        // The reset is therefore deferred until the whole list has been examined.
-        //
-        // It is "needs the detector", NOT "is inside a window", and the
-        // difference is not cosmetic - it was a second, quieter version of the
-        // same bug. The pre-window awake check below runs in the fifteen minutes
-        // BEFORE a window opens, and it needs a streak of consecutive awake
-        // readings to build up. That branch left this flag false, so resetWindow()
-        // ran at the end of every tick and zeroed the streak, which could
-        // therefore never reach AWAKE_CONFIRM_TICKS. The downgrade it guards was
-        // unreachable for the life of the app. Naming the flag after the window
-        // rather than after what it protects is what let that hide in plain sight.
+        // Keep peak history while any alarm is inside its wake window.
         var detectorNeeded = false;
 
         var list = AlarmStore.getAlarms();
@@ -89,34 +67,10 @@ class AlarmEngine {
                 continue;
             }
 
-            // Already-awake alarms (downgraded) fire exactly on time.
-            if (AlarmStore.isPlainFire(aid)) {
-                if (nowSecs >= targetSecs) { return aid; }
-                continue;
-            }
-
-            // Sleep alarm: smart wake within the window.
+            // Awake evidence is accumulated during sampling, including before
+            // the window. Never downgrade an already-awake user to a later alarm.
             var winSecs = AlarmStore.window(a) * 60;
             var windowStartSecs = targetSecs - winSecs;
-            var awakeCheckSecs = windowStartSecs - AWAKE_CHECK_LEAD * 60;
-
-            // Approaching the window: are you ALREADY up?
-            //
-            // If so the alarm is downgraded to a plain one and rings exactly at
-            // its set time. Waking you gently is pointless when you are not
-            // asleep, and firing the moment the window opens - which is what
-            // happens without this - can be three quarters of an hour early. Get
-            // up at 05:10 for a 06:00 alarm with a 45-minute window and the
-            // in-window check would ring it at 05:16.
-            //
-            // The flag MUST be set here. isAwake() only reports true after
-            // AWAKE_CONFIRM_TICKS consecutive readings, and that streak lives in
-            // the detector state that resetWindow() clears.
-            if (nowSecs >= awakeCheckSecs && nowSecs < windowStartSecs) {
-                detectorNeeded = true;
-                if (SleepDetector.isAwake()) { AlarmStore.markPlainFire(aid); }
-                continue;
-            }
 
             if (nowSecs >= windowStartSecs) {
                 detectorNeeded = true;
@@ -142,7 +96,7 @@ class AlarmEngine {
             }
         }
 
-        // Nothing is using the detector, so its peak and awake streak belong to
+        // Nothing is using the detector, so its peak belongs to
         // no alarm and are dropped. Deferred to here so one alarm cannot clear
         // the state another is still accumulating.
         if (!detectorNeeded) { SleepDetector.resetWindow(); }
