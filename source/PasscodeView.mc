@@ -72,6 +72,8 @@ class PasscodeView extends WatchUi.View {
             if (AlarmEngine.shouldSampleAt(AlarmEngine.secsUntilNextTarget(now))) {
                 SleepDetector.startSensor();
                 SleepDetector.sample();
+            } else {
+                SleepDetector.stopSensor();
             }
         } catch (e) { }
         var id = AlarmEngine.evaluate(now);

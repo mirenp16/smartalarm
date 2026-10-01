@@ -259,7 +259,10 @@ class AlarmStore {
     }
     static function clearStaleRing() as Void {
         var start = ringStart();
-        if (start == null || AlarmClock.now().value()-start > FIRE_GRACE_MINS*60) { setRinging(null); }
+        var aid = ringingId();
+        var age = (start != null) ? AlarmClock.now().value()-start : -1;
+        if (aid == null || start == null || age < 0 || age > FIRE_GRACE_MINS*60
+            || findById(aid)[1] == null) { setRinging(null); }
     }
     static function snoozeUntil() as Number? { return Application.Storage.getValue(KEY_SNOOZE_UNTIL); }
     static function snoozedAlarmId() as Number? { return Application.Storage.getValue(KEY_SNOOZE_ID); }
@@ -283,6 +286,19 @@ class AlarmStore {
     }
     static function clearSessionState() as Void {
         clearSnooze(); setRinging(null); AlarmEngine.resetClock();
+    }
+    // Reentering after an interruption must retain a pending one-time snooze.
+    // Retire old recovery state so yesterday's session cannot ring tonight.
+    static function startActiveSession() as Void {
+        ensureState();
+        clearStaleRing();
+        if (validSnoozeId() != null) {
+            var until = snoozeUntil();
+            if (until != null && AlarmClock.now().value()-until > FIRE_GRACE_MINS*60) {
+                clearSnooze();
+            }
+        }
+        AlarmEngine.resetClock();
     }
     static function disableById(aid as Number) as Void {
         var found = findById(aid);

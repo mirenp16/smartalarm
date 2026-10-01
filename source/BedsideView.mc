@@ -526,6 +526,9 @@ class BedsideDelegate extends WatchUi.BehaviorDelegate {
     // Active Alarm view (not the passcode view) and the exit actually sticks.
     function finishLeave() as Void {
         _view.stopTimer();
+        // An explicitly confirmed exit cancels this session; an app
+        // interruption preserves it for startActiveSession to recover.
+        AlarmStore.clearSessionState();
         MainListMenu.show(WatchUi.SLIDE_DOWN);
     }
 }

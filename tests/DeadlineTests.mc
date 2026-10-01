@@ -1,5 +1,61 @@
 import Toybox.Test;
 import Toybox.Lang;
+import Toybox.Application;
+
+(:test)
+function activeReentryPreservesOneTimeSnooze(logger as Test.Logger) as Boolean {
+    resetFixture();
+    var now=utc(2026,10,1,6,0);
+    AlarmClock.setTestTime(now,0);
+    var a=AlarmStore.newAlarm();
+    a.put("fireAt",now);
+    AlarmStore.addAlarm(a);
+    var id=AlarmStore.id(a);
+    Test.assert(AlarmEngine.evaluate(now) == id);
+    AlarmStore.beginRing(id);
+    AlarmStore.incSnooze(id);
+    AlarmStore.scheduleSnooze(id,now+300);
+    AlarmStore.setRinging(null);
+    AlarmStore.invalidate();
+    AlarmClock.setTestTime(now+60,0);
+    AlarmStore.startActiveSession();
+    Test.assert(!AlarmStore.isOn(AlarmStore.findById(id)[1]));
+    Test.assert(AlarmStore.validSnoozeId() == id);
+    Test.assert(AlarmStore.snoozeCount(id) == 1);
+    Test.assert(AlarmEngine.evaluate(now+60) == -1);
+    AlarmClock.setTestTime(now+300,0);
+    Test.assert(AlarmEngine.evaluate(now+300) == id);
+    AlarmStore.beginRing(id);
+    Test.assert(AlarmStore.snoozeCount(id) == 1);
+    return true;
+}
+
+(:test)
+function activeReentryRejectsOldOrInvalidRinging(logger as Test.Logger) as Boolean {
+    resetFixture();
+    var now=utc(2026,10,1,6,0);
+    AlarmClock.setTestTime(now,0);
+    var a=repeatAlarm(6,0,DAYS_ALL);
+    var id=AlarmStore.id(a);
+    AlarmStore.setRinging(id);
+    AlarmStore.startActiveSession();
+    Test.assert(AlarmStore.ringingId() == id);
+    AlarmStore.scheduleSnooze(id,now-901);
+    Application.Storage.setValue(KEY_RING_START,now-901);
+    AlarmStore.startActiveSession();
+    Test.assert(AlarmStore.ringingId() == null && AlarmStore.validSnoozeId() == null);
+    AlarmStore.setRinging(id);
+    Application.Storage.setValue(KEY_RING_START,now+1);
+    AlarmStore.startActiveSession();
+    Test.assert(AlarmStore.ringingId() == null);
+    AlarmStore.setRinging(9999);
+    AlarmStore.startActiveSession();
+    Test.assert(AlarmStore.ringingId() == null);
+    AlarmStore.scheduleSnooze(id,now+300);
+    AlarmStore.clearSessionState();
+    Test.assert(AlarmStore.validSnoozeId() == null);
+    return true;
+}
 
 (:test)
 function rearmAfterMidnightDoesNotCatchUpYesterday(logger as Test.Logger) as Boolean {

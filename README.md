@@ -20,6 +20,11 @@ is running. Leaving the app, a device shutdown, or a system gesture that closes
 it stops alarm evaluation. This is not a replacement for the watch's native
 alarm when a guaranteed wake-up is essential.
 
+After an interruption, reopen **Active Alarm Mode** to resume a pending snooze
+or recent ringing state. Recovery expires 15 minutes after the snooze deadline
+or ring start. Explicitly confirming an exit cancels pending ringing and snooze;
+saved alarm settings remain available for the next session.
+
 For a **6:00 am alarm with a 45-minute window**, the earliest allowed ring is
 **5:15 am**. If recent walking or sustained elevated heart rate already indicates
 wakefulness, it rings on the first evaluation at or after 5:15. Otherwise it
@@ -136,6 +141,10 @@ and sensor registration in
 - Prevented newly enabled repeating alarms from catching up yesterday's target
   just after midnight. Existing, unchanged alarms retain their recovery grace.
 - Corrected Next Alarm to show an earlier backup ahead of a later pending snooze.
+- Preserved pending one-time snoozes when reopening Active Alarm Mode after an
+  interruption, and discarded expired or invalid ringing state.
+- Released the sensor when the exit passcode prompt no longer needs sampling,
+  and refreshed repeat-selection labels after editing Custom Days.
 
 The exact cause of the reported September 24 firing at 5:38 am cannot be proven
 without device logs. These changes address reproducible logic defects; they do
@@ -168,13 +177,15 @@ python3 scripts/test.py 3
 ```
 
 The script builds release code and a test executable, starts the Garmin simulator,
-and runs 33 native Monkey C regression tests three times. `CIQ_SDK` can override
+and runs 35 native Monkey C regression tests three times. `CIQ_SDK` can override
 the SDK path. Generated files and logs go under `bin/validation/`; its generated
 signing key is for local validation, not your existing watch installation.
+The runner rejects changes to validation inputs during a run and writes
+`verification.json` with the input and compiled binary hashes after all runs pass.
 
 Tests exercise production code for pre-window wakefulness, walking, missing HR,
 warm-up and buffer bounds, peak expiry, deadlines for all four window sizes,
-snooze, deletion, repeat masks, passcodes, editing, midnight windows, daylight
+snooze recovery after reentry, deletion, repeat masks, passcodes, editing, midnight windows, daylight
 saving, time-zone changes, state migration, and the 20-alarm capacity. A timed
 synthetic replay checks baseline collection from 4:15, elevated HR from 4:36,
 and firing at 5:15 for a 6:00 alarm. The repeat test checks

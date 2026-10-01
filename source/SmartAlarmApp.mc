@@ -26,9 +26,6 @@ class SmartAlarmApp extends Application.AppBase {
         AlarmStore.clearStaleRing();
     }
 
-    function onStop(state as Dictionary?) as Void {
-    }
-
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
         var menu = new MainListMenu();
         return [menu, new MainListDelegate()];

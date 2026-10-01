@@ -2,6 +2,7 @@
 """Compile production Monkey C and run regression tests in Garmin's simulator."""
 import os
 import hashlib
+import json
 from pathlib import Path
 import re
 import shutil
@@ -10,10 +11,30 @@ import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+runs = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+if runs < 1:
+    raise SystemExit('At least one run is required')
+
+def validation_inputs():
+    paths = [ROOT / name for name in ('monkey.jungle', 'tests.jungle', 'manifest.xml', 'scripts/test.py')]
+    for folder in ('source', 'tests', 'resources'):
+        paths.extend(p for p in (ROOT / folder).rglob('*') if p.is_file())
+    return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
+
+inputs = validation_inputs()
+expected = sum(len(re.findall(r'\(:test\)\s*function\s+', path.read_text()))
+               for path in (ROOT / 'tests').glob('*.mc'))
+
+def require_unchanged_inputs():
+    if validation_inputs() != inputs:
+        raise SystemExit('Validation inputs changed during the run; rebuild and test again')
+
 config = Path.home() / 'Library/Application Support/Garmin/ConnectIQ/current-sdk.cfg'
 sdk = Path(os.environ['CIQ_SDK']) if 'CIQ_SDK' in os.environ else Path(config.read_text().strip())
 out = ROOT / 'bin' / 'validation'
 out.mkdir(parents=True, exist_ok=True)
+report = out / 'verification.json'
+report.unlink(missing_ok=True)
 key = out / 'test-key.der'
 if not key.exists():
     pem = out / 'test-key.pem'
@@ -35,11 +56,7 @@ shutil.copyfile(compiled, run_prg)
 debug = out / 'tests.prg.debug.xml'
 if debug.exists():
     shutil.copyfile(debug, Path(str(run_prg) + '.debug.xml'))
-runs = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-expected = sum(len(re.findall(r'\(:test\)\s*function\s+', path.read_text()))
-               for path in (ROOT / 'tests').glob('*.mc'))
-if runs < 1:
-    raise SystemExit('At least one run is required')
+require_unchanged_inputs()
 for run in range(1, runs + 1):
     # macOS open returns before the simulator starts listening. Retry only a
     # connection failure, never a test failure or an incomplete test execution.
@@ -57,4 +74,8 @@ for run in range(1, runs + 1):
     match = re.search(r'PASSED \(passed=(\d+), failed=0, errors=0\)', result.stdout)
     if not match or int(match[1]) != expected or expected == 0:
         raise SystemExit(f'Simulator regression run {run} failed or was incomplete')
+    require_unchanged_inputs()
+report.write_text(json.dumps({'status': 'passed', 'runs': runs, 'testsPerRun': expected,
+                             'inputs': inputs, 'testBinarySha256': hashlib.sha256(compiled.read_bytes()).hexdigest(),
+                             'releaseBinarySha256': hashlib.sha256((out / 'smartalarm.prg').read_bytes()).hexdigest()}, indent=2) + '\n')
 print(f'PASS: release build and {runs} simulator run(s), {expected} tests per run')

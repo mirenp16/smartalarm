@@ -41,6 +41,22 @@ class RepeatMenu extends WatchUi.Menu2 {
         addItem(new WatchUi.MenuItem(name,
             (current == mask) ? "Selected" : null, mask, null));
     }
+
+    // Custom Days edits the working alarm while this menu is covered.
+    // Refresh when it returns so the selection summary matches those edits.
+    function onShow() as Void {
+        var current = AlarmStore.days(alarm);
+        var presets = [DAYS_ONCE,DAYS_ALL,DAYS_4X10,DAYS_WEEKDAYS,DAYS_WEEKEND];
+        var custom = true;
+        for (var i=0;i<presets.size();i++) {
+            var selected = current == presets[i];
+            if (selected) { custom = false; }
+            var item = getItem(i);
+            if (item != null) { item.setSubLabel(selected ? "Selected" : null); }
+        }
+        var customItem = getItem(5);
+        if (customItem != null) { customItem.setSubLabel(custom ? Fmt.days(current) : "Pick days"); }
+    }
 }
 
 class RepeatMenuDelegate extends WatchUi.Menu2InputDelegate {
