@@ -1,174 +1,117 @@
 # Smart Alarm for Garmin Forerunner 265S
 
-A Connect IQ watch app with a configurable early wake window, snooze, and a
-passcode to dismiss an alarm. It estimates wake opportunities from heart rate
-and recent walking. It does **not** read Garmin Connect's recorded sleep stages
-or reliably identify whether a motionless person is awake.
+A Connect IQ app that looks for a wake opportunity before your alarm time using
+heart-rate trends and recent steps. It does not read Garmin Connect sleep stages
+or reliably distinguish quiet wakefulness from sleep.
 
-## Using the alarm
+## Set an alarm
 
-1. Select **Add Alarm**, choose the time, then configure and **Save** the alarm.
-2. Set Repeat, Sleep Cycle Window, Alert, Ringtone, Snooze Length, Max Snoozes,
-   and Passcode as needed. Existing alarms save with **Done** or BACK.
-3. At bedtime, open **Active Alarm Mode** and leave it running.
-4. Confirm that the heart-rate status shows a reading. Tracking starts within
-   105 minutes of the next target; `18/40` means it is warming up, and `ready`
-   means enough recent input has accumulated for scoring.
+1. Choose **Add Alarm**, set the time and options, then **Save**.
+2. For an existing alarm, change its settings and choose **Done** or press BACK
+   to save. Opening its settings alone does not rearm it.
+3. At bedtime, open **Active Alarm Mode** and leave the app running.
 
-Alarms are evaluated only while Active Alarm Mode or its exit passcode prompt
-is running. Leaving the app, a device shutdown, or a system gesture that closes
-it stops alarm evaluation. This is not a replacement for the watch's native
-alarm when a guaranteed wake-up is essential.
+**The app has no background alarm service.** Closing it or shutting down the
+watch stops alarm checks. Use a native Garmin backup alarm while validating it.
 
-After an interruption, reopen **Active Alarm Mode** to resume a pending snooze
-or recent ringing state. Recovery expires 15 minutes after the snooze deadline
-or ring start. Explicitly confirming an exit cancels pending ringing and snooze;
-saved alarm settings remain available for the next session.
+For a **6:00 am alarm with a 45-minute window**, early ringing is allowed from
+**5:15 am**. Recent walking, sustained elevated heart rate, or a qualifying sleep
+score can trigger it within that window. Otherwise, the initial ring is due at
+**6:00**, even without sensor data or a completed warm-up.
 
-For a **6:00 am alarm with a 45-minute window**, the earliest allowed ring is
-**5:15 am**. If recent walking or sustained elevated heart rate already indicates
-wakefulness, it rings on the first evaluation at or after 5:15. Otherwise it
-looks for a suitable score inside the window and falls back to the set time.
-The timer runs every 15 seconds near an alarm, so timing has up to one tick of
-normal scheduling delay; it is not exact to the second.
+Checks normally run every 15 seconds near the alarm, so ringing can be delayed
+by up to one normal timer tick. Snoozing starts a separate delay that can end
+after the original alarm time.
 
-**The set time is the deadline for the initial ring.** Missing heart-rate data,
-an unfinished warm-up, or a low sleep score does not postpone it. Choosing
-Snooze after the alarm rings starts a separate delay, which may end after the
-original deadline. The 15-minute grace period below is recovery for an
-interruption; the app does not deliberately wait until the end of that period.
+## Controls and settings
 
-### Controls and defaults
-
-| Setting or control | Behavior |
+| Setting or action | Options or behavior |
 |---|---|
-| Wake windows | 30, 45, 60, or 75 minutes; default 45 |
+| Sleep Cycle Window | 30, 45, 60, or 75 minutes; default 45 |
 | Repeat | Once, Daily, Mon–Thu (4x10), Weekdays, Weekend, or Custom |
-| Alert | Vibrate Only by default; Sound Only and Sound + Vibrate available |
-| Snooze | Default 5 minutes, at most 3 snoozes; maximum 0 disables snooze |
-| Alarm capacity | 20 saved alarms |
+| Alert | Vibrate Only (default), Sound Only, or Sound + Vibrate |
+| Snooze Length | 1, 3, 5, 10, or 15 minutes; default 5 |
+| Max Snoozes | 0, 1, 2, 3, 4, 5, or 10; default 3; 0 disables snooze |
+| Saved alarms | Up to 20 |
+| Snooze while ringing | Press START to reveal controls, then START again |
+| Dismiss or exit Active Alarm Mode | BACK then UP; enter the passcode if enabled |
+| Passcode entry | UP/DOWN changes a digit; START advances or submits |
 | Default passcode | `0000`; change it in Passcode Setup |
-| Recovery code | `1234`; displayed and prefilled after five wrong attempts |
-| While ringing | Any button reveals controls; START then snoozes |
-| Dismiss / exit Active Alarm Mode | BACK then UP; enter the passcode if enabled |
+| Recovery code | `1234`; shown and prefilled after five wrong attempts |
 
-Passcodes provide wake-up friction, not security. A nearby backup alarm keeps
-Active Alarm Mode open after dismissal if its target is within two hours.
-The exit passcode prompt continues checking alarms; an alarm becoming due
-interrupts that exit attempt and shows the ringing screen.
+Passcodes are enabled by default and provide wake-up friction, not security.
+The alarm keeps alerting during dismissal code entry. An exit code prompt also
+continues checking for due alarms. A backup alarm within two hours keeps Active
+Alarm Mode open after dismissal.
 
-### Sleeping longer after an early dismissal
+Preview your ringtone and verify sound and vibration on the watch before relying
+on them; device settings can affect alerts.
 
-A repeating alarm stays **ON** after dismissal for its future repeats. To use
-the remaining time this morning, reopen **Active Alarm Mode before the set time**.
-For example, dismissing a 6:00 alarm at 5:38 and reopening Active Alarm Mode
-rearms it for **6:00 today**. This rearmed occurrence waits for the set time,
-even if wake detection still says you are awake. Later occurrences retain the
-normal sleep-cycle window.
-Rearming at **5:59** likewise leaves one minute until the **6:00** deadline;
-there is no minimum lead time or new warm-up requirement for that deadline.
+## Sleep longer after an early dismissal
 
-Reopening at or after the set time does not rearm a completed occurrence.
-Pending snoozes and recent ringing resume normally. A spent Once alarm is OFF;
-turn its Status ON and save it before entering Active Alarm Mode again.
+A repeating alarm stays **ON** for future repeats after you dismiss it. To rearm
+today's dismissed alarm, reopen **Active Alarm Mode**:
 
-### Midnight and clock changes
+| When you reopen it for a dismissed 6:00 alarm | Result |
+|---|---|
+| Before 6:00, including 5:59 or 5:59:59 | Rearms for 6:00 today; no new warm-up required |
+| At or after 6:00 | Leaves that occurrence completed; waits for the next scheduled repeat |
 
-A wake window may start the previous evening: Thursday's 12:30 am alarm with
-a 45-minute window can ring from Wednesday at 11:45 pm. The app remembers the
-scheduled occurrence across midnight and restarts, so an early ring does not
-repeat at the deadline. Snooze counts also survive midnight.
+A rearmed occurrence waits for the set time even if awake readings remain.
+Later repeats use the normal sleep-cycle window. A pending snooze or recent
+ringing resumes instead of being rearmed.
 
-Once and repeating alarms follow the watch's local clock when its time-zone
-offset changes. A repeated hour does not ring an already-completed occurrence
-again. If active evaluation observes a forward offset change, alarms skipped
-by that change become due on the next check, with a 15-minute recovery period.
-Snooze remains an elapsed-time deadline when the time-zone offset changes.
+A Once alarm switches **OFF** when it first rings. To reuse it, turn Status ON
+and save, then open Active Alarm Mode. It schedules the next selected time and
+uses the normal sleep-cycle window.
 
-Countdowns use the current offset and may adjust when the watch changes it;
-the app does not predict future time-zone rules. Skipped-time recovery requires
-evaluation immediately before and after the change (no gap over two minutes).
-Only one alarm rings at a time; another due alarm remains eligible for 15 minutes
-after its target, or after an observed forward jump. Dismiss within that period
-to hear the queued alarm. Completing an occurrence suppresses duplicates for
-that local date even if you travel backward across time zones.
+## Interruptions and clock changes
 
-The calendar implementation uses Garmin's local and UTC conversions documented
-in [Time.Gregorian](https://developer.garmin.com/connect-iq/api-docs/Toybox/Time/Gregorian.html).
+After an interruption, reopen Active Alarm Mode. It can resume ringing within
+15 minutes of the ring start and a pending snooze up to 15 minutes after its
+deadline. Older recovery state is discarded. Confirming an exit cancels pending
+ringing and snooze, but keeps saved alarm settings.
 
-Sound depends on the watch's app alert-tone settings and Do Not Disturb.
-Preview a ringtone before relying on sound. A native Garmin alarm can behave
-differently from a Connect IQ app under the same device settings.
+Wake windows can cross midnight: a Thursday 12:30 am alarm with a 45-minute
+window can ring from Wednesday 11:45 pm. Dismissal normally completes that
+scheduled occurrence across midnight and restarts; explicit rearming before
+the target follows the rule above. Snooze counts survive midnight.
 
-## How wake detection works
+Alarms follow the watch's local time when its time-zone offset changes.
+Snoozes retain their elapsed-time deadline. Countdowns use the current offset;
+the app does not predict future daylight-saving or time-zone changes.
 
-Heart rate is sampled approximately every 15 seconds into a 240-reading buffer.
-After 40 accepted readings, the detector computes a relative score from the
-recent mean and variability. The baseline starts updating as soon as that
-warm-up completes, preserving the lowest observed baseline for wake detection.
+If active checks observe a forward offset change no more than two minutes apart,
+a skipped alarm can ring on the next check, with 15 minutes of recovery grace.
+Only one alarm rings at a time. Another due alarm remains eligible for 15 minutes
+after its target, or after an observed forward jump, and can expire while the
+first alarm is sounding.
 
-There are three early-wake paths, all gated by the configured window:
+## Heart-rate status and wake detection
 
-- **Sustained elevated heart rate:** the recent average is at least 1.4 times
-  the session floor for four consecutive accepted samples.
-- **Recent walking:** the daily step counter increases by at least 12 within
-  a three-minute observation period. That evidence expires after three minutes.
-  Missing counters, backward time, and counter resets invalidate evidence.
-- **A sleep-score opportunity:** after 30% of the window, a recent high score
-  drops by at least eight points while the current score remains at least 50.
-  Peaks expire after 12 subsequent samples. In the last 10% of the window,
-  a current score of at least 50 also qualifies.
+Regular sampling starts within 105 minutes of the next target. The status shows
+warm-up progress such as `18/40`; `ready` means enough fresh data is available,
+not that sleep detection is accurate. Outside that period, the app briefly
+checks heart rate rather than sampling continuously.
 
-The peak threshold declines from 94 toward 70 as the deadline approaches.
-Optional recent stress data may increase the score, but cannot lower it.
-No heart rate means no heart-rate-based early wake; recent walking may still
-qualify, and the deadline does not require sensor data.
+The detector keeps up to 240 readings and needs 40 accepted readings for scoring
+(about 10 minutes at the normal 15-second cadence). Early wake can use:
 
-These are heuristics, not validated sleep staging. Walking is an additional
-signal, not a guarantee of wakefulness. Quiet sitting, low awake heart rate,
-or waking before sampling starts can still evade detection. Walking long before
-the window is deliberately not remembered indefinitely, because you might
-return to sleep. The `ready` label confirms input availability, not accuracy.
+- At least 12 new steps within three minutes, with evidence expiring after
+  three minutes.
+- Sustained heart rate relative to the session's lowest baseline.
+- A recent peak and decline in the heart-rate-based score, or a qualifying
+  score near the end of the window. Recent stress data may raise the score.
 
-Garmin documents the nullable daily step counter in
-[ActivityMonitor.Info](https://developer.garmin.com/connect-iq/api-docs/Toybox/ActivityMonitor/Info.html)
-and sensor registration in
-[Toybox.Sensor](https://developer.garmin.com/connect-iq/api-docs/Toybox/Sensor.html).
-
-## September 2026 fixes
-
-- Removed the pre-window rule that postponed already-awake alarms to the set time.
-  Old stored downgrade flags are ignored; existing alarms are migrated automatically.
-- Established the heart-rate floor during warm-up instead of first calculating
-  it much later when the scheduler asked whether the user was awake.
-- Added recent walking as another wake signal.
-- Rejected missing/stale detector results and broke awake streaks on missing HR.
-  Long interruptions require a new warm-up.
-- Prevented an old high score from causing a later low-score wake.
-- Kept alarm evaluation active during the exit passcode prompt.
-- Released sensors after partial registration failures as well as normal sessions.
-- Fixed windows crossing midnight, snooze limits across midnight, and local-time
-  scheduling after daylight-saving or time-zone offset changes.
-- Kept overdue backup alarms active during their grace period and prioritized
-  the earliest eligible deadline when multiple alarms qualify.
-- Preserved an alarm's scheduled occurrence when only its label or other
-  non-scheduling settings change.
-- Prevented newly enabled repeating alarms from catching up yesterday's target
-  just after midnight. Existing, unchanged alarms retain their recovery grace.
-- Corrected Next Alarm to show an earlier backup ahead of a later pending snooze.
-- Preserved pending one-time snoozes when reopening Active Alarm Mode after an
-  interruption, and discarded expired or invalid ringing state.
-- Released the sensor when the exit passcode prompt no longer needs sampling,
-  and refreshed repeat-selection labels after editing Custom Days.
-
-The exact cause of the reported September 24 firing at 5:38 am cannot be proven
-without device logs. These changes address reproducible logic defects; they do
-not establish that Garmin's recorded wake time was available to this app.
+These are heuristics, not validated sleep staging. Quiet sitting, low awake
+heart rate, or waking before sampling starts can evade detection. Missing or
+stale heart-rate data prevents HR-based early wake, but does not delay the
+set-time deadline. Old walking evidence expires because you may return to sleep.
 
 ## Build and install
 
-Requires Java, Connect IQ SDK 9.x, and your Garmin developer signing key. The
-target in `manifest.xml` is `fr265s` (360 × 360).
+Tested with Java and Connect IQ SDK **9.2.0**, targeting `fr265s`. Build with your
+Garmin developer signing key:
 
 ```bash
 cd ~/Documents/GitHub/smartalarm
@@ -177,40 +120,26 @@ CIQ_SDK="$(cat "$HOME/Library/Application Support/Garmin/ConnectIQ/current-sdk.c
   -y /absolute/path/to/your/developer_key.der -o smartalarm.prg
 ```
 
-Use the signing key used for your existing installation. Replace the placeholder
-path above with that key's actual path. Copy the newly built `smartalarm.prg`
-to the connected watch's `GARMIN/APPS/` directory using your Garmin USB transfer
-workflow. Replacing the same app file updates it; do not delete unrelated apps
-or watch settings. Open Smart Alarm and verify the saved alarm settings after
-installation, then enter Active Alarm Mode again.
+Replace the key path with the key used for your existing installation. Transfer
+`smartalarm.prg` to the watch's `GARMIN/APPS/` folder using your Garmin USB
+transfer workflow. Replace this app's file; do not delete other apps or settings.
+After installing, check your saved alarm settings and reopen Active Alarm Mode.
 
-## Reproducible tests
+## Tests
 
 ```bash
 cd ~/Documents/GitHub/smartalarm
 python3 scripts/test.py 3
 ```
 
-The script builds release code and a test executable, starts the Garmin simulator,
-and runs 39 native Monkey C regression tests three times. `CIQ_SDK` can override
-the SDK path. Generated files and logs go under `bin/validation/`; its generated
-signing key is for local validation, not your existing watch installation.
-The runner rejects changes to validation inputs during a run and writes
-`verification.json` with the input and compiled binary hashes after all runs pass.
+This builds release and test executables and runs **39 native Monkey C tests**
+three times in the Garmin simulator. The runner uses the configured SDK, or
+`CIQ_SDK` if set. Generated logs, binaries, and `verification.json` go in
+`bin/validation/`. Its generated signing key is for local tests, not your existing
+watch installation.
 
-Tests exercise production code for pre-window wakefulness, walking, missing HR,
-warm-up and buffer bounds, peak expiry, deadlines for all four window sizes,
-snooze recovery and rearming after early dismissal, deletion, repeat masks,
-passcodes, editing, midnight windows, daylight
-saving, time-zone changes, state migration, and the 20-alarm capacity. A timed
-synthetic replay checks baseline collection from 4:15, elevated HR from 4:36,
-and firing at 5:15 for a 6:00 alarm. The repeat test checks
-all 127 nonempty masks across seven day offsets. Synthetic inputs do not prove
-sleep-stage accuracy or replace an overnight test on the real watch.
-
-See [review and verification notes](docs/review-2026-09.md) for coverage and
-remaining limitations. Earlier README assertion counts referred to tests absent
-from this checkout; they are not evidence for this version.
+See [verification notes](docs/review-2026-09.md) for coverage, evidence, and watch
+checks. Simulator tests do not replace an overnight test on your 265S.
 
 ## License
 
