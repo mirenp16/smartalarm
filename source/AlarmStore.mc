@@ -201,6 +201,9 @@ class AlarmStore {
         for (var i=0; i<done.size(); i++) { if (done[i] == key) { return true; } }
         return false;
     }
+    static function deadlineOnly(aid as Number, key as Number) as Boolean {
+        return stateFor(aid).get("rearmAt") == key;
+    }
     static function markOccurrence(aid as Number, key as Number) as Void {
         if (occurrenceDone(aid,key)) { return; }
         var s = stateFor(aid);
@@ -245,7 +248,7 @@ class AlarmStore {
             : AlarmClock.targetKey(AlarmClock.day(AlarmClock.now().value()),totalMinutes(a));
         if (!snooze) {
             markOccurrence(aid,key);
-            var s = stateFor(aid); s.put("s",0); setStateFor(aid,s);
+            var s = stateFor(aid); s.put("s",0); s.remove("rearmAt"); setStateFor(aid,s);
         }
         _pendingId = -1;
         setRinging(aid);
@@ -298,7 +301,35 @@ class AlarmStore {
                 clearSnooze();
             }
         }
+        rearmEarlyDismissed(AlarmClock.now().value());
         AlarmEngine.resetClock();
+    }
+    // Explicitly reopening Active Alarm Mode before a served repeat's target
+    // means "let me sleep until the set time". Keep other dates completed,
+    // and preserve recovery of a current ring or snooze instead of rearming it.
+    private static function rearmEarlyDismissed(now as Number) as Void {
+        var list = getAlarms();
+        var day = AlarmClock.day(now);
+        var wall = AlarmClock.wall(now);
+        var rid = ringingId();
+        var sid = validSnoozeId();
+        for (var i=0;i<list.size();i++) {
+            var a = list[i] as Dictionary;
+            var aid = id(a);
+            if (!isOn(a) || days(a) == 0 || aid == rid || aid == sid) { continue; }
+            // Tomorrow's occurrence may have rung before midnight.
+            for (var off=0;off<=1;off++) {
+                if ((days(a) & AlarmClock.dayBit(day+off)) == 0) { continue; }
+                var key = AlarmClock.targetKey(day+off,totalMinutes(a));
+                if (key <= wall || !occurrenceDone(aid,key)) { continue; }
+                var s = stateFor(aid);
+                var done = s.get("done") as Array;
+                var kept = [];
+                for (var j=0;j<done.size();j++) { if (done[j] != key) { kept.add(done[j]); } }
+                s.put("done",kept); s.put("s",0); s.put("rearmAt",key);
+                setStateFor(aid,s);
+            }
+        }
     }
     static function disableById(aid as Number) as Void {
         var found = findById(aid);

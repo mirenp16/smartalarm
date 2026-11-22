@@ -57,6 +57,21 @@ Active Alarm Mode open after dismissal if its target is within two hours.
 The exit passcode prompt continues checking alarms; an alarm becoming due
 interrupts that exit attempt and shows the ringing screen.
 
+### Sleeping longer after an early dismissal
+
+A repeating alarm stays **ON** after dismissal for its future repeats. To use
+the remaining time this morning, reopen **Active Alarm Mode before the set time**.
+For example, dismissing a 6:00 alarm at 5:38 and reopening Active Alarm Mode
+rearms it for **6:00 today**. This rearmed occurrence waits for the set time,
+even if wake detection still says you are awake. Later occurrences retain the
+normal sleep-cycle window.
+Rearming at **5:59** likewise leaves one minute until the **6:00** deadline;
+there is no minimum lead time or new warm-up requirement for that deadline.
+
+Reopening at or after the set time does not rearm a completed occurrence.
+Pending snoozes and recent ringing resume normally. A spent Once alarm is OFF;
+turn its Status ON and save it before entering Active Alarm Mode again.
+
 ### Midnight and clock changes
 
 A wake window may start the previous evening: Thursday's 12:30 am alarm with
@@ -177,7 +192,7 @@ python3 scripts/test.py 3
 ```
 
 The script builds release code and a test executable, starts the Garmin simulator,
-and runs 35 native Monkey C regression tests three times. `CIQ_SDK` can override
+and runs 39 native Monkey C regression tests three times. `CIQ_SDK` can override
 the SDK path. Generated files and logs go under `bin/validation/`; its generated
 signing key is for local validation, not your existing watch installation.
 The runner rejects changes to validation inputs during a run and writes
@@ -185,7 +200,8 @@ The runner rejects changes to validation inputs during a run and writes
 
 Tests exercise production code for pre-window wakefulness, walking, missing HR,
 warm-up and buffer bounds, peak expiry, deadlines for all four window sizes,
-snooze recovery after reentry, deletion, repeat masks, passcodes, editing, midnight windows, daylight
+snooze recovery and rearming after early dismissal, deletion, repeat masks,
+passcodes, editing, midnight windows, daylight
 saving, time-zone changes, state migration, and the 20-alarm capacity. A timed
 synthetic replay checks baseline collection from 4:15, elevated HR from 4:36,
 and firing at 5:15 for a 6:00 alarm. The repeat test checks

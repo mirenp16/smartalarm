@@ -89,7 +89,7 @@ class AlarmEngine {
                 if (nowSecs < start) { continue; }
                 detectorNeeded = true;
                 var fire = nowSecs >= targetSecs;
-                if (!fire) {
+                if (!fire && !AlarmStore.deadlineOnly(aid,key)) {
                     var progress = winSecs > 0 ? (nowSecs-start).toFloat()/winSecs : 1.0;
                     fire = SleepDetector.isAwake() || SleepDetector.shouldWake(progress);
                 }
