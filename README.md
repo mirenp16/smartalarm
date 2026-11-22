@@ -105,33 +105,34 @@ set-time deadline. Old walking evidence expires because you may return to sleep.
 
 ## Build and install
 
-Tested with Java and Connect IQ SDK **9.2.0**, targeting `fr265s`. Build with your
-Garmin developer signing key:
+Tested with Java and Connect IQ SDK **9.2.0**, targeting `fr265s`. From the
+repository root (the folder containing `manifest.xml`), set `CIQ_SDK` to your
+installed SDK directory and `GARMIN_SIGNING_KEY` to your developer key file,
+then run:
 
 ```bash
-cd ~/Documents/GitHub/smartalarm
-CIQ_SDK="$(cat "$HOME/Library/Application Support/Garmin/ConnectIQ/current-sdk.cfg")"
 "$CIQ_SDK/bin/monkeyc" -f monkey.jungle -d fr265s -w -r \
-  -y /absolute/path/to/your/developer_key.der -o smartalarm.prg
+  -y "$GARMIN_SIGNING_KEY" -o smartalarm.prg
 ```
 
-Replace the key path with the key used for your existing installation. Transfer
+Use the signing key used for your existing installation. Transfer
 `smartalarm.prg` to the watch's `GARMIN/APPS/` folder using your Garmin USB
 transfer workflow. Replace this app's file; do not delete other apps or settings.
 After installing, check your saved alarm settings and reopen Active Alarm Mode.
 
 ## Tests
 
+From the repository root, run:
+
 ```bash
-cd ~/Documents/GitHub/smartalarm
 python3 scripts/test.py 3
 ```
 
 This builds release and test executables and runs **39 native Monkey C tests**
-three times in the Garmin simulator. The runner uses the configured SDK, or
-`CIQ_SDK` if set. Generated logs, binaries, and `verification.json` go in
-`bin/validation/`. Its generated signing key is for local tests, not your existing
-watch installation.
+three times in the Garmin simulator. The runner uses `CIQ_SDK` if set; otherwise
+it reads Garmin's macOS SDK configuration. Generated logs, binaries, and
+`verification.json` go in `bin/validation/`. Its generated signing key is for
+local tests, not your existing watch installation.
 
 See [design and testing notes](docs/design.md) for architecture, design choices,
 and validation. Simulator tests do not replace an overnight test on your 265S.
