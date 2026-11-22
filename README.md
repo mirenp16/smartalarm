@@ -1,14 +1,14 @@
 # Smart Alarm for Garmin Forerunner 265S
 
-A Connect IQ app that looks for a wake opportunity before your alarm time using
-heart-rate trends and recent steps. It does not read Garmin Connect sleep stages
-or reliably distinguish quiet wakefulness from sleep.
+A Connect IQ alarm app with a configurable wake window, repeating schedules,
+snooze, and passcode dismissal. It uses heart-rate trends and recent steps to
+look for a wake opportunity while keeping your selected time as the deadline.
 
 ## Set an alarm
 
 1. Choose **Add Alarm**, set the time and options, then **Save**.
 2. For an existing alarm, change its settings and choose **Done** or press BACK
-   to save. Opening its settings alone does not rearm it.
+   to save.
 3. At bedtime, open **Active Alarm Mode** and leave the app running.
 
 **The app has no background alarm service.** Closing it or shutting down the
@@ -47,23 +47,17 @@ Alarm Mode open after dismissal.
 Preview your ringtone and verify sound and vibration on the watch before relying
 on them; device settings can affect alerts.
 
-## Sleep longer after an early dismissal
+## Alarm lifecycle
 
-A repeating alarm stays **ON** for future repeats after you dismiss it. To rearm
-today's dismissed alarm, reopen **Active Alarm Mode**:
+A repeating alarm remains **ON** for its scheduled days. A Once alarm switches
+**OFF** when it rings; turn Status ON and save to schedule it again.
 
-| When you reopen it for a dismissed 6:00 alarm | Result |
-|---|---|
-| Before 6:00, including 5:59 or 5:59:59 | Rearms for 6:00 today; no new warm-up required |
-| At or after 6:00 | Leaves that occurrence completed; waits for the next scheduled repeat |
-
-A rearmed occurrence waits for the set time even if awake readings remain.
-Later repeats use the normal sleep-cycle window. A pending snooze or recent
-ringing resumes instead of being rearmed.
-
-A Once alarm switches **OFF** when it first rings. To reuse it, turn Status ON
-and save, then open Active Alarm Mode. It schedules the next selected time and
-uses the normal sleep-cycle window.
+Snooze delays the next ring by your chosen interval. Dismissal completes the
+scheduled occurrence. If you want to sleep until the original set time, reopen
+Active Alarm Mode before that time to rearm a dismissed repeating alarm. It then
+waits for the set time. At or after that time, reopening leaves the occurrence
+completed and uses the next scheduled repeat. Pending snooze and ringing
+recovery take priority.
 
 ## Interruptions and clock changes
 
@@ -103,7 +97,8 @@ The detector keeps up to 240 readings and needs 40 accepted readings for scoring
 - A recent peak and decline in the heart-rate-based score, or a qualifying
   score near the end of the window. Recent stress data may raise the score.
 
-These are heuristics, not validated sleep staging. Quiet sitting, low awake
+These are heuristics, not validated sleep staging. The app does not read Garmin
+Connect sleep stages. Quiet sitting, low awake
 heart rate, or waking before sampling starts can evade detection. Missing or
 stale heart-rate data prevents HR-based early wake, but does not delay the
 set-time deadline. Old walking evidence expires because you may return to sleep.
@@ -138,8 +133,8 @@ three times in the Garmin simulator. The runner uses the configured SDK, or
 `bin/validation/`. Its generated signing key is for local tests, not your existing
 watch installation.
 
-See [verification notes](docs/review-2026-09.md) for coverage, evidence, and watch
-checks. Simulator tests do not replace an overnight test on your 265S.
+See [design and testing notes](docs/design.md) for architecture, design choices,
+and validation. Simulator tests do not replace an overnight test on your 265S.
 
 ## License
 
